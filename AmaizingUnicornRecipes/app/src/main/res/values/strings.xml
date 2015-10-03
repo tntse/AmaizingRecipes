@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Amaizing Unicorn Recipes</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="splash_Text">Donut not use for evil!</string>
+</resources>
