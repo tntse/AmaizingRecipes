@@ -68,6 +68,7 @@ public  class MainActivity extends Activity{
                 startActivity(intent);
             }
         });
+        new Eula(this).show();
     }
 
 

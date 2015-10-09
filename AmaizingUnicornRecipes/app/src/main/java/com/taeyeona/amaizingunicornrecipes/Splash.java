@@ -15,9 +15,12 @@ public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         //set content view to splash
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+
 
         final ImageView iv = (ImageView) findViewById(R.id.imageView);
         final Animation anima = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
@@ -45,6 +48,8 @@ public class Splash extends Activity {
             public void onAnimationRepeat(Animation animation) {
 
             }
+
+
         });
 
         //pause for 3 seconds
@@ -61,6 +66,7 @@ public class Splash extends Activity {
             }
         };
         timerThread.start();*/
+
     }//end pause
 
     @Override

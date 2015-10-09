@@ -4,4 +4,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="splash_Text">Donut not use for evil!</string>
+
+    <string name="updates">What\'s new and happening !
+        No idea.
+    </string>
+
+    <string name="eula">
+       This End-User License Agreement ("EULA") is a legal agreement between you (either a
+        n individual or a single entity) and Microsoft Corporation for the Microsoft software
+        that accompanies this EULA, which includes computer software and may include associated medi
+        a, printed materials, "online" or electronic documentation, and Internet-based services ("Software").
+
+        YOU AGREE TO BE BOUND BY THE TERMS OF THIS EULA BY INSTALLING, COPYING, OR OTHERWISE USING THE SOFTWA
+        RE. IF YOU DO NOT AGREE, DO NOT INSTALL, COPY, OR USE THE SOFTWARE; YOU MAY RETURN IT TO YOUR PLACE
+        OF PURCHASE FOR A FULL REFUND, IF APPLICABLE.
+    </string>>
+
 </resources>
