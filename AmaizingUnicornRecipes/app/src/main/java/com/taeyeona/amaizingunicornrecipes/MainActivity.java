@@ -20,6 +20,10 @@ public  class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //EULA FOR NEW USERS
+        new Eula(this).show();
+
         //set up button sound
         final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
@@ -32,8 +36,7 @@ public  class MainActivity extends Activity{
         //the pantry button listens for onClick and Intent references me to another activity
 
         //start pantry onClickListner
-        pantry.setOnClickListener(new View.OnClickListener()
-        {
+        pantry.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -68,7 +71,7 @@ public  class MainActivity extends Activity{
                 startActivity(intent);
             }
         });
-        new Eula(this).show();
+
     }
 
 
