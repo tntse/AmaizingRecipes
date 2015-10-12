@@ -1,5 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -11,11 +12,12 @@ import com.android.volley.toolbox.*;
 /**
  * Created by Chau on 9/27/2015.
  */
-public class VolleySingleton {
+public class VolleySingleton extends Application {
     private static VolleySingleton mRequest;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
+
 
     private VolleySingleton(Context context) {
         mCtx = context;

@@ -1,38 +1,52 @@
 package com.taeyeona.amaizingunicornrecipes;
 
-import android.content.Context;
-import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 import android.view.View;
+import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Chau on 9/27/2015.
  */
 public class RecipeSearch extends AppCompatActivity{
-    private static Context context;
+
+    private RecyclerView listview;
+    private List<Recipes> list = new ArrayList<Recipes>();
+    private RecipeAdapter recAdapt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
 
-        final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"));
-        RecipeSearch.context = getApplicationContext();
-        prse.sendJSONRequest(RecipeSearch.context);
+        Button but = (Button) findViewById(R.id.button2);
 
-        Button newButton3 = (Button) findViewById(R.id.button3);
-        newButton3.setOnClickListener(new View.OnClickListener() {
+        final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"), getApplicationContext());
+        prse.sendJSONRequest();
+        list = prse.getList();
+
+        listview = (RecyclerView) findViewById(R.id.list);
+        listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        recAdapt = new RecipeAdapter(getApplicationContext());
+        but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                TextView textView = (TextView) findViewById(R.id.textView2);
-                textView.setText(prse.getTitleList().toString());
+                recAdapt.setList(list);
+                listview.setAdapter(recAdapt);
             }
         });
+
+        //Figure out a way to have a timer so that I don't need to have a button and wait a few seconds
+        //before clicking that button
+
     }
 
     @Override
@@ -56,5 +70,4 @@ public class RecipeSearch extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
 }
