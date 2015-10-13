@@ -47,42 +47,50 @@ public class JSONParse {
                 null,
                 new Response.Listener<JSONObject>() {
 
-            @Override
-            public void onResponse(JSONObject response) {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /**
+                            This is what you would do to hand the passed in JSON object i.e. GSON or JSONArrays.
+                            It may be better to have multiple if to handle multiply JSON request for different API's
+                            CallBacks may be preferred with-in here, this where you would make the "call" to the "callback."
 
-                /**
-                 This is what you would do to hand the passed in JSON object i.e. GSON or JSONArrays.
-                 It may be better to have multitple if to handle multiply JSON request for differnet API's
-                 CallBacks may be prefered with-in here, this where you would make the "call" to the "callback."
+                         */
 
-                 */
-                Log.d(TAG, response.toString());
-                try{
-                    JSONArray arrayTitle = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
-                    for(int i = 0; i<arrayTitle.length(); i++){
-                        JSONObject recip = arrayTitle.getJSONObject(i);
-                        String title = recip.getString(Keys.endpointRecipe.KEY_TITLE);
-                        titleList.append(title+"\n");
+                        Log.d(TAG, response.toString());
+
+                        try{
+
+                            JSONArray arrayTitle = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
+                            for(int i = 0; i<arrayTitle.length(); i++){
+                                JSONObject recip = arrayTitle.getJSONObject(i);
+                                String title = recip.getString(Keys.endpointRecipe.KEY_TITLE);
+                                titleList.append(title+"\n");
+                            }
+
+                        }catch(JSONException ex){
+
+                        }
+
                     }
-                }catch(JSONException ex){
+                },
+                new Response.ErrorListener() {
 
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.getMessage());
+                    }
                 }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, error.getMessage());
-            }
-        });
+        );
 
         VolleySingleton.getInstance(pContext).addToRequestQueue(jsObjectReq);
     }
 
     public StringBuilder getTitleList(){
-        return titleList;
+
+         return titleList;
+
     }
+
     /*
      * Parameter will be modified to include ingredients
      * */
