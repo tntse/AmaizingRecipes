@@ -1,6 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes;
 
-import android.content.Context;
 import android.util.Log;
 import java.lang.*;
 import java.util.ArrayList;
@@ -25,17 +24,15 @@ public class JSONParse {
     private List<Recipes> recipeList;
     private String endUrl;
     private static final String TAG = JSONParse.class.getSimpleName();
-    VolleySingleton vol;
 
     public JSONParse(){
         recipeList = new ArrayList<Recipes>();
         endUrl = "";
     }
 
-    public JSONParse(String ur, Context pContext){
+    public JSONParse(String ur){
         recipeList = new ArrayList<Recipes>();
         endUrl = ur;
-        vol = VolleySingleton.getInstance(pContext);
     }
 
     public void sendJSONRequest(){
@@ -44,46 +41,47 @@ public class JSONParse {
 
 
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
+            Request.Method.GET,
+            URL,
+            null,
+            new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
+                @Override
+                public void onResponse(JSONObject response) {
 
-                        try{
-                            JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
-                            for(int i = 0; i<arrayRecipe.length(); i++){
-                                JSONObject object = arrayRecipe.getJSONObject(i);
-                                recipeList.add(convertRecipes(object));
-                            }
-                        }catch(JSONException e){
-                            e.printStackTrace();
+                    try{
+                        JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
+                        for(int i = 0; i<arrayRecipe.length(); i++){
+                            JSONObject object = arrayRecipe.getJSONObject(i);
+                            recipeList.add(convertRecipes(object));
                         }
-
+                    }catch(JSONException e){
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, error.getMessage());
-                    }
-                });
+                }
+            }, new Response.ErrorListener() {
 
-        vol.addToRequestQueue(jsObjectReq);
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, error.getMessage());
+                }
+            }
+        );
+
+        VolleySingleton.getInstance().addToRequestQueue(jsObjectReq);
     }
 
     private final Recipes convertRecipes(JSONObject obj) throws JSONException{
         return new Recipes(
-                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
-                obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
-                obj.getString(Keys.endpointRecipe.KEY_TITLE),
-                obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),
-                obj.getString(Keys.endpointRecipe.KEY_ID),
-                obj.getString(Keys.endpointRecipe.KEY_IMAGE_URL),
-                obj.getDouble(Keys.endpointRecipe.KEY_SOCIAL_RANK),
-                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER_URL));
+            obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
+            obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
+            obj.getString(Keys.endpointRecipe.KEY_TITLE),
+            obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),
+            obj.getString(Keys.endpointRecipe.KEY_F2FID),
+            obj.getString(Keys.endpointRecipe.KEY_IMAGE_URL),
+            obj.getDouble(Keys.endpointRecipe.KEY_SOCIAL_RANK),
+            obj.getString(Keys.endpointRecipe.KEY_PUBLISHER_URL));
     }
 
     public List<Recipes> getList(){

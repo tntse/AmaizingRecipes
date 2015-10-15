@@ -9,16 +9,16 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="469dp"
+        android:layout_height="542dp"
         android:layout_gravity="center_horizontal|top" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:indeterminate="false" />
 
 
 </FrameLayout>

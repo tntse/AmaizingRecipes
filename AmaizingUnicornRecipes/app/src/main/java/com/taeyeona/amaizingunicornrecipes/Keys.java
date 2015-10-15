@@ -10,7 +10,7 @@ public interface Keys {
         public static final String KEY_TITLE = "title";
         public static final String KEY_PUBLISHER = "publisher";
         public static final String KEY_F2F_URL = "f2f_url";
-        public static final String KEY_ID= "recipe_id";
+        public static final String KEY_F2FID= "recipe_id";
         public static final String KEY_SOURCE_URL= "source_url";
         public static final String KEY_SOCIAL_RANK= "social_rank";
         public static final String KEY_PUBLISHER_URL= "publisher_url";

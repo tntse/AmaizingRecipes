@@ -1,5 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,32 +21,34 @@ public class RecipeSearch extends AppCompatActivity{
     private RecyclerView listview;
     private List<Recipes> list = new ArrayList<Recipes>();
     private RecipeAdapter recAdapt;
+    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
 
-        Button but = (Button) findViewById(R.id.button2);
+        progress = (ProgressBar) findViewById(R.id.progressBar);
 
-        final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"), getApplicationContext());
+        final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"));
         prse.sendJSONRequest();
         list = prse.getList();
 
         listview = (RecyclerView) findViewById(R.id.list);
         listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
         recAdapt = new RecipeAdapter(getApplicationContext());
-        but.setOnClickListener(new View.OnClickListener() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
             @Override
-            public void onClick(View v) {
+            public void run() {
+                progress.setVisibility(View.INVISIBLE);
                 recAdapt.setList(list);
                 listview.setAdapter(recAdapt);
             }
-        });
 
-        //Figure out a way to have a timer so that I don't need to have a button and wait a few seconds
-        //before clicking that button
+        }, 2000);
 
     }
 
