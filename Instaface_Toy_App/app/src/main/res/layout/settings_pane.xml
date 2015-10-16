@@ -23,6 +23,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="@string/default_name"
             android:textSize="20sp"
             android:id="@+id/name_edit_text"/>
     </LinearLayout>
@@ -40,6 +41,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="@string/default_email"
             android:id="@+id/email_edit_text"
             android:textSize="20sp"/>
     </LinearLayout>
