@@ -14,7 +14,7 @@ import android.widget.TextView;
  * @version 1.0
  *
  */
-public class MainActivity extends AppCompatActivity {
+public class IngredientsPage extends AppCompatActivity {
 
 
     EditText input;
@@ -30,11 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**
-         * TODO Need to create EditText field for input to be used. Doing so makes error go away.
-         * TODO Need to create TextView for ingredientList. Doing so makes error go away.
-         */
-        input = (EditText) findViewById(R.id.input);
+        input = (EditText) findViewById(R.id.ingredientInput);
         ingredientList = (TextView) findViewById(R.id.ingredientList);
         handler = new dbHandler(this, null, null, 1);
         printDatabase();
