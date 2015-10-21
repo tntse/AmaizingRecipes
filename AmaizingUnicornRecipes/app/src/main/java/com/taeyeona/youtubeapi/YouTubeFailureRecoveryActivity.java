@@ -23,7 +23,6 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 
-
 /**
  * An abstract activity which deals with recovering from errors which may occur during API
  * initialization, but can be corrected through user action.

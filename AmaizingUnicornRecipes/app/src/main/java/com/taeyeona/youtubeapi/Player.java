@@ -22,7 +22,6 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -88,6 +87,10 @@ public class Player extends YouTubeFailureRecoveryActivity{
                 vid = titleList.toString();
             }
         }, 5000);
+
+         final ParseYoutube youParse = new ParseYoutube(getIntent().getStringExtra("formattedSt"));
+         Player.context = getApplicationContext();
+         youParse.sendJSONRequest(Player.context);
 
 
 
