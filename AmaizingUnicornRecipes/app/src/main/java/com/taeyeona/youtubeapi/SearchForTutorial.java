@@ -1,37 +1,50 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.youtubeapi;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 
 /**
- * Created by Chau on 9/27/2015.
+ * Created by Hao on 10/11/2015.
  */
-public class RecipeSearch extends AppCompatActivity{
-    private static Context context;
+public class SearchForTutorial extends AppCompatActivity {
+
+    EditText searchBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_search);
+        setContentView(R.layout.search_for_tutorial);
 
-        final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"));
-        RecipeSearch.context = getApplicationContext();
-        prse.sendJSONRequest(RecipeSearch.context);
 
-        Button newButton3 = (Button) findViewById(R.id.button3);
+        Button newButton3 = (Button) findViewById(R.id.searchButton);
         newButton3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
 
-                TextView textView = (TextView) findViewById(R.id.textView2);
-                textView.setText(prse.getTitleList().toString());
+
+            public void onClick(View v) {
+                //save a format the search input
+                searchBar = (EditText)findViewById(R.id.tutorialName);
+                String st = searchBar.getText().toString();
+                st = st.replaceAll(" ","+");
+
+
+
+
+                //moving onto new activity, passing the formatted string to new actiity
+                Intent intent = new Intent(SearchForTutorial.this, Player.class).putExtra("formattedSt", st);
+                startActivity(intent);
             }
+
+
         });
     }
 
@@ -56,5 +69,4 @@ public class RecipeSearch extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
 }
