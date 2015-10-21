@@ -26,7 +26,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public RecipeAdapter(Context pContext){
         layoutInflater = LayoutInflater.from(pContext);
-        volley = VolleySingleton.getInstance();
+        volley = VolleySingleton.getInstance(pContext);
         img = volley.getImageLoader();
     }
     @Override

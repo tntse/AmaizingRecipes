@@ -1,5 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.content.Context;
 import android.util.Log;
 import java.lang.*;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class JSONParse {
         endUrl = ur;
     }
 
-    public void sendJSONRequest(){
+    public void sendJSONRequest(Context pContext){
 
         final String URL = urlBuilder("List", 0);
 
@@ -69,7 +70,7 @@ public class JSONParse {
             }
         );
 
-        VolleySingleton.getInstance().addToRequestQueue(jsObjectReq);
+        VolleySingleton.getInstance(pContext).addToRequestQueue(jsObjectReq);
     }
 
     private final Recipes convertRecipes(JSONObject obj) throws JSONException{

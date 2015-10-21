@@ -5,10 +5,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +24,7 @@ import java.util.List;
 public class RecipeSearch extends AppCompatActivity{
 
     private RecyclerView listview;
-    private List<Recipes> list = new ArrayList<Recipes>();
+    private List<Recipes> recipeList = new ArrayList<Recipes>();
     private RecipeAdapter recAdapt;
     ProgressBar progress;
 
@@ -30,9 +35,15 @@ public class RecipeSearch extends AppCompatActivity{
 
         progress = (ProgressBar) findViewById(R.id.progressBar);
 
-        final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"));
-        prse.sendJSONRequest();
-        list = prse.getList();
+        //final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"));
+        final JSONRequest par = new JSONRequest();
+        //URL = http://food2fork.com/api/search?key=50ad55b48d8dbd791d8b69af229adeca&=&q=chicken&=&=&
+        par.createResponse(Auth.URL, Auth.STRING_KEY, "", "", "", "", Auth.F2F_Key,
+                getIntent().getStringExtra("Ingredients"), "", "", "", "");
+        //prse.sendJSONRequest();
+        par.sendResponse(getApplicationContext());
+
+        //list = prse.getList();
 
         listview = (RecyclerView) findViewById(R.id.list);
         listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -43,8 +54,9 @@ public class RecipeSearch extends AppCompatActivity{
 
             @Override
             public void run() {
+                parseResponse(par.getResponse());
                 progress.setVisibility(View.INVISIBLE);
-                recAdapt.setList(list);
+                recAdapt.setList(recipeList);
                 listview.setAdapter(recAdapt);
             }
 
@@ -72,5 +84,29 @@ public class RecipeSearch extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void parseResponse(JSONObject response){
+        try{
+            JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
+            for(int i = 0; i<arrayRecipe.length(); i++){
+                JSONObject object = arrayRecipe.getJSONObject(i);
+                recipeList.add(convertRecipes(object));
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private final Recipes convertRecipes(JSONObject obj) throws JSONException{
+        return new Recipes(
+                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
+                obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
+                obj.getString(Keys.endpointRecipe.KEY_TITLE),
+                obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),
+                obj.getString(Keys.endpointRecipe.KEY_F2FID),
+                obj.getString(Keys.endpointRecipe.KEY_IMAGE_URL),
+                obj.getDouble(Keys.endpointRecipe.KEY_SOCIAL_RANK),
+                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER_URL));
     }
 }
