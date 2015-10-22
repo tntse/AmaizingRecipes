@@ -30,31 +30,11 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Search Recipies"
-        android:id="@+id/searchRecipes"
-        android:layout_below="@+id/goToPantry"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
         android:text="Profile"
         android:layout_weight="1"
         android:id="@+id/profile"
-        android:layout_below="@+id/searchRecipes"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/goToPantry"
-        android:layout_alignStart="@+id/goToPantry"
-        android:layout_alignRight="@+id/goToPantry"
-        android:layout_alignEnd="@+id/goToPantry" />
+        android:layout_marginTop="66dp"
+        android:layout_below="@+id/goToPantry" />
 
 </RelativeLayout>

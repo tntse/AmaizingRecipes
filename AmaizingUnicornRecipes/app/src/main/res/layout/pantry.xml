@@ -42,5 +42,14 @@
         android:layout_alignEnd="@+id/pantry_gridview"
         android:layout_marginBottom="23dp" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_alignTop="@+id/button"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_alignLeft="@+id/pantry_text1"
+        android:layout_alignStart="@+id/pantry_text1" />
+
 
 </RelativeLayout>

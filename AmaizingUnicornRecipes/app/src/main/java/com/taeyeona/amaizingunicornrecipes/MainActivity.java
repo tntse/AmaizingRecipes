@@ -12,8 +12,6 @@ import android.widget.EditText;
 
 public  class MainActivity extends Activity{
 
-    EditText et;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,10 +25,8 @@ public  class MainActivity extends Activity{
         //set up button sound
         final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
-
         //created buttons to reference each activity
         Button pantry = (Button)findViewById(R.id.goToPantry);
-        Button searchRecipies = (Button)findViewById(R.id.searchRecipes);
         Button profile = (Button)findViewById(R.id.profile);
 
         //the pantry button listens for onClick and Intent references me to another activity
@@ -60,39 +56,7 @@ public  class MainActivity extends Activity{
             }
         });
 
-
-        searchRecipies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                et = (EditText) findViewById(R.id.editText);
-                kitty.start();
-                String st = parseString(et.getText().toString());
-                Intent intent = new Intent(MainActivity.this, RecipeSearch.class).putExtra("Ingredients", st);
-                startActivity(intent);
-            }
-        });
-
     }
-
-
-    private String parseString(String s){
-        String st = "";
-        for(int i = 0; i<s.length(); i++){
-            if(s.charAt(i) == ' '){
-                if(s.charAt(i-1) == ','){
-                    st = st+s.charAt(i+1);
-                    i++;
-                }else{
-                    st = st+"%20";
-                }
-            }else{
-                st = st+s.charAt(i);
-            }
-        }
-        return st;
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
