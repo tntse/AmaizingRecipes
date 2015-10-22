@@ -33,7 +33,7 @@ public class MapsActivity extends FragmentActivity {
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
         }
-        
+
     }
 
     private void buildAlertMessageNoGps() {
