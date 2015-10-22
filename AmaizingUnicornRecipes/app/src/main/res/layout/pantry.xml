@@ -30,7 +30,9 @@
         android:gravity="center"
         android:paddingTop="50dp"
         android:paddingBottom="100dp"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -42,6 +44,7 @@
         android:layout_alignEnd="@+id/pantry_gridview"
         android:layout_marginBottom="23dp" />
 
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,6 +53,16 @@
         android:layout_toLeftOf="@+id/button"
         android:layout_alignLeft="@+id/pantry_text1"
         android:layout_alignStart="@+id/pantry_text1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Ingredients"
+        android:id="@+id/editIngredients"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 
 </RelativeLayout>
