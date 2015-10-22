@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.youtubeapi;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -20,6 +20,8 @@ public class VolleySingleton {
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
+
+    
     @TargetApi(12)
     private VolleySingleton(Context context) {
         mCtx = context;
@@ -35,6 +37,7 @@ public class VolleySingleton {
                         return cache.get(url);
                     }
 
+                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
                     @Override
                     public void putBitmap(String url, Bitmap bitmap) {
                         cache.put(url, bitmap);
@@ -65,5 +68,6 @@ public class VolleySingleton {
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
+
 
 }
