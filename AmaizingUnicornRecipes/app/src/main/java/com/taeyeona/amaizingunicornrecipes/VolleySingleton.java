@@ -1,5 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -17,6 +18,7 @@ public class VolleySingleton {
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
+    @TargetApi(12)
     private VolleySingleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();

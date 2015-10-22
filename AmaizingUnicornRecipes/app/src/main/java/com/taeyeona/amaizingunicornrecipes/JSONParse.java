@@ -2,14 +2,12 @@ package com.taeyeona.amaizingunicornrecipes;
 
 import android.content.Context;
 import android.util.Log;
-import java.lang.*;
-import android.content.Intent;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +23,6 @@ public class JSONParse {
     private StringBuilder titleList;
     private String endUrl;
     private static final String TAG = JSONParse.class.getSimpleName();
-
-    public JSONParse(){
-        titleList = new StringBuilder();
-        endUrl = "";
-    }
 
     public JSONParse(String ur){
         titleList = new StringBuilder();
