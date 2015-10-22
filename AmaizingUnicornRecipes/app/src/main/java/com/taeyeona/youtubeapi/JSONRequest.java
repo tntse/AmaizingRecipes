@@ -17,7 +17,7 @@ import org.json.JSONObject;
 /**
  * Created by Chau on 10/17/2015.
  */
-public class JSONRequest {
+public class  JSONRequest {
 
     private static final String TAG = JSONRequest.class.getSimpleName();
     private JSONObject jsRequest;
