@@ -32,6 +32,15 @@
         android:onClick="moveToSettings"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:id="@+id/to_authorization"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/ImageView"
+        android:layout_toStartOf="@+id/take_picture_button"
+        android:onClick="toAuthorization"/>
 
 
 </RelativeLayout>

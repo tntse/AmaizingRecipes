@@ -62,4 +62,9 @@ public class MainActivity extends Activity {
 
     }
 
+    public void toAuthorization(View view){
+        Intent toAuth = new Intent(MainActivity.this, Authorization.class);
+        startActivity(toAuth);
+    }
+
 }
