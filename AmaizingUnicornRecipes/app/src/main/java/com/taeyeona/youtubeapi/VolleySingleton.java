@@ -20,7 +20,9 @@ public class VolleySingleton {
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+
+    
+    @TargetApi(12)
     private VolleySingleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();

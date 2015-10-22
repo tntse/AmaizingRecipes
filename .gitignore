@@ -16,6 +16,9 @@ gen/
 .gradle/
 build/
 /*/build/
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -26,8 +29,13 @@ proguard/
 # Log Files
 *.log
 
-/.idea/workspace.xml
-/.idea/libraries
+.idea/workspace.xml
+.idea/libraries 
 .DS_Store
-
-./.idea/*
+.idea/compiler.xml
+.idea/misc.xml
+/local.properties
+/.idea/copyright/*
+/.idea/*
+AmaizingUnicornRecipes/app/src/main/java/com/taeyeona/amaizingunicornrecipes/JSONParse.java
+Instaface_Toy_App/*
