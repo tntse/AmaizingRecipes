@@ -107,7 +107,7 @@ public class Pantry extends Activity
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView = new ImageView(myContext);
 
-            //scale and padd gridview elements
+            //scale and pad gridview elements
             imageView.setLayoutParams(new GridView.LayoutParams(85,85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8,8,8,8);
