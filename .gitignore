@@ -29,13 +29,13 @@ proguard/
 # Log Files
 *.log
 
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+.idea/workspace.xml
+.idea/libraries 
 .DS_Store
-/.idea/compiler.xml
+.idea/compiler.xml
+.idea/misc.xml
+/local.properties
 /.idea/copyright/*
-/.idea/misc.xml
 /.idea/*
 AmaizingUnicornRecipes/app/src/main/java/com/taeyeona/amaizingunicornrecipes/JSONParse.java
 Instaface_Toy_App/*
