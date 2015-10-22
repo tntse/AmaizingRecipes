@@ -45,7 +45,7 @@
             android:text="@string/default_name"
             android:maxEms="80"
             android:textSize="20sp" />
-        
+
     </LinearLayout>
 
     <LinearLayout
