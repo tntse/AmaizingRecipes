@@ -2,11 +2,13 @@ package com.taeyeona.amaizingunicornrecipes;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.LruCache;
 
-import com.android.volley.*;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.*;
+import com.android.volley.toolbox.Volley;
 
 /**
  * Created by Chau on 9/27/2015.
