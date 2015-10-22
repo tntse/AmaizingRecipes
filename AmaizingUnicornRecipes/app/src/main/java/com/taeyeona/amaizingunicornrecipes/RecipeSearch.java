@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,10 +53,18 @@ public class RecipeSearch extends AppCompatActivity{
                 parseResponse(par.getResponse());
                 progress.setVisibility(View.INVISIBLE);
                 recAdapt.setList(recipeList);
+                recAdapt.setListener(new CustomItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
+                                + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
                 listview.setAdapter(recAdapt);
             }
 
-        }, 5000);
+        }, 7000);
 
     }
 

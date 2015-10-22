@@ -23,6 +23,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     private List<Recipes> list = new ArrayList<Recipes>();
     private VolleySingleton volley;
     private ImageLoader img;
+    private CustomItemClickListener listener;
 
     public RecipeAdapter(Context pContext){
         layoutInflater = LayoutInflater.from(pContext);
@@ -32,7 +33,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public ViewHolderRecipes onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.custom_recipe, parent, false);
-        ViewHolderRecipes viewRecipes = new ViewHolderRecipes(view);
+        final ViewHolderRecipes viewRecipes = new ViewHolderRecipes(view);
+        view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                listener.onItemClick(v, viewRecipes.getAdapterPosition());
+            }
+        });
         return viewRecipes;
     }
 
@@ -65,6 +72,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         notifyItemChanged(0, l.size());
     }
 
+    public void setListener(CustomItemClickListener itemClickListener){
+        listener = itemClickListener;
+    }
+
     public static class ViewHolderRecipes extends RecyclerView.ViewHolder{
         private ImageView thumbnail;
         private TextView title;
@@ -77,4 +88,5 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             publisher = (TextView) itemView.findViewById(R.id.publisher);
         }
     }
+
 }
