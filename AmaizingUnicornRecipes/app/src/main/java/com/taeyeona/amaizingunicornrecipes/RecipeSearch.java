@@ -34,16 +34,10 @@ public class RecipeSearch extends AppCompatActivity{
         setContentView(R.layout.activity_recipe_search);
 
         progress = (ProgressBar) findViewById(R.id.progressBar);
-
-        //final JSONParse prse = new JSONParse(getIntent().getStringExtra("Ingredients"));
         final JSONRequest par = new JSONRequest();
-        //URL = http://food2fork.com/api/search?key=50ad55b48d8dbd791d8b69af229adeca&=&q=chicken&=&=&
-        par.createResponse(Auth.URL, Auth.STRING_KEY, "", "", "", "", Auth.F2F_Key,
+        par.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
                 getIntent().getStringExtra("Ingredients"), "", "", "", "");
-        //prse.sendJSONRequest();
         par.sendResponse(getApplicationContext());
-
-        //list = prse.getList();
 
         listview = (RecyclerView) findViewById(R.id.list);
         listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -54,13 +48,14 @@ public class RecipeSearch extends AppCompatActivity{
 
             @Override
             public void run() {
+
                 parseResponse(par.getResponse());
                 progress.setVisibility(View.INVISIBLE);
                 recAdapt.setList(recipeList);
                 listview.setAdapter(recAdapt);
             }
 
-        }, 2000);
+        }, 5000);
 
     }
 
