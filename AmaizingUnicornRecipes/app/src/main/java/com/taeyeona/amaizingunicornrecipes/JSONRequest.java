@@ -30,7 +30,8 @@ public class  JSONRequest {
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void createResponse(String baseUrl, String keyStr, String appKey, String idStr, String appId,
-                               String q, String part, String maxResults, String from, String to){
+                               String q, String radiusValue, String part, String maxResults, String from, String to,
+                               String typesValue, String sensorValue, String location, Double lat, Double lng){
         /**
          *  Builds the URL which will make the GET request for an api call.
          *
@@ -82,6 +83,22 @@ public class  JSONRequest {
 
         if(maxResults != null && !maxResults.isEmpty()){
             URL += Auth.CHAR_AND + "maxResults" + Auth.CHAR_EQUALS + maxResults;
+        }
+
+        if(radiusValue != null && !radiusValue.isEmpty()){
+            URL += Auth.CHAR_AND + "radius" + Auth.CHAR_EQUALS + radiusValue;
+        }
+
+        if(typesValue != null && !typesValue.isEmpty()){
+            URL += Auth.CHAR_AND + "types" + Auth.CHAR_EQUALS + typesValue;
+        }
+
+        if(sensorValue != null && !sensorValue.isEmpty()){
+            URL += Auth.CHAR_AND + "sensor" + Auth.CHAR_EQUALS + sensorValue;
+        }
+
+        if(location != null){
+            URL += Auth.CHAR_AND + location + Auth.CHAR_EQUALS + lat + "," + lng;
         }
 
         Log.d(TAG, "URL = " + URL);

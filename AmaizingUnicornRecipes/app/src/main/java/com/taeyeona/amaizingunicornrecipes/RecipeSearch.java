@@ -38,7 +38,7 @@ public class RecipeSearch extends AppCompatActivity{
         progress = (ProgressBar) findViewById(R.id.progressBar);
         final JSONRequest par = new JSONRequest();
         par.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
-                getIntent().getStringExtra("Ingredients"), "", "", "", "");
+                getIntent().getStringExtra("Ingredients"),"", "", "", "", "", "", "", "", 0.0, 0.0);
         par.sendResponse(getApplicationContext());
 
         listview = (RecyclerView) findViewById(R.id.list);

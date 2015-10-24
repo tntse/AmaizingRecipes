@@ -16,13 +16,13 @@
 
 package com.taeyeona.amaizingunicornrecipes;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,8 +57,8 @@ public class Player extends YouTubeFailureRecoveryActivity {
          + toNum + Auth.CHAR_AND + part + Auth.CHAR_AND + maxResult;
          * */
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
-                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, getIntent().getStringExtra("formattedSt"),
-                 Auth.PART_SNIPPET, "1",null,null);
+                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, getIntent().getStringExtra("formattedSt"), "",
+                 Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0);
 
         //"https://www.googleapis.com/youtube/v3/search?key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI&=&q=cookie=&=&part=snippet&maxResults=1
 

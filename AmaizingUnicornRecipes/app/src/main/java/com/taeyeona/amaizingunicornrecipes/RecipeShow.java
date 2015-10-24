@@ -35,7 +35,7 @@ public class RecipeShow extends AppCompatActivity{
 
         final JSONRequest edamamRequest = new JSONRequest();
         edamamRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                Auth.EDAMAM_ID, title, null, null, "0", "1");
+                Auth.EDAMAM_ID, title,"", null, null, "0", "1", "", "", "", 0.0, 0.0);
 
         edamamRequest.sendResponse(getApplicationContext());
 
