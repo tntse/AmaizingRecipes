@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package com.taeyeona.youtubeapi;
+package com.taeyeona.amaizingunicornrecipes;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +34,7 @@ import org.json.JSONObject;
  * <p>
  * Note, to use a {@link YouTubePlayerView}, your activity must extend {@link YouTubeBaseActivity}.
  */
-public class Player extends YouTubeFailureRecoveryActivity{
+public class Player extends YouTubeFailureRecoveryActivity {
 
     // hold parsed title, hold class, hold list of parsed obj
 
@@ -68,9 +62,7 @@ public class Player extends YouTubeFailureRecoveryActivity{
 
         //"https://www.googleapis.com/youtube/v3/search?key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI&=&q=cookie=&=&part=snippet&maxResults=1
 
-         //final ParseYoutube youParse = new ParseYoutube(getIntent().getStringExtra("formattedSt"));
-         //Player.context = getApplicationContext();
-         //youParse.sendJSONRequest(Player.context);
+
 
 
         jsonRequest.sendResponse(getApplicationContext());
@@ -88,14 +80,8 @@ public class Player extends YouTubeFailureRecoveryActivity{
             }
         }, 5000);
 
-         final ParseYoutube youParse = new ParseYoutube(getIntent().getStringExtra("formattedSt"));
-         Player.context = getApplicationContext();
-         youParse.sendJSONRequest(Player.context);
-
-
-
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        youTubeView.initialize(DeveloperKey.DEVELOPER_KEY, this);
+        youTubeView.initialize(Auth.DEVELOPER_KEY, this);
 
     }
 
@@ -123,14 +109,12 @@ public class Player extends YouTubeFailureRecoveryActivity{
 
     private void parseJSON(JSONObject pResponse){
         try{
-            JSONArray items = pResponse.getJSONArray(KEYS.endpointRecipe.KEY_items);
+            JSONArray items = pResponse.getJSONArray(Keys.endpointRecipe.KEY_items);
             JSONObject id = items.getJSONObject(0);
             //inside first array element
-            JSONObject idObj = id.getJSONObject(KEYS.endpointRecipe.KEY_id);
-            titleList.append(idObj.getString(KEYS.endpointRecipe.KEY_videoID));
+            JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
+            titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
 
-
-            //returnId = idObj.getString(KEYS.endpointRecipe.KEY_videoID);
 
         }catch(JSONException ex){
 

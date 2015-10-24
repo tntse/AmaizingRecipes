@@ -1,9 +1,10 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 /**
- * Created by Chau on 9/27/2015.
+ * Created by Hao on 10/11/2015.
  */
 public interface Keys {
+
     public interface endpointRecipe{
         public static final String KEY_RECIPES = "recipes";
         public static final String KEY_RECIPE = "recipe";
@@ -16,10 +17,10 @@ public interface Keys {
         public static final String KEY_PUBLISHER_URL= "publisher_url";
         public static final String KEY_id = "id";
         public static final String KEY_items = "items";
-        public static final String KEY_VideoId = "Video_ID";
+        public static final String KEY_VideoId = "Video_Id";
         public static final String KEY_IMAGE_URL = "image_url";
         public static final String KEY_INGREDIENTS = "ingredients";
+        public static final String HITS = "hits";
 
     }
-
 }

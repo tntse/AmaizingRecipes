@@ -25,5 +25,6 @@ public class Auth {
     public static final String RADIUS = "radius=1000";
     public static final String SENSOR = "sensor=true";
     public static final String TYPES ="types=grocery_or_supermarket";
+    public static final String PART_SNIPPET = "part=snippet";
 
 }

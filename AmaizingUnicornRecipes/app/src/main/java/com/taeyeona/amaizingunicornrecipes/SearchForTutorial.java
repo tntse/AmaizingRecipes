@@ -1,4 +1,4 @@
-package com.taeyeona.youtubeapi;
+package com.taeyeona.amaizingunicornrecipes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
