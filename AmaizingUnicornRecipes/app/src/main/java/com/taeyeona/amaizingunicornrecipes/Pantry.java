@@ -2,14 +2,16 @@ package com.taeyeona.amaizingunicornrecipes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 /**
  * Created by Hao on 9/26/2015.
@@ -18,23 +20,50 @@ import android.widget.Toast;
 
 public class Pantry extends Activity
 {
-
-
+    EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry);
+        final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
         //typeCast .xml returns view while pantry_GridView is gridView obj
         GridView pantry_GridView;
         pantry_GridView = (GridView) findViewById(R.id.pantry_gridview);
         pantry_GridView.setAdapter(new ImageAdapter(this));
+        Button search = (Button) findViewById(R.id.button);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et = (EditText) findViewById(R.id.editText);
+                kitty.start();
+                String st = parseString(et.getText().toString());
+                Intent intent = new Intent(Pantry.this, RecipeSearch.class).putExtra("Ingredients", st);
+                startActivity(intent);
+            }
+        });
 
 
+    }
 
-
+    private String parseString(String s){
+        String st = "";
+        for(int i = 0; i<s.length(); i++){
+            if(s.charAt(i) == ' '){
+                if(s.charAt(i-1) == ','){
+                    st = st+s.charAt(i+1);
+                    i++;
+                }else{
+                    st = st+"%20";
+                }
+            }else{
+                st = st+s.charAt(i);
+            }
+        }
+        return st;
     }
 
     public class ImageAdapter extends BaseAdapter{
@@ -78,7 +107,7 @@ public class Pantry extends Activity
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView = new ImageView(myContext);
 
-            //scale and padd gridview elements
+            //scale and pad gridview elements
             imageView.setLayoutParams(new GridView.LayoutParams(85,85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8,8,8,8);

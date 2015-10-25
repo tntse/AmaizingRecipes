@@ -7,7 +7,8 @@
 
     >
 
-    <TextView android:text="@string/splash_Text" android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="42dp"
         android:textSize="25dp"

@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
     tools:context=".RecipeSearch">
-    <ScrollView android:id="@+id/ScrollView01"
-        android:layout_width="fill_parent"
-        android:layout_height="500px"
-        android:layout_weight="0.93">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world"
-        android:id="@+id/textView2"
-        android:layout_weight="0.77"/>
 
-</ScrollView>
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="542dp"
+        android:layout_gravity="center_horizontal|top" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Press for something"
-        android:id="@+id/button3"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.06" />
-</LinearLayout>
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:indeterminate="false" />
+
+
+</FrameLayout>

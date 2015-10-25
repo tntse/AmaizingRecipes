@@ -1,12 +1,15 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.LruCache;
 
-import com.android.volley.*;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.*;
+import com.android.volley.toolbox.Volley;
 
 /**
  * Created by Chau on 9/27/2015.
@@ -17,6 +20,9 @@ public class VolleySingleton {
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
+
+    
+    @TargetApi(12)
     private VolleySingleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
@@ -31,6 +37,7 @@ public class VolleySingleton {
                         return cache.get(url);
                     }
 
+                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
                     @Override
                     public void putBitmap(String url, Bitmap bitmap) {
                         cache.put(url, bitmap);
@@ -61,5 +68,6 @@ public class VolleySingleton {
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
+
 
 }
