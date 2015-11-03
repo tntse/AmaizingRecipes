@@ -20,5 +20,11 @@
         android:layout_gravity="center"
         android:indeterminate="false" />
 
+    <TextView
+        android:layout_width="165dp"
+        android:layout_height="126dp"
+        android:id="@+id/textView4"
+        android:layout_gravity="center" />
+
 
 </FrameLayout>
