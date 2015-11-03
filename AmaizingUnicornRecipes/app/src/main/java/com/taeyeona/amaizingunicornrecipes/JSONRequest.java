@@ -104,6 +104,12 @@ public class  JSONRequest {
         Log.d(TAG, "URL = " + URL);
     }
 
+    /**
+     * Sends the call to the API
+     *
+     * @param pContext The Context object from the activity that called this method
+     *
+     */
     public void sendResponse(Context pContext){
 
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
@@ -115,8 +121,6 @@ public class  JSONRequest {
                     @Override
                     public void onResponse(JSONObject response) {
                         jsRequest = (JSONObject) response;
-                        Log.d(TAG, "response: " + response.toString());
-                        Log.d(TAG, "jsRequest: " + jsRequest.toString());
                     }
 
                 }, new Response.ErrorListener() {
@@ -131,6 +135,9 @@ public class  JSONRequest {
         VolleySingleton.getInstance(pContext).addToRequestQueue(jsObjectReq);
     }
 
+    /**
+     * @return the JSONObject response from the API
+     */
     public JSONObject getResponse(){
         return jsRequest;
     }

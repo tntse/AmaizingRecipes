@@ -14,14 +14,18 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by Chau on 9/27/2015.
  */
+
+/*
+ * VolleySingleton class to queue network calls that use volley.
+ *
+ * Used from https://developer.android.com/training/volley/requestqueue.html
+ */
 public class VolleySingleton {
     private static VolleySingleton mRequest;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
-
-    
     @TargetApi(12)
     private VolleySingleton(Context context) {
         mCtx = context;

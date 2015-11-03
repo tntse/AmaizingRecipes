@@ -41,25 +41,37 @@ public class RecipeSearch extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
 
+        //Make a SharedPreferences object to get the global SharedPreferences so that we could see if we need
+        //to use the Food2Fork search or the Edamam search based on preferences
         sharedPreferences = this.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        //Use a Map data structure to get all of the shared preferences in one object
         Map<String, ?> preferencesMap = sharedPreferences.getAll();
         boolean searchEdamam = preferencesMap.containsValue(true);
 
-        if (searchEdamam == true){
+        //Made a progress bar to have the user wait for the recipe search to come back
+        //Made a TextView to show if there's no list to come back
+        progress = (ProgressBar) findViewById(R.id.progressBar);
+        text = (TextView) findViewById(R.id.textView4);
+        //Made a JSONRequest object to do the request calling
+        final JSONRequest par = new JSONRequest();
 
+        //Made a RecyclerView for the showing of the list of recipes retrieved from the response
+        listview = (RecyclerView) findViewById(R.id.list);
+        listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recAdapt = new RecipeAdapter(getApplicationContext());
+
+        if (searchEdamam){
+            text.setText("Edamam");
         }else {
 
-            progress = (ProgressBar) findViewById(R.id.progressBar);
-            text = (TextView) findViewById(R.id.textView4);
-            final JSONRequest par = new JSONRequest();
+            //Create food2fork response and send the response to the API
             par.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
                     getIntent().getStringExtra("Ingredients"), "", "", "", "", "", "", "", "", 0.0, 0.0);
             par.sendResponse(getApplicationContext());
 
-            listview = (RecyclerView) findViewById(R.id.list);
-            listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recAdapt = new RecipeAdapter(getApplicationContext());
-
+            //Create a handler for a background thread that waits until another background thread,
+            //the API call, comes back with the JSON parsed and ready.
+            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
 
@@ -71,6 +83,7 @@ public class RecipeSearch extends AppCompatActivity{
                     if (recipeList.size() == 0) {
                         text.setText("No searches found");
                     }
+                    //Populates the RecyclerView list with the recipe search list
                     recAdapt.setList(recipeList);
                     recAdapt.setListener(new CustomItemClickListener() {
                         @Override
@@ -111,6 +124,11 @@ public class RecipeSearch extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Parses the response from the JSONRequest createResponse and sendResponse.
+     *
+     * @param response The JSONObject retrieved from response from sendResponse
+     */
     private void parseResponse(JSONObject response){
         try{
             JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
@@ -123,6 +141,12 @@ public class RecipeSearch extends AppCompatActivity{
         }
     }
 
+    /**
+     * Helper method to convert the Food2Fork JSONObject into Recipe Objects
+     *
+     * @param obj The JSONObject to be parsed into Recipes object
+     * @return Returns the parsed Recipes object
+     */
     private final Recipes convertRecipes(JSONObject obj) throws JSONException{
         return new Recipes(
                 obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
