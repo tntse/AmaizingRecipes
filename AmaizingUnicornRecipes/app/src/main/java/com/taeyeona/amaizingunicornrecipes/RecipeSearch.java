@@ -62,9 +62,8 @@ public class RecipeSearch extends AppCompatActivity{
         String ingredients = getIntent().getStringExtra("Ingredients").replace(" ", "%20");
 
         if (searchEdamam){
-            text.setText("Edamam");
             jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                    Auth.EDAMAM_ID, ingredients, "", null, null, "0", "1", "", "", "", 0.0, 0.0);
+                    Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", "", 0.0, 0.0);
             jsonRequest.sendResponse(getApplicationContext());
             //Create a handler for a background thread that waits until another background thread,
             //the API call, comes back with the JSON parsed and ready.
@@ -75,7 +74,7 @@ public class RecipeSearch extends AppCompatActivity{
                 @Override
                 public void run() {
 
-                    parseResponse(jsonRequest.getResponse());
+                    parseEdamamResponse(jsonRequest.getResponse());
                     progress.setVisibility(View.INVISIBLE);
                     if (recipeList.size() == 0) {
                         text.setText("No searches found");
@@ -178,6 +177,23 @@ public class RecipeSearch extends AppCompatActivity{
     }
 
     /**
+     * Parses the response from the JSONRequest createResponse and sendResponse.
+     *
+     * @param response The JSONObject retrieved from response from sendResponse
+     */
+    private void parseEdamamResponse(JSONObject response){
+        try{
+            JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.HITS);
+            for(int i = 0; i<arrayRecipe.length(); i++){
+                JSONObject object = arrayRecipe.getJSONObject(i).getJSONObject("recipe");
+                recipeList.add(convertEdamamRecipes(object));
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Helper method to convert the Food2Fork JSONObject into Recipe Objects
      *
      * @param obj The JSONObject to be parsed into Recipes object
@@ -201,16 +217,16 @@ public class RecipeSearch extends AppCompatActivity{
      * @param obj The JSONObject to be parsed into Recipes object
      * @return Returns the parsed Recipes object
      */
-    private final Recipes convertRecipes(JSONObject obj) throws JSONException{
+    private final Recipes convertEdamamRecipes(JSONObject obj) throws JSONException{
         return new Recipes(
-                obj.getString("recipes"),
-                obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
-                obj.getString(Keys.endpointRecipe.KEY_TITLE),
-                obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),
-                obj.getString(Keys.endpointRecipe.KEY_F2FID),
-                obj.getString(Keys.endpointRecipe.KEY_IMAGE_URL),
-                obj.getDouble(Keys.endpointRecipe.KEY_SOCIAL_RANK),
-                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER_URL));
+                obj.getString("source"),
+                obj.getString("uri"),
+                obj.getString("label"),
+                obj.getString("url"),
+                "",
+                obj.getString("image"),
+                0.0,
+                "");
     }
 
 }

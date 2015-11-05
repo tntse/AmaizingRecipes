@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".RecipeShow"
     android:weightSum="1"
-    android:id="@+id/">
+    android:id="@+id/linearLayout">
 
     <TextView
         android:layout_width="331dp"

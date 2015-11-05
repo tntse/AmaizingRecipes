@@ -25,7 +25,7 @@ public class  JSONRequest {
     }
 
     //https://api.edamam.com/search?from=0&to=1&q=chicken&app_id=4f2b1b73&app_key=bb6d714aa9393e1e22555b633eee4de4
-    //http://food2fork.com/api/search?key={API_KEY}&q=shredded%20chicken
+    //http://food2fork.com/api/search?key=50ad55b48d8dbd791d8b69af229adeca&q=shredded%20chicken
     //https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=cute+cats&key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
