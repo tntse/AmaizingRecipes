@@ -3,12 +3,11 @@ package com.taeyeona.amaizingunicornrecipes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,21 +52,58 @@ public class RecipeSearch extends AppCompatActivity{
         progress = (ProgressBar) findViewById(R.id.progressBar);
         text = (TextView) findViewById(R.id.textView4);
         //Made a JSONRequest object to do the request calling
-        final JSONRequest par = new JSONRequest();
+        final JSONRequest jsonRequest = new JSONRequest();
 
         //Made a RecyclerView for the showing of the list of recipes retrieved from the response
         listview = (RecyclerView) findViewById(R.id.list);
         listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recAdapt = new RecipeAdapter(getApplicationContext());
 
+        String ingredients = getIntent().getStringExtra("Ingredients").replace(" ", "%20");
+
         if (searchEdamam){
             text.setText("Edamam");
+            jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
+                    Auth.EDAMAM_ID, ingredients, "", null, null, "0", "1", "", "", "", 0.0, 0.0);
+            jsonRequest.sendResponse(getApplicationContext());
+            //Create a handler for a background thread that waits until another background thread,
+            //the API call, comes back with the JSON parsed and ready.
+            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    parseResponse(jsonRequest.getResponse());
+                    progress.setVisibility(View.INVISIBLE);
+                    if (recipeList.size() == 0) {
+                        text.setText("No searches found");
+                    }
+                    //Populates the RecyclerView list with the recipe search list
+                    recAdapt.setList(recipeList);
+                    recAdapt.setListener(new CustomItemClickListener() {
+                        @Override
+                        public void onItemClick(View v, int position) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
+                                    + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
+                            toast.show();
+                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Title", recipeList.get(position).getTitle());
+                            startActivity(intent);
+                        }
+                    });
+                    listview.setAdapter(recAdapt);
+                }
+
+            }, 7000);
+
+
         }else {
 
             //Create food2fork response and send the response to the API
-            par.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
-                    getIntent().getStringExtra("Ingredients"), "", "", "", "", "", "", "", "", 0.0, 0.0);
-            par.sendResponse(getApplicationContext());
+            jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
+                    ingredients, "", "", "", "", "", "", "", "", 0.0, 0.0);
+            jsonRequest.sendResponse(getApplicationContext());
 
             //Create a handler for a background thread that waits until another background thread,
             //the API call, comes back with the JSON parsed and ready.
@@ -78,7 +114,7 @@ public class RecipeSearch extends AppCompatActivity{
                 @Override
                 public void run() {
 
-                    parseResponse(par.getResponse());
+                    parseResponse(jsonRequest.getResponse());
                     progress.setVisibility(View.INVISIBLE);
                     if (recipeList.size() == 0) {
                         text.setText("No searches found");
@@ -150,6 +186,24 @@ public class RecipeSearch extends AppCompatActivity{
     private final Recipes convertRecipes(JSONObject obj) throws JSONException{
         return new Recipes(
                 obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
+                obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
+                obj.getString(Keys.endpointRecipe.KEY_TITLE),
+                obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),
+                obj.getString(Keys.endpointRecipe.KEY_F2FID),
+                obj.getString(Keys.endpointRecipe.KEY_IMAGE_URL),
+                obj.getDouble(Keys.endpointRecipe.KEY_SOCIAL_RANK),
+                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER_URL));
+    }
+
+    /**
+     * Helper method to convert the Food2Fork JSONObject into Recipe Objects
+     *
+     * @param obj The JSONObject to be parsed into Recipes object
+     * @return Returns the parsed Recipes object
+     */
+    private final Recipes convertRecipes(JSONObject obj) throws JSONException{
+        return new Recipes(
+                obj.getString("recipes"),
                 obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
                 obj.getString(Keys.endpointRecipe.KEY_TITLE),
                 obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),

@@ -4,7 +4,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RecipeShow"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/">
 
     <TextView
         android:layout_width="331dp"
