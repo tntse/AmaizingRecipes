@@ -3,7 +3,6 @@ package com.taeyeona.amaizingunicornrecipes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +26,7 @@ import java.util.Map;
 /**
  * Created by Chau on 9/27/2015.
  */
-public class RecipeSearch extends AppCompatActivity{
+public class RecipeSearch extends AppCompatActivity {
 
     private RecyclerView listview;
     private List<Recipes> recipeList = new ArrayList<Recipes>();
@@ -38,7 +36,7 @@ public class RecipeSearch extends AppCompatActivity{
     private SharedPreferences sharedPreferences;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
 
@@ -63,7 +61,7 @@ public class RecipeSearch extends AppCompatActivity{
 
         String ingredients = getIntent().getStringExtra("Ingredients").replace(" ", "%20");
 
-        if (searchEdamam){
+        if (searchEdamam) {
             jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
                     Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", "", 0.0, 0.0);
             jsonRequest.sendResponse(getApplicationContext());
@@ -71,6 +69,7 @@ public class RecipeSearch extends AppCompatActivity{
             //the API call, comes back with the JSON parsed and ready.
             //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
             Handler handler = new Handler();
+
             handler.postDelayed(new Runnable() {
 
                 @Override
@@ -86,9 +85,6 @@ public class RecipeSearch extends AppCompatActivity{
                     recAdapt.setListener(new CustomItemClickListener() {
                         @Override
                         public void onItemClick(View v, int position) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
-                                    + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
-                            toast.show();
                             Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Picture", recipeList.get(position).getImageUrl());
                             startActivity(intent);
                         }
@@ -99,7 +95,7 @@ public class RecipeSearch extends AppCompatActivity{
             }, 7000);
 
 
-        }else {
+        } else {
 
             //Create food2fork response and send the response to the API
             jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
@@ -166,14 +162,14 @@ public class RecipeSearch extends AppCompatActivity{
      *
      * @param response The JSONObject retrieved from response from sendResponse
      */
-    private void parseResponse(JSONObject response){
-        try{
+    private void parseResponse(JSONObject response) {
+        try {
             JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
-            for(int i = 0; i<arrayRecipe.length(); i++){
+            for (int i = 0; i < arrayRecipe.length(); i++) {
                 JSONObject object = arrayRecipe.getJSONObject(i);
                 recipeList.add(convertRecipes(object));
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -183,14 +179,14 @@ public class RecipeSearch extends AppCompatActivity{
      *
      * @param response The JSONObject retrieved from response from sendResponse
      */
-    private void parseEdamamResponse(JSONObject response){
-        try{
+    private void parseEdamamResponse(JSONObject response) {
+        try {
             JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.HITS);
-            for(int i = 0; i<arrayRecipe.length(); i++){
+            for (int i = 0; i < arrayRecipe.length(); i++) {
                 JSONObject object = arrayRecipe.getJSONObject(i).getJSONObject("recipe");
                 recipeList.add(convertEdamamRecipes(object));
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -201,7 +197,7 @@ public class RecipeSearch extends AppCompatActivity{
      * @param obj The JSONObject to be parsed into Recipes object
      * @return Returns the parsed Recipes object
      */
-    private final Recipes convertRecipes(JSONObject obj) throws JSONException{
+    private final Recipes convertRecipes(JSONObject obj) throws JSONException {
         return new Recipes(
                 obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
                 obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
@@ -219,7 +215,7 @@ public class RecipeSearch extends AppCompatActivity{
      * @param obj The JSONObject to be parsed into Recipes object
      * @return Returns the parsed Recipes object
      */
-    private final Recipes convertEdamamRecipes(JSONObject obj) throws JSONException{
+    private final Recipes convertEdamamRecipes(JSONObject obj) throws JSONException {
         return new Recipes(
                 obj.getString("source"),
                 obj.getString("uri"),
