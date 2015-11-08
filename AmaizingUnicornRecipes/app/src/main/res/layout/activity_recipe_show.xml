@@ -14,16 +14,9 @@
         android:src="@drawable/amaizeing"
         android:layout_gravity="center_horizontal|top" />
 
-    <fragment
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="223dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:name="com.taeyeona.amaizingunicornrecipes.IngredientsFragment" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button3"
-        android:layout_gravity="center" />
+        android:layout_height="302dp"
+        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>

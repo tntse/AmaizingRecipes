@@ -1,14 +1,11 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+
+import android.support.v4.view.ViewPager;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -20,7 +17,8 @@ public class RecipeShow extends AppCompatActivity{
 
     private ImageView image;
     private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
-    private Button but;
+    private CustomPagerAdapter mCustomPagerAdapter;
+    private ViewPager mViewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -41,7 +39,13 @@ public class RecipeShow extends AppCompatActivity{
 
             }
         });
-        
+
+        mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager());
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+
+        mViewPager.setAdapter(mCustomPagerAdapter);
+
 /*
         FragmentManager fragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
