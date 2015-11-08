@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Chau on 10/11/2015.
  */
 
-/*
+/**
  * RecipeAdapter class populates RecyclerView with templates of ViewHolderRecipes
  *
  * Cited from https://www.youtube.com/watch?v=I2eYBtLWGzc and https://developer.android.com/training/material/lists-cards.html
@@ -51,7 +51,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolderRecipes holder, int position) {
-        Recipes reci = list.get(position);
+        final Recipes reci = list.get(position);
         holder.title.setText(reci.getTitle());
         holder.publisher.setText(reci.getSocialRank().toString());
         img.get(reci.getImageUrl(), new ImageLoader.ImageListener() {

@@ -3,6 +3,7 @@ package com.taeyeona.amaizingunicornrecipes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +89,7 @@ public class RecipeSearch extends AppCompatActivity{
                             Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
                                     + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
                             toast.show();
-                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Title", recipeList.get(position).getTitle());
+                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Picture", recipeList.get(position).getImageUrl());
                             startActivity(intent);
                         }
                     });
@@ -126,7 +128,7 @@ public class RecipeSearch extends AppCompatActivity{
                             Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
                                     + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
                             toast.show();
-                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Title", recipeList.get(position).getTitle());
+                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Picture", recipeList.get(position).getImageUrl());
                             startActivity(intent);
                         }
                     });
