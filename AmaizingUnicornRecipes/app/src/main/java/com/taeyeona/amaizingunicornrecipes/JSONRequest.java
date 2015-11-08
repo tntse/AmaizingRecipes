@@ -31,7 +31,8 @@ public class  JSONRequest {
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void createResponse(String baseUrl, String keyStr, String appKey, String idStr, String appId,
                                String q, String radiusValue, String part, String maxResults, String from, String to,
-                               String typesValue, String sensorValue, String location, Double lat, Double lng){
+                               String typesValue, String sensorValue, String location, Double lat, Double lng,
+                               String recipeID){
         /**
          *  Builds the URL which will make the GET request for an api call.
          *
@@ -52,6 +53,18 @@ public class  JSONRequest {
          *              Can be null.
          *  @param to The ending index of the desired results to be returned.
          *            Can be null.
+         *  @param typesValue Something something
+         *                    Can be null.
+         *  @param sensorValue Something something
+         *                     Can be null.
+         *  @param location Something something.
+         *                  Can be null.
+         *  @param lat Something something
+         *             Can be 0.0.
+         *  @param lng Something something
+         *             Can be 0.0
+         *  @param recipeID The ID for a recipe, from Food2Fork API
+         *                  Can be null.
          *
          */
 
@@ -99,6 +112,10 @@ public class  JSONRequest {
 
         if(location != null){
             URL += Auth.CHAR_AND + location + Auth.CHAR_EQUALS + lat + "," + lng;
+        }
+
+        if(recipeID != null){
+            URL += Auth.CHAR_AND + "rId" + Auth.CHAR_EQUALS + recipeID;
         }
 
         Log.d(TAG, "URL = " + URL);

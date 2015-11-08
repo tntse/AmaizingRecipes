@@ -26,6 +26,15 @@ public class RecipeShow extends AppCompatActivity{
         setContentView(R.layout.activity_recipe_show);
 
         final String img = getIntent().getStringExtra("Picture");
+        Bundle bundle = new Bundle();
+        bundle.putString("Title", getIntent().getStringExtra("Title"));
+        if(getIntent().getStringExtra("API").equals("Food2Fork")){
+            bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
+            bundle.putString("API", "Food2Fork");
+        }else{
+            bundle.putString("API", "Edamam");
+        }
+
         image = (ImageView) findViewById(R.id.imageView2);
 
         imgLoader.get(img, new ImageLoader.ImageListener() {
@@ -40,29 +49,9 @@ public class RecipeShow extends AppCompatActivity{
             }
         });
 
-        mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager());
-
+        mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
         mViewPager = (ViewPager) findViewById(R.id.pager);
-
         mViewPager.setAdapter(mCustomPagerAdapter);
-
-/*
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        IngredientsFragment firstFragment = new IngredientsFragment();
-        final InstructionsFragment secondFragment = new InstructionsFragment();
-
-        fragmentTransaction.replace(R.id.ingredient, firstFragment);
-
-        but = (Button) findViewById(R.id.button3);
-        but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentTransaction.replace(R.id.instructions, secondFragment);
-            }
-        });
-
-        fragmentTransaction.commit();*/
-
+        
     }
 }

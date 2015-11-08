@@ -1,35 +1,36 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by Chau on 11/7/2015.
  */
-public class CustomPagerAdapter extends FragmentPagerAdapter {
+public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
-    public CustomPagerAdapter(FragmentManager fm) {
+    Bundle bundle;
+
+    public CustomPagerAdapter(FragmentManager fm, Bundle bun) {
         super(fm);
+        bundle = bun;
     }
 
     @Override
-    // This method returns the fragment associated with
-    // the specified position.
-    //
-    // It is called when the Adapter needs a fragment
-    // and it does not exists.
     public Fragment getItem(int position) {
 
-        Log.d(CustomPagerAdapter.class.getSimpleName(), new Integer(position).toString());
         switch(position){
             case 0:
-                return new IngredientsFragment();
+                Fragment ingre = new IngredientsFragment();
+                ingre.setArguments(bundle);
+                return ingre;
             case 1:
-                return new InstructionsFragment();
+                Fragment instruct = new InstructionsFragment();
+                return instruct;
             default:
-                return new NutritionFragment();
+                Fragment nutri = new NutritionFragment();
+                return nutri;
         }
     }
 

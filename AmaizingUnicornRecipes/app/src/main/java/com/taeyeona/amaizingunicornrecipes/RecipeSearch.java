@@ -63,7 +63,7 @@ public class RecipeSearch extends AppCompatActivity {
 
         if (searchEdamam) {
             jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                    Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", "", 0.0, 0.0);
+                    Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", "", 0.0, 0.0, "");
             jsonRequest.sendResponse(getApplicationContext());
             //Create a handler for a background thread that waits until another background thread,
             //the API call, comes back with the JSON parsed and ready.
@@ -85,7 +85,10 @@ public class RecipeSearch extends AppCompatActivity {
                     recAdapt.setListener(new CustomItemClickListener() {
                         @Override
                         public void onItemClick(View v, int position) {
-                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Picture", recipeList.get(position).getImageUrl());
+                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
+                            intent.putExtra("Picture", recipeList.get(position).getImageUrl());
+                            intent.putExtra("Title", recipeList.get(position).getTitle());
+                            intent.putExtra("API", "Edamam");
                             startActivity(intent);
                         }
                     });
@@ -99,7 +102,7 @@ public class RecipeSearch extends AppCompatActivity {
 
             //Create food2fork response and send the response to the API
             jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
-                    ingredients, "", "", "", "", "", "", "", "", 0.0, 0.0);
+                    ingredients, "", "", "", "", "", "", "", "", 0.0, 0.0, "");
             jsonRequest.sendResponse(getApplicationContext());
 
             //Create a handler for a background thread that waits until another background thread,
@@ -124,7 +127,11 @@ public class RecipeSearch extends AppCompatActivity {
                             Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
                                     + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
                             toast.show();
-                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class).putExtra("Picture", recipeList.get(position).getImageUrl());
+                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
+                            intent.putExtra("Picture", recipeList.get(position).getImageUrl());
+                            intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
+                            intent.putExtra("Title", recipeList.get(position).getTitle());
+                            intent.putExtra("API", "Food2Fork");
                             startActivity(intent);
                         }
                     });
