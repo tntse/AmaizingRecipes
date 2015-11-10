@@ -26,7 +26,7 @@ import java.util.List;
 public class RecipeSearch extends AppCompatActivity{
 
     private RecyclerView listview;
-    private List<Recipes> recipeList = new ArrayList<Recipes>();
+    private List<Recipes> recipeList = new ArrayList<>();
     private RecipeAdapter recAdapt;
     ProgressBar progress;
 
@@ -53,6 +53,7 @@ public class RecipeSearch extends AppCompatActivity{
 
                 parseResponse(par.getResponse());
                 progress.setVisibility(View.INVISIBLE);
+
                 recAdapt.setList(recipeList);
                 recAdapt.setListener(new CustomItemClickListener() {
                     @Override

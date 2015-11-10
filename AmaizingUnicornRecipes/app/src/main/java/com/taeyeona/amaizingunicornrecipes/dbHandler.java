@@ -20,10 +20,10 @@ import android.content.ContentValues;
 public class dbHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "ingredients.db";
-    public static final String TABLE_INGREDIENTS = "ingredients";
+    private static final String DATABASE_NAME = "favorites.db";
+    public static final String TABLE_FAVORITES = "favorites";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_INGREDIENTNAME = "ingredientname";
+    public static final String COLUMN_TITLE = "title";
 
     /**
      * Creates a basic handle for the database.
@@ -43,9 +43,9 @@ public class dbHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String query = "CREATE TABLE " + TABLE_INGREDIENTS + "(" +
+        String query = "CREATE TABLE " + TABLE_FAVORITES + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_INGREDIENTNAME + " TEXT " + ");";
+                COLUMN_TITLE + " TEXT " + ");";
         db.execSQL(query);
 
     }
@@ -59,31 +59,31 @@ public class dbHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITES);
         onCreate(db);
 
     }
 
     /**
      * Adds a row to table
-     * @param ingredients Ingredients Used to store new ingredient
+     * @param recipe Ingredients Used to store new ingredient
      */
-    public void addIngredient(Ingredients ingredients){
+    public void addRecipe(String recipe){
         ContentValues values = new ContentValues();
-        values.put(COLUMN_INGREDIENTNAME, ingredients.getIngredientName());
+        values.put(COLUMN_TITLE, recipe);
         SQLiteDatabase db = getWritableDatabase();
-        db.insert(TABLE_INGREDIENTS, null, values);
+        db.insert(TABLE_FAVORITES, null, values);
         db.close();
     }
 
     /**
      * Delete a ingredient from a database.
-     * @param ingredientName Name of ingredient to delete
+     * @param recipeName Name of ingredient to delete
      */
-    public void deleteIngredient(String ingredientName) {
+    public void deleteRecipe(String recipeName) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_INGREDIENTS + " WHERE " + COLUMN_INGREDIENTNAME + "=\""
-                + ingredientName + "\";");
+        db.execSQL("DELETE FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_TITLE + "=\""
+                + recipeName + "\";");
     }
 
     /**
@@ -93,17 +93,17 @@ public class dbHandler extends SQLiteOpenHelper {
     public String databaseToString(){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "Select * FROM " + TABLE_INGREDIENTS + " WHERE 1";
+        String query = "Select * FROM " + TABLE_FAVORITES + " WHERE 1";
 
-        //cursor point to a location in your results
+        //cursor point to a location in results
         Cursor cursor = db.rawQuery(query, null);
 
-        //move to the first row in your results
+        //move to the first row in results
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()) {
-            if(cursor.getString(cursor.getColumnIndex("ingredientname")) != null) {
-                dbString += cursor.getString(cursor.getColumnIndex("ingredientname"));
+            if(cursor.getString(cursor.getColumnIndex("title")) != null) {
+                dbString += cursor.getString(cursor.getColumnIndex("title"));
                 dbString += "\n";
             }
             cursor.moveToNext();

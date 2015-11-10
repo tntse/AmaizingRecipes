@@ -1,6 +1,8 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +25,8 @@ public class Favorites extends Activity {
     String title;
     TextView favoritesList;
     dbHandler handler;
+    EditText deleteInput;
+
 
     /**
      * Pulls up saved database state onCreate
@@ -32,18 +36,25 @@ public class Favorites extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorites);
-
+        deleteInput = (EditText) findViewById(R.id.deleteField);
         favoritesList = (TextView) findViewById(R.id.favoritesList);
         handler = new dbHandler(this, null, null, 1);
         printDatabase();
+
+        favoritesList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                favoritesList.setTextColor(Color.CYAN);
+//                Intent intent = new Intent(Favorites.this, RecipeSearch.class);
+//                startActivity(intent);
+            }
+        });
     }
 
     /**
-     * Passes ingredient to handler to store in database
-     * @param view the current view of device
+     * Passes recipe title to handler to store in database
+     * @param title recipe title
      */
-    public void addButtonClicked(View view){
-        title = recipeObject.sendTitle();
+    public void storeRecipe(String title){
         handler.addRecipe(title);
         printDatabase();
     }
@@ -55,8 +66,9 @@ public class Favorites extends Activity {
      * @param view current device view
      */
     public void deleteButtonClicked(View view) {
-        title = recipeObject.sendTitle();
-        handler.deleteIngredient(title);
+
+        String deleteText = deleteInput.getText().toString();
+        handler.deleteRecipe(deleteText);
         printDatabase();
     }
 
@@ -66,5 +78,8 @@ public class Favorites extends Activity {
     public void printDatabase(){
         String dbString = handler.databaseToString();
         favoritesList.setText(dbString);
+        deleteInput.setText("");
     }
+
+
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,6 +35,7 @@ public class Pantry extends Activity
         pantry_GridView = (GridView) findViewById(R.id.pantry_gridview);
         pantry_GridView.setAdapter(new ImageAdapter(this));
         Button search = (Button) findViewById(R.id.button);
+        Button favorites = (Button) findViewById(R.id.favorites);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +44,15 @@ public class Pantry extends Activity
                 kitty.start();
                 String st = parseString(et.getText().toString());
                 Intent intent = new Intent(Pantry.this, RecipeSearch.class).putExtra("Ingredients", st);
+                startActivity(intent);
+            }
+        });
+
+        favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Pantry.this, Favorites.class);
                 startActivity(intent);
             }
         });

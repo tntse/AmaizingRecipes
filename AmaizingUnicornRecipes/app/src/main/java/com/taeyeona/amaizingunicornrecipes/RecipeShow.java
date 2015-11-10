@@ -1,14 +1,17 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+
+        import android.content.Intent;
         import android.os.Bundle;
         import android.os.Handler;
         import android.support.v7.app.AppCompatActivity;
         import android.text.method.ScrollingMovementMethod;
         import android.util.Log;
         import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageButton;
         import android.widget.ProgressBar;
         import android.widget.TextView;
-
         import org.json.JSONArray;
         import org.json.JSONException;
         import org.json.JSONObject;
@@ -18,7 +21,10 @@ package com.taeyeona.amaizingunicornrecipes;
  */
 public class RecipeShow extends AppCompatActivity{
 
+    ImageButton favorite = (ImageButton) findViewById(R.id.favoriteButton);
     ProgressBar progress;
+    Favorites favoriteObj;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -90,5 +96,12 @@ public class RecipeShow extends AppCompatActivity{
 
         }, 10000);
 
+        favorite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                favoriteObj.storeRecipe("meow");
+            }
+        });
+
     }
+
 }
