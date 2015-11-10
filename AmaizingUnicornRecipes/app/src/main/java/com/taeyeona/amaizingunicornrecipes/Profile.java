@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Hao on 9/26/2015.
+ * @author Thomas Tse
+ *
+ *
  */
 public class Profile extends Activity {
 
