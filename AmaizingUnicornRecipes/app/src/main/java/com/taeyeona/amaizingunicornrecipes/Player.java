@@ -29,6 +29,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
+
 /**
  * A simple YouTube Android API demo application which shows how to create a simple application that
  * displays a YouTube Video in a {@link YouTubePlayerView}.
@@ -84,13 +86,11 @@ public class Player extends YouTubeFailureRecoveryActivity {
             @Override
             public void run() {
 
-                //problem statement
                 parseJSON(jsonRequest.getResponse());
-
+                vid = titleList.toString();
             }
         }, 7000);
-        vid = titleList.toString();
-        Log.d(Player.class.getSimpleName(), vid);
+
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(Auth.DEVELOPER_KEY, this);
@@ -101,14 +101,12 @@ public class Player extends YouTubeFailureRecoveryActivity {
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer player,
                                         final boolean wasRestored) {
 
-        Log.d(Player.class.getSimpleName(), vid);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 if (!wasRestored) {
-                    Log.d(Player.class.getSimpleName(), vid);
                     player.cueVideo(vid);
                 }
             }
@@ -123,13 +121,19 @@ public class Player extends YouTubeFailureRecoveryActivity {
 
     private void parseJSON(JSONObject pResponse){
         try{
+
+            Log.d("vid", "we got here 1");
             JSONArray items = pResponse.getJSONArray(Keys.endpointRecipe.KEY_items);
+            Log.d("vid", "we got here 2");
             JSONObject id = items.getJSONObject(0);
+            Log.d("vid", "we got here 3");
             //inside first array element
             JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
+            Log.d("vid", "we got here 4");
             titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
+            Log.d("vid",titleList.toString());
+            Log.d("vid", "we got here 5");
 
-            Log.d(Player.class.getSimpleName(), titleList.toString());
 
 
         }catch(JSONException ex){
