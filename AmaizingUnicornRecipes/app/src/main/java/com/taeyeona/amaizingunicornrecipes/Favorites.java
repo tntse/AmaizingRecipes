@@ -1,14 +1,11 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.lang.String;
 
 
 /**
@@ -24,8 +21,8 @@ public class Favorites extends Activity {
     RecipeShow recipeObject;
     String title;
     TextView favoritesList;
-    dbHandler handler;
     EditText deleteInput;
+    FavoritesPage fav;
 
 
     /**
@@ -36,10 +33,11 @@ public class Favorites extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorites);
+        fav = new FavoritesPage(getApplicationContext());
         deleteInput = (EditText) findViewById(R.id.deleteField);
         favoritesList = (TextView) findViewById(R.id.favoritesList);
-        handler = new dbHandler(this, null, null, 1);
         printDatabase();
+
 
         favoritesList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -51,12 +49,12 @@ public class Favorites extends Activity {
     }
 
     /**
-     * Passes recipe title to handler to store in database
-     * @param title recipe title
+     * Uses handle to get and print database
      */
-    public void storeRecipe(String title){
-        handler.addRecipe(title);
-        printDatabase();
+    public void printDatabase(){
+        String dbString = fav.getHandler().databaseToString();
+        favoritesList.setText(dbString);
+        deleteInput.setText("");
     }
 
     /**
@@ -68,18 +66,8 @@ public class Favorites extends Activity {
     public void deleteButtonClicked(View view) {
 
         String deleteText = deleteInput.getText().toString();
-        handler.deleteRecipe(deleteText);
+        fav.getHandler().deleteRecipe(deleteText);
         printDatabase();
     }
-
-    /**
-     * Uses handle to get and print database
-     */
-    public void printDatabase(){
-        String dbString = handler.databaseToString();
-        favoritesList.setText(dbString);
-        deleteInput.setText("");
-    }
-
 
 }

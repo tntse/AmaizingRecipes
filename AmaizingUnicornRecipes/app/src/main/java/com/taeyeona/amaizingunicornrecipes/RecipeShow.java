@@ -1,30 +1,15 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.os.Bundle;
-
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
-
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-
-
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.support.v7.app.AppCompatActivity;
-        import android.text.method.ScrollingMovementMethod;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.ImageButton;
-        import android.widget.ProgressBar;
-        import android.widget.TextView;
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
 
 
 /**
@@ -37,17 +22,21 @@ public class RecipeShow extends AppCompatActivity{
     private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
-    ImageButton favorite = (ImageButton) findViewById(R.id.favoriteButton);
-    Favorites favoriteObj;
+    ImageButton favorite;
+    FavoritesPage favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_show);
+        favorite = (ImageButton) findViewById(R.id.favoriteButton);
+
+        favoriteObj = new FavoritesPage(this);
 
         final String img = getIntent().getStringExtra("Picture");
         Bundle bundle = new Bundle();
         bundle.putString("Title", getIntent().getStringExtra("Title"));
+
         if(getIntent().getStringExtra("API").equals("Food2Fork")){
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
             bundle.putString("API", "Food2Fork");
@@ -71,7 +60,7 @@ public class RecipeShow extends AppCompatActivity{
 
         favorite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                favoriteObj.storeRecipe("meow");
+                favoriteObj.storeRecipe(getIntent().getStringExtra("Title"));
             }
         });
 

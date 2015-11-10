@@ -69,7 +69,6 @@ public class RecipeSearch extends AppCompatActivity {
             //the API call, comes back with the JSON parsed and ready.
             //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
             Handler handler = new Handler();
-
             handler.postDelayed(new Runnable() {
 
                 @Override
