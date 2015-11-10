@@ -1,12 +1,14 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -63,6 +65,16 @@ public class IngredientsFragment extends Fragment {
         }else{
             text2.setText("LOL EDAMAM FOOD STUFFS");
         }
+
+        Button but = (Button) getActivity().findViewById(R.id.button4);
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MissingIngredients.class);
+                startActivity(intent);
+
+            }
+        });
 
     }
 }
