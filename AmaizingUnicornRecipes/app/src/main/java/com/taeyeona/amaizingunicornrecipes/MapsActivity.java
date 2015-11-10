@@ -1,44 +1,75 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Menu;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    private GoogleMap mMap;
-    // Might be null if Google Play services APK is not available.
+public class MapsActivity extends FragmentActivity implements LocationUpdate.LocationCallback {
+
+    public static final String TAG = MapsActivity.class.getSimpleName();
+
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
+    private LocationUpdate mLocationProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        setUpMapIfNeeded();
 
-        final LocationManager locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
+        try{
+            setUpMapIfNeeded();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
+        mLocationProvider = new LocationUpdate(this, this);
+
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            try{
+                buildAlertMessageNoGPS();
+            } catch (GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            } catch (GooglePlayServicesRepairableException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.activity_maps, menu);
+        return true;
+    }
+
+    private void buildAlertMessageNoGPS() throws GooglePlayServicesRepairableException, GooglePlayServicesNotAvailableException{
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface
@@ -53,16 +84,26 @@ public class MapsActivity extends FragmentActivity {
                         dialog.cancel();
                     }
                 });
-        final AlertDialog alert = builder.create();
+        final AlertDialog alert = alertBuilder.create();
         alert.show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+        try{
+            setUpMapIfNeeded();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mLocationProvider.connect();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLocationProvider.disconnect();
+    }
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -79,7 +120,7 @@ public class MapsActivity extends FragmentActivity {
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded() throws JSONException {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -90,41 +131,78 @@ public class MapsActivity extends FragmentActivity {
                 setUpMap();
             }
         }
-
     }
 
     /**
-     * TODO check if location services enabled on startup, if not popup to turn them on
+     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
+     * just add a marker near Africa.
+     * <p/>
+     * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
 
-    private void setUpMap() {
-        //sets view of initial map
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.76, -122.44), 11.0f));
-        //allows location to be set
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void setUpMap() throws JSONException {
         mMap.setMyLocationEnabled(true);
-        //allows the zoom buttons on the map
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory
+                .newLatLngZoom(new LatLng(37.76, -122.44), 8.0f));
+    }
 
-        //sets up an object to retrieve location
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //instantiate a class that indicates the location provider
-        Criteria criteria = new Criteria();
+    public void newLocation(Location location) {
+        Log.d(TAG, location.toString());
 
-        //stores location in the location manager. retrieves type of criteria
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        //if there is a location, update the map to that location
-        if (location != null)
-        {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
 
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .zoom(17)
-                            // Creates a CameraPosition from the builder
-                    .build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        Double lat = currentLatitude;
+        Double lng = currentLongitude;
 
-        }
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+
+        MarkerOptions options = new MarkerOptions()
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                .position(latLng)
+                .title("You Are Here");
+        mMap.addMarker(options);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        final JSONRequest jsonRequest = new JSONRequest();
+
+        jsonRequest.createResponse("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                "key",
+                "AIzaSyA9O9RdXwpGlIjg713yDb-MmyQ5OYCd2PM"
+//                "AIzaSyB-rNwBQn5BAjYVe0khqGPv_utFeKWuhQo"
+                , "", "", "", "1500", "", "", "", "",
+                "grocery_or_supermarket", "true", "location", lat, lng, "");
+
+        jsonRequest.sendResponse(getApplicationContext());
+
+        Handler hand = new Handler();
+        hand.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                JSONObject response = jsonRequest.getResponse();
+
+                try {
+                    for (int i = 0; i < 15; i++) {
+
+                        JSONArray arr = response.getJSONArray("results");
+                        JSONObject jsonObject = arr.getJSONObject(i);
+                        JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
+
+                        mMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
+                                .snippet(jsonObject.getString("vicinity"))
+                                .position(new LatLng(
+                                        jsonLocation.getDouble("lat"),
+                                        jsonLocation.getDouble("lng"))));
+
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+        }, 3000);
+
     }
 }
