@@ -7,14 +7,31 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Hao on 9/26/2015.
  */
 public class Profile extends Activity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.profile_v2);
+
+        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.profile_items);
+        HashMap<String, List<String>> profileHash = ProfileHash.getProfileHash();
+        expandableListView.setAdapter(new ProfileAdapter(this, profileHash, new ArrayList<String>(profileHash.keySet())));
+
+    }
+
+/*
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String[] searchSettings = {"High-Protein", "Low-Carb", "Low-Fat", "Balanced Diet", "Low-Sodium",
@@ -79,4 +96,6 @@ public class Profile extends Activity {
 
         toggleListView.setAdapter(toggleAdapter);
     }
+
+    */
 }

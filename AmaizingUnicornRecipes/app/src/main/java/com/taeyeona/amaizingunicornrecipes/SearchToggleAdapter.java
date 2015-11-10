@@ -17,7 +17,7 @@ public class SearchToggleAdapter extends ArrayAdapter<String> implements View.On
     SharedPreferences.Editor editor;
 
     public SearchToggleAdapter(Context context, String[] list) {
-        super(context, R.layout.toggle_button_layout, list);
+        super(context, R.layout.profile_toggle_button_layout, list);
         sharedPreferences = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
@@ -26,7 +26,7 @@ public class SearchToggleAdapter extends ArrayAdapter<String> implements View.On
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View theView = inflater.inflate(R.layout.toggle_button_layout, parent, false);
+        View theView = inflater.inflate(R.layout.profile_toggle_button_layout, parent, false);
         String searchOption = getItem(position);
         TextView toggleText = (TextView) theView.findViewById(R.id.toggle_text_layout);
         ToggleButton toggleButton = (ToggleButton) theView.findViewById(R.id.search_toggle_button);

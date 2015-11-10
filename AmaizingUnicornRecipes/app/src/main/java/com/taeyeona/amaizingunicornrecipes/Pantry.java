@@ -29,10 +29,13 @@ public class Pantry extends Activity
         setContentView(R.layout.pantry);
         final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
-        //typeCast .xml returns view while pantry_GridView is gridView obj
+
+        // typeCast .xml returns view while pantry_GridView is gridView obj
         GridView pantry_GridView;
         pantry_GridView = (GridView) findViewById(R.id.pantry_gridview);
         pantry_GridView.setAdapter(new ImageAdapter(this));
+
+
         Button search = (Button) findViewById(R.id.button);
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +68,7 @@ public class Pantry extends Activity
         }
         return st;
     }
+
 
     public class ImageAdapter extends BaseAdapter{
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_textview"
+        android:text="Default"
+        android:textSize="25sp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Text"
+        android:textSize="25sp"
+        android:ems="10"
+        android:id="@+id/profile_edittext"
+        />
+</LinearLayout>
