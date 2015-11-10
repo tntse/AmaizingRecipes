@@ -19,6 +19,7 @@ package com.taeyeona.amaizingunicornrecipes;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -41,11 +42,16 @@ public class Player extends YouTubeFailureRecoveryActivity {
     private static Context context;
     private String vid;
     private StringBuilder titleList = new StringBuilder();
+    String st;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player);
+
+        st = getIntent().getStringExtra("Title");
+        st = st.replaceAll(" ","+");
+        st=st+"+tutorial";
 
         //parse data with passed string
         final JSONRequest jsonRequest = new JSONRequest();
@@ -57,15 +63,19 @@ public class Player extends YouTubeFailureRecoveryActivity {
          + toNum + Auth.CHAR_AND + part + Auth.CHAR_AND + maxResult;
          * */
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
-                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, getIntent().getStringExtra("formattedSt"), "",
+                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, st, "",
                  Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0, "");
 
         //"https://www.googleapis.com/youtube/v3/search?key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI&=&q=cookie=&=&part=snippet&maxResults=1
+
+        Log.d("youtube", "hey there");
 
 
 
 
         jsonRequest.sendResponse(getApplicationContext());
+
+        Log.d("youtube", "hey there");
         //final JSONObject response = jsonRequest.getResponse();
 
 
@@ -76,9 +86,11 @@ public class Player extends YouTubeFailureRecoveryActivity {
 
                 //problem statement
                 parseJSON(jsonRequest.getResponse());
-                vid = titleList.toString();
+
             }
-        }, 5000);
+        }, 7000);
+        vid = titleList.toString();
+        Log.d(Player.class.getSimpleName(), vid);
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(Auth.DEVELOPER_KEY, this);
@@ -89,16 +101,18 @@ public class Player extends YouTubeFailureRecoveryActivity {
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer player,
                                         final boolean wasRestored) {
 
+        Log.d(Player.class.getSimpleName(), vid);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 if (!wasRestored) {
+                    Log.d(Player.class.getSimpleName(), vid);
                     player.cueVideo(vid);
                 }
             }
-        }, 5000);
+        }, 7000);
         //reference strings.xml for video
     }
 
@@ -114,6 +128,8 @@ public class Player extends YouTubeFailureRecoveryActivity {
             //inside first array element
             JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
             titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
+
+            Log.d(Player.class.getSimpleName(), titleList.toString());
 
 
         }catch(JSONException ex){
