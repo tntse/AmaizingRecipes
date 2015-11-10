@@ -10,15 +10,35 @@ import android.support.v4.view.ViewPager;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.support.v7.app.AppCompatActivity;
+        import android.text.method.ScrollingMovementMethod;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageButton;
+        import android.widget.ProgressBar;
+        import android.widget.TextView;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
+
+
 /**
  * Created by Chau on 10/13/2015.
  */
 public class RecipeShow extends AppCompatActivity{
 
+
     private ImageView image;
     private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
+    ImageButton favorite = (ImageButton) findViewById(R.id.favoriteButton);
+    Favorites favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -49,9 +69,17 @@ public class RecipeShow extends AppCompatActivity{
             }
         });
 
+        favorite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                favoriteObj.storeRecipe("meow");
+            }
+        });
+
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
+
         
     }
+
 }

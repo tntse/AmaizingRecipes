@@ -29,7 +29,7 @@ import java.util.Map;
 public class RecipeSearch extends AppCompatActivity {
 
     private RecyclerView listview;
-    private List<Recipes> recipeList = new ArrayList<Recipes>();
+    private List<Recipes> recipeList = new ArrayList<>();
     private RecipeAdapter recAdapt;
     private ProgressBar progress;
     private TextView text;
