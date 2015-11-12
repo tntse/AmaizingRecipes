@@ -5,15 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by thomastse on 11/8/15.
+ * Puts all the settings into a HashMap.
+ * @author Thomas Tse
+ * @since 2015-11-08.
  */
 public class ProfileHash {
+    /**
+     * A list of potential search modifications.
+     */
     private static String[] searchSettings = {"High-Protein", "Low-Carb", "Low-Fat", "Balanced Diet", "Low-Sodium",
             "High-Fiber", "No-sugar", "Sugar-Conscious", "Gluten-Free", "Vegetarian", "Vegan",
             "Paleo", "Wheat-Free", "Dairy-Free", "Egg Free", "Soy Free", "Fish Free",
             "ShellFish Free", "Tree Nut Free", "Low Potassium", "Alcohol Free", "Kidney Friendly",
             "Peanut Free"};
 
+    /**
+     * Returns a HashMap with settings data.
+     * @return a filled HashMap containing the settings data.
+     */
     public static HashMap<String, List<String>> getProfileHash(){
         HashMap<String, List<String>> ret = new HashMap<String, List<String>>();
         List<String> textFields = new ArrayList<String>();
@@ -35,6 +44,14 @@ public class ProfileHash {
         ret.put("User Info", textFields);
 
         return ret;
+    }
+
+    /**
+     * Gets a list of potential search modifications.
+     * @return searchSettings
+     */
+    public String[] getSearchSettings(){
+        return searchSettings;
     }
 
 }

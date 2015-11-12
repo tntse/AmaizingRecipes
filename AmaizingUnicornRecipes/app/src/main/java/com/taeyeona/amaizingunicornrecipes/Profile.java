@@ -17,11 +17,15 @@ import java.util.List;
 
 /**
  * @author Thomas Tse
- *
- *
+ * @version 2.0
+ * @since 2015-09-26
  */
 public class Profile extends Activity {
 
+    /**
+     * Sets all private variables and displays the current settings.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in. Otherwise null
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
