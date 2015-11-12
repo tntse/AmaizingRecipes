@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.Set;
@@ -51,10 +52,13 @@ public class EditIngredients extends Activity {
      */
     public void deleteButtonClicked(View view){
         String toBeDeleted = editText.getText().toString().toLowerCase();
-        manager.remove(toBeDeleted);
-        editor.putStringSet("Ingredients", manager);
-        editor.commit();
-        updateList();
+        if(manager.remove(toBeDeleted)) {
+            editor.putStringSet("Ingredients", manager);
+            editor.commit();
+            updateList();
+        }else{
+            Toast.makeText(this, "Ingredient does not exist.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -68,6 +72,8 @@ public class EditIngredients extends Activity {
             editor.putStringSet("Ingredients", manager);
             editor.commit();
             updateList();
+        }else{
+            Toast.makeText(this, "Ingredient exists already.", Toast.LENGTH_SHORT).show();
         }
     }
 

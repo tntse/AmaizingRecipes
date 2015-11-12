@@ -33,6 +33,7 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/ingredientInput"
         android:layout_alignStart="@+id/ingredientInput"
+        android:layout_below="@id/ingredientInput"
         android:onClick="addButtonClicked" />
 
     <Button
@@ -43,6 +44,7 @@
         android:layout_alignTop="@+id/button2"
         android:layout_alignRight="@+id/ingredientInput"
         android:layout_alignEnd="@+id/ingredientInput"
+        android:layout_below="@id/ingredientInput"
         android:onClick="deleteButtonClicked" />
 
     <ScrollView
