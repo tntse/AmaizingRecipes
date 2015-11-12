@@ -19,6 +19,7 @@ package com.taeyeona.amaizingunicornrecipes;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -27,6 +28,8 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.URL;
 
 /**
  * A simple YouTube Android API demo application which shows how to create a simple application that
@@ -41,11 +44,16 @@ public class Player extends YouTubeFailureRecoveryActivity {
     private static Context context;
     private String vid;
     private StringBuilder titleList = new StringBuilder();
+    String st;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player);
+
+        st = getIntent().getStringExtra("Title");
+        st = st.replaceAll(" ","+");
+        st=st+"+tutorial";
 
         //parse data with passed string
         final JSONRequest jsonRequest = new JSONRequest();
@@ -57,15 +65,19 @@ public class Player extends YouTubeFailureRecoveryActivity {
          + toNum + Auth.CHAR_AND + part + Auth.CHAR_AND + maxResult;
          * */
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
-                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, getIntent().getStringExtra("formattedSt"), "",
-                 Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0);
+                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, st, "",
+                 Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0, "");
 
         //"https://www.googleapis.com/youtube/v3/search?key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI&=&q=cookie=&=&part=snippet&maxResults=1
+
+        Log.d("youtube", "hey there");
 
 
 
 
         jsonRequest.sendResponse(getApplicationContext());
+
+        Log.d("youtube", "hey there");
         //final JSONObject response = jsonRequest.getResponse();
 
 
@@ -74,11 +86,11 @@ public class Player extends YouTubeFailureRecoveryActivity {
             @Override
             public void run() {
 
-                //problem statement
                 parseJSON(jsonRequest.getResponse());
                 vid = titleList.toString();
             }
-        }, 5000);
+        }, 7000);
+
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(Auth.DEVELOPER_KEY, this);
@@ -98,7 +110,7 @@ public class Player extends YouTubeFailureRecoveryActivity {
                     player.cueVideo(vid);
                 }
             }
-        }, 5000);
+        }, 7000);
         //reference strings.xml for video
     }
 
@@ -109,11 +121,19 @@ public class Player extends YouTubeFailureRecoveryActivity {
 
     private void parseJSON(JSONObject pResponse){
         try{
+
+            Log.d("vid", "we got here 1");
             JSONArray items = pResponse.getJSONArray(Keys.endpointRecipe.KEY_items);
+            Log.d("vid", "we got here 2");
             JSONObject id = items.getJSONObject(0);
+            Log.d("vid", "we got here 3");
             //inside first array element
             JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
+            Log.d("vid", "we got here 4");
             titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
+            Log.d("vid",titleList.toString());
+            Log.d("vid", "we got here 5");
+
 
 
         }catch(JSONException ex){

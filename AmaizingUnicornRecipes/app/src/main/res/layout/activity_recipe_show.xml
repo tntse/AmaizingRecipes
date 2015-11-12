@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RecipeShow"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/linearLayout">
 
-    <TextView
-        android:layout_width="331dp"
-        android:layout_height="391dp"
-        android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.92" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/amaizeing"
+        android:layout_gravity="center_horizontal|top"
+        android:scaleType="centerCrop" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar2"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.92" />
-</LinearLayout>
+        android:id="@+id/favoriteButton"
+        android:src="@android:drawable/btn_star"
+        android:background="#00ffffff"
+        android:layout_gravity="center" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="253dp"
+        android:layout_gravity="center_horizontal|bottom"
+
+        android:layout_margin="5dp" />
+
+
+</FrameLayout>

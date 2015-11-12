@@ -1,5 +1,7 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,5 +155,6 @@ public class Recipes {
     public void setPublisherUrl(String publisherUrl) {
         this.publisherUrl = publisherUrl;
     }
+
 
 }

@@ -17,7 +17,7 @@ public interface Keys {
         public static final String KEY_PUBLISHER_URL= "publisher_url";
         public static final String KEY_id = "id";
         public static final String KEY_items = "items";
-        public static final String KEY_VideoId = "Video_Id";
+        public static final String KEY_VideoId = "videoId";
         public static final String KEY_IMAGE_URL = "image_url";
         public static final String KEY_INGREDIENTS = "ingredients";
         public static final String HITS = "hits";

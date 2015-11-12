@@ -1,94 +1,75 @@
 package com.taeyeona.amaizingunicornrecipes;
 
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.support.v7.app.AppCompatActivity;
-        import android.text.method.ScrollingMovementMethod;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.ProgressBar;
-        import android.widget.TextView;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+
 
 /**
  * Created by Chau on 10/13/2015.
  */
 public class RecipeShow extends AppCompatActivity{
 
-    ProgressBar progress;
+
+    private ImageView image;
+    private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
+    private CustomPagerAdapter mCustomPagerAdapter;
+    private ViewPager mViewPager;
+    ImageButton favorite;
+    FavoritesPage favoriteObj;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_show);
-        Log.d("", "I made it");
-        String title = getIntent().getStringExtra("Title");
+        favorite = (ImageButton) findViewById(R.id.favoriteButton);
 
-        title = title.replace(" ", "%20");
-        Log.d("", "Title:" + title);
+        favoriteObj = new FavoritesPage(this);
 
-        String returnStringArray[] = new String[1000];
-        progress = (ProgressBar) findViewById(R.id.progressBar2);
+        final String img = getIntent().getStringExtra("Picture");
+        Bundle bundle = new Bundle();
+        bundle.putString("Title", getIntent().getStringExtra("Title"));
 
+        if(getIntent().getStringExtra("API").equals("Food2Fork")){
+            bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
+            bundle.putString("API", "Food2Fork");
+        }else{
+            bundle.putString("API", "Edamam");
+            bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
+            bundle.putStringArray("Ingredients", getIntent().getStringArrayExtra("Ingredients"));
+        }
 
-        final JSONRequest edamamRequest = new JSONRequest();
-        edamamRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                Auth.EDAMAM_ID, title,"", null, null, "0", "1", "", "", "", 0.0, 0.0);
+        image = (ImageView) findViewById(R.id.imageView2);
 
-        edamamRequest.sendResponse(getApplicationContext());
-
-
-        final String nutritionList[] = new String[100];
-
-
-        final TextView textView = (TextView) findViewById(R.id.textView2);
-        textView.setMovementMethod(new ScrollingMovementMethod());
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-
+        imgLoader.get(img, new ImageLoader.ImageListener() {
             @Override
-            public void run() {
-                progress.setVisibility(View.INVISIBLE);
-                final JSONObject response = edamamRequest.getResponse();
-
-
-                        /* Process Array into Stringbuilder for output */
-                StringBuilder output = new StringBuilder();
-
-                try {
-                    JSONArray arrayTitle = response.getJSONArray(Keys.endpointRecipe.HITS);
-                    Log.d("", "arrayTitle: " + arrayTitle);
-                    JSONObject recipeObj = arrayTitle.getJSONObject(0).getJSONObject("recipe");
-
-                    JSONArray digestObj = recipeObj.getJSONArray("digest");
-                            /* Set Recipe title as first item in array */
-                    nutritionList[0] = recipeObj.getString("label");
-
-                    for (int i = 0; i < digestObj.length(); i++) {
-                        JSONObject nubit = (JSONObject) digestObj.get(i); // NUtritional BIT
-                        nutritionList[i + 1] = nubit.getString("label") + " " + nubit.getString("total")
-                                + " " + nubit.getString("unit");
-                    }
-
-                    for(String s : nutritionList) {
-                        if(s != null && !s.isEmpty()) {
-                            output.append(s);
-                        }
-                    }
-
-                    textView.setText(output.toString());
-                } catch (JSONException ex)
-
-                {
-
-                }
-
+            public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                image.setImageBitmap(imageContainer.getBitmap());
             }
 
-        }, 10000);
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
 
+            }
+        });
+
+        favorite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                favoriteObj.storeRecipe(getIntent().getStringExtra("Title"));
+            }
+        });
+
+        mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mCustomPagerAdapter);
+
+        
     }
+
 }

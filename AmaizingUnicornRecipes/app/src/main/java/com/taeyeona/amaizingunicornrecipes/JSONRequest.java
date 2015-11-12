@@ -25,13 +25,14 @@ public class  JSONRequest {
     }
 
     //https://api.edamam.com/search?from=0&to=1&q=chicken&app_id=4f2b1b73&app_key=bb6d714aa9393e1e22555b633eee4de4
-    //http://food2fork.com/api/search?key={API_KEY}&q=shredded%20chicken
+    //http://food2fork.com/api/search?key=50ad55b48d8dbd791d8b69af229adeca&q=shredded%20chicken
     //https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=cute+cats&key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void createResponse(String baseUrl, String keyStr, String appKey, String idStr, String appId,
                                String q, String radiusValue, String part, String maxResults, String from, String to,
-                               String typesValue, String sensorValue, String location, Double lat, Double lng){
+                               String typesValue, String sensorValue, String location, Double lat, Double lng,
+                               String recipeID){
         /**
          *  Builds the URL which will make the GET request for an api call.
          *
@@ -52,6 +53,18 @@ public class  JSONRequest {
          *              Can be null.
          *  @param to The ending index of the desired results to be returned.
          *            Can be null.
+         *  @param typesValue Something something
+         *                    Can be null.
+         *  @param sensorValue Something something
+         *                     Can be null.
+         *  @param location Something something.
+         *                  Can be null.
+         *  @param lat Something something
+         *             Can be 0.0.
+         *  @param lng Something something
+         *             Can be 0.0
+         *  @param recipeID The ID for a recipe, from Food2Fork API
+         *                  Can be null.
          *
          */
 
@@ -101,9 +114,23 @@ public class  JSONRequest {
             URL += Auth.CHAR_AND + location + Auth.CHAR_EQUALS + lat + "," + lng;
         }
 
+        if(recipeID != null){
+            URL += Auth.CHAR_AND + "rId" + Auth.CHAR_EQUALS + recipeID;
+        }
+
+        if(baseUrl == "https://api.edamam.com/search" && recipeID != null){
+            URL += Auth.CHAR_AND + "r" + Auth.CHAR_EQUALS + recipeID;
+        }
+
         Log.d(TAG, "URL = " + URL);
     }
 
+    /**
+     * Sends the call to the API
+     *
+     * @param pContext The Context object from the activity that called this method
+     *
+     */
     public void sendResponse(Context pContext){
 
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
@@ -115,8 +142,6 @@ public class  JSONRequest {
                     @Override
                     public void onResponse(JSONObject response) {
                         jsRequest = (JSONObject) response;
-                        Log.d(TAG, "response: " + response.toString());
-                        Log.d(TAG, "jsRequest: " + jsRequest.toString());
                     }
 
                 }, new Response.ErrorListener() {
@@ -131,6 +156,9 @@ public class  JSONRequest {
         VolleySingleton.getInstance(pContext).addToRequestQueue(jsObjectReq);
     }
 
+    /**
+     * @return the JSONObject response from the API
+     */
     public JSONObject getResponse(){
         return jsRequest;
     }
