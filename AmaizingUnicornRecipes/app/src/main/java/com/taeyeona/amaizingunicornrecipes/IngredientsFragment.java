@@ -22,6 +22,7 @@ import org.json.JSONObject;
 public class IngredientsFragment extends Fragment {
 
     StringBuilder ingredients = new StringBuilder();
+    String TAG = IngredientsFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +64,12 @@ public class IngredientsFragment extends Fragment {
             }, 1000);
 
         }else{
-            text2.setText("LOL EDAMAM FOOD STUFFS");
+            String[] ingredientLines = getArguments().getStringArray("Ingredients");
+            for (int i = 0; i < ingredientLines.length; i++) {
+                ingredients.append(ingredientLines[i]);
+                ingredients.append('\n');
+            }
+            text2.setText(ingredients.toString());
         }
 
         Button but = (Button) getActivity().findViewById(R.id.button4);
