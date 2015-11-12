@@ -32,6 +32,7 @@ public class NutritionFragment extends Fragment {
         text = (TextView) getActivity().findViewById(R.id.textView7);
         if(getArguments().getString("API").equals("Food2Fork")){
             // Don't show nutrients
+            text.setText("No nutrients are available for this recipe, please select nutrition options in the profile page.");
         }else {
             String[] nutrientLines = getArguments().getStringArray("Nutrients");
             for (int i = 0; i < nutrientLines.length; i++) {
