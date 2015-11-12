@@ -87,6 +87,8 @@ public class RecipeSearch extends AppCompatActivity {
                             Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
                             intent.putExtra("Picture", recipeList.get(position).getImageUrl());
                             intent.putExtra("Title", recipeList.get(position).getTitle());
+                            intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
+                            intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
                             intent.putExtra("API", "Edamam");
                             startActivity(intent);
                         }
@@ -222,15 +224,21 @@ public class RecipeSearch extends AppCompatActivity {
      * @return Returns the parsed Recipes object
      */
     private final Recipes convertEdamamRecipes(JSONObject obj) throws JSONException {
-        return new Recipes(
+        Recipes recipe = new Recipes(
                 obj.getString("source"),
                 obj.getString("uri"),
                 obj.getString("label"),
                 obj.getString("url"),
-                "",
+                obj.getString("uri"),
                 obj.getString("image"),
                 0.0,
                 "");
+        JSONArray jsonArr= obj.getJSONArray("ingredientLines");
+        for(int i=0;i<jsonArr.length(); i++) {
+            String ingredient = jsonArr.getString(i);
+            recipe.setIngredients(ingredient);
+        }
+        return recipe;
     }
 
 }

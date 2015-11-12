@@ -118,6 +118,10 @@ public class  JSONRequest {
             URL += Auth.CHAR_AND + "rId" + Auth.CHAR_EQUALS + recipeID;
         }
 
+        if(baseUrl == "https://api.edamam.com/search" && recipeID != null){
+            URL += Auth.CHAR_AND + "r" + Auth.CHAR_EQUALS + recipeID;
+        }
+
         Log.d(TAG, "URL = " + URL);
     }
 
