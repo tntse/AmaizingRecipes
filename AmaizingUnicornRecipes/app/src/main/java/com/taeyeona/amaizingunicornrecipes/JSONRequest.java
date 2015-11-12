@@ -122,7 +122,6 @@ public class  JSONRequest {
             URL += Auth.CHAR_AND + "r" + Auth.CHAR_EQUALS + recipeID;
         }
 
-        Log.d(TAG, "URL = " + URL);
     }
 
     /**

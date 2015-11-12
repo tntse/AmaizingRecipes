@@ -31,6 +31,7 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
                 return instruct;
             default:
                 Fragment nutri = new NutritionFragment();
+                nutri.setArguments(bundle);
                 return nutri;
         }
     }

@@ -89,6 +89,7 @@ public class RecipeSearch extends AppCompatActivity {
                             intent.putExtra("Title", recipeList.get(position).getTitle());
                             intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
                             intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
+                            intent.putExtra("Nutrients", recipeList.get(position).getNutrients().toArray(new String[0]));
                             intent.putExtra("API", "Edamam");
                             startActivity(intent);
                         }
@@ -237,6 +238,16 @@ public class RecipeSearch extends AppCompatActivity {
         for(int i=0;i<jsonArr.length(); i++) {
             String ingredient = jsonArr.getString(i);
             recipe.setIngredients(ingredient);
+        }
+
+        JSONArray jsonNutrientArr= obj.getJSONArray("digest");
+        for(int i=0;i<jsonNutrientArr.length(); i++) {
+            JSONObject nutritionObj = jsonNutrientArr.getJSONObject(i);
+            String label = nutritionObj.getString("label");
+            String total = nutritionObj.getString("total");
+            String unit = nutritionObj.getString("unit");
+
+            recipe.setNutrients(label + " " + total + " " + unit);
         }
         return recipe;
     }

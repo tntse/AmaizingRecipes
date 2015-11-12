@@ -43,6 +43,7 @@ public class RecipeShow extends AppCompatActivity{
             bundle.putString("API", "Edamam");
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
             bundle.putStringArray("Ingredients", getIntent().getStringArrayExtra("Ingredients"));
+            bundle.putStringArray("Nutrients", getIntent().getStringArrayExtra("Nutrients"));
         }
 
         image = (ImageView) findViewById(R.id.imageView2);

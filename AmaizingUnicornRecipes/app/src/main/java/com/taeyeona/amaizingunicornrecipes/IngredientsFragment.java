@@ -22,7 +22,6 @@ import org.json.JSONObject;
 public class IngredientsFragment extends Fragment {
 
     StringBuilder ingredients = new StringBuilder();
-    String TAG = IngredientsFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

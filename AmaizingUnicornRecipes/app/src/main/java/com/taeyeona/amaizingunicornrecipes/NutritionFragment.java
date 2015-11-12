@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 public class NutritionFragment extends Fragment {
 
+    StringBuilder nutrients = new StringBuilder();
+
     private TextView text;
 
     @Override
@@ -28,8 +30,16 @@ public class NutritionFragment extends Fragment {
 
         //do your stuff for your fragment here
         text = (TextView) getActivity().findViewById(R.id.textView7);
-        text.setText("Hey I am soooooooooooooo awesome!");
-
+        if(getArguments().getString("API").equals("Food2Fork")){
+            // Don't show nutrients
+        }else {
+            String[] nutrientLines = getArguments().getStringArray("Nutrients");
+            for (int i = 0; i < nutrientLines.length; i++) {
+                nutrients.append(nutrientLines[i]);
+                nutrients.append('\n');
+            }
+            text.setText(nutrients.toString());
+        }
 
     }
 }
