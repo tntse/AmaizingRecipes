@@ -21,16 +21,14 @@ public class RecipeShow extends AppCompatActivity{
     private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
-    ImageButton favorite;
+
     FavoritesPage favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_show);
-        favorite = (ImageButton) findViewById(R.id.favoriteButton);
 
-        favoriteObj = new FavoritesPage(this);
 
         final String img = getIntent().getStringExtra("Picture");
         Bundle bundle = new Bundle();
@@ -60,11 +58,6 @@ public class RecipeShow extends AppCompatActivity{
             }
         });
 
-        favorite.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                favoriteObj.storeRecipe(getIntent().getStringExtra("Title"));
-            }
-        });
 
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
         mViewPager = (ViewPager) findViewById(R.id.pager);

@@ -1,11 +1,18 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 /**
@@ -40,10 +47,13 @@ public class Favorites extends Activity {
 
 
         favoritesList.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                favoritesList.setTextColor(Color.CYAN);
-//                Intent intent = new Intent(Favorites.this, RecipeSearch.class);
-//                startActivity(intent);
+                Intent intent = new Intent(Favorites.this, RecipeSearch.class);
+//                Cursor theCursor = ((SimpleCursorAdapter)((TextView) favoritesList).getAdapter()).getCursor();
+//                String selection = theCursor.getString(theCursor.getColumnIndex("favorites.title"));
+//                intent.putExtra("Ingredients", selection);
+                startActivity(intent);
             }
         });
     }

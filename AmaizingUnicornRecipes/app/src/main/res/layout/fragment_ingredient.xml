@@ -31,6 +31,17 @@
     </ScrollView>
 
 
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/favoriteButton"
+        android:src="@android:drawable/btn_star"
+        android:background="#00ffffff"
+        android:layout_gravity="center"
+        android:layout_alignTop="@+id/button4"
+        android:layout_toStartOf="@+id/button4" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
