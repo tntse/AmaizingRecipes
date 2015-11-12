@@ -7,14 +7,37 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
- * Created by Hao on 9/26/2015.
+ * @author Thomas Tse
+ * @version 2.0
+ * @since 2015-09-26
  */
 public class Profile extends Activity {
 
+    /**
+     * Sets all private variables and displays the current settings.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in. Otherwise null
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.profile_v2);
+
+        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.profile_items);
+        HashMap<String, List<String>> profileHash = ProfileHash.getProfileHash();
+        expandableListView.setAdapter(new ProfileAdapter(this, profileHash, new ArrayList<String>(profileHash.keySet())));
+
+    }
+
+/*
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String[] searchSettings = {"High-Protein", "Low-Carb", "Low-Fat", "Balanced Diet", "Low-Sodium",
@@ -79,4 +102,6 @@ public class Profile extends Activity {
 
         toggleListView.setAdapter(toggleAdapter);
     }
+
+    */
 }

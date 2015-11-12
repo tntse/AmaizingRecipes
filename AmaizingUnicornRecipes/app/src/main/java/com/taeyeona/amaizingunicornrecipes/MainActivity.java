@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
 
+
 public  class MainActivity extends Activity{
 
     @Override
@@ -29,6 +30,7 @@ public  class MainActivity extends Activity{
         //created buttons to reference each activity
         Button pantry = (Button)findViewById(R.id.goToPantry);
         Button profile = (Button)findViewById(R.id.profile);
+        Button toEditIngredients = (Button) findViewById(R.id.to_edit_ingredients_button);
 
         //the pantry button listens for onClick and Intent references me to another activity
 
@@ -57,6 +59,13 @@ public  class MainActivity extends Activity{
             }
         });
 
+        toEditIngredients.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                kitty.start();
+                Intent intent = new Intent(MainActivity.this, EditIngredients.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
