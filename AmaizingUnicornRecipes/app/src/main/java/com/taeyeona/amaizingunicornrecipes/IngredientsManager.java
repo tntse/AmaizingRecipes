@@ -21,7 +21,7 @@ public class IngredientsManager implements Set<String> {
         list = new ArrayList<String>();
     }
 
-    public IngredientsManager(IngredientsManager other){
+    public IngredientsManager(Set<String> other){
         list = new ArrayList<>();
         list.addAll(other);
     }
@@ -118,5 +118,13 @@ public class IngredientsManager implements Set<String> {
         }
 
         return (String[]) ret.toArray();
+    }
+
+    public String toString(){
+        String ret = "";
+        for(int i = 0; i < list.size(); i++){
+            ret += list.get(i).toString() + "\n";
+        }
+        return ret;
     }
 }

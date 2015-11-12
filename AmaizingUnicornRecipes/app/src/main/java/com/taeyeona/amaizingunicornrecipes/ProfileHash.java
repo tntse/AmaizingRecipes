@@ -30,19 +30,11 @@ public class ProfileHash {
         searchMapsFields.add("10 mi");
         searchMapsFields.add("15 mi");
 
-        ret.put("User Info", textFields);
-        ret.put("Search Settings", searchToggleFields);
         ret.put("Grocery Store Search Radius", searchMapsFields);
+        ret.put("Search Settings", searchToggleFields);
+        ret.put("User Info", textFields);
 
         return ret;
     }
 
-    public static List<String> getProfileKeys(){
-        List<String> ret = new ArrayList<String>();
-        ret.add("User Info");
-        ret.add("Search Settings");
-        ret.add("Grocery Store Search Radius");
-
-        return ret;
-    }
 }
