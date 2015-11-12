@@ -150,7 +150,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
         String setting_name = (String)getChild(category, setting);
         LayoutInflater inflator = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(category == 2){
+        if(category == 1){
             setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
@@ -159,7 +159,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             editText.setContentDescription(setting_name);
             editText.setOnEditorActionListener(new EditTextWatcher());
 
-        }else if(category == 1 || category == 0){
+        }else if(category == 0 || category == 2){
             setting_view = inflator.inflate(R.layout.profile_toggle_button_layout, category_view, false);
             TextView toggleText = (TextView) setting_view.findViewById(R.id.toggle_text_layout);
             ToggleButton toggleButton = (ToggleButton) setting_view.findViewById(R.id.search_toggle_button);
