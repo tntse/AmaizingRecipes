@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,22 +91,10 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
                              View setting_view, ViewGroup category_view) {
 
         String setting_name = (String)getChild(category, setting);
-        if(setting_view == null){
-            LayoutInflater inflator = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            switch(category){
-                case 2:
-                    setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
-                    break;
-                case 1:
-                    setting_view = inflator.inflate(R.layout.profile_toggle_button_layout, category_view, false);
-                    break;
-                case 0:
-                    setting_view = inflator.inflate(R.layout.profile_toggle_button_layout, category_view, false);
-                    break;
-            }
-        }
+        LayoutInflater inflator = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(category == 2){
+            setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
@@ -114,11 +103,12 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             editText.setOnEditorActionListener(new EditTextWatcher());
 
         }else if(category == 1 || category == 0){
+            setting_view = inflator.inflate(R.layout.profile_toggle_button_layout, category_view, false);
             TextView toggleText = (TextView) setting_view.findViewById(R.id.toggle_text_layout);
             ToggleButton toggleButton = (ToggleButton) setting_view.findViewById(R.id.search_toggle_button);
-
+            Log.d("profile", "making " + setting_name + "toggle button made");
             toggleText.setText(setting_name + ":");
-
+            Log.d("profile", setting_name + "toggle button made");
             toggleButton.setChecked(sharedPreferences.getBoolean("Search" + setting_name, false));
             toggleButton.setContentDescription("Search" + setting_name);
 

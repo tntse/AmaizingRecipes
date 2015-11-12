@@ -9,7 +9,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Profile:"
         android:id="@+id/textView4"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:layout_gravity="center_horizontal" />
 
     <ExpandableListView
