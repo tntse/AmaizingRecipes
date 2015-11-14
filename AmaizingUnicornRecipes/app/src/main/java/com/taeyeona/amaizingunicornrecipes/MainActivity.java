@@ -2,23 +2,49 @@ package com.taeyeona.amaizingunicornrecipes;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.ListView;
 
 
-public  class MainActivity extends Activity{
+public  class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+
+    //variables for drawer list view and elements of listview items
+    private DrawerLayout drawerLayout;
+    private ListView navListView;
+    private String[] navListName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        /**
+         * Saved variables for drawerListView and drawerListNames, View to
+         */
+        drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
+        navListName = getResources().getStringArray(R.array.drawer_list);
+
+        navListView = (ListView)findViewById((R.id.nav_drawer));
+        navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,navListName));
+
+        navListView.setOnItemClickListener(this);
+
+
+
 
 
         //EULA FOR NEW USERS
@@ -93,5 +119,37 @@ public  class MainActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     *
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+//        <item>Main Menu</item> 0
+//        <item>Ingredients Page</item>> 1
+//        <item>Search Recipe</item> 2
+//        <item>Edit Profile</item> 3
+//        <item>Favorites Page</item> 4
+
+        if(position==0){
+        }else if(position==1){
+            Intent intent = new Intent(this,EditIngredients.class);
+            startActivity(intent);
+        }else if(position==2) {
+            Intent intent = new Intent(this, Pantry.class);
+            startActivity(intent);
+        }else if(position == 3){
+            Intent intent = new Intent(this,Profile.class);
+            startActivity(intent);
+        }else if(position==4){
+            Intent intent = new Intent(this,Favorites.class);
+            startActivity(intent);
+        }
+
+    }
 }

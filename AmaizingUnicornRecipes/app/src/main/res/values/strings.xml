@@ -21,6 +21,17 @@
     <string name="user_info">User Info:</string>
     <string name="save_button">Save -></string>
 
+    <string-array name="drawer_list">
+        <item>Main Menu</item>
+        <item>Ingredients Page</item>>
+        <item>Search Recipe</item>
+        <item>Edit Profile</item>
+        <item>Favorites Page</item>
+
+
+
+    </string-array>>
+
     <string name="updates">What\'s new and happening !
         No idea.
     </string>

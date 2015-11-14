@@ -96,12 +96,6 @@ public class Pantry extends Activity
                 R.drawable.test_10,R.drawable.test_11,R.drawable.test_12,
                 R.drawable.test_13, R.drawable.test_14,R.drawable.text_15,
                 R.drawable.text_16, R.drawable.test_17,R.drawable.test_18,
-                R.drawable.test_1,R.drawable.test_2,R.drawable.test_3,
-                R.drawable.test_4,R.drawable.test_5,R.drawable.test_6,
-                R.drawable.test_7,R.drawable.test_8,R.drawable.test_9,
-                R.drawable.test_10,R.drawable.test_11,R.drawable.test_12,
-                R.drawable.test_13, R.drawable.test_14,R.drawable.text_15,
-                R.drawable.text_16, R.drawable.test_17,R.drawable.test_18,
         };
 
         public int getCount() {
@@ -125,7 +119,7 @@ public class Pantry extends Activity
             //scale and pad gridview elements
             imageView.setLayoutParams(new GridView.LayoutParams(85,85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8,8,8,8);
+            imageView.setPadding(2,2,2,2);
             imageView.setImageResource(ingredientImg[position]);
             return imageView;
         }
