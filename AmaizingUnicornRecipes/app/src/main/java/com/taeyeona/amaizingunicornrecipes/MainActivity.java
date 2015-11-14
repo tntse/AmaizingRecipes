@@ -1,21 +1,27 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public  class MainActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -25,15 +31,24 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
     private ListView navListView;
     private String[] navListName;
 
+//    //test
+//    private MyAdapter myAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        //test
+//        myAdapter = new MyAdapter(this);
+//        navListView.setAdapter(myAdapter);
+
 
         /**
-         * Saved variables for drawerListView and drawerListNames, View to
+         * Saved variables for drawerListView and drawerListNames,
+         * navListName are the names of activities the drawer will display
+         * navListView are views set up to listen for onClick and run function
          */
         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
         navListName = getResources().getStringArray(R.array.drawer_list);
@@ -126,6 +141,9 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
      * @param position
      * @param id
      *
+     *
+     * OnItemClick added for Drawer list View
+     * goes to different activities in app
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -153,3 +171,62 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
     }
 }
+
+
+//////////////////// class for custom drawer nav list view
+//class MyAdapter extends BaseAdapter{
+//
+//    String navNames[];
+//    int[] images = {
+//            R.drawable.test_1,
+//            R.drawable.test_2,
+//            R.drawable.test_3,
+//            R.drawable.test_4};
+//    private Context context;
+//
+//    public MyAdapter(Context context){
+//
+//        this.context = context;
+//        navNames = context.getResources().getStringArray(R.array.drawer_list);
+//    }
+//
+//
+//    @Override
+//    public int getCount() {
+//        return navNames.length;
+//    }
+//
+//    @Override
+//    public Object getItem(int position) {
+//        return navNames[position];
+//    }
+//
+//    @Override
+//    public long getItemId(int position) {
+//        return position;
+//    }
+//
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//
+//        View row = null;
+//
+//        if(convertView==null){
+//            LayoutInflater infalter = (LayoutInflater) context
+//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//            row = View.inflate(context,R.layout.custom_listview_drawer,parent);
+//
+//        }else{
+//            row = convertView;
+//        }
+//        TextView titleTextView = (TextView) row.findViewById(R.id.customTextView);
+//        ImageView titleImageView = (ImageView) row.findViewById(R.id.customImageView);
+//
+//        titleTextView.setText(navNames[position]);
+//        titleImageView.setImageResource(images[position]);
+//
+//
+//        return row;
+//    }
+//}
