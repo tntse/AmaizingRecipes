@@ -95,4 +95,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
     }
 
+    public interface CustomItemClickListener {
+        public void onItemClick(View v, int position);
+    }
+
 }

@@ -81,7 +81,7 @@ public class RecipeSearch extends AppCompatActivity {
                     }
                     //Populates the RecyclerView list with the recipe search list
                     recAdapt.setList(recipeList);
-                    recAdapt.setListener(new CustomItemClickListener() {
+                    recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
                         @Override
                         public void onItemClick(View v, int position) {
                             Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
@@ -123,7 +123,7 @@ public class RecipeSearch extends AppCompatActivity {
                     }
                     //Populates the RecyclerView list with the recipe search list
                     recAdapt.setList(recipeList);
-                    recAdapt.setListener(new CustomItemClickListener() {
+                    recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
                         @Override
                         public void onItemClick(View v, int position) {
                             Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "

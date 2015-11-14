@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 /**
  * Created by Hao on 9/26/2015.
@@ -46,8 +47,15 @@ public class Pantry extends Activity
                 et = (EditText) findViewById(R.id.editText);
                 kitty.start();
                 String st = parseString(et.getText().toString());
-                Intent intent = new Intent(Pantry.this, RecipeSearch.class).putExtra("Ingredients", st);
-                startActivity(intent);
+                if(st.equals("")){
+                    Toast toast = Toast.makeText(getApplicationContext(), "You entered empty, don't do that"
+                    , Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    Intent intent = new Intent(Pantry.this, RecipeSearch.class).putExtra("Ingredients", st);
+                    startActivity(intent);
+                }
+
             }
         });
 
