@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -45,8 +44,7 @@ public class Pantry extends Activity
             @Override
             public void onClick(View v) {
                 et = (EditText) findViewById(R.id.editText);
-                kitty.start();
-                String st = parseString(et.getText().toString());
+                String st = parseString(et.getText().toString()).trim();
                 if(st.equals("")){
                     Toast toast = Toast.makeText(getApplicationContext(), "You entered empty, don't do that"
                     , Toast.LENGTH_SHORT);

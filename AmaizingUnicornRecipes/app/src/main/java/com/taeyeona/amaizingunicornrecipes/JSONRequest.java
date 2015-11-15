@@ -129,17 +129,13 @@ public class  JSONRequest {
         }
 
         if(health != null && health.length > 0){
-            Log.d(TAG, "health.length: " + health.length);
             for(int i = 0; i < health.length; i++){
-                Log.d(TAG, "Health[" + i + "]: " + health[i]);
                 URL += Auth.CHAR_AND + "health" + Auth.CHAR_EQUALS + health[i];
             }
         }
 
         if(diet != null && diet.length > 0){
-            Log.d(TAG, "diet.length: " + diet.length);
             for(int i = 0; i < diet.length; i++){
-                Log.d(TAG, "Diet[" + i + "]: " + diet[i]);
                 URL += Auth.CHAR_AND + "diet" + Auth.CHAR_EQUALS + diet[i];
             }
         }

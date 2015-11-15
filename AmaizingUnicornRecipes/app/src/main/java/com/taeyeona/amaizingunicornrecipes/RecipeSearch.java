@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +30,14 @@ import java.util.Map;
  * @version 1.0
  */
 public class RecipeSearch extends AppCompatActivity {
-
+    private static final String TAG = RecipeSearch.class.getSimpleName();
     private RecyclerView listview;
     private List<Recipes> recipeList = new ArrayList<>();
     private RecipeAdapter recAdapt;
     private ProgressBar progress;
     private TextView text;
     private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +69,15 @@ public class RecipeSearch extends AppCompatActivity {
 
         String ingredients = getIntent().getStringExtra("Ingredients");
         /* Replace special characters with their htmls equivalent */
-        ingredients.replace(" ", "%20"); // Replace spaces
+        ingredients.replace(", ", ","); // Remove comma-trailing spaces
+        ingredients.replace(" ", "%20"); // Replace spaces with html code
 
         if (searchEdamam) {
-            HashMap<String, List<String>> profileHash = ProfileHash.getProfileHash();
-            String collection[] = profileHash.get("Search Settings").toArray(new String[0]);
+            String collection[] = ProfileHash.getSearchSettings();
             for (int i = 0; i < collection.length; i++){
                 Boolean checked = sharedPreferences.getBoolean("Search" + collection[i], false);
                 if(checked){
                     String currentSetting = collection[i].toString().toLowerCase();
-                    Log.d("AAA", "Current Setting: " + currentSetting);
                     if(i < 5){
                         diet.add(currentSetting);
                     }else {
@@ -108,12 +107,13 @@ public class RecipeSearch extends AppCompatActivity {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
                     if (response == null) {
-                        text.setText("No results found, try changing your settings or search.");
+                        text.setText("No results found, try changing your search settings.");
+                        Log.d(TAG, "Error: Edamam search returned a null response.");
                     } else {
                         parseEdamamResponse(jsonRequest.getResponse());
                         progress.setVisibility(View.INVISIBLE);
                         if (recipeList.size() == 0) {
-                            text.setText("No searches found");
+                            text.setText("No results found, try changing your search settings.");
                         }
                         //Populates the RecyclerView list with the recipe search list
                         recAdapt.setList(recipeList);
@@ -156,11 +156,12 @@ public class RecipeSearch extends AppCompatActivity {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
                     if (response == null) {
-                        text.setText("No results found, try changing your settings or search.");
+                        text.setText("No results found, try changing your search settings");
+                        Log.d(TAG, "Error: Food2Fork search returned a null response.");
                     } else {
                         parseResponse(response);
                         if (recipeList.size() == 0) {
-                            text.setText("No searches found");
+                            text.setText("No results found, try changing your search settings.");
                         }
                         //Populates the RecyclerView list with the recipe search list
                         recAdapt.setList(recipeList);
