@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,6 +9,10 @@ import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.R;
+import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
 
 /**

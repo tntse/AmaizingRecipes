@@ -1,15 +1,12 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+
+import com.taeyeona.amaizingunicornrecipes.Adapter.ProfileAdapter;
+import com.taeyeona.amaizingunicornrecipes.ProfileHash;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

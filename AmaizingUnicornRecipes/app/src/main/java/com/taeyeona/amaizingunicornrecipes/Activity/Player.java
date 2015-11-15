@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,6 +24,10 @@ import android.util.Log;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.taeyeona.amaizingunicornrecipes.Auth;
+import com.taeyeona.amaizingunicornrecipes.JSONRequest;
+import com.taeyeona.amaizingunicornrecipes.Keys;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

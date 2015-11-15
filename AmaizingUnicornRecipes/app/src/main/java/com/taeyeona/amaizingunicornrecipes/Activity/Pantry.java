@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
  * Created by Hao on 9/26/2015.

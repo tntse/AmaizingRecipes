@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -22,6 +22,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.taeyeona.amaizingunicornrecipes.JSONRequest;
+import com.taeyeona.amaizingunicornrecipes.LocationUpdate;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

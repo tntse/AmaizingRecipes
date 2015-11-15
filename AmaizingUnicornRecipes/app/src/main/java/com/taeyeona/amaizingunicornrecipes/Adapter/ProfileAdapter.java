@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.HashMap;
 import java.util.List;

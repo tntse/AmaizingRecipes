@@ -1,9 +1,13 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.taeyeona.amaizingunicornrecipes.Fragment.IngredientsFragment;
+import com.taeyeona.amaizingunicornrecipes.Fragment.InstructionsFragment;
+import com.taeyeona.amaizingunicornrecipes.Fragment.NutritionFragment;
 
 /**
  * Created by Chau on 11/7/2015.

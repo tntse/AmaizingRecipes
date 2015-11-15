@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.taeyeona.amaizingunicornrecipes.R;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
+import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
 import java.util.ArrayList;
 import java.util.List;
