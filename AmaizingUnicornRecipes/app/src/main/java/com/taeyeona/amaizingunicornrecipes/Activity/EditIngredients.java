@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 
 /**
@@ -17,9 +20,6 @@ import android.widget.TextView;
  */
 public class Favorites extends Activity {
 
-
-    RecipeShow recipeObject;
-    String title;
     TextView favoritesList;
     EditText deleteInput;
     FavoritesPage fav;

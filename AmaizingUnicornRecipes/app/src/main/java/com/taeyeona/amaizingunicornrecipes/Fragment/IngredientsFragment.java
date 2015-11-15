@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
+import com.taeyeona.amaizingunicornrecipes.Auth;
+import com.taeyeona.amaizingunicornrecipes.JSONRequest;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

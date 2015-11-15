@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taeyeona.amaizingunicornrecipes.Auth;
+import com.taeyeona.amaizingunicornrecipes.JSONRequest;
+import com.taeyeona.amaizingunicornrecipes.Keys;
+import com.taeyeona.amaizingunicornrecipes.R;
+import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +31,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Chau on 9/27/2015.
+ * @author David Chau
+ * @author Chris Lang
+ * @version 1.0
  */
 public class RecipeSearch extends AppCompatActivity {
 

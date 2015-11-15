@@ -1,27 +1,20 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.taeyeona.amaizingunicornrecipes.Eula;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 
 public  class MainActivity extends Activity implements AdapterView.OnItemClickListener {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.content.Intent;
 import android.widget.Toast;
@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.taeyeona.amaizingunicornrecipes.Auth;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
  * An abstract activity which deals with recovering from errors which may occur during API
