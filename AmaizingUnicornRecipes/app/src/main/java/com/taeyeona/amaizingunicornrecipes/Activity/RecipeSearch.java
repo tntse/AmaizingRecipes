@@ -22,6 +22,7 @@ import com.taeyeona.amaizingunicornrecipes.Keys;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
 import com.taeyeona.amaizingunicornrecipes.Recipes;
+import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 
 import org.json.JSONArray;
 import org.json.JSONException;
