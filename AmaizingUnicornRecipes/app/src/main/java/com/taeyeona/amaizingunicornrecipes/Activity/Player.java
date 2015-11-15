@@ -68,7 +68,7 @@ public class Player extends YouTubeFailureRecoveryActivity {
          * */
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
                 "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, st, "",
-                 Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0, "");
+                 Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0, "", null, null);
 
         //"https://www.googleapis.com/youtube/v3/search?key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI&=&q=cookie=&=&part=snippet&maxResults=1
 

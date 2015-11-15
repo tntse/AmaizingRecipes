@@ -50,7 +50,7 @@ public class ProfileHash {
      * Gets a list of potential search modifications.
      * @return searchSettings
      */
-    public String[] getSearchSettings(){
+    public static String[] getSearchSettings(){
         return searchSettings;
     }
 

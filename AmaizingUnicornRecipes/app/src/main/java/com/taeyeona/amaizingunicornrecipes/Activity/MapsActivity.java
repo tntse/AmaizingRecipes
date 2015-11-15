@@ -173,10 +173,10 @@ public class MapsActivity extends FragmentActivity implements LocationUpdate.Loc
 
         jsonRequest.createResponse("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                 "key",
-                "AIzaSyA9O9RdXwpGlIjg713yDb-MmyQ5OYCd2PM"
+                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI"
 //                "AIzaSyB-rNwBQn5BAjYVe0khqGPv_utFeKWuhQo"
                 , "", "", "", "1500", "", "", "", "",
-                "grocery_or_supermarket", "true", "location", lat, lng, "");
+                "grocery_or_supermarket", "true", "location", lat, lng, "", null, null);
 
         jsonRequest.sendResponse(getApplicationContext());
 

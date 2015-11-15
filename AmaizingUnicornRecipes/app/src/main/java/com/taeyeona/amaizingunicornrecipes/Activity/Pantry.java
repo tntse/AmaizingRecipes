@@ -46,8 +46,7 @@ public class Pantry extends Activity
             @Override
             public void onClick(View v) {
                 et = (EditText) findViewById(R.id.editText);
-                kitty.start();
-                String st = parseString(et.getText().toString());
+                String st = parseString(et.getText().toString()).trim();
                 if(st.equals("")){
                     Toast toast = Toast.makeText(getApplicationContext(), "You entered empty, don't do that"
                     , Toast.LENGTH_SHORT);

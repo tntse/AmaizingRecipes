@@ -44,7 +44,7 @@ public class IngredientsFragment extends Fragment {
         if(getArguments().getString("API").equals("Food2Fork")){
             final JSONRequest request = new JSONRequest();
             request.createResponse(Auth.GET_URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
-                    "", "", "", "", "", "", "", "", "", 0.0, 0.0, getArguments().getString("RecipeID"));
+                    "", "", "", "", "", "", "", "", "", 0.0, 0.0, getArguments().getString("RecipeID"), null, null);
             request.sendResponse(getActivity().getApplicationContext());
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

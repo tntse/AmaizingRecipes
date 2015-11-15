@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class RecipeSearch extends AppCompatActivity {
-
+    private static final String TAG = RecipeSearch.class.getSimpleName();
     private RecyclerView listview;
     private List<Recipes> recipeList = new ArrayList<>();
     private RecipeAdapter recAdapt;
@@ -44,10 +45,12 @@ public class RecipeSearch extends AppCompatActivity {
     private TextView text;
     private SharedPreferences sharedPreferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
+        final JSONObject response;
 
         //Make a SharedPreferences object to get the global SharedPreferences so that we could see if we need
         //to use the Food2Fork search or the Edamam search based on preferences
@@ -68,11 +71,37 @@ public class RecipeSearch extends AppCompatActivity {
         listview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recAdapt = new RecipeAdapter(getApplicationContext());
 
-        String ingredients = getIntent().getStringExtra("Ingredients").replace(" ", "%20");
+        ArrayList<String> health = new ArrayList<>();
+        ArrayList<String> diet = new ArrayList<>();
+
+        String ingredients = getIntent().getStringExtra("Ingredients");
+        /* Replace special characters with their htmls equivalent */
+        ingredients.replace(", ", ","); // Remove comma-trailing spaces
+        ingredients.replace(" ", "%20"); // Replace spaces with html code
 
         if (searchEdamam) {
+            String collection[] = ProfileHash.getSearchSettings();
+            for (int i = 0; i < collection.length; i++){
+                Boolean checked = sharedPreferences.getBoolean("Search" + collection[i], false);
+                if(checked){
+                    String currentSetting = collection[i].toString().toLowerCase();
+                    if(i < 5){
+                        diet.add(currentSetting);
+                    }else {
+                        if(currentSetting.equals("no-sugar")){
+                            health.add("low-sugar");
+                        }else {
+                            health.add(currentSetting);
+                        }
+                    }
+                }
+            }
+
+            String healthArray[] = health.toArray(new String[health.size()]);
+            String dietArray[] = diet.toArray(new String[diet.size()]);
+
             jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                    Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", "", 0.0, 0.0, "");
+                    Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", null, null, null, "", healthArray, dietArray);
             jsonRequest.sendResponse(getApplicationContext());
             //Create a handler for a background thread that waits until another background thread,
             //the API call, comes back with the JSON parsed and ready.
@@ -82,38 +111,45 @@ public class RecipeSearch extends AppCompatActivity {
 
                 @Override
                 public void run() {
-
-                    parseEdamamResponse(jsonRequest.getResponse());
-                    progress.setVisibility(View.INVISIBLE);
-                    if (recipeList.size() == 0) {
-                        text.setText("No searches found");
-                    }
-                    //Populates the RecyclerView list with the recipe search list
-                    recAdapt.setList(recipeList);
-                    recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
-                        @Override
-                        public void onItemClick(View v, int position) {
-                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
-                            intent.putExtra("Picture", recipeList.get(position).getImageUrl());
-                            intent.putExtra("Title", recipeList.get(position).getTitle());
-                            intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
-                            intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
-                            intent.putExtra("Nutrients", recipeList.get(position).getNutrients().toArray(new String[0]));
-                            intent.putExtra("API", "Edamam");
-                            startActivity(intent);
+                    JSONObject response = jsonRequest.getResponse();
+                    /* Check to see if something was returned */
+                    if (response == null) {
+                        text.setText("No results found, try changing your search settings.");
+                        Log.d(TAG, "Error: Edamam search returned a null response.");
+                    } else {
+                        parseEdamamResponse(jsonRequest.getResponse());
+                        progress.setVisibility(View.INVISIBLE);
+                        if (recipeList.size() == 0) {
+                            text.setText("No results found, try changing your search settings.");
                         }
-                    });
-                    listview.setAdapter(recAdapt);
+                        //Populates the RecyclerView list with the recipe search list
+                        recAdapt.setList(recipeList);
+                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
+                            @Override
+                            public void onItemClick(View v, int position) {
+                                Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
+                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
+                                intent.putExtra("Title", recipeList.get(position).getTitle());
+                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
+                                intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
+                                intent.putExtra("Nutrients", recipeList.get(position).getNutrients().toArray(new String[0]));
+                                intent.putExtra("API", "Edamam");
+                                startActivity(intent);
+                            }
+                        });
+                        listview.setAdapter(recAdapt);
+                    }
+                    progress.setVisibility(View.INVISIBLE);
                 }
-
             }, 7000);
+
 
 
         } else {
 
             //Create food2fork response and send the response to the API
             jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
-                    ingredients, "", "", "", "", "", "", "", "", 0.0, 0.0, "");
+                    ingredients, "", "", "", "", "", "", "", null, 0.0, 0.0, "", null, null);
             jsonRequest.sendResponse(getApplicationContext());
 
             //Create a handler for a background thread that waits until another background thread,
@@ -124,29 +160,35 @@ public class RecipeSearch extends AppCompatActivity {
 
                 @Override
                 public void run() {
-
-                    parseResponse(jsonRequest.getResponse());
-                    progress.setVisibility(View.INVISIBLE);
-                    if (recipeList.size() == 0) {
-                        text.setText("No searches found");
-                    }
-                    //Populates the RecyclerView list with the recipe search list
-                    recAdapt.setList(recipeList);
-                    recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
-                        @Override
-                        public void onItemClick(View v, int position) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
-                                    + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
-                            toast.show();
-                            Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
-                            intent.putExtra("Picture", recipeList.get(position).getImageUrl());
-                            intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
-                            intent.putExtra("Title", recipeList.get(position).getTitle());
-                            intent.putExtra("API", "Food2Fork");
-                            startActivity(intent);
+                    JSONObject response = jsonRequest.getResponse();
+                    /* Check to see if something was returned */
+                    if (response == null) {
+                        text.setText("No results found, try changing your search settings");
+                        Log.d(TAG, "Error: Food2Fork search returned a null response.");
+                    } else {
+                        parseResponse(response);
+                        if (recipeList.size() == 0) {
+                            text.setText("No results found, try changing your search settings.");
                         }
-                    });
-                    listview.setAdapter(recAdapt);
+                        //Populates the RecyclerView list with the recipe search list
+                        recAdapt.setList(recipeList);
+                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
+                            @Override
+                            public void onItemClick(View v, int position) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "You've clicked on "
+                                        + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
+                                toast.show();
+                                Intent intent = new Intent(RecipeSearch.this, RecipeShow.class);
+                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
+                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
+                                intent.putExtra("Title", recipeList.get(position).getTitle());
+                                intent.putExtra("API", "Food2Fork");
+                                startActivity(intent);
+                            }
+                        });
+                        listview.setAdapter(recAdapt);
+                    }
+                    progress.setVisibility(View.INVISIBLE);
                 }
 
             }, 7000);
@@ -228,7 +270,7 @@ public class RecipeSearch extends AppCompatActivity {
     }
 
     /**
-     * Helper method to convert the Food2Fork JSONObject into Recipe Objects
+     * Helper method to convert the Edamam JSONObject into Recipe Objects
      *
      * @param obj The JSONObject to be parsed into Recipes object
      * @return Returns the parsed Recipes object
