@@ -100,10 +100,7 @@ public class Pantry extends Activity
         private Integer[] ingredientImg = {
                 R.drawable.test_1,R.drawable.test_2,R.drawable.test_3,
                 R.drawable.test_4,R.drawable.test_5,R.drawable.test_6,
-                R.drawable.test_7,R.drawable.test_8,R.drawable.test_9,
-                R.drawable.test_10,R.drawable.test_11,R.drawable.test_12,
-                R.drawable.test_13, R.drawable.test_14,R.drawable.text_15,
-                R.drawable.text_16, R.drawable.test_17,R.drawable.test_18,
+                R.drawable.test_7,R.drawable.test_8,R.drawable.test_9
         };
 
         public int getCount() {

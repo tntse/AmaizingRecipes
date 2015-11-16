@@ -48,8 +48,7 @@ public class Splash extends Activity {
                 kitty.start();
 //                iv.startAnimation(fadeIn);
                 finish();
-                // exit , enter
-                overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
+                overridePendingTransition(R.anim.slide_left_in,R.anim.slide_left_out);
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(i);
             }

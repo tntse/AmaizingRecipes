@@ -153,15 +153,25 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         }else if(position==1){
             Intent intent = new Intent(this,EditIngredients.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+
+
         }else if(position==2) {
             Intent intent = new Intent(this, Pantry.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+
+
         }else if(position == 3){
             Intent intent = new Intent(this,Profile.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+
+
         }else if(position==4){
             Intent intent = new Intent(this,Favorites.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         }
 
     }
