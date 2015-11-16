@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
+import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
@@ -25,7 +27,7 @@ import com.taeyeona.amaizingunicornrecipes.R;
  */
 
 
-public class Pantry extends Activity implements AdapterView.OnItemClickListener {
+public class Pantry extends Activity {
     EditText et;
 
     private DrawerLayout drawerLayout;
@@ -39,7 +41,6 @@ public class Pantry extends Activity implements AdapterView.OnItemClickListener 
         setContentView(R.layout.pantry);
         final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
-
         /**
          * preferenece name saved from strings.xml then used
          * adapter to view as list
@@ -47,10 +48,9 @@ public class Pantry extends Activity implements AdapterView.OnItemClickListener 
          * Array then is viewed as simple list, preListView also set up to handle click events
          */
         drawerLayout = (DrawerLayout)findViewById(R.id.pantry_drawer);
-        prefListName = getResources().getStringArray(R.array.preference_list);
+        prefListName = ProfileHash.getSearchSettings();
         prefListView = (ListView)findViewById((R.id.pref_drawer));
-        prefListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prefListName));
-        prefListView.setOnItemClickListener(this);
+        prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
 
         // typeCast .xml returns view while pantry_GridView is gridView obj
@@ -146,20 +146,6 @@ public class Pantry extends Activity implements AdapterView.OnItemClickListener 
             imageView.setImageResource(ingredientImg[position]);
             return imageView;
         }
-
-    }
-
-    /**
-     *
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     *
-     * Preference navigation drawer to edit preferences using nav drawer
-     */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
