@@ -206,7 +206,7 @@ public class IngredientsManager implements Set<String> {
         for(int i = 0; i < ingredientList.length; i++){
             found = false;
             for(int j = 0; j < list.size() || !found; j++)
-                if(ingredientList[i].toLowerCase().equals(list.get(j).toLowerCase()))
+                if(ingredientList[i].contains(list.get(i)))
                     found = true;
             if(!found)
                 ret.add(ingredientList[i]);
