@@ -17,13 +17,14 @@
         android:textSize="30dp" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/ingredientInput"
         android:layout_marginTop="43dp"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:width="300dp" />
+        android:width="300dp"
+        android:scrollbars="vertical"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -47,20 +48,18 @@
         android:layout_below="@id/ingredientInput"
         android:onClick="deleteButtonClicked" />
 
-    <ScrollView
-        android:orientation="vertical"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ingredients"
+        android:id="@+id/ingredient_title"
+        android:layout_below="@id/button2"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/button2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:weightSum="1">
+        android:text="New Text"
+        android:id="@+id/ingredientList"
+        android:layout_below="@id/ingredient_title"
+        android:scrollbars="vertical"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="New Text"
-            android:id="@+id/ingredientList" />
-    </ScrollView>
 </RelativeLayout>
