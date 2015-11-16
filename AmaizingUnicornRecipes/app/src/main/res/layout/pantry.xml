@@ -62,6 +62,7 @@
         android:layout_alignTop="@+id/button"
         android:layout_toRightOf="@+id/favorites"
         android:layout_toLeftOf="@id/button"
+        android:singleLine="true"
         />
 
 
