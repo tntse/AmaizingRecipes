@@ -1,6 +1,7 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -200,19 +201,22 @@ public class IngredientsManager implements Set<String> {
      * @return An array containing the list of ingredients not contained in the Pantry.
      */
     public String[] findMissingIngredients(String[] ingredientList){
-        ArrayList<String> ret = new ArrayList<String>();
+        String ret = "";
         boolean found;
 
         for(int i = 0; i < ingredientList.length; i++){
             found = false;
-            for(int j = 0; j < list.size() || !found; j++)
-                if(ingredientList[i].toLowerCase().equals(list.get(j).toLowerCase()))
+            Log.d(IngredientsManager.class.getSimpleName(), "I'm here");
+            Log.d(IngredientsManager.class.getSimpleName(), "list size: " + list.size());
+            for(int j = 0; j < list.size() && !found; j++)
+                if(ingredientList[i].contains((String)list.get(i)))
                     found = true;
+            Log.d(IngredientsManager.class.getSimpleName(), "ingredientList[i]: " + (String)ingredientList[i] );
             if(!found)
-                ret.add(ingredientList[i]);
+                ret += (String)ingredientList[i] +"\n\t";
         }
-
-        return (String[]) ret.toArray();
+        Log.d(IngredientsManager.class.getSimpleName(), "ret: " + ret);
+        return ret.substring(0, ret.length()-1).split("\t");
     }
 
     /**
