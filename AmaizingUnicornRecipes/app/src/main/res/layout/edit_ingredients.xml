@@ -23,13 +23,14 @@
         android:layout_marginTop="43dp"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:width="300dp" />
+        android:width="300dp"
+        android:singleLine="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ADD"
-        android:id="@+id/button2"
+        android:id="@+id/add_button"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/ingredientInput"
         android:layout_alignStart="@+id/ingredientInput"
@@ -40,27 +41,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DELETE"
-        android:id="@+id/button4"
-        android:layout_alignTop="@+id/button2"
+        android:id="@+id/delete_button"
+        android:layout_alignTop="@+id/add_button"
         android:layout_alignRight="@+id/ingredientInput"
         android:layout_alignEnd="@+id/ingredientInput"
         android:layout_below="@id/ingredientInput"
         android:onClick="deleteButtonClicked" />
 
-    <ScrollView
-        android:orientation="vertical"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_button"
+        android:id="@+id/ingredient_title"
+        android:text="@string/ingredients"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/button2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:weightSum="1">
+        android:text="New Text"
+        android:id="@+id/ingredientList"
+        android:layout_below="@id/ingredient_title"
+        android:scrollbars="vertical"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="New Text"
-            android:id="@+id/ingredientList" />
-    </ScrollView>
 </RelativeLayout>

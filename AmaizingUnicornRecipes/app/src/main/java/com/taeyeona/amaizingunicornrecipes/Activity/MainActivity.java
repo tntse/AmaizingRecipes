@@ -61,7 +61,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         new Eula(this).show();
 
         //set up button sound
-        final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
+        //final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
         //created buttons to reference each activity
         Button pantry = (Button)findViewById(R.id.goToPantry);
@@ -75,7 +75,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
             @Override
             public void onClick(View view) {
-                kitty.start();
+                //kitty.start();
                 Intent intent = new Intent(MainActivity.this, Pantry.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
@@ -89,7 +89,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         {
             @Override
             public void onClick(View view) {
-                kitty.start();
+                //kitty.start();
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
@@ -99,7 +99,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         //Edit Ingredients
         toEditIngredients.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                kitty.start();
+                //kitty.start();
                 Intent intent = new Intent(MainActivity.this, EditIngredients.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);

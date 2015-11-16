@@ -9,19 +9,19 @@
         android:text="Find Grocery Stores"
         android:id="@+id/button3"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/textView4"
+        android:layout_above="@id/button3"
         android:id="@+id/listView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="44dp" />
+        android:scrollbars="vertical"/>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +30,6 @@
         android:text="Missing Ingredients"
         android:id="@+id/textView4"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
