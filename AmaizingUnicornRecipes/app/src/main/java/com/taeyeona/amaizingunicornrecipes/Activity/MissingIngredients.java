@@ -31,19 +31,18 @@ public class MissingIngredients extends Activity {
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
         SharedPreferences sharedPreferences = this.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
-        StringTokenizer tokenizer = new StringTokenizer(ingredients, "\n");
-        ArrayList<String> ingredientsList = new ArrayList<String>();
-        while(tokenizer.hasMoreTokens()){
-            ingredientsList.add(tokenizer.nextToken().trim());
-        }
-        String[] rawIngredients = (String[]) ingredientsList.toArray();
+
+        String[] rawIngredients = ingredients.split("\n");
+        Log.d(MissingIngredients.class.getSimpleName(), "raw Ingredients are: " + rawIngredients.toString());
 
         Set<String> manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
-
+        Log.d(MissingIngredients.class.getSimpleName(), "manager instance of IngredientsManager: " + (manager instanceof IngredientsManager));
         if(!(manager instanceof IngredientsManager)){
+
             manager = new IngredientsManager(manager);
         }
 
+        Log.d(MissingIngredients.class.getSimpleName(), "manager " + manager);
         String[] missingIngredients = ((IngredientsManager)manager).findMissingIngredients(rawIngredients);
 
         ListView theListView = (ListView) findViewById(R.id.listView);
