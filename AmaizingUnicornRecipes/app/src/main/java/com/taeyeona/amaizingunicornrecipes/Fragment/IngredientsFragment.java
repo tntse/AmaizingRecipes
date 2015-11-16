@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,6 @@ public class IngredientsFragment extends Fragment {
                             ingredients.append(ingredientsList.get(i));
                             ingredients.append('\n');
                         }
-                        text2.setText(ingredients.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -73,8 +73,11 @@ public class IngredientsFragment extends Fragment {
                 ingredients.append(ingredientLines[i]);
                 ingredients.append('\n');
             }
-            text2.setText(ingredients.toString());
+
         }
+
+        text2.setText("Ingredients:\n" + ingredients.toString());
+        text2.setMovementMethod(new ScrollingMovementMethod());
 
         Button but = (Button) getActivity().findViewById(R.id.button4);
         but.setOnClickListener(new View.OnClickListener() {

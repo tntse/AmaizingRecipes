@@ -36,7 +36,7 @@ public class Pantry extends Activity
         // typeCast .xml returns view while pantry_GridView is gridView obj
         GridView pantry_GridView;
         pantry_GridView = (GridView) findViewById(R.id.pantry_gridview);
-        pantry_GridView.setAdapter(new ImageAdapter(this));
+        // pantry_GridView.setAdapter(new ImageAdapter(this));
 
 
         Button search = (Button) findViewById(R.id.button);

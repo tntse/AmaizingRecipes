@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class EditIngredients extends Activity {
         manager = new IngredientsManager(set);
         editText = (EditText) findViewById(R.id.ingredientInput);
         ingredientsList = (TextView) findViewById(R.id.ingredientList);
+        ingredientsList.setMovementMethod(new ScrollingMovementMethod());
         updateList();
 
 
@@ -84,7 +86,7 @@ public class EditIngredients extends Activity {
      * Updates the TextView in the activity with the current list of ingredients.
      */
     public void updateList(){
-        ingredientsList.setText("Ingredients: \n" + manager.toString());
+        ingredientsList.setText(manager.toString());
     }
 
 
