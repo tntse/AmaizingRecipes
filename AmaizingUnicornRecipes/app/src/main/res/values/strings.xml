@@ -79,6 +79,7 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="video_tutorial">Video Tutorial</string>
     <string name="nutritional_info">Nutritional Information:</string>
     <string name="ingredients">Ingredients:</string>
+    <string name="back_button">Back</string>
 
 
 </resources>

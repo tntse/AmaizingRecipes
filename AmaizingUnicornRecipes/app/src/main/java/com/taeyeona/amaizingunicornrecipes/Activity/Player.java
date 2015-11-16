@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -141,6 +142,12 @@ public class Player extends YouTubeFailureRecoveryActivity {
         }catch(JSONException ex){
 
         }
+
     }
+
+    public void goBack(View view){
+        this.finish();
+    }
+
 
 }
