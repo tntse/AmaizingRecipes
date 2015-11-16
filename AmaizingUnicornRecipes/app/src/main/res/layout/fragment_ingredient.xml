@@ -44,9 +44,7 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/find_missing_ingredients"
         android:id="@+id/button4"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/textView5"
-     />
+        android:layout_alignParentBottom="true" />
 
 
 </RelativeLayout>

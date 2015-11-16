@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
+
 /**
  * Created by Hao on 9/26/2015.
  */

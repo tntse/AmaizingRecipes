@@ -32,7 +32,7 @@ public class  JSONRequest {
     public void createResponse(String baseUrl, String keyStr, String appKey, String idStr, String appId,
                                String q, String radiusValue, String part, String maxResults, String from, String to,
                                String typesValue, String sensorValue, String location, Double lat, Double lng,
-                               String recipeID){
+                               String recipeID, String[] health, String[] diet){
         /**
          *  Builds the URL which will make the GET request for an api call.
          *
@@ -65,6 +65,12 @@ public class  JSONRequest {
          *             Can be 0.0
          *  @param recipeID The ID for a recipe, from Food2Fork API
          *                  Can be null.
+         *
+         *  @param health An array of strings holding health labels to be used
+         *                to filter recipe results
+         *
+         *  @param diet An array of strings holding diet labels to be used
+         *              to filter recipe results
          *
          */
 
@@ -114,13 +120,26 @@ public class  JSONRequest {
             URL += Auth.CHAR_AND + location + Auth.CHAR_EQUALS + lat + "," + lng;
         }
 
-        if(recipeID != null){
+        if(recipeID != null && recipeID != ""){
             URL += Auth.CHAR_AND + "rId" + Auth.CHAR_EQUALS + recipeID;
         }
 
-        if(baseUrl == "https://api.edamam.com/search" && recipeID != null){
+        if(baseUrl == "https://api.edamam.com/search" && recipeID != ""){
             URL += Auth.CHAR_AND + "r" + Auth.CHAR_EQUALS + recipeID;
         }
+
+        if(health != null && health.length > 0){
+            for(int i = 0; i < health.length; i++){
+                URL += Auth.CHAR_AND + "health" + Auth.CHAR_EQUALS + health[i];
+            }
+        }
+
+        if(diet != null && diet.length > 0){
+            for(int i = 0; i < diet.length; i++){
+                URL += Auth.CHAR_AND + "diet" + Auth.CHAR_EQUALS + diet[i];
+            }
+        }
+        Log.d("AAA", "URL: " + URL);
 
     }
 
@@ -131,7 +150,7 @@ public class  JSONRequest {
      *
      */
     public void sendResponse(Context pContext){
-
+        Log.d("AAA", "URL: " + URL);
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
                 Request.Method.GET,
                 URL,
