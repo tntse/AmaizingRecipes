@@ -42,8 +42,9 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
         /**
          * Saved variables for drawerListView and drawerListNames,
-         * navListName are the names of activities the drawer will display
-         * navListView are views set up to listen for onClick and run function
+         * navListName are array items in strings.xml
+         * navListView is the list to be adapter for the listnme to be viewable
+         * in simple list item format
          */
         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
         navListName = getResources().getStringArray(R.array.drawer_list);

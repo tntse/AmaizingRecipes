@@ -94,7 +94,6 @@
         android:dividerHeight="12sp"
         android:entries="@array/drawer_list"
         android:background="@color/green_a400"
-
         />
 
 
