@@ -27,7 +27,7 @@ import org.json.JSONObject;
  */
 public class IngredientsFragment extends Fragment {
 
-    StringBuilder ingredients = new StringBuilder();
+    private StringBuilder ingredients = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,14 +58,18 @@ public class IngredientsFragment extends Fragment {
                         JSONArray ingredientsList = recipe.getJSONArray("ingredients");
                         Log.d(IngredientsFragment.class.getSimpleName(), ingredientsList.toString());
                         for (int i = 0; i < ingredientsList.length(); i++) {
-                            ingredients.append(ingredientsList.get(i));
+                            ingredients.append(ingredientsList.getString(i));
                             ingredients.append('\n');
+                            Log.d(IngredientsFragment.class.getSimpleName(), ingredients.toString());
                         }
+                        //Putting a setText here because if put outside, it won't show F2F's ingredient list
+                        text2.setText("Ingredients:\n" + ingredients.toString());
+                        text2.setMovementMethod(new ScrollingMovementMethod());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-            }, 1000);
+            }, 2000);
 
         }else{
             String[] ingredientLines = getArguments().getStringArray("Ingredients");
@@ -73,11 +77,9 @@ public class IngredientsFragment extends Fragment {
                 ingredients.append(ingredientLines[i]);
                 ingredients.append('\n');
             }
-
+            text2.setText("Ingredients:\n" + ingredients.toString());
+            text2.setMovementMethod(new ScrollingMovementMethod());
         }
-
-        text2.setText("Ingredients:\n" + ingredients.toString());
-        text2.setMovementMethod(new ScrollingMovementMethod());
 
         Button but = (Button) getActivity().findViewById(R.id.button4);
         but.setOnClickListener(new View.OnClickListener() {
