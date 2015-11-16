@@ -209,7 +209,7 @@ public class IngredientsManager implements Set<String> {
             Log.d(IngredientsManager.class.getSimpleName(), "I'm here");
             Log.d(IngredientsManager.class.getSimpleName(), "list size: " + list.size());
             for(int j = 0; j < list.size() && !found; j++)
-                if(ingredientList[i].contains((String)list.get(i)))
+                if(ingredientList[i].contains((String)list.get(j)))
                     found = true;
             Log.d(IngredientsManager.class.getSimpleName(), "ingredientList[i]: " + (String)ingredientList[i] );
             if(!found)
