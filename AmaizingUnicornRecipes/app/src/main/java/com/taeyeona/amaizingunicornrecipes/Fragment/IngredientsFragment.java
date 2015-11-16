@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
+import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
 import com.taeyeona.amaizingunicornrecipes.Auth;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -90,7 +93,7 @@ public class IngredientsFragment extends Fragment {
         });
 
         ImageButton fav = (ImageButton) getActivity().findViewById(R.id.favoriteButton);
-        final FavoritesPage favObj = new FavoritesPage(getActivity().getApplicationContext());
+        final Favorites favObj = new Favorites(getActivity().getApplicationContext());
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 favObj.storeRecipe(getArguments().getString("Title"));

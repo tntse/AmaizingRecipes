@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -62,8 +63,8 @@ public class Pantry extends Activity
         favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(Pantry.this, Favorites.class);
+                Log.d("meow", "Clicked button");
+                Intent intent = new Intent(Pantry.this, FavoritesAdapter.class);
                 startActivity(intent);
             }
         });
