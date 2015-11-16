@@ -21,6 +21,10 @@
     <string name="user_info">User Info:</string>
     <string name="save_button">Save -></string>
 
+    <string name="find_missing_ingredients">Find Missing Ingredients</string>
+    <string name="video_tutorial">Video Tutorial</string>
+    <string name="splash_title">Amaizing Unicorn Recipes</string>
+
     <string-array name="drawer_list">
         <item>Main Menu</item>
         <item>Ingredients Page</item>>
@@ -75,8 +79,7 @@ No Refunds: Licensee warrants that he inspected The Software according to clause
 Indemnification: Licensee hereby warrants to hold Licensor harmless and indemnify Licensor for any lawsuit brought against it in regards to Licensee’s use of The Software in means that violate, breach or otherwise circumvent this license, Licensor\'s intellectual property rights or Licensor\'s title in The Software. Licensor shall promptly notify Licensee in case of such legal action and request Licensee’s consent prior to any settlement in relation to such lawsuit or claim.
 Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action lawsuits against Licensor in relation to this license and to compensate Licensor for any legal fees, cost or attorney fees should any claim brought by Licensee against Licensor be denied, in part or in full.
     </string>
-    <string name="find_missing_ingredients">Find Missing Ingredients</string>
-    <string name="video_tutorial">Video Tutorial</string>
+
 
 
 </resources>

@@ -19,6 +19,8 @@ import com.taeyeona.amaizingunicornrecipes.R;
 
 public  class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
+
+
     //variables for drawer list view and elements of listview items
     private DrawerLayout drawerLayout;
     private ListView navListView;
@@ -164,62 +166,3 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
     }
 }
-
-
-//////////////////// class for custom drawer nav list view
-//class MyAdapter extends BaseAdapter{
-//
-//    String navNames[];
-//    int[] images = {
-//            R.drawable.test_1,
-//            R.drawable.test_2,
-//            R.drawable.test_3,
-//            R.drawable.test_4};
-//    private Context context;
-//
-//    public MyAdapter(Context context){
-//
-//        this.context = context;
-//        navNames = context.getResources().getStringArray(R.array.drawer_list);
-//    }
-//
-//
-//    @Override
-//    public int getCount() {
-//        return navNames.length;
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return navNames[position];
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//
-//        View row = null;
-//
-//        if(convertView==null){
-//            LayoutInflater infalter = (LayoutInflater) context
-//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//
-//            row = View.inflate(context,R.layout.custom_listview_drawer,parent);
-//
-//        }else{
-//            row = convertView;
-//        }
-//        TextView titleTextView = (TextView) row.findViewById(R.id.customTextView);
-//        ImageView titleImageView = (ImageView) row.findViewById(R.id.customImageView);
-//
-//        titleTextView.setText(navNames[position]);
-//        titleImageView.setImageResource(images[position]);
-//
-//
-//        return row;
-//    }
-//}
