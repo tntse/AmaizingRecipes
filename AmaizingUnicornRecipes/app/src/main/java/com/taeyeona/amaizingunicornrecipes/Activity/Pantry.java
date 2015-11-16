@@ -5,13 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.R;
@@ -21,9 +25,12 @@ import com.taeyeona.amaizingunicornrecipes.R;
  */
 
 
-public class Pantry extends Activity
-{
+public class Pantry extends Activity implements AdapterView.OnItemClickListener {
     EditText et;
+
+    private DrawerLayout drawerLayout;
+    private ListView prefListView;
+    private String[] prefListName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +38,19 @@ public class Pantry extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantry);
         final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
+
+
+        /**
+         * preferenece name saved from strings.xml then used
+         * adapter to view as list
+         *
+         * Array then is viewed as simple list, preListView also set up to handle click events
+         */
+        drawerLayout = (DrawerLayout)findViewById(R.id.pantry_drawer);
+        prefListName = getResources().getStringArray(R.array.preference_list);
+        prefListView = (ListView)findViewById((R.id.pref_drawer));
+        prefListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prefListName));
+        prefListView.setOnItemClickListener(this);
 
 
         // typeCast .xml returns view while pantry_GridView is gridView obj
@@ -87,8 +107,6 @@ public class Pantry extends Activity
         }
         return st;
     }
-
-
     public class ImageAdapter extends BaseAdapter{
 
         private Context myContext;
@@ -122,7 +140,7 @@ public class Pantry extends Activity
             ImageView imageView = new ImageView(myContext);
 
             //scale and pad gridview elements
-            imageView.setLayoutParams(new GridView.LayoutParams(85,85));
+            imageView.setLayoutParams(new GridView.LayoutParams(100,100));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(2,2,2,2);
             imageView.setImageResource(ingredientImg[position]);
@@ -131,5 +149,18 @@ public class Pantry extends Activity
 
     }
 
+    /**
+     *
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     *
+     * Preference navigation drawer to edit preferences using nav drawer
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 
 }

@@ -31,10 +31,15 @@
         <item>Search Recipe</item>
         <item>Edit Profile</item>
         <item>Favorites Page</item>
+    </string-array>
 
-
-
-    </string-array>>
+    <string-array name="preference_list">
+    <item>Preference</item>
+    <item>Preference</item>>
+    <item>Preference</item>
+    <item>Preference</item>
+    <item>Preference</item>
+    </string-array>
 
     <string name="updates">What\'s new and happening !
         No idea.

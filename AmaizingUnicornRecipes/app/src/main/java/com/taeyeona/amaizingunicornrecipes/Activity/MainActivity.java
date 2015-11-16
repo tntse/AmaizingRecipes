@@ -50,7 +50,6 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
         navListView = (ListView)findViewById((R.id.nav_drawer));
         navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,navListName));
-
         navListView.setOnItemClickListener(this);
 
 
@@ -78,6 +77,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
                 kitty.start();
                 Intent intent = new Intent(MainActivity.this, Pantry.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
 
             }
         });
@@ -86,20 +86,23 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         //start profile onClickListner
         profile.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
             public void onClick(View view) {
                 kitty.start();
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         });
 
+        //Edit Ingredients
         toEditIngredients.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 kitty.start();
                 Intent intent = new Intent(MainActivity.this, EditIngredients.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+
             }
         });
     }
@@ -159,7 +162,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         }else if(position==2) {
             Intent intent = new Intent(this, Pantry.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+            overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
 
 
         }else if(position == 3){
