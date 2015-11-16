@@ -21,11 +21,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-<<<<<<< HEAD
 import android.widget.Toast;
-=======
 import android.view.View;
->>>>>>> eedd95551d188207156366449932d6cfc81020b0
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
