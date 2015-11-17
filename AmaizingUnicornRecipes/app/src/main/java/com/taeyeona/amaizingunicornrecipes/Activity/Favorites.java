@@ -120,4 +120,10 @@ public class Favorites extends Activity {
         long id = item.getId();
         handler.deleteRecipe(id);
     }
+
+    public void searchFavorite(FavoritesPage favorite) {
+        String title = favorite.getTitle();
+        Intent intent = new Intent(Favorites.this, RecipeSearch.class).putExtra("Ingredients", title);
+        startActivity(intent);
+    }
 }

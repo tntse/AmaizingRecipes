@@ -24,7 +24,7 @@
         android:layout_alignParentEnd="true" />
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/fav_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
          />
