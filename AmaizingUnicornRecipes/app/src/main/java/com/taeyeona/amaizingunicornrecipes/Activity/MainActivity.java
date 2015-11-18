@@ -49,13 +49,9 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
 
-        theMainAdapter = new MainAdapter(getSupportFragmentManager(), savedInstanceState);
-        theViewPager = (ViewPager) findViewById(R.id.main_pages);
-        theViewPager.setAdapter(theMainAdapter);
-
         buttons = new ArrayList<Button>();
-        buttons.add((Button)findViewById(R.id.main_profile_button));
-        buttons.add((Button)findViewById(R.id.main_pantry_button));
+        buttons.add((Button) findViewById(R.id.main_profile_button));
+        buttons.add((Button) findViewById(R.id.main_pantry_button));
         buttons.add((Button)findViewById(R.id.main_search_button));
 
         buttonHighlights = new ArrayList<View>();
@@ -69,6 +65,33 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         for(int i = 0; i < 3; i ++){
             buttons.get(i).setOnClickListener(this);
         }
+
+        theMainAdapter = new MainAdapter(getSupportFragmentManager(), savedInstanceState);
+        theViewPager = (ViewPager) findViewById(R.id.main_pages);
+        theViewPager.setAdapter(theMainAdapter);
+
+        theViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                 @Override
+                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                 }
+
+                 @Override
+                 public void onPageSelected(int position) {
+                     active.getButton().setTypeface(null, Typeface.NORMAL);
+                     active.getView().setVisibility(View.INVISIBLE);
+
+                     active.setButton(buttons.get(position));
+                     active.setView(buttonHighlights.get(position));
+                 }
+
+                 @Override
+                 public void onPageScrollStateChanged(int state) {
+
+                 }
+        });
+
+
 
 //        //test
 //        myAdapter = new MyAdapter(this);
