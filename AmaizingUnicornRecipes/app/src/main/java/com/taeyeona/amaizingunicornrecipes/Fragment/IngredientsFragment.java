@@ -10,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
+import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
 import com.taeyeona.amaizingunicornrecipes.Auth;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -27,11 +31,14 @@ import org.json.JSONObject;
  */
 public class IngredientsFragment extends Fragment {
 
+    ImageButton favorite;
+    StringBuilder ingredients = new StringBuilder();
     private StringBuilder ingredients = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_ingredient, container, false);
+
     }
 
     @Override
@@ -89,6 +96,14 @@ public class IngredientsFragment extends Fragment {
                 intent.putExtra("Ingredients", ingredients.toString());
                 startActivity(intent);
 
+            }
+        });
+
+        ImageButton fav = (ImageButton) getActivity().findViewById(R.id.favoriteButton);
+        final Favorites favObj = new Favorites(getActivity().getApplicationContext());
+        fav.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                favObj.storeRecipe(getArguments().getString("Title"));
             }
         });
 

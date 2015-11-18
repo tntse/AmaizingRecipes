@@ -68,6 +68,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Activity.FavoritesAdapter">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.default"/>
+            </intent-filter>
+        </activity>
+
         <activity android:name=".Activity.Pantry">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

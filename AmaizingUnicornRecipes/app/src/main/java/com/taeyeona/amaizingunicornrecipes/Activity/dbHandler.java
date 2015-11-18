@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,8 +9,8 @@ import android.content.ContentValues;
 /**
  * Database handler class
  *
- * <p> Creates a handle to create, store, and call from the database file ingredients.db.
- * Has globals: DATABASE_VERSION, DATABASE_NAME, TABLE_INGREDIENTS, COLUMN_ID,
+ * <p> Creates a handle to create, store, and call from the database file favorites.db.
+ * Has globals: DATABASE_VERSION, DATABASE_NAME, TABLE_FAVORITES, COLUMN_ID,
  * COLUMN_INGREDIENTNAME to store relative fields. Connects to Ingredients class in order
  * to organize ingredients object.</p>
  *
@@ -19,10 +19,10 @@ import android.content.ContentValues;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
-    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_TITLE = "title";
 
     /**
@@ -37,7 +37,15 @@ public class dbHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Override for onCreate so query is created when app opened
+     * ListView updtated constructor for dbHandler
+     * @param context
+     */
+    public dbHandler(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    /**
+     * Override for onCreate so query is created when opened
      * @param db A SQLite database object
      */
     @Override
@@ -78,12 +86,12 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Delete a ingredient from a database.
-     * @param recipeName Name of ingredient to delete
+     * @param id Id of recipe to delete
      */
-    public void deleteRecipe(String recipeName) {
+    public void deleteRecipe(long id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_TITLE + "=\""
-                + recipeName + "\";");
+        db.execSQL("DELETE FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_ID + "=\""
+                + id + "\";");
     }
 
     /**

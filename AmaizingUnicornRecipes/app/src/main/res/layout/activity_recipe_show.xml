@@ -15,16 +15,6 @@
         android:layout_gravity="center_horizontal|top"
         android:scaleType="centerCrop" />
 
-
-    <ImageButton
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/favoriteButton"
-        android:src="@android:drawable/btn_star"
-        android:background="#00ffffff"
-        android:layout_gravity="center" />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
