@@ -17,11 +17,11 @@ public class FavoritesPage {
      * Default constructor for FavoritesPage. Sets handler default.
      * @param context
      */
-//    public FavoritesPage(Context context) {
-//        handler = new dbHandler(context, null, null, 1);
-//    }
+    public FavoritesPage(Context context) {
+        handler = new dbHandler(context, null, null, 1);
+    }
 
-//    public FavoritesPage(){}
+    public FavoritesPage(){}
 
 
     /**

@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
  * Database intermediary for favorites page
@@ -32,6 +34,13 @@ import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
  */
 public class Favorites extends Activity implements AdapterView.OnItemClickListener {
 
+
+    private Favorites datasource;
+    String title;
+    ListView favoritesList;
+    EditText deleteInput;
+    FavoritesPage fav;
+    Button delete;
 
     private DrawerLayout drawerLayout;
     private ListView navListView;
@@ -67,40 +76,31 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      */
     public void open() {
         database = handler.getWritableDatabase();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
-
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.favorites);
-
-        /**
-         * Saved variables for drawerListView and drawerListNames,
-         * navListName are array items in strings.xml
-         * navListView is the list to be adapter for the listnme to be viewable
-         * in simple list item format
-         */
-        drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
-        navListName = getResources().getStringArray(R.array.drawer_list);
-
-        navListView = (ListView)findViewById((R.id.nav_drawer));
-        navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
-        navListView.setOnItemClickListener(this);
-
-        fav = new FavoritesPage(getApplicationContext());
-        deleteInput = (EditText) findViewById(R.id.deleteField);
-        favoritesList = (TextView) findViewById(R.id.favoritesList);
-        printDatabase();
-
-
-        favoritesList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                favoritesList.setTextColor(Color.CYAN);
-//                Intent intent = new Intent(Favorites.this, RecipeSearch.class);
-//                startActivity(intent);
-            }
-        });
+//        @Override
+//        protected void onCreate (Bundle savedInstanceState){
+//
+//
+//            super.onCreate(savedInstanceState);
+//            setContentView(R.layout.favorites);
+//
+//            /**
+//             * Saved variables for drawerListView and drawerListNames,
+//             * navListName are array items in strings.xml
+//             * navListView is the list to be adapter for the listnme to be viewable
+//             * in simple list item format
+//             */
+//            drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+//            navListName = getResources().getStringArray(R.array.drawer_list);
+//
+//            navListView = (ListView) findViewById((R.id.nav_drawer));
+//            navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
+//            navListView.setOnItemClickListener(this);
+//
+//            fav = new FavoritesPage(getApplicationContext());
+//            deleteInput = (EditText) findViewById(R.id.deleteField);
+//            favoritesList = (TextView) findViewById(R.id.favoritesList);
+//        }
     }
 
     /**

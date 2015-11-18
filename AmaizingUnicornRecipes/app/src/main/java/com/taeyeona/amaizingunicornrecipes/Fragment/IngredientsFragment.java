@@ -32,7 +32,7 @@ import org.json.JSONObject;
 public class IngredientsFragment extends Fragment {
 
     ImageButton favorite;
-    StringBuilder ingredients = new StringBuilder();
+ //   StringBuilder ingredients = new StringBuilder();
     private StringBuilder ingredients = new StringBuilder();
 
     @Override
