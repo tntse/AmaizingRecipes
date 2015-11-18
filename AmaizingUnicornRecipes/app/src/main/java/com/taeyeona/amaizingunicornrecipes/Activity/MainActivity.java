@@ -33,7 +33,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_v2);
 
 //        //test
 //        myAdapter = new MyAdapter(this);
@@ -45,7 +45,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
          * navListName are array items in strings.xml
          * navListView is the list to be adapter for the listnme to be viewable
          * in simple list item format
-         */
+         *
         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
         navListName = getResources().getStringArray(R.array.drawer_list);
 
@@ -105,7 +105,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
 
             }
-        });
+        });*/
     }
 
     @Override
