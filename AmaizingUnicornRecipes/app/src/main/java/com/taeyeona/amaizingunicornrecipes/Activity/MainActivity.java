@@ -2,6 +2,7 @@ package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,8 +23,10 @@ import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
 import com.taeyeona.amaizingunicornrecipes.R;
 
+import java.util.ArrayList;
 
-public  class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+public  class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
 
     //variables for drawer list view and elements of listview items
@@ -37,6 +40,9 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
 
+    private ActivePage active;
+    private ArrayList<Button> buttons;
+    private ArrayList<View> buttonHighlights;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,23 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         theMainAdapter = new MainAdapter(getSupportFragmentManager(), savedInstanceState);
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
+
+        buttons = new ArrayList<Button>();
+        buttons.add((Button)findViewById(R.id.main_profile_button));
+        buttons.add((Button)findViewById(R.id.main_pantry_button));
+        buttons.add((Button)findViewById(R.id.main_search_button));
+
+        buttonHighlights = new ArrayList<View>();
+        buttonHighlights.add(findViewById(R.id.main_profile_bar));
+        buttonHighlights.add(findViewById(R.id.main_pantry_bar));
+        buttonHighlights.add(findViewById(R.id.main_search_bar));
+
+        active = new ActivePage(buttons.get(0), buttonHighlights.get(0));
+
+
+        for(int i = 0; i < 3; i ++){
+            buttons.get(i).setOnClickListener(this);
+        }
 
 //        //test
 //        myAdapter = new MyAdapter(this);
@@ -179,6 +202,47 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             Intent intent = new Intent(this, Favorites.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        int index = buttons.indexOf((Button)view);
+        active.getButton().setTypeface(null, Typeface.NORMAL);
+        active.getView().setVisibility(View.INVISIBLE);
+
+        active.setButton(buttons.get(index));
+        active.setView(buttonHighlights.get(index));
+        theViewPager.setCurrentItem(index);
+    }
+
+    class ActivePage {
+
+        private Button button;
+        private View view;
+
+        public ActivePage(Button button, View view){
+            setButton(button);
+            setView(view);
+        }
+
+        public Button getButton() {
+            return button;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public void setButton(Button button) {
+            this.button = button;
+            button.setTypeface(null, Typeface.BOLD);
+        }
+
+        public void setView(View view) {
+            this.view = view;
+            view.setVisibility(View.VISIBLE);
         }
 
     }
