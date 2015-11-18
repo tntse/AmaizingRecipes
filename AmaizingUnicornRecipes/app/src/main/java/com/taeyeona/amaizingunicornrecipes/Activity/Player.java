@@ -17,9 +17,12 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
+import android.view.View;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -124,23 +127,30 @@ public class Player extends YouTubeFailureRecoveryActivity {
     private void parseJSON(JSONObject pResponse){
         try{
 
-            Log.d("vid", "we got here 1");
             JSONArray items = pResponse.getJSONArray(Keys.endpointRecipe.KEY_items);
-            Log.d("vid", "we got here 2");
             JSONObject id = items.getJSONObject(0);
-            Log.d("vid", "we got here 3");
             //inside first array element
             JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
-            Log.d("vid", "we got here 4");
             titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
-            Log.d("vid",titleList.toString());
-            Log.d("vid", "we got here 5");
+            //if no video tutorials found
+            if (titleList==null){
+
+                Toast.makeText(getApplicationContext(),"No Video Tutorials Found",Toast.LENGTH_LONG).show();
+                Intent notFound = new Intent(this,Pantry.class);
+                startActivity(notFound);
+            }
 
 
 
         }catch(JSONException ex){
 
         }
+
     }
+
+    public void goBack(View view){
+        this.finish();
+    }
+
 
 }

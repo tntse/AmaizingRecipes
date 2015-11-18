@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class IngredientsFragment extends Fragment {
 
     ImageButton favorite;
     StringBuilder ingredients = new StringBuilder();
+    private StringBuilder ingredients = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,15 +65,18 @@ public class IngredientsFragment extends Fragment {
                         JSONArray ingredientsList = recipe.getJSONArray("ingredients");
                         Log.d(IngredientsFragment.class.getSimpleName(), ingredientsList.toString());
                         for (int i = 0; i < ingredientsList.length(); i++) {
-                            ingredients.append(ingredientsList.get(i));
+                            ingredients.append(ingredientsList.getString(i));
                             ingredients.append('\n');
+                            Log.d(IngredientsFragment.class.getSimpleName(), ingredients.toString());
                         }
-                        text2.setText(ingredients.toString());
+                        //Putting a setText here because if put outside, it won't show F2F's ingredient list
+                        text2.setText("Ingredients:\n" + ingredients.toString());
+                        text2.setMovementMethod(new ScrollingMovementMethod());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-            }, 1000);
+            }, 2000);
 
         }else{
             String[] ingredientLines = getArguments().getStringArray("Ingredients");
@@ -79,7 +84,8 @@ public class IngredientsFragment extends Fragment {
                 ingredients.append(ingredientLines[i]);
                 ingredients.append('\n');
             }
-            text2.setText(ingredients.toString());
+            text2.setText("Ingredients:\n" + ingredients.toString());
+            text2.setMovementMethod(new ScrollingMovementMethod());
         }
 
         Button but = (Button) getActivity().findViewById(R.id.button4);
@@ -87,6 +93,7 @@ public class IngredientsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MissingIngredients.class);
+                intent.putExtra("Ingredients", ingredients.toString());
                 startActivity(intent);
 
             }

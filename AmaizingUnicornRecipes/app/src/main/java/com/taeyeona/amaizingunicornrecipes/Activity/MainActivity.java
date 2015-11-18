@@ -19,6 +19,8 @@ import com.taeyeona.amaizingunicornrecipes.R;
 
 public  class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
+
+
     //variables for drawer list view and elements of listview items
     private DrawerLayout drawerLayout;
     private ListView navListView;
@@ -40,15 +42,15 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
         /**
          * Saved variables for drawerListView and drawerListNames,
-         * navListName are the names of activities the drawer will display
-         * navListView are views set up to listen for onClick and run function
+         * navListName are array items in strings.xml
+         * navListView is the list to be adapter for the listnme to be viewable
+         * in simple list item format
          */
         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
         navListName = getResources().getStringArray(R.array.drawer_list);
 
         navListView = (ListView)findViewById((R.id.nav_drawer));
         navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,navListName));
-
         navListView.setOnItemClickListener(this);
 
 
@@ -59,7 +61,7 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         new Eula(this).show();
 
         //set up button sound
-        final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
+        //final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
 
         //created buttons to reference each activity
         Button pantry = (Button)findViewById(R.id.goToPantry);
@@ -73,9 +75,10 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
 
             @Override
             public void onClick(View view) {
-                kitty.start();
+                //kitty.start();
                 Intent intent = new Intent(MainActivity.this, Pantry.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
 
             }
         });
@@ -84,20 +87,23 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         //start profile onClickListner
         profile.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
             public void onClick(View view) {
-                kitty.start();
+                //kitty.start();
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         });
 
+        //Edit Ingredients
         toEditIngredients.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                kitty.start();
+                //kitty.start();
                 Intent intent = new Intent(MainActivity.this, EditIngredients.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+
             }
         });
     }
@@ -151,75 +157,26 @@ public  class MainActivity extends Activity implements AdapterView.OnItemClickLi
         }else if(position==1){
             Intent intent = new Intent(this,EditIngredients.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+
+
         }else if(position==2) {
             Intent intent = new Intent(this, Pantry.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
+
+
         }else if(position == 3){
             Intent intent = new Intent(this,Profile.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+
+
         }else if(position==4){
             Intent intent = new Intent(this,Favorites.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         }
 
     }
 }
-
-
-//////////////////// class for custom drawer nav list view
-//class MyAdapter extends BaseAdapter{
-//
-//    String navNames[];
-//    int[] images = {
-//            R.drawable.test_1,
-//            R.drawable.test_2,
-//            R.drawable.test_3,
-//            R.drawable.test_4};
-//    private Context context;
-//
-//    public MyAdapter(Context context){
-//
-//        this.context = context;
-//        navNames = context.getResources().getStringArray(R.array.drawer_list);
-//    }
-//
-//
-//    @Override
-//    public int getCount() {
-//        return navNames.length;
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return navNames[position];
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//
-//        View row = null;
-//
-//        if(convertView==null){
-//            LayoutInflater infalter = (LayoutInflater) context
-//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//
-//            row = View.inflate(context,R.layout.custom_listview_drawer,parent);
-//
-//        }else{
-//            row = convertView;
-//        }
-//        TextView titleTextView = (TextView) row.findViewById(R.id.customTextView);
-//        ImageView titleImageView = (ImageView) row.findViewById(R.id.customImageView);
-//
-//        titleTextView.setText(navNames[position]);
-//        titleImageView.setImageResource(images[position]);
-//
-//
-//        return row;
-//    }
-//}
