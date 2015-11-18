@@ -7,4 +7,10 @@
     <color name="list_row_end_color">#ffffff</color>
     <color name="list_row_hover_start_color">#ebeef0</color>
     <color name="list_row_hover_end_color">#ebeef0</color>
+
+    <color name="white">#fff</color>
+    <color name="yellow_a200">#FFFF00</color>
+    <color name="orange_400">#FF3D00</color>>
+
+    <color name="green_a400">#00E676</color>>
 </resources>

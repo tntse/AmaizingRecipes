@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/ingredient"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ingredient">
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Title"
         android:id="@+id/textView5"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
-
-    <ScrollView
-        android:layout_width="376dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_alignBottom="@+id/textView5">
-
-    </ScrollView>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingredients"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal|top"
+        android:text="Title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
         android:id="@+id/textView8"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_gravity="center_horizontal"
+        android:text="Ingredients" />
 
-    <Button
+
+    <ImageButton
+        android:id="@+id/favoriteButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:layout_alignTop="@+id/button4"
+        android:layout_gravity="center"
+        android:layout_toStartOf="@+id/button4"
+        android:background="#00ffffff"
+        android:src="@android:drawable/btn_star"
+        android:layout_alignParentBottom="true" />
+
+    <Button
         android:id="@+id/button4"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/find_missing_ingredients"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/textView8"
-        android:layout_marginBottom="74dp" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

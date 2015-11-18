@@ -1,7 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class Recipes {
     private Double socialRank;
     private String publisherUrl;
     private List<String> ingredients;
+    private List<String> nutrients;
 
     public Recipes(){
     }
@@ -34,6 +33,7 @@ public class Recipes {
         socialRank = Math.floor(rank * 100) / 100;
         publisherUrl = pubUrl;
         ingredients = new ArrayList<String>();
+        nutrients = new ArrayList<String>();
     }
 
     /**
@@ -112,6 +112,14 @@ public class Recipes {
 
     public void setIngredients(String ingredient){
         ingredients.add(ingredient);
+    }
+
+    public List<String> getNutrients(){
+        return nutrients;
+    }
+
+    public void setNutrients(String nutrient){
+        nutrients.add(nutrient);
     }
 
     /**
