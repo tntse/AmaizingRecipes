@@ -24,8 +24,9 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyA9O9RdXwpGlIjg713yDb-MmyQ5OYCd2PM" />
-
+            android:value="AIzaSyC9ZRlRXJVAxq8GjSHT2lMgVGwgcHPtmx4" />
+        <!--AIzaSyC9ZRlRXJVAxq8GjSHT2lMgVGwgcHPtmx4-->
+        <!--AIzaSyA9O9RdXwpGlIjg713yDb-MmyQ5OYCd2PM-->
         <activity
             android:name=".Activity.Player"
             android:label="@string/app_name" >
@@ -37,7 +38,7 @@
         </activity>
 
         <activity
-            android:name=".Splash"
+            android:name=".Activity.Splash"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +62,13 @@
         </activity>
 
         <activity android:name=".Activity.Favorites">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.default"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity.FavoritesAdapter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.default"/>
