@@ -94,6 +94,7 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="pantry">Pantry</string>
     <string name="profile">Profile</string>
     <string name="search">Search</string>
+    <string name="recipe_name">Recipe Name</string>
 
 
 </resources>

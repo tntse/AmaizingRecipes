@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        >
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,13 +67,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile"
                     android:background="?android:attr/selectableItemBackground"
-                    android:id="@+id/main_profile_button"
+                    android:id="@+id/main_button_1"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     />
 
                 <View
-                    android:id="@+id/main_profile_bar"
+                    android:id="@+id/main_bar_1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#d2dfdb"
@@ -91,12 +91,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pantry"
                     android:background="?android:attr/selectableItemBackground"
-                    android:id="@+id/main_pantry_button"
+                    android:id="@+id/main_button_2"
                     android:textColor="#FFFFFF"
                     />
 
                 <View
-                    android:id="@+id/main_pantry_bar"
+                    android:id="@+id/main_bar_2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#d2dfdb"
@@ -113,12 +113,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search"
                     android:background="?android:attr/selectableItemBackground"
-                    android:id="@+id/main_search_button"
+                    android:id="@+id/main_button_3"
                     android:textColor="#FFFFFF"
                     />
 
                 <View
-                    android:id="@+id/main_search_bar"
+                    android:id="@+id/main_bar_3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#d2dfdb"

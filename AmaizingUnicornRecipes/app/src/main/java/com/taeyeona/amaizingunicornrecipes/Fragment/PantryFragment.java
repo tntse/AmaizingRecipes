@@ -36,7 +36,7 @@ public class PantryFragment extends Fragment {
     private Button addButton;
     private GridView inGridients;
     private Set<String> manager;
-    private String[] ingredients;
+    private PantryGridViewAdapter gridManager;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pantry, container, false);
@@ -47,7 +47,7 @@ public class PantryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
-        // editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();
 
         input = (EditText)view.findViewById(R.id.pantry_item_edit_text);
         addButton = (Button) view.findViewById(R.id.pantry_add_button);
@@ -58,16 +58,29 @@ public class PantryFragment extends Fragment {
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
 
-        inGridients.setAdapter(new PantryGridViewAdapter(getContext(), (String[])manager.toArray()));
+        gridManager = new PantryGridViewAdapter(getContext(), (String[])manager.toArray());
+
+        inGridients.setAdapter(gridManager);
 
         addButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
-                if(input.getText().toString().trim().equals(""))
+                String inputText = input.getText().toString().trim();
+
+                if(inputText.equals(""))
                     Toast.makeText(getContext(), "Please donut attempt to add a Null String Cheese.", Toast.LENGTH_LONG).show();
-                else
+                else {
                     Toast.makeText(getContext(), "Input: " + input.getText().toString(), Toast.LENGTH_SHORT).show();
+                    if(!manager.contains(inputText)) {
+                        manager.add(inputText);
+                        editor.putStringSet("Ingredients", manager);
+                        editor.commit();
+                        gridManager = new PantryGridViewAdapter(getContext(), (String[]) manager.toArray());
+                        inGridients.setAdapter(gridManager);
+                    }
+
+                }
             }
         });
 

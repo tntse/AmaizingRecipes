@@ -1,41 +1,30 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.ListView;
 
-import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
-import com.taeyeona.amaizingunicornrecipes.Eula;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
 
 
-public  class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public  class MainActivity extends AppCompatActivity implements /*AdapterView.OnItemClickListener,*/ View.OnClickListener {
 
 
-    //variables for drawer list view and elements of listview items
+    /*variables for drawer list view and elements of listview items
     private DrawerLayout drawerLayout;
     private ListView navListView;
     private String[] navListName;
 
 //    //test
 //    private MyAdapter myAdapter;
+*/
 
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
@@ -50,19 +39,23 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_main_v2);
 
         buttons = new ArrayList<Button>();
-        buttons.add((Button) findViewById(R.id.main_profile_button));
-        buttons.add((Button) findViewById(R.id.main_pantry_button));
-        buttons.add((Button)findViewById(R.id.main_search_button));
+        buttons.add((Button) findViewById(R.id.main_button_1));
+        buttons.add((Button) findViewById(R.id.main_button_2));
+        buttons.add((Button) findViewById(R.id.main_button_3));
+
+        buttons.get(0).setText("Profile");
+        buttons.get(1).setText("Pantry");
+        buttons.get(2).setText("Search Recipes");
 
         buttonHighlights = new ArrayList<View>();
-        buttonHighlights.add(findViewById(R.id.main_profile_bar));
-        buttonHighlights.add(findViewById(R.id.main_pantry_bar));
-        buttonHighlights.add(findViewById(R.id.main_search_bar));
+        buttonHighlights.add(findViewById(R.id.main_bar_1));
+        buttonHighlights.add(findViewById(R.id.main_bar_2));
+        buttonHighlights.add(findViewById(R.id.main_bar_3));
 
         active = new ActivePage(buttons.get(0), buttonHighlights.get(0));
 
 
-        for(int i = 0; i < 3; i ++){
+        for (int i = 0; i < 3; i++) {
             buttons.get(i).setOnClickListener(this);
         }
 
@@ -71,31 +64,31 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         theViewPager.setAdapter(theMainAdapter);
 
         theViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                 @Override
-                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                 }
+            }
 
-                 @Override
-                 public void onPageSelected(int position) {
-                     active.getButton().setTypeface(null, Typeface.NORMAL);
-                     active.getView().setVisibility(View.INVISIBLE);
+            @Override
+            public void onPageSelected(int position) {
+                active.getButton().setTypeface(null, Typeface.NORMAL);
+                active.getView().setVisibility(View.INVISIBLE);
 
-                     active.setButton(buttons.get(position));
-                     active.setView(buttonHighlights.get(position));
-                 }
+                active.setButton(buttons.get(position));
+                active.setView(buttonHighlights.get(position));
+            }
 
-                 @Override
-                 public void onPageScrollStateChanged(int state) {
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-                 }
+            }
         });
 
+    }
 
-
-//        //test
-//        myAdapter = new MyAdapter(this);
-//        navListView.setAdapter(myAdapter);
+/*        //test
+        myAdapter = new MyAdapter(this);
+       navListView.setAdapter(myAdapter);
 
 
         /**
@@ -161,7 +154,7 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
          overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
 
          }
-         });*/
+         });
     }
 
     @Override
@@ -192,7 +185,7 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
      * @param position
      * @param id       OnItemClick added for Drawer list View
      *                 goes to different activities in app
-     */
+     */ /*
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -228,7 +221,7 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         }
 
     }
-
+*/
     @Override
     public void onClick(View view) {
         int index = buttons.indexOf((Button)view);

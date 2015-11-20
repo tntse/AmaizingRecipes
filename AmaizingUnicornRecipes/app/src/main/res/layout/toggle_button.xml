@@ -8,5 +8,7 @@
         android:layout_height="match_parent"
         android:layout_margin="2dp"
         android:id="@+id/toggle_button"
-        android:checked="false" />
+        android:checked="false"
+        />
+
 </LinearLayout>

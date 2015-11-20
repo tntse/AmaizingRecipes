@@ -37,4 +37,6 @@ public class PantryGridViewAdapter extends ArrayAdapter<String> implements View.
         ToggleButton button = (ToggleButton) view;
         button.setText(button.getContentDescription());
     }
+
+
 }

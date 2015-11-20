@@ -22,6 +22,7 @@ import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +42,8 @@ public class ProfileFragment extends Fragment {
     private TextView email;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private ArrayAdapter<FavoritesPage> adapter;
+    private List<FavoritesPage> emptyFavorites;
 
     @Nullable
     @Override
@@ -67,8 +70,16 @@ public class ProfileFragment extends Fragment {
         datasource.open();
 
         List<FavoritesPage> values = datasource.getAllFavorites();
-        ArrayAdapter<FavoritesPage> adapter = new ArrayAdapter<FavoritesPage>(getContext(),
-                android.R.layout.simple_list_item_1, values);
+        if(values.isEmpty()){
+            emptyFavorites = new ArrayList<FavoritesPage>();
+            FavoritesPage temp = new FavoritesPage();
+            temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
+            emptyFavorites.add(temp);
+            adapter = new ArrayAdapter<FavoritesPage>(getContext(), android.R.layout.simple_expandable_list_item_1, emptyFavorites);
+        }else {
+             adapter = new ArrayAdapter<FavoritesPage>(getContext(),
+                    android.R.layout.simple_list_item_1, values);
+        }
 
         favoritesList.setAdapter(adapter);
         favoritesList.isClickable();
