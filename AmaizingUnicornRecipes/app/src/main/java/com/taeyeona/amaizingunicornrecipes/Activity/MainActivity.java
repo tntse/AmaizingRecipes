@@ -37,8 +37,8 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         setContentView(R.layout.activity_main_v2);
 
         theMainAdapter = new MainAdapter(getSupportFragmentManager(), savedInstanceState);
-        theViewPager.setAdapter(theMainAdapter);
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
+        theViewPager.setAdapter(theMainAdapter);
         fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
         Button button;
         View view;
