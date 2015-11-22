@@ -6,22 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
  * Database intermediary for favorites page
@@ -32,6 +29,10 @@ import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
  */
 public class Favorites extends Activity implements AdapterView.OnItemClickListener {
 
+
+    EditText deleteInput;
+    FavoriteObjHandler fav;
+    Button delete;
 
     private DrawerLayout drawerLayout;
     private ListView navListView;
@@ -57,8 +58,8 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * Passes recipe title to handler to store in database
      * @param title recipe title
      */
-    public void storeRecipe(String title){
-        handler.addRecipe(title);
+    public void storeRecipe(String title, String recipeID){
+        handler.addRecipe(title, recipeID);
     }
 
     /**
@@ -67,41 +68,38 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      */
     public void open() {
         database = handler.getWritableDatabase();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
-
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.favorites);
-
-        /**
-         * Saved variables for drawerListView and drawerListNames,
-         * navListName are array items in strings.xml
-         * navListView is the list to be adapter for the listnme to be viewable
-         * in simple list item format
-         */
-        drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
-        navListName = getResources().getStringArray(R.array.drawer_list);
-
-        navListView = (ListView)findViewById((R.id.nav_drawer));
-        navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
-        navListView.setOnItemClickListener(this);
-
-        fav = new FavoritesPage(getApplicationContext());
-        deleteInput = (EditText) findViewById(R.id.deleteField);
-        favoritesList = (TextView) findViewById(R.id.favoritesList);
-        printDatabase();
-
-
-        favoritesList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                favoritesList.setTextColor(Color.CYAN);
-//                Intent intent = new Intent(Favorites.this, RecipeSearch.class);
-//                startActivity(intent);
-            }
-        });
     }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//
+//        fav = new FavoriteObjHandler();
+//        deleteInput = (EditText) findViewById(R.id.deleteField);
+//        delete = (Button) findViewById(R.id.deleteButton);
+//        favoritesList = (ListView) findViewById(R.id.nav_drawer);
+//
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.favorites);
+//
+//        /**
+//         * Saved variables for drawerListView and drawerListNames,
+//         * navListName are array items in strings.xml
+//         * navListView is the list to be adapter for the listnme to be viewable
+//         * in simple list item format
+//         */
+//        drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
+//        navListName = getResources().getStringArray(R.array.drawer_list);
+//
+//        navListView = (ListView)findViewById((R.id.nav_drawer));
+//        navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
+//        navListView.setOnItemClickListener(this);
+//
+//        fav = new FavoriteObjHandler(getApplicationContext());
+//        deleteInput = (EditText) findViewById(R.id.deleteField);
+//        favoritesList = (TextView) findViewById(R.id.favoritesList);
+//
+//        }
+
 
     /**
      * Closes handler instance
@@ -115,7 +113,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * @param title
      * @return
      */
-    public FavoritesPage createTitle(String title) {
+    public FavoriteObjHandler createTitle(String title) {
         ContentValues values = new ContentValues();
         values.put(dbHandler.COLUMN_TITLE, title);
         long insertId = database.insert(dbHandler.TABLE_FAVORITES, null,
@@ -124,32 +122,63 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
                 allColumns, dbHandler.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        FavoritesPage newTitle = cursorToTitle(cursor);
+        FavoriteObjHandler newTitle = cursorToTitle(cursor);
         cursor.close();
         return newTitle;
     }
 
     /**
-     * Sets the cursor and data fields to title
+     * Sets the recipe id
+     * @param r_id
+     * @return
+     */
+    public FavoriteObjHandler createRecipeID(String r_id) {
+        ContentValues values = new ContentValues();
+        values.put(dbHandler.COLUMN_RID, r_id);
+        long insertId = database.insert(dbHandler.TABLE_FAVORITES, null,
+                values);
+        Cursor cursor = database.query(dbHandler.TABLE_FAVORITES,
+                allColumns, dbHandler.COLUMN_ID + " = " + insertId, null,
+                null, null, null);
+        cursor.moveToFirst();
+        FavoriteObjHandler newRID = cursorToID(cursor);
+        cursor.close();
+        return newRID;
+    }
+
+    /**
+     * Moves cursor to title
      * @param cursor
      * @return
      */
-    private FavoritesPage cursorToTitle(Cursor cursor) {
-        FavoritesPage title = new FavoritesPage();
+    private FavoriteObjHandler cursorToTitle(Cursor cursor) {
+        FavoriteObjHandler title = new FavoriteObjHandler();
         title.setId(cursor.getLong(0));
         title.setTitle(cursor.getString(1));
         return title;
     }
 
-    public List<FavoritesPage> getAllFavorites() {
-        List<FavoritesPage> favorites = new ArrayList<FavoritesPage>();
+    /**
+     * Moves cursor to recipe id
+     * @param cursor
+     * @return
+     */
+    private FavoriteObjHandler cursorToID(Cursor cursor) {
+        FavoriteObjHandler id = new FavoriteObjHandler();
+        id.setId(cursor.getLong(0));
+        id.setRecipeID(cursor.getString(1));
+        return id;
+    }
+
+    public List<FavoriteObjHandler> getAllFavorites() {
+        List<FavoriteObjHandler> favorites = new ArrayList<FavoriteObjHandler>();
 
         Cursor cursor = database.query(dbHandler.TABLE_FAVORITES,
                 allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            FavoritesPage favorite = cursorToTitle(cursor);
+            FavoriteObjHandler favorite = cursorToTitle(cursor);
             favorites.add(favorite);
             cursor.moveToNext();
         }
@@ -162,14 +191,14 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * Deletes an row from database
      *
      * Currently not implemented as there is no delete button yet
-     * @param item FavoritesPage object to delete
+     * @param item FavoriteObjHandler object to delete
      */
-    public void deleteFavorite(FavoritesPage item) {
+    public void deleteFavorite(FavoriteObjHandler item) {
         long id = item.getId();
         handler.deleteRecipe(id);
     }
 
-    public void searchFavorite(FavoritesPage favorite) {
+    public void searchFavorite(FavoriteObjHandler favorite) {
         String title = favorite.getTitle();
         Intent intent = new Intent(Favorites.this, RecipeSearch.class).putExtra("Ingredients", title);
         startActivity(intent);

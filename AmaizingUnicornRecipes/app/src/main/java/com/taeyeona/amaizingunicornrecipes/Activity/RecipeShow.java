@@ -3,14 +3,12 @@ package com.taeyeona.amaizingunicornrecipes.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
@@ -26,7 +24,7 @@ public class RecipeShow extends AppCompatActivity{
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
 
-    FavoritesPage favoriteObj;
+    FavoriteObjHandler favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){

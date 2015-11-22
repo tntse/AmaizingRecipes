@@ -1,9 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,11 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.List;
@@ -30,7 +26,7 @@ public class FavoritesAdapter extends Activity {
     String title;
     ListView favoritesList;
     EditText deleteInput;
-    FavoritesPage fav;
+    FavoriteObjHandler fav;
     Button delete;
 
 
@@ -44,17 +40,17 @@ public class FavoritesAdapter extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorites);
         Log.d("meow", "displaying le favorites page.");
-        fav = new FavoritesPage();
+        fav = new FavoriteObjHandler();
         deleteInput = (EditText) findViewById(R.id.deleteField);
         delete = (Button) findViewById(R.id.deleteButton);
-        favoritesList = (ListView) findViewById(R.id.fav_list);
+        favoritesList = (ListView) findViewById(R.id.nav_drawer);
 
         datasource = new Favorites(this);
         datasource.open();
 
-        List<FavoritesPage> values = datasource.getAllFavorites();
+        List<FavoriteObjHandler> values = datasource.getAllFavorites();
 
-        ArrayAdapter<FavoritesPage> adapter = new ArrayAdapter<FavoritesPage>(this,
+        ArrayAdapter<FavoriteObjHandler> adapter = new ArrayAdapter<FavoriteObjHandler>(this,
                 android.R.layout.simple_list_item_1, values);
         favoritesList.setAdapter(adapter);
 
@@ -63,10 +59,10 @@ public class FavoritesAdapter extends Activity {
             @Override
             public void onClick(View v) {
                 @SuppressWarnings("unchecked")
-                ArrayAdapter<FavoritesPage> adapter = (ArrayAdapter<FavoritesPage>) favoritesList.getAdapter();
-                FavoritesPage favorite = null;
+                ArrayAdapter<FavoriteObjHandler> adapter = (ArrayAdapter<FavoriteObjHandler>) favoritesList.getAdapter();
+                FavoriteObjHandler favorite = null;
                 if (favoritesList.getAdapter().getCount() > 0) {
-                    favorite = (FavoritesPage) favoritesList.getAdapter().getItem(0);
+                    favorite = (FavoriteObjHandler) favoritesList.getAdapter().getItem(0);
                     datasource.deleteFavorite(favorite);
                     adapter.remove(favorite);
                 }

@@ -14,10 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
-import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
 import com.taeyeona.amaizingunicornrecipes.Auth;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -32,7 +30,7 @@ import org.json.JSONObject;
 public class IngredientsFragment extends Fragment {
 
     ImageButton favorite;
-    StringBuilder ingredients = new StringBuilder();
+ //   StringBuilder ingredients = new StringBuilder();
     private StringBuilder ingredients = new StringBuilder();
 
     @Override
@@ -103,7 +101,7 @@ public class IngredientsFragment extends Fragment {
         final Favorites favObj = new Favorites(getActivity().getApplicationContext());
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                favObj.storeRecipe(getArguments().getString("Title"));
+                favObj.storeRecipe(getArguments().getString("Title"), getArguments().getString("RecipeID"));
             }
         });
 

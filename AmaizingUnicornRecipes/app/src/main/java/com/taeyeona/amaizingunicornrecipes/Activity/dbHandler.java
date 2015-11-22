@@ -19,11 +19,13 @@ import android.content.ContentValues;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
     public static final String COLUMN_ID = "_id";
+ //   public static final String COLUMN_PICTURE = "picture";
     public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_RID = "recipe_id";
 
     /**
      * Creates a basic handle for the database.
@@ -53,7 +55,7 @@ public class dbHandler extends SQLiteOpenHelper {
 
         String query = "CREATE TABLE " + TABLE_FAVORITES + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_TITLE + " TEXT " + ");";
+                COLUMN_TITLE + " TEXT " + COLUMN_RID + " TEXT " + ");";
         db.execSQL(query);
 
     }
@@ -76,9 +78,10 @@ public class dbHandler extends SQLiteOpenHelper {
      * Adds a row to table
      * @param recipe Ingredients Used to store new ingredient
      */
-    public void addRecipe(String recipe){
+    public void addRecipe(String recipe, String id){
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, recipe);
+        values.put(COLUMN_RID, id);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_FAVORITES, null, values);
         db.close();
