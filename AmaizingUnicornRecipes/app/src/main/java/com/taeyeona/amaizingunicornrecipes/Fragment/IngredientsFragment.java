@@ -1,6 +1,7 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
@@ -20,6 +23,7 @@ import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.R;
+import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +41,7 @@ public class IngredientsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ingredient, container, false);
+        return inflater.inflate(R.layout.fragment_ingredients_v2, container, false);
 
     }
 
@@ -45,10 +49,13 @@ public class IngredientsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView text = (TextView) getActivity().findViewById(R.id.textView5);
-        final TextView text2 = (TextView) getActivity().findViewById(R.id.textView8);
-        text.setText(getArguments().getString("Title"));
+        ImageView recipeImage = (ImageView) view.findViewById(R.id.recipe_picture);
+        recipeImage.setImageBitmap((Bitmap)getArguments().getParcelable("BMP"));
 
+        TextView title_text = (TextView) getActivity().findViewById(R.id.recipe_name);
+        final TextView ingredients_list = (TextView) getActivity().findViewById(R.id.ingredients_list);
+        title_text.setText(getArguments().getString("Title"));
+        // TODO: move this into RecipeAPIsInterface
         if(getArguments().getString("API").equals("Food2Fork")){
             final JSONRequest request = new JSONRequest();
             request.createResponse(Auth.GET_URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
@@ -70,8 +77,8 @@ public class IngredientsFragment extends Fragment {
                             Log.d(IngredientsFragment.class.getSimpleName(), ingredients.toString());
                         }
                         //Putting a setText here because if put outside, it won't show F2F's ingredient list
-                        text2.setText("Ingredients:\n" + ingredients.toString());
-                        text2.setMovementMethod(new ScrollingMovementMethod());
+                        ingredients_list.setText("Ingredients:\n" + ingredients.toString());
+                        ingredients_list.setMovementMethod(new ScrollingMovementMethod());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -84,12 +91,12 @@ public class IngredientsFragment extends Fragment {
                 ingredients.append(ingredientLines[i]);
                 ingredients.append('\n');
             }
-            text2.setText("Ingredients:\n" + ingredients.toString());
-            text2.setMovementMethod(new ScrollingMovementMethod());
+            ingredients_list.setText("Ingredients:\n" + ingredients.toString());
+            ingredients_list.setMovementMethod(new ScrollingMovementMethod());
         }
 
-        Button but = (Button) getActivity().findViewById(R.id.button4);
-        but.setOnClickListener(new View.OnClickListener() {
+        Button find_missing_button = (Button) getActivity().findViewById(R.id.find_missing_button);
+        find_missing_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MissingIngredients.class);
@@ -99,7 +106,7 @@ public class IngredientsFragment extends Fragment {
             }
         });
 
-        ImageButton fav = (ImageButton) getActivity().findViewById(R.id.favoriteButton);
+        ImageButton fav = (ImageButton) getActivity().findViewById(R.id.star_button);
         final Favorites favObj = new Favorites(getActivity().getApplicationContext());
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

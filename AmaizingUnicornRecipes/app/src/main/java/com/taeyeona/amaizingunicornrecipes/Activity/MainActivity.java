@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
 
 
-public  class MainActivity extends AppCompatActivity implements /*AdapterView.OnItemClickListener,*/ View.OnClickListener {
+public  class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener,*/{
 
 
     /*variables for drawer list view and elements of listview items
@@ -28,61 +29,35 @@ public  class MainActivity extends AppCompatActivity implements /*AdapterView.On
 
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
-
-    private ActivePage active;
-    private ArrayList<Button> buttons;
-    private ArrayList<View> buttonHighlights;
+    private FragmentSwitcherManager fragmentSwitcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
 
-        buttons = new ArrayList<Button>();
-        buttons.add((Button) findViewById(R.id.main_button_1));
-        buttons.add((Button) findViewById(R.id.main_button_2));
-        buttons.add((Button) findViewById(R.id.main_button_3));
-
-        buttons.get(0).setText("Profile");
-        buttons.get(1).setText("Pantry");
-        buttons.get(2).setText("Search Recipes");
-
-        buttonHighlights = new ArrayList<View>();
-        buttonHighlights.add(findViewById(R.id.main_bar_1));
-        buttonHighlights.add(findViewById(R.id.main_bar_2));
-        buttonHighlights.add(findViewById(R.id.main_bar_3));
-
-        active = new ActivePage(buttons.get(0), buttonHighlights.get(0));
-
-
-        for (int i = 0; i < 3; i++) {
-            buttons.get(i).setOnClickListener(this);
-        }
-
         theMainAdapter = new MainAdapter(getSupportFragmentManager(), savedInstanceState);
-        theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
+        theViewPager = (ViewPager) findViewById(R.id.main_pages);
+        fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
+        Button button;
+        View view;
 
-        theViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        button = (Button) findViewById(R.id.main_button_1);
+        button.setText("Profile");
+        view = findViewById(R.id.main_bar_1);
+        fragmentSwitcher.add(button, view);
 
-            }
+        button = (Button) findViewById(R.id.main_button_2);
+        button.setText("Pantry");
+        view = findViewById(R.id.main_bar_2);
+        fragmentSwitcher.add(button, view);
 
-            @Override
-            public void onPageSelected(int position) {
-                active.getButton().setTypeface(null, Typeface.NORMAL);
-                active.getView().setVisibility(View.INVISIBLE);
+        button = (Button) findViewById(R.id.main_button_3);
+        button.setText("Search Recipe");
+        view = findViewById(R.id.main_bar_3);
+        fragmentSwitcher.add(button, view);
 
-                active.setButton(buttons.get(position));
-                active.setView(buttonHighlights.get(position));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
     }
 
@@ -222,44 +197,5 @@ public  class MainActivity extends AppCompatActivity implements /*AdapterView.On
 
     }
 */
-    @Override
-    public void onClick(View view) {
-        int index = buttons.indexOf((Button)view);
-        active.getButton().setTypeface(null, Typeface.NORMAL);
-        active.getView().setVisibility(View.INVISIBLE);
 
-        active.setButton(buttons.get(index));
-        active.setView(buttonHighlights.get(index));
-        theViewPager.setCurrentItem(index);
-    }
-
-    class ActivePage {
-
-        private Button button;
-        private View view;
-
-        public ActivePage(Button button, View view){
-            setButton(button);
-            setView(view);
-        }
-
-        public Button getButton() {
-            return button;
-        }
-
-        public View getView() {
-            return view;
-        }
-
-        public void setButton(Button button) {
-            this.button = button;
-            button.setTypeface(null, Typeface.BOLD);
-        }
-
-        public void setView(View view) {
-            this.view = view;
-            view.setVisibility(View.VISIBLE);
-        }
-
-    }
 }

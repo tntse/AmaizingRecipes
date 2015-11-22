@@ -1,15 +1,19 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
+import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
@@ -21,17 +25,19 @@ import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 public class RecipeShow extends AppCompatActivity{
 
 
-    private ImageView image;
+    // private ImageView image;
     private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
+    private FragmentSwitcherManager fragSwitcher;
+    private Bitmap theImage;
 
     FavoritesPage favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_show);
+        setContentView(R.layout.activity_main_v2);
 
 
         final String img = getIntent().getStringExtra("Picture");
@@ -48,12 +54,10 @@ public class RecipeShow extends AppCompatActivity{
             bundle.putStringArray("Nutrients", getIntent().getStringArrayExtra("Nutrients"));
         }
 
-        image = (ImageView) findViewById(R.id.imageView2);
-
         imgLoader.get(img, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
-                image.setImageBitmap(imageContainer.getBitmap());
+                theImage = imageContainer.getBitmap();
             }
 
             @Override
@@ -62,11 +66,31 @@ public class RecipeShow extends AppCompatActivity{
             }
         });
 
-
+        bundle.putParcelable("BMP", theImage);
+        TextView title = (TextView) findViewById(R.id.main_title_text);
+        title.setText(getIntent().getStringExtra("Title"));
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
+        fragSwitcher = new FragmentSwitcherManager(mViewPager);
 
+        Button button;
+        View view;
+
+        button = (Button) findViewById(R.id.main_button_1);
+        button.setText("Ingredients");
+        view = findViewById(R.id.main_bar_1);
+        fragSwitcher.add(button, view);
+
+        button = (Button) findViewById(R.id.main_button_2);
+        button.setText("Instructions");
+        view = findViewById(R.id.main_bar_2);
+        fragSwitcher.add(button, view);
+
+        button = (Button) findViewById(R.id.main_button_3);
+        button.setText("Nutrition Info");
+        view = findViewById(R.id.main_bar_3);
+        fragSwitcher.add(button, view);
         
     }
 
