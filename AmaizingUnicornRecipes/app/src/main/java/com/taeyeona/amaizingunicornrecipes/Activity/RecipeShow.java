@@ -70,7 +70,7 @@ public class RecipeShow extends AppCompatActivity{
         TextView title = (TextView) findViewById(R.id.main_title_text);
         title.setText(getIntent().getStringExtra("Title"));
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.main_pages);
         mViewPager.setAdapter(mCustomPagerAdapter);
         fragSwitcher = new FragmentSwitcherManager(mViewPager);
 

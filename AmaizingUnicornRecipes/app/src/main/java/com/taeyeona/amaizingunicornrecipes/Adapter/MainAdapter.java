@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.taeyeona.amaizingunicornrecipes.Fragment.ProfileFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.PantryFragment;
+import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
 
 /**
  * Created by thomastse on 11/17/15.
@@ -26,6 +27,8 @@ public class MainAdapter extends FragmentStatePagerAdapter {
                 return new ProfileFragment();
             case 1:
                 return new PantryFragment();
+            case 2:
+                return new RecipeSearchFragment();
         }
     }
 
