@@ -60,8 +60,29 @@ public class IngredientsFragment extends Fragment {
             final JSONRequest request = new JSONRequest();
             request.createResponse(Auth.GET_URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
                     "", "", "", "", "", "", "", "", "", 0.0, 0.0, getArguments().getString("RecipeID"), null, null);
-            request.sendResponse(getActivity().getApplicationContext());
-            Handler handler = new Handler();
+            request.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
+                @Override
+                public void onSuccess() {
+                    JSONObject response = request.getResponse();
+                    try {
+                        JSONObject recipe = response.getJSONObject("recipe");
+                        Log.d(IngredientsFragment.class.getSimpleName(), recipe.toString());
+                        JSONArray ingredientsList = recipe.getJSONArray("ingredients");
+                        Log.d(IngredientsFragment.class.getSimpleName(), ingredientsList.toString());
+                        for (int i = 0; i < ingredientsList.length(); i++) {
+                            ingredients.append(ingredientsList.getString(i));
+                            ingredients.append('\n');
+                            Log.d(IngredientsFragment.class.getSimpleName(), ingredients.toString());
+                        }
+                        //Putting a setText here because if put outside, it won't show F2F's ingredient list
+                        ingredients_list.setText("Ingredients:\n" + ingredients.toString());
+                        ingredients_list.setMovementMethod(new ScrollingMovementMethod());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+           /* Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -83,7 +104,7 @@ public class IngredientsFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-            }, 2000);
+            }, 2000);*/
 
         }else{
             String[] ingredientLines = getArguments().getStringArray("Ingredients");
