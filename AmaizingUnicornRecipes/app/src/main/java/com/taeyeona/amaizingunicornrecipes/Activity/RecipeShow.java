@@ -91,6 +91,8 @@ public class RecipeShow extends AppCompatActivity{
         button.setText("Nutrition Info");
         view = findViewById(R.id.main_bar_3);
         fragSwitcher.add(button, view);
+
+
         
     }
 
