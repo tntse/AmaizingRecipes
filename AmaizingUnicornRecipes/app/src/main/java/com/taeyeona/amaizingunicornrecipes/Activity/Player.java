@@ -112,7 +112,7 @@ public class Player extends YouTubeFailureRecoveryActivity {
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer player,
                                         final boolean wasRestored) {
 
-        /*Handler handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
             @Override
@@ -121,11 +121,8 @@ public class Player extends YouTubeFailureRecoveryActivity {
                     player.cueVideo(vid);
                 }
             }
-        }, 7000);*/
+        }, 7000);
 
-        if (!wasRestored) {
-            player.cueVideo(vid);
-        }
         //reference strings.xml for video
     }
 
