@@ -9,20 +9,33 @@
         android:background="#009688"
         android:id="@+id/missing_top_bar"
         android:paddingBottom="8dp">
-        <ImageButton
+        <LinearLayout
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:id="@+id/missing_ingre_back"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="4dp"
-            android:background="@drawable/pizza" />
+            android:orientation="vertical"
+            android:layout_margin="2dp"
+            android:weightSum="1.0"
+            android:id="@+id/missing_ingre_back_field">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".25"
+                android:text="@string/go_back"
+                android:gravity="center"
+                android:textColor="#FFFFFF"/>
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/missing_ingre_back"
+                android:layout_weight="0.7"
+                android:background="@drawable/pizza" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:padding="4dp"
             android:orientation="horizontal"
-            android:layout_toEndOf="@id/missing_ingre_back">
+            android:layout_toEndOf="@id/missing_ingre_back_field">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

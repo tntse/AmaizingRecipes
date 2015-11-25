@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
@@ -28,6 +29,7 @@ public class MissingIngredients extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.missing_ingredients);
         Log.d(MissingIngredients.class.getSimpleName(), "I'm here");
+        LinearLayout lin = (LinearLayout)findViewById(R.id.missing_ingre_back_field);
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
         SharedPreferences sharedPreferences = this.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
@@ -55,6 +57,14 @@ public class MissingIngredients extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(MissingIngredients.this, MapsActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        lin.setClickable(true);
+        lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
