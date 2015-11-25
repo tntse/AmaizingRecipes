@@ -15,7 +15,7 @@ import com.taeyeona.amaizingunicornrecipes.R;
 public class EditUserInfoFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ingredients_v2, container, false);
+        return inflater.inflate(R.layout.fragment_edit_user, container, false);
 
     }
 

@@ -15,7 +15,7 @@ import com.taeyeona.amaizingunicornrecipes.R;
 public class EditFavoritesFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ingredients_v2, container, false);
+        return inflater.inflate(R.layout.fragment_edit_favorites, container, false);
 
     }
 

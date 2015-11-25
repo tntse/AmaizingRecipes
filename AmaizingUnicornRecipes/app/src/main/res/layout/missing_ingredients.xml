@@ -3,33 +3,74 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:id="@+id/missing_top_bar"
+        android:paddingBottom="8dp">
+        <ImageButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/missing_ingre_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="4dp"
+            android:background="@drawable/pizza" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:padding="4dp"
+            android:orientation="horizontal"
+            android:layout_toEndOf="@id/missing_ingre_back">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing_ingre"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:id="@+id/main_title_text"
+                />
+        </LinearLayout>
+        <View
+            android:id="@+id/missing_top_bar_div"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/missing_ingre_back"
+            android:background="#d2dfdb" />
+        </RelativeLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find Grocery Stores"
-        android:id="@+id/button3"
+        android:text="@string/find_stores"
+        android:id="@+id/find_store_button"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         />
-
+    <View
+        android:id="@+id/missing_grocery_div"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/find_store_button"
+        android:background="#d2dfdb" />
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_below="@id/textView4"
-        android:layout_above="@id/button3"
-        android:id="@+id/listView"
+        android:layout_below="@id/missing_top_bar"
+        android:layout_above="@id/missing_grocery_div"
+        android:id="@+id/missing_ingre_list"
         android:layout_alignParentStart="true"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:layout_margin="4dp"
+        />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Missing Ingredients"
-        android:id="@+id/textView4"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
