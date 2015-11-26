@@ -102,6 +102,7 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="find_stores">Find Grocery Stores</string>
     <string name="missing_ingre">Missing Ingredients</string>
     <string name="go_back">Go Back</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

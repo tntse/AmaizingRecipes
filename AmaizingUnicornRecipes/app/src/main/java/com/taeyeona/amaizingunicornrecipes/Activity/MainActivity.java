@@ -1,5 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
@@ -58,7 +60,15 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         view = findViewById(R.id.main_bar_3);
         fragmentSwitcher.add(button, view);
 
-
+        LinearLayout toSettings = (LinearLayout) findViewById(R.id.main_settings);
+        toSettings.setClickable(true);
+        toSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toSettingsActivity = new Intent(MainActivity.this, EditSettings.class);
+                startActivity(toSettingsActivity);
+            }
+        });
     }
 
 /*        //test
