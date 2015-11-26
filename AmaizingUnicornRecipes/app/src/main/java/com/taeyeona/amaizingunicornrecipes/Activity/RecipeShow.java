@@ -92,6 +92,17 @@ public class RecipeShow extends AppCompatActivity{
         view = findViewById(R.id.main_bar_3);
         fragSwitcher.add(button, view);
 
+        TextView txtView = (TextView) findViewById(R.id.main_settings_text);
+        txtView.setText("Go Back");
+
+        ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
+        imgButton.setBackgroundResource(R.drawable.pizza);
+        imgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         
     }
