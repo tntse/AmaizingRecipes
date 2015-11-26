@@ -121,6 +121,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Activity.EditSettings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.default"/>
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

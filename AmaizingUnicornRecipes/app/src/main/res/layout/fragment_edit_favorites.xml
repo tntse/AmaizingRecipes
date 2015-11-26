@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/delete_selected"
+        android:id="@+id/delete_favorites"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <View
+        android:id="@+id/favorites_delete_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="2dp"
+        android:layout_centerHorizontal="true"
+        android:background="#d2dfdb"
+        android:layout_above="@id/delete_favorites"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/favorites_delete_separator"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        android:id="@+id/edit_favorites_list"/>
+
+</RelativeLayout>

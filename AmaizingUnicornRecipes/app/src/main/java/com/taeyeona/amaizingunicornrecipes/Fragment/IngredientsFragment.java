@@ -52,9 +52,9 @@ public class IngredientsFragment extends Fragment {
         ImageView recipeImage = (ImageView) view.findViewById(R.id.recipe_picture);
         recipeImage.setImageBitmap((Bitmap)getArguments().getParcelable("BMP"));
 
-        TextView title_text = (TextView) getActivity().findViewById(R.id.recipe_name);
+        //TextView title_text = (TextView) getActivity().findViewById(R.id.recipe_name);
         final TextView ingredients_list = (TextView) getActivity().findViewById(R.id.ingredients_list);
-        title_text.setText(getArguments().getString("Title"));
+        //title_text.setText(getArguments().getString("Title"));
         // TODO: move this into RecipeAPIsInterface
         if(getArguments().getString("API").equals("Food2Fork")){
             final JSONRequest request = new JSONRequest();

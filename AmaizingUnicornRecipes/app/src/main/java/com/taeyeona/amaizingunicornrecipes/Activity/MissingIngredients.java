@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
@@ -45,11 +47,11 @@ public class MissingIngredients extends Activity {
         Log.d(MissingIngredients.class.getSimpleName(), "manager " + manager);
         String[] missingIngredients = ((IngredientsManager)manager).findMissingIngredients(rawIngredients);
 
-        ListView theListView = (ListView) findViewById(R.id.listView);
+        ListView theListView = (ListView) findViewById(R.id.missing_ingre_list);
 
         theListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, missingIngredients));
 
-        Button maps = (Button) findViewById(R.id.button3);
+        Button maps = (Button) findViewById(R.id.find_store_button);
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +59,15 @@ public class MissingIngredients extends Activity {
                 startActivity(intent);
             }
         });
+
+        ImageButton imgButton = (ImageButton)findViewById(R.id.missing_ingre_back);
+        imgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
 }
