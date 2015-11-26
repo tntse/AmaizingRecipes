@@ -8,10 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
+import com.taeyeona.amaizingunicornrecipes.Eula;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
@@ -42,6 +45,10 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
         fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
+
+        //EULA FOR NEW USERS
+        new Eula(this).show();
+
         Button button;
         View view;
 
@@ -60,9 +67,14 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         view = findViewById(R.id.main_bar_3);
         fragmentSwitcher.add(button, view);
 
-        LinearLayout toSettings = (LinearLayout) findViewById(R.id.main_settings);
-        toSettings.setClickable(true);
-        toSettings.setOnClickListener(new View.OnClickListener() {
+        TextView title = (TextView) findViewById(R.id.main_title_text);
+        title.setText(getString(R.string.app_name));
+        TextView settingsLabel = (TextView) findViewById(R.id.main_settings_text);
+        settingsLabel.setText("Settings");
+        ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
+        imgButton.setBackgroundResource(R.drawable.donut_settings_gear);
+
+        imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent toSettingsActivity = new Intent(MainActivity.this, EditSettings.class);
@@ -88,13 +100,6 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
          navListView = (ListView)findViewById((R.id.nav_drawer));
          navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,navListName));
          navListView.setOnItemClickListener(this);
-
-
-
-
-
-         //EULA FOR NEW USERS
-         new Eula(this).show();
 
          //set up button sound
          //final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);

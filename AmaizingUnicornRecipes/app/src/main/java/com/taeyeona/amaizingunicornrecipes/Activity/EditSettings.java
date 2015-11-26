@@ -53,20 +53,23 @@ public class EditSettings extends AppCompatActivity {
         view = findViewById(R.id.main_bar_3);
         fragSwitcher.add(button, view);
 
-        ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
-        imgButton.setImageResource(R.drawable.pizza);
+
 
         TextView txtView = (TextView) findViewById(R.id.main_settings_text);
         txtView.setText("Go Back");
 
-        LinearLayout finishEdit = (LinearLayout) findViewById(R.id.main_settings);
-        finishEdit.setClickable(true);
-        finishEdit.setOnClickListener(new View.OnClickListener() {
+
+        TextView title = (TextView) findViewById(R.id.main_title_text);
+        title.setText("Edit Settings");
+
+        ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
+        imgButton.setBackgroundResource(R.drawable.pizza);
+        imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        
+
     }
 }
