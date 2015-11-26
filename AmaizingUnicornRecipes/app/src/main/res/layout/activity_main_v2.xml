@@ -29,7 +29,8 @@
                 android:layout_weight=".25"
                 android:text="@string/settings"
                 android:textColor="#ffffff"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:id="@+id/main_settings_text"/>
             <ImageButton
                 android:layout_width="49dp"
                 android:layout_height="0dp"

@@ -1,11 +1,15 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.EditSettingsAdapter;
@@ -48,6 +52,21 @@ public class EditSettings extends AppCompatActivity {
         button.setText("Pantry");
         view = findViewById(R.id.main_bar_3);
         fragSwitcher.add(button, view);
+
+        ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
+        imgButton.setImageResource(R.drawable.pizza);
+
+        TextView txtView = (TextView) findViewById(R.id.main_settings_text);
+        txtView.setText("Go Back");
+
+        LinearLayout finishEdit = (LinearLayout) findViewById(R.id.main_settings);
+        finishEdit.setClickable(true);
+        finishEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         
     }
 }
