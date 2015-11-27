@@ -180,7 +180,11 @@ public class IngredientsManager implements Set<String> {
     @NonNull
     @Override
     public Object[] toArray() {
-        return list.toArray();
+        String ret = "";
+        for(int i = 0; i < list.size(); i++)
+            ret += list.get(i) + '\n';
+
+        return ret.trim().split("\n");
     }
 
     /**
@@ -216,7 +220,7 @@ public class IngredientsManager implements Set<String> {
                 ret += (String)ingredientList[i] +"\n\t";
         }
         Log.d(IngredientsManager.class.getSimpleName(), "ret: " + ret);
-        return ret.substring(0, ret.length()-1).split("\t");
+        return ret.trim().split("\t");
     }
 
     /**

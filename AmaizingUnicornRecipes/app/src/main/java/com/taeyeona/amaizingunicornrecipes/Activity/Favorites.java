@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -30,8 +31,12 @@ import com.taeyeona.amaizingunicornrecipes.R;
 public class Favorites extends Activity implements AdapterView.OnItemClickListener {
 
 
-    EditText deleteInput;
+
     FavoriteObjHandler fav;
+    private Favorites datasource;
+    String title;
+    ListView favoritesList;
+    EditText deleteInput;
     Button delete;
 
     private DrawerLayout drawerLayout;
@@ -68,6 +73,31 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      */
     public void open() {
         database = handler.getWritableDatabase();
+
+//        @Override
+//        protected void onCreate (Bundle savedInstanceState){
+//
+//
+//            super.onCreate(savedInstanceState);
+//            setContentView(R.layout.favorites);
+//
+//            /**
+//             * Saved variables for drawerListView and drawerListNames,
+//             * navListName are array items in strings.xml
+//             * navListView is the list to be adapter for the listnme to be viewable
+//             * in simple list item format
+//             */
+//            drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+//            navListName = getResources().getStringArray(R.array.drawer_list);
+//
+//            navListView = (ListView) findViewById((R.id.nav_drawer));
+//            navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
+//            navListView.setOnItemClickListener(this);
+//
+//            fav = new FavoritesPage(getApplicationContext());
+//            deleteInput = (EditText) findViewById(R.id.deleteField);
+//            favoritesList = (TextView) findViewById(R.id.favoritesList);
+//        }
 
     }
 //    @Override

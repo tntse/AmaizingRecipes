@@ -1,4 +1,4 @@
-package com.taeyeona.amaizingunicornrecipes;
+package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,17 +10,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.taeyeona.amaizingunicornrecipes.R;
+
 /**
  * Created by Hao on 11/14/2015.
  */
-public class adapter_nav_drawer extends ArrayAdapter<String> {
+public class NavigationDrawAdapter extends ArrayAdapter<String> {
 
     private String[] navNames;
     private Integer[] navImage;
 
-    public adapter_nav_drawer(Context context, String[]navNames, Integer[] navImage ) {
+    public NavigationDrawAdapter(Context context, String[]navNames, Integer[] navImage ) {
 
-        super(context,R.layout.custom_listview_drawer, navNames);
+        super(context, R.layout.custom_listview_drawer, navNames);
 
         this.navNames = navNames;
         this.navImage = navImage;

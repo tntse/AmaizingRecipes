@@ -91,6 +91,10 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="favorites_title">Favorite Recipes:</string>
     <string name="add_button_string">ADD</string>
     <string name="delete_button_string">DELETE</string>
+    <string name="pantry">Pantry</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="recipe_name">Recipe Name</string>
 
 
 </resources>
