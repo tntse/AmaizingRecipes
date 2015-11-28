@@ -103,6 +103,9 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="missing_ingre">Missing Ingredients</string>
     <string name="go_back">Go Back</string>
     <string name="settings">Settings</string>
+    <string name="search_for_recipe"><![CDATA[Search Recipe ->]]></string>
+    <string name="edit_ingredients">Edit Ingredients</string>
+    <string name="enter_search_query">Enter Recipe Search</string>
 
 
 </resources>
