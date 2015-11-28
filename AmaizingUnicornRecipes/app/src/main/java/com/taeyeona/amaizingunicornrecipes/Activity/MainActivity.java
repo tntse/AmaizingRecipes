@@ -72,7 +72,7 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         TextView settingsLabel = (TextView) findViewById(R.id.main_settings_text);
         settingsLabel.setText("Settings");
         ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
-        imgButton.setBackgroundResource(R.drawable.donut_settings_gear);
+        imgButton.setBackgroundResource(R.drawable.donut_gear_v2);
 
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
