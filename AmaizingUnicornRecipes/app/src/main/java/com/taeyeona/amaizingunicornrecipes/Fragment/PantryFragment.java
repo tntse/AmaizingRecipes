@@ -26,6 +26,7 @@ import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -68,7 +69,7 @@ public class PantryFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] list = pantryListAdapter.getSelected();
+                ArrayList<String> list = pantryListAdapter.getSelected();
                 String query = input.getText().toString();
                 // TODO: link this button with Recipe Search Fragment
             }
@@ -80,6 +81,7 @@ public class PantryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), EditSettings.class);
+                // TODO: have EditActivity read which fragment to open first
                 intent.putExtra("Pantry", true);
                 startActivity(intent);
             }

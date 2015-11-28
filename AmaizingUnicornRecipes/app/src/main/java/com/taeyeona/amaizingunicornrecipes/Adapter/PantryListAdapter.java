@@ -21,8 +21,8 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         selected = new ArrayList<String>();
     }
 
-    public String[] getSelected(){
-        return (String[]) selected.toArray();
+    public ArrayList<String> getSelected(){
+        return selected;
     }
 
     @Override

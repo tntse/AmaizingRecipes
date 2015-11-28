@@ -35,37 +35,19 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
     private FragmentSwitcherManager fragmentSwitcher;
+    private Bundle bun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bun = savedInstanceState;
         setContentView(R.layout.activity_main_v2);
-
-        theMainAdapter = new MainAdapter(getSupportFragmentManager(), savedInstanceState);
-        theViewPager = (ViewPager) findViewById(R.id.main_pages);
-        theViewPager.setAdapter(theMainAdapter);
-        fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 
         //EULA FOR NEW USERS
         new Eula(this).show();
 
-        Button button;
-        View view;
 
-        button = (Button) findViewById(R.id.main_button_1);
-        button.setText("Profile");
-        view = findViewById(R.id.main_bar_1);
-        fragmentSwitcher.add(button, view);
-
-        button = (Button) findViewById(R.id.main_button_2);
-        button.setText("Pantry");
-        view = findViewById(R.id.main_bar_2);
-        fragmentSwitcher.add(button, view);
-
-        button = (Button) findViewById(R.id.main_button_3);
-        button.setText("Search Recipe");
-        view = findViewById(R.id.main_bar_3);
-        fragmentSwitcher.add(button, view);
+        loadAdapters();
 
         TextView title = (TextView) findViewById(R.id.main_title_text);
         title.setText(getString(R.string.app_name));
@@ -83,7 +65,42 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         });
     }
 
-/*        //test
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadAdapters();
+    }
+
+    private void loadAdapters(){
+        theMainAdapter = new MainAdapter(getSupportFragmentManager(), bun);
+        theViewPager = (ViewPager) findViewById(R.id.main_pages);
+        theViewPager.setAdapter(theMainAdapter);
+        fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
+
+        Button button;
+        View view;
+
+        button = (Button) findViewById(R.id.main_button_1);
+        button.setText("Profile");
+        view = findViewById(R.id.main_bar_1);
+        view.setVisibility(View.INVISIBLE);
+        fragmentSwitcher.add(button, view);
+
+        button = (Button) findViewById(R.id.main_button_2);
+        button.setText("Pantry");
+        view = findViewById(R.id.main_bar_2);
+        view.setVisibility(View.INVISIBLE);
+        fragmentSwitcher.add(button, view);
+
+        button = (Button) findViewById(R.id.main_button_3);
+        button.setText("Search Recipe");
+        view = findViewById(R.id.main_bar_3);
+        view.setVisibility(View.INVISIBLE);
+        fragmentSwitcher.add(button, view);
+
+    }
+
+    /*        //test
         myAdapter = new MyAdapter(this);
        navListView.setAdapter(myAdapter);
 
