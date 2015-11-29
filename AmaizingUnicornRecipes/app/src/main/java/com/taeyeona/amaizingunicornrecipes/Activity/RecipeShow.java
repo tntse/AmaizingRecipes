@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -43,6 +42,8 @@ public class RecipeShow extends AppCompatActivity{
         final String img = getIntent().getStringExtra("Picture");
         Bundle bundle = new Bundle();
         bundle.putString("Title", getIntent().getStringExtra("Title"));
+        bundle.putString("SourceName", getIntent().getStringExtra("SourceName"));
+        bundle.putString("SourceUrl", getIntent().getStringExtra("SourceUrl"));
 
         if(getIntent().getStringExtra("API").equals("Food2Fork")){
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
