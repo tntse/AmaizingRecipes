@@ -81,8 +81,11 @@ public class RecipeSearchFragment extends Fragment {
 
         String ingredients = manager.toString();
         /* Replace special characters with their htmls equivalent */
-        ingredients.replace(", ", ","); // Remove comma-trailing spaces
-        ingredients.replace(" ", "%20"); // Replace spaces with html code
+        ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
+        ingredients = ingredients.replace(" ", "%20"); // Replace spaces with html code
+        ingredients = ingredients.replace("[", "");
+        ingredients = ingredients.replace("]", "");
+        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
 
         if (searchEdamam) {
             String collection[] = ProfileHash.getSearchSettings();
