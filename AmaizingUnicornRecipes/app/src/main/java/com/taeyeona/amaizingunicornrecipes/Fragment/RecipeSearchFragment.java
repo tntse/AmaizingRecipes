@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
@@ -83,8 +81,11 @@ public class RecipeSearchFragment extends Fragment {
 
         String ingredients = manager.toString();
         /* Replace special characters with their htmls equivalent */
-        ingredients.replace(", ", ","); // Remove comma-trailing spaces
-        ingredients.replace(" ", "%20"); // Replace spaces with html code
+        ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
+        ingredients = ingredients.replace(" ", "%20"); // Replace spaces with html code
+        ingredients = ingredients.replace("[", "");
+        ingredients = ingredients.replace("]", "");
+        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
 
         if (searchEdamam) {
             String collection[] = ProfileHash.getSearchSettings();
@@ -115,12 +116,12 @@ public class RecipeSearchFragment extends Fragment {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
                     if (response == null) {
-                        text.setText("No results found, try changing your search settings.");
+                        text.setText(R.string.no_recipe_results);
                     } else {
                         parseEdamamResponse(jsonRequest.getResponse());
                         progress.setVisibility(View.INVISIBLE);
                         if (recipeList.size() == 0) {
-                            text.setText("No results found, try changing your search settings.");
+                            text.setText(R.string.no_recipe_results);
                         }
                         //Populates the RecyclerView list with the recipe search list
                         recAdapt.setList(recipeList);
@@ -128,11 +129,14 @@ public class RecipeSearchFragment extends Fragment {
                             @Override
                             public void onItemClick(View v, int position) {
                                 Intent intent = new Intent(getActivity(), RecipeShow.class);
-                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
-                                intent.putExtra("Title", recipeList.get(position).getTitle());
-                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
-                                intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
-                                intent.putExtra("Nutrients", recipeList.get(position).getNutrients().toArray(new String[0]));
+                                Recipes currentRecipe = recipeList.get(position);
+                                intent.putExtra("Picture", currentRecipe.getImageUrl());
+                                intent.putExtra("Title", currentRecipe.getTitle());
+                                intent.putExtra("RecipeID", currentRecipe.getRecipeId());
+                                intent.putExtra("Ingredients", currentRecipe.getIngredients().toArray(new String[0]));
+                                intent.putExtra("Nutrients", currentRecipe.getNutrients().toArray(new String[0]));
+                                intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
+                                intent.putExtra("SourceName", currentRecipe.getPublisher());
                                 intent.putExtra("API", "Edamam");
                                 startActivity(intent);
                             }
@@ -142,45 +146,6 @@ public class RecipeSearchFragment extends Fragment {
                     progress.setVisibility(View.INVISIBLE);
                 }
             });
-            //Create a handler for a background thread that waits until another background thread,
-            //the API call, comes back with the JSON parsed and ready.
-            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
-            /*Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    JSONObject response = jsonRequest.getResponse();
-                    *//* Check to see if something was returned *//*
-                    if (response == null) {
-                        text.setText("No results found, try changing your search settings.");
-                    } else {
-                        parseEdamamResponse(jsonRequest.getResponse());
-                        progress.setVisibility(View.INVISIBLE);
-                        if (recipeList.size() == 0) {
-                            text.setText("No results found, try changing your search settings.");
-                        }
-                        //Populates the RecyclerView list with the recipe search list
-                        recAdapt.setList(recipeList);
-                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, int position) {
-                                Intent intent = new Intent(getActivity(), RecipeShow.class);
-                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
-                                intent.putExtra("Title", recipeList.get(position).getTitle());
-                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
-                                intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
-                                intent.putExtra("Nutrients", recipeList.get(position).getNutrients().toArray(new String[0]));
-                                intent.putExtra("API", "Edamam");
-                                startActivity(intent);
-                            }
-                        });
-                        listview.setAdapter(recAdapt);
-                    }
-                    progress.setVisibility(View.INVISIBLE);
-                }
-            }, 7000);*/
-
 
         } else {
 
@@ -193,24 +158,24 @@ public class RecipeSearchFragment extends Fragment {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
                     if (response == null) {
-                        text.setText("No results found, try changing your search settings");
+                        text.setText(R.string.no_recipe_results);
                     } else {
                         parseResponse(response);
                         if (recipeList.size() == 0) {
-                            text.setText("No results found, try changing your search settings.");
+                            text.setText(R.string.no_recipe_results);
                         }
                         //Populates the RecyclerView list with the recipe search list
                         recAdapt.setList(recipeList);
                         recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
                             @Override
                             public void onItemClick(View v, int position) {
-                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "You've clicked on "
-                                        + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
-                                toast.show();
+                                Recipes currentRecipe = recipeList.get(position);
                                 Intent intent = new Intent(getActivity(), RecipeShow.class);
-                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
-                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
-                                intent.putExtra("Title", recipeList.get(position).getTitle());
+                                intent.putExtra("Picture", currentRecipe.getImageUrl());
+                                intent.putExtra("RecipeID", currentRecipe.getRecipeId());
+                                intent.putExtra("Title", currentRecipe.getTitle());
+                                intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
+                                intent.putExtra("SourceName", currentRecipe.getPublisher());
                                 intent.putExtra("API", "Food2Fork");
                                 startActivity(intent);
                             }
@@ -220,46 +185,6 @@ public class RecipeSearchFragment extends Fragment {
                     progress.setVisibility(View.INVISIBLE);
                 }
             });
-
-            //Create a handler for a background thread that waits until another background thread,
-            //the API call, comes back with the JSON parsed and ready.
-            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
-            /*Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    JSONObject response = jsonRequest.getResponse();
-                    *//* Check to see if something was returned *//*
-                    if (response == null) {
-                        text.setText("No results found, try changing your search settings");
-                    } else {
-                        parseResponse(response);
-                        if (recipeList.size() == 0) {
-                            text.setText("No results found, try changing your search settings.");
-                        }
-                        //Populates the RecyclerView list with the recipe search list
-                        recAdapt.setList(recipeList);
-                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, int position) {
-                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "You've clicked on "
-                                        + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
-                                toast.show();
-                                Intent intent = new Intent(getActivity(), RecipeShow.class);
-                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
-                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
-                                intent.putExtra("Title", recipeList.get(position).getTitle());
-                                intent.putExtra("API", "Food2Fork");
-                                startActivity(intent);
-                            }
-                        });
-                        listview.setAdapter(recAdapt);
-                    }
-                    progress.setVisibility(View.INVISIBLE);
-                }
-
-            }, 7000);*/
         }
     }
 

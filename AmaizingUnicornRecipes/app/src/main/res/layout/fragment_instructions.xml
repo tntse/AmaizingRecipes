@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/instructions_div"
-            android:text="@string/instruct_frag_default_text"
+            android:text="@string/instructions_loading"
             android:id="@+id/textView6"
             android:layout_gravity="center_horizontal"
             android:scrollbars="vertical"

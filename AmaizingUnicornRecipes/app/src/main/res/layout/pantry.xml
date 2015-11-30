@@ -83,7 +83,6 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="12sp"
         android:entries="@array/preference_list"
-        android:background="@color/blue_700"
         />
 
 </android.support.v4.widget.DrawerLayout>

@@ -139,7 +139,6 @@ public class  JSONRequest {
                 URL += Auth.CHAR_AND + "diet" + Auth.CHAR_EQUALS + diet[i];
             }
         }
-        Log.d("AAA", "URL: " + URL);
 
     }
 
@@ -150,7 +149,6 @@ public class  JSONRequest {
      *
      */
     public void sendResponse(Context pContext, final VolleyCallBack volleyCallBack){
-        Log.d("AAA", "URL: " + URL);
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
                 Request.Method.GET,
                 URL,
