@@ -63,6 +63,7 @@ public class RecipeSearchFragment extends Fragment {
         Map<String, ?> preferencesMap = sharedPreferences.getAll();
         boolean searchEdamam = preferencesMap.containsValue(true);
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
+        if(!(manager instanceof IngredientsManager)) manager = new IngredientsManager(manager);
 
         //Made a progress bar to have the user wait for the recipe search to come back
         //Made a TextView to show if there's no list to come back
@@ -79,10 +80,11 @@ public class RecipeSearchFragment extends Fragment {
         ArrayList<String> health = new ArrayList<>();
         ArrayList<String> diet = new ArrayList<>();
 
-        String ingredients = manager.toString();
+        String ingredients = manager.toString().trim();
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
         ingredients = ingredients.replace(" ", "%20"); // Replace spaces with html code
+        ingredients = ingredients.replace("\n", "");
         ingredients = ingredients.replace("[", "");
         ingredients = ingredients.replace("]", "");
         Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
