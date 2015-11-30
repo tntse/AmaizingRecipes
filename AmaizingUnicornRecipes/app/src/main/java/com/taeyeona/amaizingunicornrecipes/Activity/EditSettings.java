@@ -4,22 +4,31 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.EditSettingsAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
+import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
+import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
  * Created by thomastse on 11/24/15.
  */
 public class EditSettings extends AppCompatActivity {
+
+    //DrawerLayout , prefListView , and prefListName manages preference drawer
+    private DrawerLayout drawerLayout;
+    private ListView prefListView;
+    private String[] prefListName;
 
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
@@ -29,6 +38,13 @@ public class EditSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
+
+        //Create drawer adapter to toggle search preferences with right side drawer
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
+        prefListName = ProfileHash.getSearchSettings();
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
         editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), savedInstanceState);
         mViewPager = (ViewPager) findViewById(R.id.main_pages);
