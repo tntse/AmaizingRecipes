@@ -28,7 +28,7 @@ public class InstructionsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        but = (Button) getActivity().findViewById(R.id.button2);
+        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
 
         but.setOnClickListener(new View.OnClickListener() {
             @Override

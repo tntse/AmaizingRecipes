@@ -106,6 +106,7 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="search_for_recipe"><![CDATA[Search Recipe ->]]></string>
     <string name="edit_ingredients">Edit Ingredients</string>
     <string name="enter_search_query">Enter Recipe Search</string>
+    <string name="instruct_frag_default_text">This is your instructions fragment</string>
 
 
 </resources>
