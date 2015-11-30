@@ -28,8 +28,8 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View theView = inflater.inflate(R.layout.checklist, parent, false);
 
+        View theView = inflater.inflate(R.layout.checklist, parent, false);
         CheckBox check = (CheckBox) theView.findViewById(R.id.checkBox);
         check.setText(getItem(position));
         check.setOnClickListener(this);

@@ -81,8 +81,7 @@ public class PantryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), EditSettings.class);
-                // TODO: have EditActivity read which fragment to open first
-                intent.putExtra("Pantry", true);
+                intent.putExtra("Open", 2);
                 startActivity(intent);
             }
         });
