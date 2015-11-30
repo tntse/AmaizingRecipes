@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_above="@id/instructions_div"
             android:text="@string/instructions_loading"
-            android:id="@+id/textView6"
+            android:id="@+id/instruct_text"
             android:layout_gravity="center_horizontal"
             android:scrollbars="vertical"
             android:layout_margin="4dp"/>

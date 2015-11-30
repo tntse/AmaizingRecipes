@@ -45,7 +45,7 @@ public class InstructionsFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
-        final TextView text = (TextView) getActivity().findViewById(R.id.textView6);
+        final TextView text = (TextView) getActivity().findViewById(R.id.instruct_text);
 
 //        try {
 //            doc = Jsoup.connect(sourceUrl).get();
