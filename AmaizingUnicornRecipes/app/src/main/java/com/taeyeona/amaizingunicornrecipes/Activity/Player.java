@@ -80,13 +80,19 @@ public class Player extends YouTubeFailureRecoveryActivity {
 
 
 
-        jsonRequest.sendResponse(getApplicationContext());
+        jsonRequest.sendResponse(getApplicationContext(), new JSONRequest.VolleyCallBack() {
+            @Override
+            public void onSuccess() {
+                parseJSON(jsonRequest.getResponse());
+                vid = titleList.toString();
+            }
+        });
 
         Log.d("youtube", "hey there");
         //final JSONObject response = jsonRequest.getResponse();
 
 
-        Handler handler = new Handler();
+        /*Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -94,7 +100,7 @@ public class Player extends YouTubeFailureRecoveryActivity {
                 parseJSON(jsonRequest.getResponse());
                 vid = titleList.toString();
             }
-        }, 7000);
+        }, 7000);*/
 
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
@@ -116,6 +122,7 @@ public class Player extends YouTubeFailureRecoveryActivity {
                 }
             }
         }, 7000);
+
         //reference strings.xml for video
     }
 

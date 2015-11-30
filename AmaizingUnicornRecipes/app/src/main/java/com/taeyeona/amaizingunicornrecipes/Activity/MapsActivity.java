@@ -175,7 +175,31 @@ public class MapsActivity extends FragmentActivity implements LocationUpdate.Loc
                 "key", "AIzaSyC9ZRlRXJVAxq8GjSHT2lMgVGwgcHPtmx4", "", "", "", "1500", "", "", "", "",
                 "grocery_or_supermarket", "true", "location", lat, lng, "", null, null);
 
-        jsonRequest.sendResponse(getApplicationContext());
+        jsonRequest.sendResponse(getApplicationContext(), new JSONRequest.VolleyCallBack() {
+            @Override
+            public void onSuccess() {
+                JSONObject response = jsonRequest.getResponse();
+
+                try {
+                    for (int i = 0; i < 15; i++) {
+
+                        JSONArray arr = response.getJSONArray("results");
+                        JSONObject jsonObject = arr.getJSONObject(i);
+                        JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
+
+                        mMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
+                                .snippet(jsonObject.getString("vicinity"))
+                                .position(new LatLng(
+                                        jsonLocation.getDouble("lat"),
+                                        jsonLocation.getDouble("lng"))));
+
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+        });
+/*
 
         Handler hand = new Handler();
         hand.postDelayed(new Runnable() {
@@ -203,6 +227,7 @@ public class MapsActivity extends FragmentActivity implements LocationUpdate.Loc
                 }
             }
         }, 3000);
+*/
 
     }
 }

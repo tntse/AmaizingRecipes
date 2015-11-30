@@ -52,7 +52,7 @@ public class RecipeSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
         final JSONObject response;
-
+/*
         //Make a SharedPreferences object to get the global SharedPreferences so that we could see if we need
         //to use the Food2Fork search or the Edamam search based on preferences
         sharedPreferences = this.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
@@ -77,7 +77,7 @@ public class RecipeSearch extends AppCompatActivity {
 
         String ingredients = getIntent().getStringExtra("Ingredients");
         /* Replace special characters with their htmls equivalent */
-        ingredients.replace(", ", ","); // Remove comma-trailing spaces
+        /*ingredients.replace(", ", ","); // Remove comma-trailing spaces
         ingredients.replace(" ", "%20"); // Replace spaces with html code
 
         if (searchEdamam) {
@@ -114,7 +114,7 @@ public class RecipeSearch extends AppCompatActivity {
                 public void run() {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
-                    if (response == null) {
+                  /*  if (response == null) {
                         text.setText("No results found, try changing your search settings.");
                         Log.d(TAG, "Error: Edamam search returned a null response.");
                     } else {
@@ -163,7 +163,7 @@ public class RecipeSearch extends AppCompatActivity {
                 public void run() {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
-                    if (response == null) {
+                   /* if (response == null) {
                         text.setText("No results found, try changing your search settings");
                         Log.d(TAG, "Error: Food2Fork search returned a null response.");
                     } else {
@@ -193,7 +193,7 @@ public class RecipeSearch extends AppCompatActivity {
                 }
 
             }, 7000);
-        }
+        }*/
     }
 
     @Override

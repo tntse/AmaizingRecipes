@@ -109,15 +109,9 @@ public class RecipeSearchFragment extends Fragment {
 
             jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
                     Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", null, null, null, "", healthArray, dietArray);
-            jsonRequest.sendResponse(getActivity().getApplicationContext());
-            //Create a handler for a background thread that waits until another background thread,
-            //the API call, comes back with the JSON parsed and ready.
-            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-
+            jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
                 @Override
-                public void run() {
+                public void onSuccess() {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
                     if (response == null) {
@@ -147,7 +141,45 @@ public class RecipeSearchFragment extends Fragment {
                     }
                     progress.setVisibility(View.INVISIBLE);
                 }
-            }, 7000);
+            });
+            //Create a handler for a background thread that waits until another background thread,
+            //the API call, comes back with the JSON parsed and ready.
+            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
+            /*Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    JSONObject response = jsonRequest.getResponse();
+                    *//* Check to see if something was returned *//*
+                    if (response == null) {
+                        text.setText("No results found, try changing your search settings.");
+                    } else {
+                        parseEdamamResponse(jsonRequest.getResponse());
+                        progress.setVisibility(View.INVISIBLE);
+                        if (recipeList.size() == 0) {
+                            text.setText("No results found, try changing your search settings.");
+                        }
+                        //Populates the RecyclerView list with the recipe search list
+                        recAdapt.setList(recipeList);
+                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
+                            @Override
+                            public void onItemClick(View v, int position) {
+                                Intent intent = new Intent(getActivity(), RecipeShow.class);
+                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
+                                intent.putExtra("Title", recipeList.get(position).getTitle());
+                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
+                                intent.putExtra("Ingredients", recipeList.get(position).getIngredients().toArray(new String[0]));
+                                intent.putExtra("Nutrients", recipeList.get(position).getNutrients().toArray(new String[0]));
+                                intent.putExtra("API", "Edamam");
+                                startActivity(intent);
+                            }
+                        });
+                        listview.setAdapter(recAdapt);
+                    }
+                    progress.setVisibility(View.INVISIBLE);
+                }
+            }, 7000);*/
 
 
         } else {
@@ -155,16 +187,9 @@ public class RecipeSearchFragment extends Fragment {
             //Create food2fork response and send the response to the API
             jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
                     ingredients, "", "", "", "", "", "", "", null, 0.0, 0.0, "", null, null);
-            jsonRequest.sendResponse(getActivity().getApplicationContext());
-
-            //Create a handler for a background thread that waits until another background thread,
-            //the API call, comes back with the JSON parsed and ready.
-            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-
+            jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
                 @Override
-                public void run() {
+                public void onSuccess() {
                     JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
                     if (response == null) {
@@ -194,8 +219,47 @@ public class RecipeSearchFragment extends Fragment {
                     }
                     progress.setVisibility(View.INVISIBLE);
                 }
+            });
 
-            }, 7000);
+            //Create a handler for a background thread that waits until another background thread,
+            //the API call, comes back with the JSON parsed and ready.
+            //Cited from http://stackoverflow.com/questions/14186846/delay-actions-in-android
+            /*Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    JSONObject response = jsonRequest.getResponse();
+                    *//* Check to see if something was returned *//*
+                    if (response == null) {
+                        text.setText("No results found, try changing your search settings");
+                    } else {
+                        parseResponse(response);
+                        if (recipeList.size() == 0) {
+                            text.setText("No results found, try changing your search settings.");
+                        }
+                        //Populates the RecyclerView list with the recipe search list
+                        recAdapt.setList(recipeList);
+                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
+                            @Override
+                            public void onItemClick(View v, int position) {
+                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "You've clicked on "
+                                        + recipeList.get(position).getTitle(), Toast.LENGTH_SHORT);
+                                toast.show();
+                                Intent intent = new Intent(getActivity(), RecipeShow.class);
+                                intent.putExtra("Picture", recipeList.get(position).getImageUrl());
+                                intent.putExtra("RecipeID", recipeList.get(position).getRecipeId());
+                                intent.putExtra("Title", recipeList.get(position).getTitle());
+                                intent.putExtra("API", "Food2Fork");
+                                startActivity(intent);
+                            }
+                        });
+                        listview.setAdapter(recAdapt);
+                    }
+                    progress.setVisibility(View.INVISIBLE);
+                }
+
+            }, 7000);*/
         }
     }
 

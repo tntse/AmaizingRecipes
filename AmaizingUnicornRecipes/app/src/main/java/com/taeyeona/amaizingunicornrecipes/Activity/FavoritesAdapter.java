@@ -29,7 +29,7 @@ import java.util.List;
 public class FavoritesAdapter extends Activity {
     private Favorites datasource;
     String title;
-    ListView favoritesList;
+    TextView favoritesList;
     EditText deleteInput;
     FavoriteObjHandler fav;
     Button delete;
@@ -70,7 +70,7 @@ public class FavoritesAdapter extends Activity {
 
             fav = new FavoriteObjHandler(getApplicationContext());
             deleteInput = (EditText) findViewById(R.id.deleteField);
-//            favoritesList = (ListtView) findViewById(R.id.favoritesList);
+            favoritesList = (TextView) findViewById(R.id.favoritesList);
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.favorites);
 //        Log.d("meow", "displaying le favorites page.");

@@ -149,7 +149,7 @@ public class  JSONRequest {
      * @param pContext The Context object from the activity that called this method
      *
      */
-    public void sendResponse(Context pContext){
+    public void sendResponse(Context pContext, final VolleyCallBack volleyCallBack){
         Log.d("AAA", "URL: " + URL);
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
                 Request.Method.GET,
@@ -160,6 +160,7 @@ public class  JSONRequest {
                     @Override
                     public void onResponse(JSONObject response) {
                         jsRequest = (JSONObject) response;
+                        volleyCallBack.onSuccess();
                     }
 
                 }, new Response.ErrorListener() {
@@ -179,6 +180,10 @@ public class  JSONRequest {
      */
     public JSONObject getResponse(){
         return jsRequest;
+    }
+
+    public interface VolleyCallBack{
+        void onSuccess();
     }
 
 }
