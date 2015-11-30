@@ -4,17 +4,21 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
+import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
+import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
@@ -23,14 +27,9 @@ import java.util.ArrayList;
 public  class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener,*/{
 
 
-    /*variables for drawer list view and elements of listview items
     private DrawerLayout drawerLayout;
-    private ListView navListView;
-    private String[] navListName;
-
-//    //test
-//    private MyAdapter myAdapter;
-*/
+    private ListView prefListView;
+    private String[] prefListName;
 
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
@@ -45,6 +44,14 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
 
         //EULA FOR NEW USERS
         new Eula(this).show();
+
+
+        //Create drawer adapter to toggle search preferences with right side drawer
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
+        prefListName = ProfileHash.getSearchSettings();
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
 
         loadAdapters();
@@ -192,42 +199,6 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
      * @param position
      * @param id       OnItemClick added for Drawer list View
      *                 goes to different activities in app
-     */ /*
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-//        <item>Main Menu</item> 0
-//        <item>Ingredients Page</item>> 1
-//        <item>Search Recipe</item> 2
-//        <item>Edit Profile</item> 3
-//        <item>Favorites Page</item> 4
-
-        if (position == 0) {
-        } else if (position == 1) {
-            Intent intent = new Intent(this, EditIngredients.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-
-
-        } else if (position == 2) {
-            Intent intent = new Intent(this, Pantry.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
-
-
-        } else if (position == 3) {
-            Intent intent = new Intent(this, Profile.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-
-
-        } else if (position == 4) {
-            Intent intent = new Intent(this, Favorites.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-        }
-
-    }
-*/
+     */
 
 }

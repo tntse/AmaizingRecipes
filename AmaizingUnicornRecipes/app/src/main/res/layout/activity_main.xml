@@ -56,7 +56,6 @@
                 android:id="@+id/profile"
                 android:layout_weight="1"
                 android:layout_marginBottom="16sp"
-                android:textColor="@color/red_700"
 
                 />
 
@@ -66,7 +65,6 @@
                 android:text="Edit Ingredients"
                 android:id="@+id/to_edit_ingredients_button"
                 android:layout_weight="1"
-                android:textColor="@color/yellow_a200"
                 />
 
         </LinearLayout>
@@ -85,7 +83,6 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="12sp"
         android:entries="@array/drawer_list"
-        android:background="@color/green_a400"
         />
 
 
