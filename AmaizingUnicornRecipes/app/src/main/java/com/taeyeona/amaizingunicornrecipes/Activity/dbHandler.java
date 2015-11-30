@@ -19,7 +19,7 @@ import android.content.ContentValues;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
     public static final String COLUMN_ID = "_id";
