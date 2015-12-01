@@ -193,7 +193,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      */
     public FavoriteObjHandler createRecipeID(String r_id) {
         ContentValues values = new ContentValues();
-        values.put(dbHandler.COLUMN_RID, r_id);
+        values.put(dbHandler.COLUMN_RECIPEID, r_id);
         long insertId = database.insert(dbHandler.TABLE_FAVORITES, null,
                 values);
         Cursor cursor = database.query(dbHandler.TABLE_FAVORITES,
@@ -258,7 +258,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
     }
 
 
-    public void searchFavorite(FavoritesPage favorite) {
+    public void searchFavorite(FavoriteObjHandler favorite) {
 
         String[] ingredient = convertStringToArray(fav.getIngredientList());
         String[] nutrient = convertStringToArray(fav.getNutrients());
