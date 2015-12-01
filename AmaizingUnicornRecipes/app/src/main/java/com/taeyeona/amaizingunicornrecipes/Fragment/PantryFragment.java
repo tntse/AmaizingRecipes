@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
+import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryGridViewAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
@@ -70,8 +72,13 @@ public class PantryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ArrayList<String> list = pantryListAdapter.getSelected();
-                String query = input.getText().toString();
+                String query = input.getText().toString().trim();
+                if(query.equals(getString(R.string.enter_search_query)))
+                    query = "";
                 // TODO: link this button with Recipe Search Fragment
+                ((MainActivity)getActivity()).addData(list);
+                ((MainActivity)getActivity()).addData(query);
+                ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });
 

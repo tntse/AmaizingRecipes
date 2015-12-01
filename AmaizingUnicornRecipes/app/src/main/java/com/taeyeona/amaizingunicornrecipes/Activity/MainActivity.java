@@ -122,6 +122,20 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         }
     }
 
+    public Bundle getBundle(){
+        return bun;
+    }
+
+    public void addData(String data){
+        bun.putString("SearchQuery", data);
+    }
+
+    public void addData(ArrayList<String> data){
+        bun.putStringArrayList("SearchIngredients", data);
+    }
+
+
+
     /*        //test
         myAdapter = new MyAdapter(this);
        navListView.setAdapter(myAdapter);

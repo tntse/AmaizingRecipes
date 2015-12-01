@@ -35,10 +35,12 @@ public class EditSettings extends AppCompatActivity {
     private EditSettingsAdapter editSettingsAdapter;
     private Bundle bun;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
+
 
         bun = savedInstanceState;
         if(bun == null){
@@ -46,6 +48,7 @@ public class EditSettings extends AppCompatActivity {
             bun.putInt("Current", getIntent().getIntExtra("Open",0));
         }
         loadAdapters();
+
 
         //Create drawer adapter to toggle search preferences with right side drawer
 
@@ -71,6 +74,7 @@ public class EditSettings extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     protected void onResume() {
@@ -115,5 +119,6 @@ public class EditSettings extends AppCompatActivity {
         }
 
         fragSwitcher.setPage(bun.getInt("Current"));
+
     }
 }
