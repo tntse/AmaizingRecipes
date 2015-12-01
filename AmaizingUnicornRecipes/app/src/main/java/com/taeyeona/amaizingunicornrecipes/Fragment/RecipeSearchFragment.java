@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
 import com.taeyeona.amaizingunicornrecipes.Auth;
@@ -62,7 +63,9 @@ public class RecipeSearchFragment extends Fragment {
         //Use a Map data structure to get all of the shared preferences in one object
         Map<String, ?> preferencesMap = sharedPreferences.getAll();
         boolean searchEdamam = preferencesMap.containsValue(true);
+
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
+        if(!(manager instanceof IngredientsManager)) manager = new IngredientsManager(manager);
 
         //Made a progress bar to have the user wait for the recipe search to come back
         //Made a TextView to show if there's no list to come back
@@ -79,8 +82,16 @@ public class RecipeSearchFragment extends Fragment {
         ArrayList<String> health = new ArrayList<>();
         ArrayList<String> diet = new ArrayList<>();
 
-        String ingredients = manager.toString();
+        ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
+        String ingredients = "";
+        if(searchIngredients != null)
+            ingredients += searchIngredients.toString().trim();
+        String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
+        if(searchQuery != null && !searchQuery.equals(""));
+            ingredients += "," + searchQuery;
+        Log.d("RecipeSearch", ingredients);
         /* Replace special characters with their htmls equivalent */
+        ingredients = ingredients.replace("\n", ",");
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
         ingredients = ingredients.replace(" ", "%20"); // Replace spaces with html code
         ingredients = ingredients.replace("[", "");

@@ -33,11 +33,22 @@ public class EditSettings extends AppCompatActivity {
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
     private EditSettingsAdapter editSettingsAdapter;
+    private Bundle bun;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
+
+
+        bun = savedInstanceState;
+        if(bun == null){
+            bun = new Bundle();
+            bun.putInt("Current", getIntent().getIntExtra("Open",0));
+        }
+        loadAdapters();
+
 
         //Create drawer adapter to toggle search preferences with right side drawer
 
@@ -45,31 +56,6 @@ public class EditSettings extends AppCompatActivity {
         prefListName = ProfileHash.getSearchSettings();
         prefListView = (ListView)findViewById((R.id.pref_drawer_right));
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
-
-        editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), savedInstanceState);
-        mViewPager = (ViewPager) findViewById(R.id.main_pages);
-        mViewPager.setAdapter(editSettingsAdapter);
-        fragSwitcher = new FragmentSwitcherManager(mViewPager);
-
-        Button button;
-        View view;
-
-        button = (Button) findViewById(R.id.main_button_1);
-        button.setText("Favorites");
-        view = findViewById(R.id.main_bar_1);
-        fragSwitcher.add(button, view);
-
-        button = (Button) findViewById(R.id.main_button_2);
-        button.setText("User Info");
-        view = findViewById(R.id.main_bar_2);
-        fragSwitcher.add(button, view);
-
-        button = (Button) findViewById(R.id.main_button_3);
-        button.setText("Pantry");
-        view = findViewById(R.id.main_bar_3);
-        fragSwitcher.add(button, view);
-
-
 
         TextView txtView = (TextView) findViewById(R.id.main_settings_text);
         txtView.setText("Go Back");
@@ -86,6 +72,53 @@ public class EditSettings extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadAdapters();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bun.putInt("Current", mViewPager.getCurrentItem());
+    }
+
+    private void loadAdapters(){
+        editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), bun);
+        mViewPager = (ViewPager) findViewById(R.id.main_pages);
+        mViewPager.setAdapter(editSettingsAdapter);
+
+        if(fragSwitcher == null){
+            fragSwitcher = new FragmentSwitcherManager(mViewPager);
+
+            Button button;
+            View view;
+
+            button = (Button) findViewById(R.id.main_button_1);
+            button.setText("Favorites");
+            view = findViewById(R.id.main_bar_1);
+            fragSwitcher.add(button, view);
+
+            button = (Button) findViewById(R.id.main_button_2);
+            button.setText("User Info");
+            view = findViewById(R.id.main_bar_2);
+            fragSwitcher.add(button, view);
+
+            button = (Button) findViewById(R.id.main_button_3);
+            button.setText("Pantry");
+            view = findViewById(R.id.main_bar_3);
+            fragSwitcher.add(button, view);
+
+        }else{
+            fragSwitcher.setViewPager(mViewPager);
+        }
+
+        fragSwitcher.setPage(bun.getInt("Current"));
 
     }
 }

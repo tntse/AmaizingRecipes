@@ -45,7 +45,7 @@ public class InstructionsFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
-        final TextView text = (TextView) getActivity().findViewById(R.id.textView6);
+        final TextView text = (TextView) getActivity().findViewById(R.id.instruct_text);
 
 //        try {
 //            doc = Jsoup.connect(sourceUrl).get();
@@ -130,7 +130,7 @@ public class InstructionsFragment extends Fragment {
         );
         queue.add(stringRequest);
 
-        but = (Button) getActivity().findViewById(R.id.button2);
+        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
 
         but.setOnClickListener(new View.OnClickListener() {
             @Override

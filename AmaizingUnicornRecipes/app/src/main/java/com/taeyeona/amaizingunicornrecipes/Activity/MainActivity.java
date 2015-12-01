@@ -41,6 +41,9 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bun = savedInstanceState;
+        if(bun == null){
+            bun = new Bundle();
+        }
         setContentView(R.layout.activity_main_v2);
 
         //EULA FOR NEW USERS
@@ -60,7 +63,7 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         TextView title = (TextView) findViewById(R.id.main_title_text);
         title.setText(getString(R.string.app_name));
         TextView settingsLabel = (TextView) findViewById(R.id.main_settings_text);
-        settingsLabel.setText("Settings");
+        settingsLabel.setText(getString(R.string.settings));
         ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
         imgButton.setBackgroundResource(R.drawable.donut_gear_v2);
 
@@ -79,34 +82,59 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         loadAdapters();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bun.putInt("Current", theViewPager.getCurrentItem());
+    }
+
     private void loadAdapters(){
         theMainAdapter = new MainAdapter(getSupportFragmentManager(), bun);
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
-        fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
+        if(fragmentSwitcher == null) {
+            fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 
-        Button button;
-        View view;
+            Button button;
+            View view;
 
-        button = (Button) findViewById(R.id.main_button_1);
-        button.setText("Profile");
-        view = findViewById(R.id.main_bar_1);
-        view.setVisibility(View.INVISIBLE);
-        fragmentSwitcher.add(button, view);
+            button = (Button) findViewById(R.id.main_button_1);
+            button.setText("Profile");
+            view = findViewById(R.id.main_bar_1);
+            view.setVisibility(View.INVISIBLE);
+            fragmentSwitcher.add(button, view);
 
-        button = (Button) findViewById(R.id.main_button_2);
-        button.setText("Pantry");
-        view = findViewById(R.id.main_bar_2);
-        view.setVisibility(View.INVISIBLE);
-        fragmentSwitcher.add(button, view);
+            button = (Button) findViewById(R.id.main_button_2);
+            button.setText("Pantry");
+            view = findViewById(R.id.main_bar_2);
+            view.setVisibility(View.INVISIBLE);
+            fragmentSwitcher.add(button, view);
 
-        button = (Button) findViewById(R.id.main_button_3);
-        button.setText("Search Recipe");
-        view = findViewById(R.id.main_bar_3);
-        view.setVisibility(View.INVISIBLE);
-        fragmentSwitcher.add(button, view);
+            button = (Button) findViewById(R.id.main_button_3);
+            button.setText("Search Recipe");
+            view = findViewById(R.id.main_bar_3);
+            view.setVisibility(View.INVISIBLE);
+            fragmentSwitcher.add(button, view);
 
+        }else {
+            fragmentSwitcher.setViewPager(theViewPager);
+            fragmentSwitcher.setPage(bun.getInt("Current"));
+        }
     }
+
+    public Bundle getBundle(){
+        return bun;
+    }
+
+    public void addData(String data){
+        bun.putString("SearchQuery", data);
+    }
+
+    public void addData(ArrayList<String> data){
+        bun.putStringArrayList("SearchIngredients", data);
+    }
+
+
 
     /*        //test
         myAdapter = new MyAdapter(this);
