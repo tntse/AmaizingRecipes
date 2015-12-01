@@ -3,11 +3,12 @@ package com.taeyeona.amaizingunicornrecipes.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -15,6 +16,9 @@ import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
+import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
+import com.taeyeona.amaizingunicornrecipes.ProfileHash;
+
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
@@ -23,6 +27,11 @@ import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
  * Created by Chau on 10/13/2015.
  */
 public class RecipeShow extends AppCompatActivity{
+
+    //DrawerLayout , prefListView , and prefListName manages preference drawer
+    private DrawerLayout drawerLayout;
+    private ListView prefListView;
+    private String[] prefListName;
 
 
     // private ImageView image;
@@ -39,10 +48,18 @@ public class RecipeShow extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
 
+        //Create drawer adapter to toggle search preferences with right side drawer
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
+        prefListName = ProfileHash.getSearchSettings();
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
+
 
         final String img = getIntent().getStringExtra("Picture");
         Bundle bundle = new Bundle();
         bundle.putString("Title", getIntent().getStringExtra("Title"));
+        bundle.putString("SourceName", getIntent().getStringExtra("SourceName"));
+        bundle.putString("SourceUrl", getIntent().getStringExtra("SourceUrl"));
 
         if(getIntent().getStringExtra("API").equals("Food2Fork")){
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));

@@ -50,6 +50,5 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="12sp"
         android:entries="@array/drawer_list"
-        android:background="@color/green_a400"
         />
 </android.support.v4.widget.DrawerLayout>

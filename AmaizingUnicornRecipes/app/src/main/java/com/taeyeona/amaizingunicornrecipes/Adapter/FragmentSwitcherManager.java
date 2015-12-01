@@ -44,6 +44,10 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         theViewPager.setCurrentItem(index);
     }
 
+    public void setViewPager(ViewPager pager){
+        theViewPager = pager;
+    }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -61,6 +65,11 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    public void setPage(int position){
+        onPageSelected(position);
+        theViewPager.setCurrentItem(position);
     }
 
     class ActivePage {

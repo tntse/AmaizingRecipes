@@ -19,15 +19,12 @@ import android.content.ContentValues;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
+
     private static final int DATABASE_VERSION = 4;
+
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
     public static final String COLUMN_ID = "_id";
-<<<<<<< Updated upstream
- //   public static final String COLUMN_PICTURE = "picture";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_RID = "recipe_id";
-=======
     public static final String COLUMN_PICTURE = "picture";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_RECIPEID = "rid";
@@ -46,7 +43,7 @@ public class dbHandler extends SQLiteOpenHelper {
 //    intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
 //    intent.putExtra("SourceName", currentRecipe.getPublisher());
 ////    intent.putExtra("API", "Edamam");
->>>>>>> Stashed changes
+
 
     /**
      * Creates a basic handle for the database.

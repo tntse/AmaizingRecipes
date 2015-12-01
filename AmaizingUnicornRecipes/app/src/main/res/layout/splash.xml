@@ -15,7 +15,6 @@
         android:textSize="32sp"
         android:text="@string/splash_title"
         android:id="@+id/textView"
-        android:textColor="@color/yellow_500"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
