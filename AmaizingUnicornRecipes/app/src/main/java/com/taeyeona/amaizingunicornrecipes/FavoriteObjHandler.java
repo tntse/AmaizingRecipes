@@ -11,8 +11,62 @@ public class FavoriteObjHandler {
 
     String recipeID;
     String title;
+    String sourceName;
+    String sourceUrl;
+    String picture;
+    String recipeId;
+    String ingredientList;
+    String nutrients;
     private long id;
     dbHandler handler;
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public String getIngredientList() {
+        return ingredientList;
+    }
+
+    public void setIngredientList(String ingredientList) {
+        this.ingredientList = ingredientList;
+    }
+
+    public String getNutrients() {
+        return nutrients;
+    }
+
+    public void setNutrients(String nutrients) {
+        this.nutrients = nutrients;
+    }
 
     /**
      * Default constructor for FavoriteObjHandler. Sets handler default.
@@ -32,6 +86,12 @@ public class FavoriteObjHandler {
     public dbHandler getHandler() {
         return handler;
     }
+
+    public void setHandler(dbHandler handler) {
+        this.handler = handler;
+    }
+
+
 
     /**
      * Getter for id

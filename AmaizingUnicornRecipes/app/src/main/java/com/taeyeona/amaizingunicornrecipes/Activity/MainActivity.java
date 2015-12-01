@@ -81,6 +81,7 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
                 startActivity(toSettingsActivity);
             }
         });
+
     }
 
 /*        //test

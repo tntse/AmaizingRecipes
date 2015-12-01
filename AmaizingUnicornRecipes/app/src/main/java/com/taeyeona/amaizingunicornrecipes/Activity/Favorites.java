@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,9 +47,18 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     private SQLiteDatabase database;
     private dbHandler handler;
-    private String[] allColumns = { handler.COLUMN_ID,
-            handler.COLUMN_TITLE };
-
+    private String[] allColumns = { dbHandler.COLUMN_ID,
+            dbHandler.COLUMN_TITLE, dbHandler.COLUMN_PICTURE, dbHandler.COLUMN_INGREDIENTS, dbHandler.COLUMN_NUTRIENTS,
+            dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL};
+//
+//    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//    COLUMN_TITLE + " TEXT " +
+//    COLUMN_PICTURE + " TEXT " +
+//    COLUMN_INGREDIENTS + " TEXT " +
+//    COLUMN_NUTRIENTS + " TEXT " +
+//    COLUMN_RECIPEID + " TEXT " +
+//    COLUMN_SOURCENAME + " TEXT " +
+//    COLUMN_SOURCEURL + " TEXT " + ");";
 
     /**
      * Creates a handler for fetching title from db
@@ -61,10 +71,29 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Passes recipe title to handler to store in database
-     * @param title recipe title
+     * @param
      */
-    public void storeRecipe(String title, String recipeID){
-        handler.addRecipe(title, recipeID);
+
+    public void storeRecipe(String recipe, String rid, String picture,
+                            String sourceUrl, String sourceName, String nutrients,
+                            String ingredients){
+
+        Log.d("Favorites", "Got in");
+
+        boolean flag = false;
+
+        for(int i = 0; i < getAllFavorites().size(); i++)
+        {
+            if(getAllFavorites().get(i).getTitle().equals(recipe)){
+                flag = true;
+            }
+        }
+
+        if(!flag){
+            Log.d("Favorites", "Got in 2");
+            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients);
+        }
+
     }
 
     /**
@@ -228,9 +257,20 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
         handler.deleteRecipe(id);
     }
 
-    public void searchFavorite(FavoriteObjHandler favorite) {
-        String title = favorite.getTitle();
-        Intent intent = new Intent(Favorites.this, RecipeSearch.class).putExtra("Ingredients", title);
+
+    public void searchFavorite(FavoritesPage favorite) {
+
+        String[] ingredient = convertStringToArray(fav.getIngredientList());
+        String[] nutrient = convertStringToArray(fav.getNutrients());
+
+      //  String title = favorite.getTitle();
+        Intent intent = new Intent(Favorites.this, RecipeShow.class);
+        intent.putExtra("Picture", fav.getPicture());
+        intent.putExtra("Title", fav.getTitle());
+        intent.putExtra("RecipeID", fav.getRecipeId());
+        intent.putExtra("Ingredients", ingredient);
+        intent.putExtra("Nutrients", nutrient);
+
         startActivity(intent);
     }
     @Override
@@ -271,5 +311,11 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         }
 
+    }
+
+    public static String strSeparator = "__,__";
+    public static String[] convertStringToArray(String str){
+        String[] arr = str.split(strSeparator);
+        return arr;
     }
 }
