@@ -20,7 +20,7 @@ import android.content.ContentValues;
 public class dbHandler extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
@@ -71,17 +71,15 @@ public class dbHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String query = "CREATE TABLE " + TABLE_FAVORITES + "(" +
+        db.execSQL("CREATE TABLE " + TABLE_FAVORITES + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-
                 COLUMN_TITLE + " TEXT " +
                 COLUMN_PICTURE + " TEXT " +
                 COLUMN_INGREDIENTS + " TEXT " +
                 COLUMN_NUTRIENTS + " TEXT " +
                 COLUMN_RECIPEID + " TEXT " +
                 COLUMN_SOURCENAME + " TEXT " +
-                COLUMN_SOURCEURL + " TEXT " + ");";
-        db.execSQL(query);
+                COLUMN_SOURCEURL + " TEXT" + ")");
 
     }
 
@@ -107,6 +105,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
                           String ingredients){
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, recipe);
         values.put(COLUMN_PICTURE, picture);
@@ -115,8 +114,6 @@ public class dbHandler extends SQLiteOpenHelper {
         values.put(COLUMN_SOURCEURL, sourceUrl);
         values.put(COLUMN_NUTRIENTS, nutrients);
         values.put(COLUMN_INGREDIENTS, ingredients);
-
-        SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_FAVORITES, null, values);
         db.close();
     }

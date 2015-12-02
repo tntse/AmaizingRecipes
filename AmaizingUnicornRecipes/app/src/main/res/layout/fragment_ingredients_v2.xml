@@ -1,82 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/favorites_partition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        android:id="@+id/favorites_partition"
-        android:weightSum="1.0"
-        android:layout_marginTop="8dp">
+        android:weightSum="1.0">
 
         <CheckBox
             android:id="@+id/star_button"
+            style="?android:attr/starStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/selector"
-        style="?android:attr/starStyle"
-        android:layout_weight=".3" />
-
+            android:layout_weight=".3" />
 
 
         <TextView
+            android:id="@+id/add_favorite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/add_favorite"
+            android:layout_weight=".7"
+            android:paddingTop="8dp"
             android:text="@string/add_to_favorites"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:layout_weight=".7"
-            />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <View
         android:id="@+id/favorites_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/favorites_partition"
-        android:background="#d2dfdb"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
-        />
+        android:background="#d2dfdb" />
 
     <ImageView
+        android:id="@+id/recipe_picture"
         android:layout_width="match_parent"
         android:layout_height="208dp"
-        android:id="@+id/recipe_picture"
         android:layout_alignParentStart="true"
-        android:src="@drawable/test_2"
-        android:padding="8dp"
         android:layout_below="@id/favorites_separator"
-        />
+        android:padding="8dp"
+        android:src="@drawable/test_2" />
 
     <Button
+        android:id="@+id/find_missing_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/find_missing_button"
         android:layout_alignParentBottom="true"
-        android:text="@string/find_missing_ingredients"
         android:background="?android:attr/selectableItemBackground"
-        />
+        android:text="@string/find_missing_ingredients" />
+
     <TextView
+        android:id="@+id/ingredients_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ingredients_list"
         android:layout_above="@+id/find_missing_button"
-        android:layout_below="@id/recipe_picture"
-        />
+        android:layout_below="@id/recipe_picture" />
+
     <View
         android:id="@+id/button_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/ingredients_list"
-        android:background="#d2dfdb"
-        />
+        android:layout_centerHorizontal="true"
+        android:background="#d2dfdb" />
 
 
 </RelativeLayout>

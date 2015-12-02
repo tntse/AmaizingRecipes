@@ -7,7 +7,7 @@ import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
 /**
  * Created by chris on 11/9/15.
  */
-public class FavoriteObjHandler {
+public class FavoritesPage {
 
     String recipeID;
     String title;
@@ -69,14 +69,14 @@ public class FavoriteObjHandler {
     }
 
     /**
-     * Default constructor for FavoriteObjHandler. Sets handler default.
+     * Default constructor for FavoritesPage. Sets handler default.
      * @param context
      */
-    public FavoriteObjHandler(Context context) {
+    public FavoritesPage(Context context) {
         handler = new dbHandler(context, null, null, 1);
     }
 
-    public FavoriteObjHandler(){}
+    public FavoritesPage(){}
 
 
     /**

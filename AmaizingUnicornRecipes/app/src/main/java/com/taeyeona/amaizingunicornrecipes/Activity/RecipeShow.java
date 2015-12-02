@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
-import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
@@ -41,7 +41,7 @@ public class RecipeShow extends AppCompatActivity{
     private FragmentSwitcherManager fragSwitcher;
     private Bitmap theImage;
 
-    FavoriteObjHandler favoriteObj;
+    FavoritesPage favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
