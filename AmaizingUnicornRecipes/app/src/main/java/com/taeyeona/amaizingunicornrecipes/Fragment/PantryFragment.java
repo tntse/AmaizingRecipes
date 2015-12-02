@@ -78,6 +78,7 @@ public class PantryFragment extends Fragment {
                 // TODO: link this button with Recipe Search Fragment
                 ((MainActivity)getActivity()).addData(list);
                 ((MainActivity)getActivity()).addData(query);
+                ((MainActivity)getActivity()).addData(true);
                 ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });

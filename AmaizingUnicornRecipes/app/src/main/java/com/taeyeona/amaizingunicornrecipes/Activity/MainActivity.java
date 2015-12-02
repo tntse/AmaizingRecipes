@@ -134,6 +134,10 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         bun.putStringArrayList("SearchIngredients", data);
     }
 
+    public void addData(boolean buttonPress){
+        bun.putBoolean("Button", buttonPress);
+    }
+
 
 
     /*        //test
