@@ -36,4 +36,11 @@ public class MainAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 3;
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+
 }

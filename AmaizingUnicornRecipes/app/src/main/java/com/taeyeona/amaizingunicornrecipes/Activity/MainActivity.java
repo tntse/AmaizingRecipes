@@ -120,6 +120,9 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
             fragmentSwitcher.setViewPager(theViewPager);
             fragmentSwitcher.setPage(bun.getInt("Current"));
         }
+
+        theMainAdapter.notifyDataSetChanged();
+
     }
 
     public Bundle getBundle(){

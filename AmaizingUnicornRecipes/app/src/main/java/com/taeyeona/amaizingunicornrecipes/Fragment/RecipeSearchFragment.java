@@ -47,7 +47,6 @@ public class RecipeSearchFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private Set<String> manager;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_recipe_search, container, false);
@@ -288,5 +287,7 @@ public class RecipeSearchFragment extends Fragment {
         }
         return recipe;
     }
+
+
 
 }
