@@ -52,9 +52,10 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
 
         //Create drawer adapter to toggle search preferences with right side drawer
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //left
+
         prefListName = ProfileHash.getSearchSettings();
-        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right)); //right
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
 
@@ -62,8 +63,10 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
 
         TextView title = (TextView) findViewById(R.id.main_title_text);
         title.setText(getString(R.string.app_name));
+
         TextView settingsLabel = (TextView) findViewById(R.id.main_settings_text);
         settingsLabel.setText(getString(R.string.settings));
+
         ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
         imgButton.setBackgroundResource(R.drawable.donut_gear_v2);
 

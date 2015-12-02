@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
-import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
@@ -29,21 +29,18 @@ import java.util.List;
  * Created by thomastse on 11/17/15.
  */
 public class ProfileFragment extends Fragment {
-    private SQLiteDatabase database;
-    private dbHandler handler;
-    private String[] allColumns = { handler.COLUMN_ID,
-            handler.COLUMN_TITLE };
+    // private SQLiteDatabase database;
+    // private dbHandler handler;
+    // private String[] allColumns = { handler.COLUMN_ID, handler.COLUMN_TITLE };
     private ListView favoritesList;
-    private EditText deleteInput;
-    private FavoriteObjHandler fav;
+    private FavoritesPage fav;
     private Favorites datasource;
-    private String title;
+    // private String title;
     private TextView name;
     private TextView email;
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-    private ArrayAdapter<FavoriteObjHandler> adapter;
-    private List<FavoriteObjHandler> emptyFavorites;
+    private ArrayAdapter<FavoritesPage> adapter;
+    private List<FavoritesPage> emptyFavorites;
 
     @Nullable
     @Override
@@ -65,19 +62,28 @@ public class ProfileFragment extends Fragment {
         email.setText(sharedPreferences.getString("Email", getString(R.string.default_email)));
 
         datasource = new Favorites(getContext());
-        fav = new FavoriteObjHandler();
+        fav = new FavoritesPage();
         favoritesList = (ListView) view.findViewById(R.id.favorites_list);
         datasource.open();
 
-        List<FavoriteObjHandler> values = datasource.getAllFavorites();
+        List<FavoritesPage> values = datasource.getAllFavorites();
         if(values.isEmpty()){
-            emptyFavorites = new ArrayList<FavoriteObjHandler>();
-            FavoriteObjHandler temp = new FavoriteObjHandler();
+            emptyFavorites = new ArrayList<FavoritesPage>();
+            FavoritesPage temp = new FavoritesPage();
             temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
+            temp.setHandler(null);
+            temp.setId(-1);
+            temp.setIngredientList("");
+            temp.setNutrients("");
+            temp.setPicture("");
+            temp.setRecipeId("");
+            temp.setSourceName("");
+            temp.setSourceUrl("");
+            temp.setApi("");
             emptyFavorites.add(temp);
-            adapter = new ArrayAdapter<FavoriteObjHandler>(getContext(), android.R.layout.simple_expandable_list_item_1, emptyFavorites);
+            adapter = new ArrayAdapter<FavoritesPage>(getContext(), android.R.layout.simple_expandable_list_item_1, emptyFavorites);
         }else {
-             adapter = new ArrayAdapter<FavoriteObjHandler>(getContext(),
+             adapter = new ArrayAdapter<FavoritesPage>(getContext(),
                     android.R.layout.simple_list_item_1, values);
         }
 

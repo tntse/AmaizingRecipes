@@ -1,29 +1,21 @@
 package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
-import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 
 import com.taeyeona.amaizingunicornrecipes.R;
-
-import java.util.List;
 
 
 /**
@@ -34,7 +26,7 @@ public class FavoritesAdapter extends Activity {
     String title;
     TextView favoritesList;
     EditText deleteInput;
-    FavoriteObjHandler fav;
+    FavoritesPage fav;
     Button delete;
 
 
@@ -71,7 +63,7 @@ public class FavoritesAdapter extends Activity {
             navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
             navListView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
-            fav = new FavoriteObjHandler(getApplicationContext());
+            fav = new FavoritesPage(getApplicationContext());
             deleteInput = (EditText) findViewById(R.id.deleteField);
             favoritesList = (TextView) findViewById(R.id.favoritesList);
 //        super.onCreate(savedInstanceState);

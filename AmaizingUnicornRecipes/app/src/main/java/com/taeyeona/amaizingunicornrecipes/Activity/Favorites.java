@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.taeyeona.amaizingunicornrecipes.FavoriteObjHandler;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
@@ -33,7 +32,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
 
 
-    FavoriteObjHandler fav;
+    FavoritesPage fav;
     private Favorites datasource;
     String title;
     ListView favoritesList;
@@ -49,7 +48,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
     private dbHandler handler;
     private String[] allColumns = { dbHandler.COLUMN_ID,
             dbHandler.COLUMN_TITLE, dbHandler.COLUMN_PICTURE, dbHandler.COLUMN_INGREDIENTS, dbHandler.COLUMN_NUTRIENTS,
-            dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL};
+            dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL, dbHandler.COLUMN_API};
 //
 //    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 //    COLUMN_TITLE + " TEXT " +
@@ -76,7 +75,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     public void storeRecipe(String recipe, String rid, String picture,
                             String sourceUrl, String sourceName, String nutrients,
-                            String ingredients){
+                            String ingredients, String api){
 
         Log.d("Favorites", "Got in");
 
@@ -91,7 +90,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
         if(!flag){
             Log.d("Favorites", "Got in 2");
-            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients);
+            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients, api);
         }
 
     }
@@ -132,7 +131,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //
-//        fav = new FavoriteObjHandler();
+//        fav = new FavoritesPage();
 //        deleteInput = (EditText) findViewById(R.id.deleteField);
 //        delete = (Button) findViewById(R.id.deleteButton);
 //        favoritesList = (ListView) findViewById(R.id.nav_drawer);
@@ -153,7 +152,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 //        navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
 //        navListView.setOnItemClickListener(this);
 //
-//        fav = new FavoriteObjHandler(getApplicationContext());
+//        fav = new FavoritesPage(getApplicationContext());
 //        deleteInput = (EditText) findViewById(R.id.deleteField);
 //        favoritesList = (TextView) findViewById(R.id.favoritesList);
 //
@@ -172,7 +171,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * @param title
      * @return
      */
-    public FavoriteObjHandler createTitle(String title) {
+    public FavoritesPage createTitle(String title) {
         ContentValues values = new ContentValues();
         values.put(dbHandler.COLUMN_TITLE, title);
         long insertId = database.insert(dbHandler.TABLE_FAVORITES, null,
@@ -181,7 +180,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
                 allColumns, dbHandler.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        FavoriteObjHandler newTitle = cursorToTitle(cursor);
+        FavoritesPage newTitle = cursorToTitle(cursor);
         cursor.close();
         return newTitle;
     }
@@ -191,7 +190,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * @param r_id
      * @return
      */
-    public FavoriteObjHandler createRecipeID(String r_id) {
+    public FavoritesPage createRecipeID(String r_id) {
         ContentValues values = new ContentValues();
         values.put(dbHandler.COLUMN_RECIPEID, r_id);
         long insertId = database.insert(dbHandler.TABLE_FAVORITES, null,
@@ -200,7 +199,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
                 allColumns, dbHandler.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        FavoriteObjHandler newRID = cursorToID(cursor);
+        FavoritesPage newRID = cursorToID(cursor);
         cursor.close();
         return newRID;
     }
@@ -210,8 +209,8 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * @param cursor
      * @return
      */
-    private FavoriteObjHandler cursorToTitle(Cursor cursor) {
-        FavoriteObjHandler title = new FavoriteObjHandler();
+    private FavoritesPage cursorToTitle(Cursor cursor) {
+        FavoritesPage title = new FavoritesPage();
         title.setId(cursor.getLong(0));
         title.setTitle(cursor.getString(1));
         return title;
@@ -222,22 +221,21 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * @param cursor
      * @return
      */
-    private FavoriteObjHandler cursorToID(Cursor cursor) {
-        FavoriteObjHandler id = new FavoriteObjHandler();
+    private FavoritesPage cursorToID(Cursor cursor) {
+        FavoritesPage id = new FavoritesPage();
         id.setId(cursor.getLong(0));
-        id.setRecipeID(cursor.getString(1));
+        id.setRecipeId(cursor.getString(1));
         return id;
     }
 
-    public List<FavoriteObjHandler> getAllFavorites() {
-        List<FavoriteObjHandler> favorites = new ArrayList<FavoriteObjHandler>();
+    public List<FavoritesPage> getAllFavorites() {
+        List<FavoritesPage> favorites = new ArrayList<FavoritesPage>();
 
-        Cursor cursor = database.query(dbHandler.TABLE_FAVORITES,
-                allColumns, null, null, null, null, null);
+        Cursor cursor = handler.query(dbHandler.TABLE_FAVORITES, allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            FavoriteObjHandler favorite = cursorToTitle(cursor);
+            FavoritesPage favorite = cursorToTitle(cursor);
             favorites.add(favorite);
             cursor.moveToNext();
         }
@@ -250,15 +248,15 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
      * Deletes an row from database
      *
      * Currently not implemented as there is no delete button yet
-     * @param item FavoriteObjHandler object to delete
+     * @param item FavoritesPage object to delete
      */
-    public void deleteFavorite(FavoriteObjHandler item) {
+    public void deleteFavorite(FavoritesPage item) {
         long id = item.getId();
         handler.deleteRecipe(id);
     }
 
 
-    public void searchFavorite(FavoriteObjHandler favorite) {
+    public void searchFavorite(FavoritesPage favorite) {
 
         String[] ingredient = convertStringToArray(fav.getIngredientList());
         String[] nutrient = convertStringToArray(fav.getNutrients());

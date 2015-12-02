@@ -20,7 +20,7 @@ import android.content.ContentValues;
 public class dbHandler extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
@@ -32,6 +32,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NUTRIENTS = "nutrients";
     public static final String COLUMN_SOURCEURL = "sourceUrl";
     public static final String COLUMN_SOURCENAME = "sourceName";
+    public static final String COLUMN_API = "api";
 
 
 //
@@ -73,14 +74,14 @@ public class dbHandler extends SQLiteOpenHelper {
 
         String query = "CREATE TABLE " + TABLE_FAVORITES + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-
                 COLUMN_TITLE + " TEXT " +
                 COLUMN_PICTURE + " TEXT " +
                 COLUMN_INGREDIENTS + " TEXT " +
                 COLUMN_NUTRIENTS + " TEXT " +
                 COLUMN_RECIPEID + " TEXT " +
                 COLUMN_SOURCENAME + " TEXT " +
-                COLUMN_SOURCEURL + " TEXT " + ");";
+                COLUMN_SOURCEURL + " TEXT " +
+                COLUMN_API + "TEXT" + ");";
         db.execSQL(query);
 
     }
@@ -106,15 +107,19 @@ public class dbHandler extends SQLiteOpenHelper {
 
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
-                          String ingredients){
+                          String ingredients, String api){
         ContentValues values = new ContentValues();
+        values.put(COLUMN_API, api);
         values.put(COLUMN_TITLE, recipe);
         values.put(COLUMN_PICTURE, picture);
         values.put(COLUMN_SOURCENAME, sourceName);
-        values.put(COLUMN_RECIPEID, rid);
         values.put(COLUMN_SOURCEURL, sourceUrl);
-        values.put(COLUMN_NUTRIENTS, nutrients);
-        values.put(COLUMN_INGREDIENTS, ingredients);
+        values.put(COLUMN_RECIPEID, rid);
+
+        if(api.equals("Edamam")) {
+            values.put(COLUMN_NUTRIENTS, nutrients);
+            values.put(COLUMN_INGREDIENTS, ingredients);
+        }
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_FAVORITES, null, values);
@@ -155,5 +160,9 @@ public class dbHandler extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
+    }
+
+    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
+        return getReadableDatabase().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
     }
 }

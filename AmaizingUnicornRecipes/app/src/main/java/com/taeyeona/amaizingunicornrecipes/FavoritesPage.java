@@ -7,9 +7,8 @@ import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
 /**
  * Created by chris on 11/9/15.
  */
-public class FavoriteObjHandler {
+public class FavoritesPage {
 
-    String recipeID;
     String title;
     String sourceName;
     String sourceUrl;
@@ -19,6 +18,16 @@ public class FavoriteObjHandler {
     String nutrients;
     private long id;
     dbHandler handler;
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        this.api = api;
+    }
+
+    String api;
 
     public String getSourceName() {
         return sourceName;
@@ -69,14 +78,14 @@ public class FavoriteObjHandler {
     }
 
     /**
-     * Default constructor for FavoriteObjHandler. Sets handler default.
+     * Default constructor for FavoritesPage. Sets handler default.
      * @param context
      */
-    public FavoriteObjHandler(Context context) {
+    public FavoritesPage(Context context) {
         handler = new dbHandler(context, null, null, 1);
     }
 
-    public FavoriteObjHandler(){}
+    public FavoritesPage(){}
 
 
     /**
@@ -123,22 +132,6 @@ public class FavoriteObjHandler {
      */
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    /**
-     * Gets recipe id
-     * @return recipeID
-     */
-    public String getRecipeID() {
-        return recipeID;
-    }
-
-    /**
-     * Sets recipe id
-     * @param recipeID String
-     */
-    public void setRecipeID(String recipeID) {
-        this.recipeID = recipeID;
     }
 
     /**
