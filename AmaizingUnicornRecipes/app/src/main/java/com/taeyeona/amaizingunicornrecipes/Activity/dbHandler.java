@@ -32,6 +32,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NUTRIENTS = "nutrients";
     public static final String COLUMN_SOURCEURL = "sourceUrl";
     public static final String COLUMN_SOURCENAME = "sourceName";
+    public static final String COLUMN_API = "api";
 
 
 //
@@ -79,7 +80,8 @@ public class dbHandler extends SQLiteOpenHelper {
                 COLUMN_NUTRIENTS + " TEXT " +
                 COLUMN_RECIPEID + " TEXT " +
                 COLUMN_SOURCENAME + " TEXT " +
-                COLUMN_SOURCEURL + " TEXT" + ")");
+                COLUMN_SOURCEURL + " TEXT " +
+                COLUMN_API + "TEXT" + ")");
 
     }
 
@@ -104,16 +106,25 @@ public class dbHandler extends SQLiteOpenHelper {
 
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
-                          String ingredients){
-        SQLiteDatabase db = getWritableDatabase();
+                          String ingredients, String api){
+
         ContentValues values = new ContentValues();
+        values.put(COLUMN_API, api);
         values.put(COLUMN_TITLE, recipe);
         values.put(COLUMN_PICTURE, picture);
         values.put(COLUMN_SOURCENAME, sourceName);
-        values.put(COLUMN_RECIPEID, rid);
         values.put(COLUMN_SOURCEURL, sourceUrl);
-        values.put(COLUMN_NUTRIENTS, nutrients);
-        values.put(COLUMN_INGREDIENTS, ingredients);
+        values.put(COLUMN_RECIPEID, rid);
+
+        if(api.equals("Edamam")) {
+            values.put(COLUMN_NUTRIENTS, nutrients);
+            values.put(COLUMN_INGREDIENTS, ingredients);
+        } else if(api.equals("Food2Fork")) {
+            values.put(COLUMN_NUTRIENTS, "");
+            values.put(COLUMN_INGREDIENTS, "");
+        }
+
+        SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_FAVORITES, null, values);
         db.close();
     }
@@ -152,5 +163,9 @@ public class dbHandler extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
+    }
+
+    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
+        return getReadableDatabase().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
     }
 }

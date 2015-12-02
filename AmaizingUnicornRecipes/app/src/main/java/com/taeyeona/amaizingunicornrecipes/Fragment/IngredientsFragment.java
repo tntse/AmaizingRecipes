@@ -142,7 +142,7 @@ public class IngredientsFragment extends Fragment {
                 favObj.storeRecipe(getArguments().getString("Title"),
                         getArguments().getString("RecipeID"), getArguments().getString("Picture"),
                         getArguments().getString("SourceUrl"), getArguments().getString("SourceName"),
-                        nutrientList ,ingredientList);
+                        nutrientList, ingredientList, getArguments().getString("API"));
 
             }
         });

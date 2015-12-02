@@ -34,8 +34,9 @@ public class FavoritesAdapter extends Activity {
 
     private SQLiteDatabase database;
     private dbHandler handler;
-    private String[] allColumns = { handler.COLUMN_ID,
-            handler.COLUMN_TITLE };
+    private String[] allColumns = { dbHandler.COLUMN_ID,
+            dbHandler.COLUMN_TITLE, dbHandler.COLUMN_PICTURE, dbHandler.COLUMN_INGREDIENTS, dbHandler.COLUMN_NUTRIENTS,
+            dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL, dbHandler.COLUMN_API};
 
     /**
      * Pulls up saved database state onCreate

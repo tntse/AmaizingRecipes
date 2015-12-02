@@ -50,7 +50,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
     private dbHandler handler;
     private String[] allColumns = { dbHandler.COLUMN_ID,
             dbHandler.COLUMN_TITLE, dbHandler.COLUMN_PICTURE, dbHandler.COLUMN_INGREDIENTS, dbHandler.COLUMN_NUTRIENTS,
-            dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL};
+            dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL, dbHandler.COLUMN_API};
 //
 //    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 //    COLUMN_TITLE + " TEXT " +
@@ -77,7 +77,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     public void storeRecipe(String recipe, String rid, String picture,
                             String sourceUrl, String sourceName, String nutrients,
-                            String ingredients){
+                            String ingredients, String api){
 
         Log.d("Favorites", "Got in");
 
@@ -92,7 +92,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
         if(!flag){
             Log.d("Favorites", "Got in 2");
-            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients);
+            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients, api);
         }
 
     }
@@ -226,15 +226,14 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
     private FavoritesPage cursorToID(Cursor cursor) {
         FavoritesPage id = new FavoritesPage();
         id.setId(cursor.getLong(0));
-        id.setRecipeID(cursor.getString(1));
+        id.setRecipeId(cursor.getString(1));
         return id;
     }
 
     public List<FavoritesPage> getAllFavorites() {
         List<FavoritesPage> favorites = new ArrayList<FavoritesPage>();
 
-        Cursor cursor = database.query(dbHandler.TABLE_FAVORITES,
-                allColumns, null, null, null, null, null);
+        Cursor cursor = handler.query(dbHandler.TABLE_FAVORITES, allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

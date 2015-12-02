@@ -29,15 +29,14 @@ import java.util.List;
  * Created by thomastse on 11/17/15.
  */
 public class ProfileFragment extends Fragment {
-    private SQLiteDatabase database;
-    private dbHandler handler;
-    private String[] allColumns = { handler.COLUMN_ID,
-            handler.COLUMN_TITLE };
+    // private SQLiteDatabase database;
+    // private dbHandler handler;
+    // private String[] allColumns = { handler.COLUMN_ID, handler.COLUMN_TITLE };
     private ListView favoritesList;
     private EditText deleteInput;
     private FavoritesPage fav;
     private Favorites datasource;
-    private String title;
+    // private String title;
     private TextView name;
     private TextView email;
     private SharedPreferences sharedPreferences;
@@ -68,33 +67,40 @@ public class ProfileFragment extends Fragment {
         fav = new FavoritesPage();
         favoritesList = (ListView) view.findViewById(R.id.favorites_list);
         datasource.open();
-//
-//        List<FavoritesPage> values = datasource.getAllFavorites();
-//        if(values.isEmpty()){
-//            emptyFavorites = new ArrayList<FavoritesPage>();
-//          //  FavoritesPage temp = new FavoritesPage();
-//            temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
-//         //   emptyFavorites.add(temp);
-//            adapter = new ArrayAdapter<FavoritesPage>(getContext(), android.R.layout.simple_expandable_list_item_1, emptyFavorites);
-//        }else {
-//             adapter = new ArrayAdapter<FavoritesPage>(getContext(),
-//                    android.R.layout.simple_list_item_1, values);
-//        }
-//
-//      //  favoritesList.setAdapter(adapter);
-//        favoritesList.isClickable();
-//        favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position,
-//                                    long id) {
-//
-//                String item = ((TextView) view).getText().toString();
-//
-//                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-//
+        List<FavoritesPage> values = datasource.getAllFavorites();
+        if(values.isEmpty()){
+            emptyFavorites = new ArrayList<FavoritesPage>();
+            FavoritesPage temp = new FavoritesPage();
+            temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
+            temp.setHandler(null);
+            temp.setId(-1);
+            temp.setIngredientList("");
+            temp.setNutrients("");
+            temp.setPicture("");
+            temp.setRecipeId("");
+            temp.setSourceName("");
+            temp.setSourceUrl("");
+            temp.setApi("");
+            emptyFavorites.add(temp);
+          //  adapter = new ArrayAdapter<FavoritesPage>(getContext(), android.R.layout.simple_expandable_list_item_1, emptyFavorites);
+        }else {
+          //   adapter = new ArrayAdapter<FavoritesPage>(getContext(),
+          //          android.R.layout.simple_list_item_1, values);
+        }
+
+        favoritesList.setAdapter(adapter);
+        favoritesList.isClickable();
+        favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                String item = ((TextView) view).getText().toString();
+
+                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 

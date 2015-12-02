@@ -9,7 +9,6 @@ import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
  */
 public class FavoritesPage {
 
-    String recipeID;
     String title;
     String sourceName;
     String sourceUrl;
@@ -19,6 +18,16 @@ public class FavoritesPage {
     String nutrients;
     private long id;
     dbHandler handler;
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        this.api = api;
+    }
+
+    String api;
 
     public String getSourceName() {
         return sourceName;
@@ -123,22 +132,6 @@ public class FavoritesPage {
      */
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    /**
-     * Gets recipe id
-     * @return recipeID
-     */
-    public String getRecipeID() {
-        return recipeID;
-    }
-
-    /**
-     * Sets recipe id
-     * @param recipeID String
-     */
-    public void setRecipeID(String recipeID) {
-        this.recipeID = recipeID;
     }
 
     /**
