@@ -13,11 +13,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
+import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
+import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -89,9 +92,24 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     }
 
     private void loadAdapters(){
-        theMainAdapter = new MainAdapter(getSupportFragmentManager(), bun);
+        theMainAdapter = new MainAdapter(getSupportFragmentManager());
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
+        theViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position){
+                /*
+                 * Problems: Ingredients only change on button press and not swipe
+                 */
+                theMainAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
+            }
+            @Override
+            public void onPageScrollStateChanged(int state){
+            }
+        });
         if(fragmentSwitcher == null) {
             fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 
@@ -120,8 +138,6 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
             fragmentSwitcher.setViewPager(theViewPager);
             fragmentSwitcher.setPage(bun.getInt("Current"));
         }
-
-        theMainAdapter.notifyDataSetChanged();
 
     }
 

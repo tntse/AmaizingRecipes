@@ -55,7 +55,8 @@ public class EditPantryFragment extends Fragment {
         list.setAdapter(pantryListAdapter);
 
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
-        input.setText(getString(R.string.enter_ingre_name));
+
+        input.setHint(getString(R.string.enter_ingre_name));
 
         searchButton = (Button) view.findViewById(R.id.pantry_right_button);
         searchButton.setText(getString(R.string.add_ingre));

@@ -87,12 +87,12 @@ public class RecipeSearchFragment extends Fragment {
             if(searchIngredients != null)
                 ingredients += searchIngredients.toString().trim();
             String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
-            if(searchQuery != null && !searchQuery.equals(""));
-            ingredients += "," + searchQuery;
-        }else{
-            ingredients = manager.toString();
+            if(searchQuery != null && !searchQuery.equals(""))
+                ingredients += "," + searchQuery;
+       }else{
+           ingredients = manager.toString();
         }
-        Log.d("RecipeSearch", ingredients);
+        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
@@ -287,7 +287,5 @@ public class RecipeSearchFragment extends Fragment {
         }
         return recipe;
     }
-
-
 
 }
