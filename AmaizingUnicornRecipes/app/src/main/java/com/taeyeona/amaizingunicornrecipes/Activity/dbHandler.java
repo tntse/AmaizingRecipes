@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 
+import java.util.ArrayList;
+
 /**
  * Database handler class
  *
@@ -81,7 +83,7 @@ public class dbHandler extends SQLiteOpenHelper {
                 COLUMN_RECIPEID + " TEXT " +
                 COLUMN_SOURCENAME + " TEXT " +
                 COLUMN_SOURCEURL + " TEXT " +
-                COLUMN_API + "TEXT" + ")");
+                COLUMN_API + "TEXT" + ");");
 
     }
 
@@ -165,7 +167,27 @@ public class dbHandler extends SQLiteOpenHelper {
         return dbString;
     }
 
-    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
-        return getReadableDatabase().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+//    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
+//        return getReadableDatabase().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+//    }
+
+    public String[] getAllTitles() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT " + COLUMN_TITLE + " FROM " + TABLE_FAVORITES;
+        String dbString = "";
+
+        //Make cursor to go through all titles
+        Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()) {
+            if(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)) != null) {
+                dbString += cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
+                dbString += ", ";
+            }
+        }
+        db.close();
+        return dbString.split(", ");
     }
 }

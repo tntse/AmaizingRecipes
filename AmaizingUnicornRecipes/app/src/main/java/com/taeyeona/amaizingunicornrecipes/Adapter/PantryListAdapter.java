@@ -17,7 +17,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     ArrayList<String> selected;
 
     public PantryListAdapter(Context context, String[] list) {
-        super(context, R.layout.checklist, list);
+        super(context,R.layout.favorites, list);
         selected = new ArrayList<String>();
     }
 

@@ -2,11 +2,13 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
+import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
@@ -41,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private TextView email;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private ArrayAdapter<FavoritesPage> adapter;
+    private FavoritesAdapter adapter;
     private List<FavoritesPage> emptyFavorites;
 
     @Nullable
@@ -67,8 +70,8 @@ public class ProfileFragment extends Fragment {
         fav = new FavoritesPage();
         favoritesList = (ListView) view.findViewById(R.id.favorites_list);
         datasource.open();
-        List<FavoritesPage> values = datasource.getAllFavorites();
-        if(values.isEmpty()){
+        String[] values = datasource.getTitlesFromDB();
+        if(values.length < 1){
             emptyFavorites = new ArrayList<FavoritesPage>();
             FavoritesPage temp = new FavoritesPage();
             temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
@@ -82,25 +85,26 @@ public class ProfileFragment extends Fragment {
             temp.setSourceUrl("");
             temp.setApi("");
             emptyFavorites.add(temp);
-          //  adapter = new ArrayAdapter<FavoritesPage>(getContext(), android.R.layout.simple_expandable_list_item_1, emptyFavorites);
-        }else {
-          //   adapter = new ArrayAdapter<FavoritesPage>(getContext(),
-          //          android.R.layout.simple_list_item_1, values);
-        }
+            String[] emptyString = {""};
 
+            adapter = new FavoritesAdapter(getContext(), emptyString);
+        }else {
+             adapter = new FavoritesAdapter(getContext(), values);
+        }
+        Log.d("favoritesAdapter", "set adapter properly");
         favoritesList.setAdapter(adapter);
-        favoritesList.isClickable();
+ //       favoritesList.isClickable();
+        Log.d("favoritesAdapter", "set list as clickable");
+        //crashes after here :(
         favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String item = ((TextView) view).getText().toString();
-
-                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
-
+                Log.d("favoritesAdapter", "made it to the on item click listener");
             }
         });
+
+
     }
 
 

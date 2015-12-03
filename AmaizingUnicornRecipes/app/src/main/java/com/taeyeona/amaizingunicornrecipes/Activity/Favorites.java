@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -28,10 +33,8 @@ import com.taeyeona.amaizingunicornrecipes.R;
  *
  * @author Anna Sever
  * @version 1.0
- *
  */
 public class Favorites extends Activity implements AdapterView.OnItemClickListener {
-
 
 
     FavoritesPage fav;
@@ -48,9 +51,14 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     private SQLiteDatabase database;
     private dbHandler handler;
-    private String[] allColumns = { dbHandler.COLUMN_ID,
+    private String[] allColumns = {dbHandler.COLUMN_ID,
             dbHandler.COLUMN_TITLE, dbHandler.COLUMN_PICTURE, dbHandler.COLUMN_INGREDIENTS, dbHandler.COLUMN_NUTRIENTS,
             dbHandler.COLUMN_RECIPEID, dbHandler.COLUMN_SOURCENAME, dbHandler.COLUMN_SOURCEURL, dbHandler.COLUMN_API};
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 //
 //    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 //    COLUMN_TITLE + " TEXT " +
@@ -63,6 +71,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Creates a handler for fetching title from db
+     *
      * @param context
      */
     public Favorites(Context context) {
@@ -72,25 +81,27 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Passes recipe title to handler to store in database
+     *
      * @param
      */
 
     public void storeRecipe(String recipe, String rid, String picture,
                             String sourceUrl, String sourceName, String nutrients,
-                            String ingredients, String api){
+                            String ingredients, String api) {
 
         Log.d("Favorites", "Got in");
 
         boolean flag = false;
 
-        for(int i = 0; i < getAllFavorites().size(); i++)
-        {
-            if(getAllFavorites().get(i).getTitle().equals(recipe)){
+        String[] titles = handler.getAllTitles();
+
+        for (int i = 0; i < handler.getAllTitles().length; i++) {
+            if (titles[i].equals(recipe)) {
                 flag = true;
             }
         }
 
-        if(!flag){
+        if (!flag) {
             Log.d("Favorites", "Got in 2");
             handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients, api);
         }
@@ -99,10 +110,15 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Gets database on open
+     *
      * @throws SQLException
      */
     public void open() {
         database = handler.getWritableDatabase();
+    }
+
+    public String[] getTitlesFromDB() {
+        return handler.getAllTitles();
     }
 //        @Override
 //        protected void onCreate (Bundle savedInstanceState){
@@ -170,6 +186,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Creates a new title
+     *
      * @param title
      * @return
      */
@@ -189,6 +206,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Sets the recipe id
+     *
      * @param r_id
      * @return
      */
@@ -208,6 +226,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Moves cursor to title
+     *
      * @param cursor
      * @return
      */
@@ -220,6 +239,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
     /**
      * Moves cursor to recipe id
+     *
      * @param cursor
      * @return
      */
@@ -230,26 +250,27 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
         return id;
     }
 
-    public List<FavoritesPage> getAllFavorites() {
-        List<FavoritesPage> favorites = new ArrayList<FavoritesPage>();
-
-        Cursor cursor = handler.query(dbHandler.TABLE_FAVORITES, allColumns, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            FavoritesPage favorite = cursorToTitle(cursor);
-            favorites.add(favorite);
-            cursor.moveToNext();
-        }
-        // make sure to close the cursor
-        cursor.close();
-        return favorites;
-    }
+//    public List<FavoritesPage> getAllFavorites() {
+//        List<FavoritesPage> favorites = new ArrayList<FavoritesPage>();
+//
+//        Cursor cursor = this.database.query(dbHandler.TABLE_FAVORITES, allColumns, null, null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        while (!cursor.isAfterLast()) {
+//            FavoritesPage favorite = cursorToTitle(cursor);
+//            favorites.add(favorite);
+//            cursor.moveToNext();
+//        }
+//        // make sure to close the cursor
+//        cursor.close();
+//        return favorites;
+//    }
 
     /**
      * Deletes an row from database
-     *
+     * <p/>
      * Currently not implemented as there is no delete button yet
+     *
      * @param item FavoritesPage object to delete
      */
     public void deleteFavorite(FavoritesPage item) {
@@ -263,7 +284,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
         String[] ingredient = convertStringToArray(fav.getIngredientList());
         String[] nutrient = convertStringToArray(fav.getNutrients());
 
-      //  String title = favorite.getTitle();
+        //  String title = favorite.getTitle();
         Intent intent = new Intent(Favorites.this, RecipeShow.class);
         intent.putExtra("Picture", fav.getPicture());
         intent.putExtra("Title", fav.getTitle());
@@ -273,6 +294,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 
         startActivity(intent);
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -282,40 +304,89 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 //        <item>Edit Profile</item> 3
 //        <item>Favorites Page</item> 4
 
-        if(position==0){
-            Intent intent = new Intent(this,MainActivity.class);
+        if (position == 0) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-        }else if(position==1){
-            Intent intent = new Intent(this,EditIngredients.class);
+        } else if (position == 1) {
+            Intent intent = new Intent(this, EditIngredients.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
 
 
-        }else if(position==2) {
+        } else if (position == 2) {
             Intent intent = new Intent(this, Pantry.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
 
 
-        }else if(position == 3){
-            Intent intent = new Intent(this,Profile.class);
+        } else if (position == 3) {
+            Intent intent = new Intent(this, Profile.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
 
 
-        }else if(position==4){
-            Intent intent = new Intent(this,Favorites.class);
+        } else if (position == 4) {
+            Intent intent = new Intent(this, Favorites.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         }
 
     }
 
-    public static String[] convertStringToArray(String str){
+    public static String[] convertStringToArray(String str) {
         String strSeparator = "__,__";
         String[] arr = str.split(strSeparator);
         return arr;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Favorites Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.taeyeona.amaizingunicornrecipes.Activity/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Favorites Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.taeyeona.amaizingunicornrecipes.Activity/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }
