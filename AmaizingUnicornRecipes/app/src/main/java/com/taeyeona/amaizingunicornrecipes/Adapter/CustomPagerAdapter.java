@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Fragment.IngredientsFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.InstructionsFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.NutritionFragment;
+import com.taeyeona.amaizingunicornrecipes.Fragment.PlayerFragment;
 
 /**
  * Created by Chau on 11/7/2015.
@@ -33,6 +34,11 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
                 Fragment instruct = new InstructionsFragment();
                 instruct.setArguments(bundle);
                 return instruct;
+            case 2:
+                Fragment player = new PlayerFragment();
+                player.setArguments(bundle);
+                return player;
+
             default:
                 Fragment nutri = new NutritionFragment();
                 nutri.setArguments(bundle);
@@ -42,7 +48,7 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
 }

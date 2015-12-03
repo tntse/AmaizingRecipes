@@ -3,6 +3,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ViewDragHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,14 +35,18 @@ public class InstructionsFragment extends Fragment {
     Button but;
     Document doc;
     StringBuilder instructionLines = new StringBuilder();
+    private ViewDragHelper vdh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_instructions, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
@@ -130,6 +135,8 @@ public class InstructionsFragment extends Fragment {
         );
         queue.add(stringRequest);
 
+
+        // reaplce button with swipe fragment up
         but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
 
         but.setOnClickListener(new View.OnClickListener() {
