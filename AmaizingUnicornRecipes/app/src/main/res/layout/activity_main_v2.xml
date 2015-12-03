@@ -58,6 +58,7 @@
                 android:textColor="#FFFFFF"
                 android:id="@+id/main_title_text"
                 />
+
         </LinearLayout>
 
         <View
@@ -81,7 +82,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight=".33"
+                android:layout_weight="0.34"
                 android:layout_margin="1dp">
                 <Button
                     android:layout_width="match_parent"
@@ -103,7 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight=".34"
+                android:layout_weight="0.33"
                 android:layout_margin="1dp"
                 >
                 <Button
@@ -121,11 +122,14 @@
                     android:background="#d2dfdb"
                     android:visibility="invisible"/>
             </LinearLayout>
+
+
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight=".33"
+                android:layout_weight="0.33"
                 android:layout_margin="1dp">
                 <Button
                     android:layout_width="match_parent"
@@ -142,6 +146,8 @@
                     android:background="#d2dfdb"
                     android:visibility="invisible"/>
             </LinearLayout>
+
+
         </LinearLayout>
 
     </RelativeLayout>

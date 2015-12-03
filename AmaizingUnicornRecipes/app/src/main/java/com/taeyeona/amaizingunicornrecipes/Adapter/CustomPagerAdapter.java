@@ -34,10 +34,6 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
                 Fragment instruct = new InstructionsFragment();
                 instruct.setArguments(bundle);
                 return instruct;
-            case 2:
-                Fragment player = new PlayerFragment();
-                player.setArguments(bundle);
-                return player;
 
             default:
                 Fragment nutri = new NutritionFragment();
@@ -48,7 +44,7 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
 }

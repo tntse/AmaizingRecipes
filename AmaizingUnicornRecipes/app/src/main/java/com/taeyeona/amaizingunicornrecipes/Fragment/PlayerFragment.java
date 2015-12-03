@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class PlayerFragment extends YouTubePlayerSupportFragment implements YouTubePlayer.OnInitializedListener {
 
@@ -33,13 +34,13 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     private String vid;
     private StringBuilder titleList = new StringBuilder();
     String st;
-
-    public static PlayerFragment newInstance(final String videoId) {
-        final PlayerFragment youTubeFragment = new PlayerFragment();
-        final Bundle bundle = new Bundle();
-        youTubeFragment.setArguments(bundle);
-        return youTubeFragment;
-    }
+//
+//    public static PlayerFragment newInstance(final String videoId) {
+//        final PlayerFragment youTubeFragment = new PlayerFragment();
+//        final Bundle bundle = new Bundle();
+//        youTubeFragment.setArguments(bundle);
+//        return youTubeFragment;
+//    }
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -69,15 +70,24 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     }
 
     @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean restored) {
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer,final boolean restored) {
 
-        if (mVideoId != null) {
-            if (restored) {
-                youTubePlayer.play();
-            } else {
-                youTubePlayer.loadVideo(vid);
+        android.os.Handler handler = new android.os.Handler();
+
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mVideoId != null) {
+                    if (restored) {
+                        youTubePlayer.play();
+                    } else {
+                        youTubePlayer.loadVideo(vid);
+                    }
+                }
             }
-        }
+        },7000);
+
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +47,8 @@ public class InstructionsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+
 
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -142,10 +146,21 @@ public class InstructionsFragment extends Fragment {
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Player.class);
-                intent.putExtra("Title", getArguments().getString("Title"));
+//                Intent intent = new Intent(getActivity(), Player.class);
+//                intent.putExtra("Title", getArguments().getString("Title"));
+//
+//                startActivity(intent);
 
-                startActivity(intent);
+                Fragment playerFrag = new PlayerFragment();
+
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_bottom_in,R.anim.slide_bottom_out);
+                transaction.add(R.id.overlay_fragment_container, playerFrag);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
             }
         });
 
