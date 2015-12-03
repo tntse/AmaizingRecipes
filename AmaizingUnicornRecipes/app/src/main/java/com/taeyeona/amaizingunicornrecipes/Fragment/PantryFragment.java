@@ -10,26 +10,17 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
-import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
-import com.taeyeona.amaizingunicornrecipes.Adapter.PantryGridViewAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**

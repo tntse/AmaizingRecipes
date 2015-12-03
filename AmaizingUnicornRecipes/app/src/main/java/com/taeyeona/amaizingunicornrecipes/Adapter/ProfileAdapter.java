@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.taeyeona.amaizingunicornrecipes.R;
@@ -152,16 +154,35 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
         String setting_name = (String)getChild(category, setting);
         LayoutInflater inflator = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(category == 1){
+        if(category == 0 ){
             setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
-            editText.setText(sharedPreferences.getString(setting_name, "Default"));
+            editText.setHint("AcornsAmaizing");
             editText.setContentDescription(setting_name);
             editText.setOnEditorActionListener(new EditTextWatcher());
 
-        }else if(category == 0 || category == 2){
+        }else if(category == 1){
+            setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
+            TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
+            profile_field.setText(setting_name + ":");
+            EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
+            editText.setHint("Default");
+            editText.setContentDescription(setting_name);
+            editText.setOnEditorActionListener(new EditTextWatcher());
+        }else if(category == 2){
+            
+            setting_view = inflator.inflate(R.layout.upload_picture, category_view, false);
+            Button imageUploadButton = (Button) setting_view.findViewById(R.id.button);
+            imageUploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Uploaded Image", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }else{
             setting_view = inflator.inflate(R.layout.profile_toggle_button_layout, category_view, false);
             TextView toggleText = (TextView) setting_view.findViewById(R.id.toggle_text_layout);
             ToggleButton toggleButton = (ToggleButton) setting_view.findViewById(R.id.search_toggle_button);
@@ -172,9 +193,6 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             toggleButton.setContentDescription("Search" + setting_name);
 
             toggleButton.setOnClickListener(new ToggleClick());
-
-        }else{
-            // TODO: Handle Maps Search Radius
         }
 
 

@@ -177,11 +177,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-//        <item>Main Menu</item> 0
-//        <item>Ingredients Page</item>> 1
-//        <item>Search Recipe</item> 2
-//        <item>Edit Profile</item> 3
-//        <item>Favorites Page</item> 4
+
 
         if(position==0){
             Intent intent = new Intent(this,MainActivity.class);
@@ -189,19 +185,19 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
         }else if(position==1){
-            Intent intent = new Intent(this,EditIngredients.class);
+            Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
 
 
         }else if(position==2) {
-            Intent intent = new Intent(this, Pantry.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
 
 
         }else if(position == 3){
-            Intent intent = new Intent(this,Profile.class);
+            Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
 

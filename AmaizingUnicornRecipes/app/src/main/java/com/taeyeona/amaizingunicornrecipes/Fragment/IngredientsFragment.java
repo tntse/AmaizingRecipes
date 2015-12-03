@@ -3,7 +3,6 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -15,15 +14,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
-import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
 import com.taeyeona.amaizingunicornrecipes.Auth;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.R;
-import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;

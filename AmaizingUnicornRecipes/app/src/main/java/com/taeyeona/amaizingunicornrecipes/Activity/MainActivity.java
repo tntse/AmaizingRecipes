@@ -27,7 +27,7 @@ import com.taeyeona.amaizingunicornrecipes.R;
 import java.util.ArrayList;
 
 
-public  class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener,*/{
+public  class MainActivity extends AppCompatActivity{
 
 
     //DrawerLayout , prefListView , and prefListName manages preference drawer
@@ -95,21 +95,7 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         theMainAdapter = new MainAdapter(getSupportFragmentManager());
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
-        theViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position){
-                /*
-                 * Problems: Ingredients only change on button press and not swipe
-                 */
-                theMainAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
-            }
-            @Override
-            public void onPageScrollStateChanged(int state){
-            }
-        });
+        theViewPager.addOnPageChangeListener(new PageListener());
         if(fragmentSwitcher == null) {
             fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 
@@ -157,100 +143,20 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         bun.putBoolean("Button", buttonPress);
     }
 
-
-
-    /*        //test
-        myAdapter = new MyAdapter(this);
-       navListView.setAdapter(myAdapter);
-
-
-        /**
-         * Saved variables for drawerListView and drawerListNames,
-         * navListName are array items in strings.xml
-         * navListView is the list to be adapter for the listnme to be viewable
-         * in simple list item format
-         *
-         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
-         navListName = getResources().getStringArray(R.array.drawer_list);
-
-         navListView = (ListView)findViewById((R.id.nav_drawer));
-         navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,navListName));
-         navListView.setOnItemClickListener(this);
-
-         //set up button sound
-         //final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
-
-         //created buttons to reference each activity
-         Button pantry = (Button)findViewById(R.id.goToPantry);
-         Button profile = (Button)findViewById(R.id.profile);
-         Button toEditIngredients = (Button) findViewById(R.id.to_edit_ingredients_button);
-
-         //the pantry button listens for onClick and Intent references me to another activity
-
-         //start pantry onClickListner
-         pantry.setOnClickListener(new View.OnClickListener() {
-
-        @Override public void onClick(View view) {
-        //kitty.start();
-        Intent intent = new Intent(MainActivity.this, Pantry.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-
+    class PageListener implements ViewPager.OnPageChangeListener{
+        @Override
+        public void onPageSelected ( int position){
+                /*
+                 * Problems: Ingredients only change on button press and not swipe
+                 */
+            if (position == 2) {
+                theMainAdapter.notifyDataSetChanged();
+            }
         }
-        });
-         //End onclick to pantry
-
-         //start profile onClickListner
-         profile.setOnClickListener(new View.OnClickListener()
-         {
-         @Override public void onClick(View view) {
-         //kitty.start();
-         Intent intent = new Intent(MainActivity.this, Profile.class);
-         startActivity(intent);
-         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-         }
-         });
-
-         //Edit Ingredients
-         toEditIngredients.setOnClickListener(new View.OnClickListener(){
-         public void onClick(View view){
-         //kitty.start();
-         Intent intent = new Intent(MainActivity.this, EditIngredients.class);
-         startActivity(intent);
-         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
-
-         }
-         });
+        @Override
+        public void onPageScrolled (int position, float positionOffset, int positionOffsetPixels){}
+        @Override
+        public void onPageScrollStateChanged ( int state){}
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * @param parent
-     * @param view
-     * @param position
-     * @param id       OnItemClick added for Drawer list View
-     *                 goes to different activities in app
-     */
 
 }

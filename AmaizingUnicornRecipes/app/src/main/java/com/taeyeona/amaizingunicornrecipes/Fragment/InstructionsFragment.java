@@ -1,6 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.taeyeona.amaizingunicornrecipes.Activity.Player;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.jsoup.Jsoup;
@@ -130,17 +128,17 @@ public class InstructionsFragment extends Fragment {
         );
         queue.add(stringRequest);
 
-        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
-
-        but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Player.class);
-                intent.putExtra("Title", getArguments().getString("Title"));
-
-                startActivity(intent);
-            }
-        });
+//        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
+//
+//        but.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), );
+//                intent.putExtra("Title", getArguments().getString("Title"));
+//
+//                startActivity(intent);
+//            }
+//        });
 
     }
 }
