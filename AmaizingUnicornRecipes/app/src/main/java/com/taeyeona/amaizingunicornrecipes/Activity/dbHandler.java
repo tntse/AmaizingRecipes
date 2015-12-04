@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
-
     private static final int DATABASE_VERSION = 8;
 
     private static final String DATABASE_NAME = "favorites.db";
