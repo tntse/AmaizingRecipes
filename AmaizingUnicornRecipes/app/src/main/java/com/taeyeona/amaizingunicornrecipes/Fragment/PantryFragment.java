@@ -66,7 +66,6 @@ public class PantryFragment extends Fragment {
                 String query = input.getText().toString().trim();
                 if(query.equals(getString(R.string.enter_search_query)))
                     query = "";
-                // TODO: link this button with Recipe Search Fragment
                 ((MainActivity)getActivity()).addData(list);
                 ((MainActivity)getActivity()).addData(query);
                 ((MainActivity)getActivity()).addData(true);

@@ -171,6 +171,7 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
 /*
     public void searchFavorite(FavoritesPage favorite) {
         String title = favorite.getTitle();
+
         Intent intent = new Intent(Favorites.this, RecipeSearch_.class).putExtra("Ingredients", title);
         startActivity(intent);
     }*/
