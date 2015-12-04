@@ -3,25 +3,21 @@ package com.taeyeona.amaizingunicornrecipes.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
-import com.taeyeona.amaizingunicornrecipes.Fragment.EditUserInfoFragment;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.HashMap;
@@ -182,7 +178,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             editText.setOnEditorActionListener(new EditTextWatcher());
         }else if(category == 2){
 
-            setting_view = inflator.inflate(R.layout.upload_picture, category_view, false);
+            setting_view = inflator.inflate(R.layout.profile_upload_picture, category_view, false);
             Button imageUploadButton = (Button) setting_view.findViewById(R.id.button);
             imageUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
