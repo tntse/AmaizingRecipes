@@ -64,7 +64,7 @@ public class PantryFragment extends Fragment {
         list.setAdapter(pantryListAdapter);
 
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
-        input.setText(getString(R.string.enter_search_query));
+        input.setHint(getString(R.string.enter_search_query));
 
         searchButton = (Button) view.findViewById(R.id.pantry_right_button);
         searchButton.setText(getString(R.string.search_for_recipe));
@@ -78,6 +78,7 @@ public class PantryFragment extends Fragment {
                 // TODO: link this button with Recipe Search Fragment
                 ((MainActivity)getActivity()).addData(list);
                 ((MainActivity)getActivity()).addData(query);
+                ((MainActivity)getActivity()).addData(true);
                 ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });
@@ -92,6 +93,5 @@ public class PantryFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
     }
 }

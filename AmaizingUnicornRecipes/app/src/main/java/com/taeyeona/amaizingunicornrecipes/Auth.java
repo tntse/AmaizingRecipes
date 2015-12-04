@@ -5,7 +5,9 @@ package com.taeyeona.amaizingunicornrecipes;
  */
 public class Auth {
 
-    //http://food2fork.com/api/get?key={API_KEY}&rId={ID}
+    //http://food2fork.com/api/get?key=50ad55b48d8dbd791d8b69af229adeca
+    // key numero dos: f2f a5b90f9d11f5453c04fc97ec2789ab79
+    // thomas's f2f key: 87c3746156e104d5055e4cca1a6e9042
     public static final String DEVELOPER_KEY = "AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk";
     public static final String F2F_Key = "87c3746156e104d5055e4cca1a6e9042";
     //"50ad55b48d8dbd791d8b69af229adeca";
@@ -13,8 +15,8 @@ public class Auth {
     public static final String MAPS_KEY = "AIzaSyAdMLf1_CLLZr7BVP7Li0o4EorZCQE0S_I";
     public static final String GET_URL = "http://food2fork.com/api/get";
     public static final String URL = "http://food2fork.com/api/search";
-    public static final String EDAMAM_ID = "4f2b1b73";
-    public static final String EDAMAM_KEY = "bb6d714aa9393e1e22555b633eee4de4";
+    public static final String EDAMAM_ID = "8486dac9";
+    public static final String EDAMAM_KEY = "a7e44254cc97399430022e739322e13c";
     public static final String EDAMAM_URL = "https://api.edamam.com/search";
     public static final String CHAR_QUESTION = "?";
     public static final String CHAR_EQUALS = "=";
