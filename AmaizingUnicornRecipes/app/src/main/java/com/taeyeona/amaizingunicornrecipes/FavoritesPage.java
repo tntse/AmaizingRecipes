@@ -18,6 +18,10 @@ public class FavoritesPage {
     String nutrients;
     private long id;
     dbHandler handler;
+    String api;
+
+    public FavoritesPage() {
+    }
 
     public String getApi() {
         return api;
@@ -26,8 +30,6 @@ public class FavoritesPage {
     public void setApi(String api) {
         this.api = api;
     }
-
-    String api;
 
     public String getSourceName() {
         return sourceName;
@@ -61,16 +63,16 @@ public class FavoritesPage {
         this.recipeId = recipeId;
     }
 
-    public String getIngredientList() {
-        return ingredientList;
+    public String[] getIngredientList() {
+        return convertStringToArray(ingredientList);
     }
 
     public void setIngredientList(String ingredientList) {
         this.ingredientList = ingredientList;
     }
 
-    public String getNutrients() {
-        return nutrients;
+    public String[] getNutrients() {
+        return convertStringToArray(nutrients);
     }
 
     public void setNutrients(String nutrients) {
@@ -85,8 +87,22 @@ public class FavoritesPage {
         handler = new dbHandler(context);
     }
 
-    public FavoritesPage(){}
 
+    public FavoritesPage(String[] dataFieldsToSet){
+
+        setId(Long.parseLong(dataFieldsToSet[0]));
+        setTitle(dataFieldsToSet[1]);
+        setPicture(dataFieldsToSet[2]);
+        setIngredientList(dataFieldsToSet[3]);
+        setNutrients(dataFieldsToSet[4]);
+        setRecipeId(dataFieldsToSet[5]);
+        setSourceName(dataFieldsToSet[6]);
+        setSourceUrl(dataFieldsToSet[7]);
+        setApi(dataFieldsToSet[8]);
+
+    }
+
+    //order: _id, title, picture, ingredients, nutrients, recipeid, sourcename, sourceurl, api
 
     /**
      * Getter for handler instance
@@ -141,5 +157,11 @@ public class FavoritesPage {
     @Override
     public String toString() {
         return title;
+    }
+
+    public static String[] convertStringToArray(String str) {
+        String strSeparator = ",";
+        String[] arr = str.split(strSeparator);
+        return arr;
     }
 }

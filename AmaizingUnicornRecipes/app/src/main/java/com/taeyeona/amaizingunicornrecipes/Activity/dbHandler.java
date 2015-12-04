@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
 
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+
 import java.util.ArrayList;
 
 /**
@@ -51,9 +53,9 @@ public class dbHandler extends SQLiteOpenHelper {
     /**
      * Creates a basic handle for the database.
      * @param context
-     * @param name
-     * @param factory
-     * @param version
+//     * @param name
+//     * @param factory
+//     * @param version
      *
     public dbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -186,13 +188,46 @@ public class dbHandler extends SQLiteOpenHelper {
 
         while(!cursor.isAfterLast()) {
             cursorpos = cursor.getPosition();
-            if(cursor.getString(cursorpos) != null) {
-                dbString += cursor.getString(cursorpos);
+            if(cursor.getString(0) != null) {
+                dbString += cursor.getString(0);
                 dbString += ",";
             }
             cursor.move(1);
         }
         db.close();
         return dbString.split(",");
+    }
+
+    /**
+     * Selects a row from table and returns it as a FavoritesPage object.
+     * @param title Parameter for selecting a row
+     * @return
+     */
+    public FavoritesPage getRowInDatabase(String title){
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_TITLE + "=\"" + title + "\"";
+        String dbString = "";
+        FavoritesPage ret = null;
+
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            ret = new FavoritesPage();
+            ret.setId(Long.parseLong(cursor.getString(0)));
+            ret.setTitle(cursor.getString(1));
+            ret.setPicture(cursor.getString(2));
+            ret.setIngredientList(cursor.getString(3));
+            ret.setNutrients(cursor.getString(4));
+            ret.setRecipeId(cursor.getString(5));
+            ret.setSourceName(cursor.getString(6));
+            ret.setSourceUrl(cursor.getString(7));
+            ret.setApi(cursor.getString(8));
+        }
+        db.close();
+        String[] favoritesPageParameters = dbString.split(",");
+        //FavoritesPage favoritesPage = new FavoritesPage(favoritesPageParameters);
+        return ret;
     }
 }

@@ -3,6 +3,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
+import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
 import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
@@ -67,24 +69,24 @@ public class ProfileFragment extends Fragment {
         email.setText(sharedPreferences.getString("Email", getString(R.string.default_email)));
 
         datasource = new Favorites(getContext());
-        fav = new FavoritesPage();
+     //   fav = new FavoritesPage();
         favoritesList = (ListView) view.findViewById(R.id.favorites_list);
         //datasource.open();
         String[] values = datasource.getTitlesFromDB();
         if(values.length < 1){
             emptyFavorites = new ArrayList<FavoritesPage>();
-            FavoritesPage temp = new FavoritesPage();
-            temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
-            temp.setHandler(null);
-            temp.setId(-1);
-            temp.setIngredientList("");
-            temp.setNutrients("");
-            temp.setPicture("");
-            temp.setRecipeId("");
-            temp.setSourceName("");
-            temp.setSourceUrl("");
-            temp.setApi("");
-            emptyFavorites.add(temp);
+       //     FavoritesPage temp = new FavoritesPage();
+//            temp.setTitle("You do not have any Favorite Recipes yet!\n Go Search for some.");
+//            temp.setHandler(null);
+//            temp.setId(-1);
+//            temp.setIngredientList("");
+//            temp.setNutrients("");
+//            temp.setPicture("");
+//            temp.setRecipeId("");
+//            temp.setSourceName("");
+//            temp.setSourceUrl("");
+//            temp.setApi("");
+//            emptyFavorites.add(temp);
             String[] emptyString = {"YOU DO NOT HAVE FAVORITES U:"};
 
             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);//new FavoritesAdapter(getContext(), emptyString);
@@ -100,7 +102,25 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.d("favoritesAdapter", "made it to the on item click listener");
+                FavoritesPage favoritesToSearch = datasource.searchFavorite(adapter.getItem(position));
+
+                Intent intent = new Intent(getActivity(), RecipeShow.class);
+                intent.putExtra("Picture", favoritesToSearch.getPicture());
+                intent.putExtra("Title", favoritesToSearch.getTitle());
+                intent.putExtra("RecipeID", favoritesToSearch.getRecipeId());
+                intent.putExtra("SourceURL", favoritesToSearch.getSourceUrl());
+                intent.putExtra("SourceName", favoritesToSearch.getSourceName());
+                intent.putExtra("API", favoritesToSearch.getApi());
+
+                if(favoritesToSearch.getApi().equals("Edamam")) {
+                    intent.putExtra("Ingredients", favoritesToSearch.getIngredientList());
+                    intent.putExtra("Nutrients", favoritesToSearch.getNutrients());
+                }
+
+                startActivity(intent);
+  //              Log.d("favoritesAdapter", "made it to the on item click listener");
+
+
             }
         });
 

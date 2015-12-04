@@ -68,16 +68,16 @@ public class FavoritesAdapter extends Activity {
             favoritesList = (TextView) findViewById(R.id.favoritesList);
     }
 
-    @Override
-    protected void onResume() {
-        datasource.open();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        datasource.close();
-        super.onPause();
-    }
+//    @Override
+//    protected void onResume() {
+//        datasource.open();
+//        super.onResume();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        datasource.close();
+//        super.onPause();
+//    }
 
 }
