@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,11 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
         //Crated JSONrequest
         final JSONRequest jsonRequest = new JSONRequest();
         //Create response
+        //AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI
+        //AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
-                "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI",null,null, st, "",
-                Auth.PART_SNIPPET, "1",null,null, "", "", "", 0.0, 0.0, "", null, null);
+                "AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk", null, null, st, "",
+                Auth.PART_SNIPPET, "1", null, null, "", "", "", 0.0, 0.0, "", null, null);
         //send jsonrequest
         jsonRequest.sendResponse(getContext(), new JSONRequest.VolleyCallBack() {
             @Override
@@ -66,13 +69,27 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
             }
         });
 
-        initialize(devKey, this);
+
+
+        try {
+            initialize(devKey, this);
+
+
+        }catch (Exception e){
+            Intent notFound = new Intent(getActivity(),RecipeShow.class);
+            startActivity(notFound);
+        }
+
+
     }
+
+
+
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer,final boolean restored) {
 
-        android.os.Handler handler = new android.os.Handler();
+        final android.os.Handler handler = new android.os.Handler();
 
 
         handler.postDelayed(new Runnable() {
@@ -82,11 +99,12 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                     if (restored) {
                         youTubePlayer.play();
                     } else {
+                        youTubePlayer.setFullscreen(false);
                         youTubePlayer.loadVideo(vid);
                     }
                 }
             }
-        },7000);
+        },3000);
 
     }
 
@@ -97,6 +115,8 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
         } else {
             //Handle the failure
             Toast.makeText(getActivity(), "BAD", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(), RecipeShow.class);
+            startActivity(intent);
         }
     }
 

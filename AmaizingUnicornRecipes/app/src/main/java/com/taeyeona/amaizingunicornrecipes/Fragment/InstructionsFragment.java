@@ -140,29 +140,55 @@ public class InstructionsFragment extends Fragment {
         queue.add(stringRequest);
 
 
+
+
         // reaplce button with swipe fragment up
         but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
-
         but.setOnClickListener(new View.OnClickListener() {
+            Fragment playerFrag = new PlayerFragment();
+            String flag;
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(getActivity(), Player.class);
 //                intent.putExtra("Title", getArguments().getString("Title"));
-//
 //                startActivity(intent);
 
-                Fragment playerFrag = new PlayerFragment();
+                flag = but.getText().toString();
 
+                if(flag == "VIDEO TUTORIAL") {
 
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_bottom_in,R.anim.slide_bottom_out);
-                transaction.add(R.id.overlay_fragment_container, playerFrag);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                    but.setText("GO BACK");
+//
+                    addFragment(playerFrag);
+                }
+                else{
+                    but.setText("VIDEO TUTORIAL");
+                    removeFragment(playerFrag);
+                }
             }
         });
 
+    }
+
+    public void addFragment(Fragment pFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+        transaction.add(R.id.overlay_fragment_container, pFragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+    }
+    public void removeFragment(Fragment pFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //the underfragment enters,exit
+//        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+//        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out); //maybe
+        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
+
+
+
+        transaction.remove(pFragment);
+        // Commit the transaction
+        transaction.commit();
     }
 }
