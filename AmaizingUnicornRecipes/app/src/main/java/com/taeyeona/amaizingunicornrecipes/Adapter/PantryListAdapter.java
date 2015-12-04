@@ -41,6 +41,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     @Override
     public void onClick(View view) {
         CheckBox check = (CheckBox)view;
+
         if(check.isChecked()){
             selected.add(check.getText().toString());
         }else{

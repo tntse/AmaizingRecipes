@@ -82,7 +82,7 @@ public class FavoritesPage {
      * @param context
      */
     public FavoritesPage(Context context) {
-        handler = new dbHandler(context, null, null, 1);
+        handler = new dbHandler(context);
     }
 
     public FavoritesPage(){}

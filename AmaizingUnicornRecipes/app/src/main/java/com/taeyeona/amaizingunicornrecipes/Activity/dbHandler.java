@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
@@ -54,7 +54,7 @@ public class dbHandler extends SQLiteOpenHelper {
      * @param name
      * @param factory
      * @param version
-     */
+     *
     public dbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
@@ -73,17 +73,18 @@ public class dbHandler extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        db.execSQL("CREATE TABLE " + TABLE_FAVORITES + "(" +
+        String create_table = "CREATE TABLE " + TABLE_FAVORITES + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_TITLE + " TEXT " +
-                COLUMN_PICTURE + " TEXT " +
-                COLUMN_INGREDIENTS + " TEXT " +
-                COLUMN_NUTRIENTS + " TEXT " +
-                COLUMN_RECIPEID + " TEXT " +
-                COLUMN_SOURCENAME + " TEXT " +
-                COLUMN_SOURCEURL + " TEXT " +
-                COLUMN_API + "TEXT" + ");");
+                COLUMN_TITLE + " TEXT," +
+                COLUMN_PICTURE + " TEXT," +
+                COLUMN_INGREDIENTS + " TEXT," +
+                COLUMN_NUTRIENTS + " TEXT," +
+                COLUMN_RECIPEID + " TEXT," +
+                COLUMN_SOURCENAME + " TEXT," +
+                COLUMN_SOURCEURL + " TEXT," +
+                COLUMN_API + " TEXT" + ")";
+
+        db.execSQL(create_table);
 
     }
 
@@ -109,7 +110,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
                           String ingredients, String api){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_API, api);
         values.put(COLUMN_TITLE, recipe);
@@ -176,7 +177,7 @@ public class dbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + COLUMN_TITLE + " FROM " + TABLE_FAVORITES;
         String dbString = "";
-        int i = 0;
+        int cursorpos;
 
         //Make cursor to go through all titles
         Cursor cursor = db.rawQuery(query, null);
@@ -184,14 +185,14 @@ public class dbHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()) {
-
-            if(cursor.getString(i) != null) {
-                dbString += cursor.getString(i);
-                dbString += ", ";
+            cursorpos = cursor.getPosition();
+            if(cursor.getString(cursorpos) != null) {
+                dbString += cursor.getString(cursorpos);
+                dbString += ",";
             }
-            i++;
+            cursor.move(1);
         }
         db.close();
-        return dbString.split(", ");
+        return dbString.split(",");
     }
 }
