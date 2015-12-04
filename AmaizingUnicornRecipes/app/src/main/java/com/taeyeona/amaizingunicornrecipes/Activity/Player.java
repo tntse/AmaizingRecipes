@@ -89,18 +89,6 @@ public class Player extends YouTubeFailureRecoveryActivity {
         });
 
         Log.d("youtube", "hey there");
-        //final JSONObject response = jsonRequest.getResponse();
-
-
-        /*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                parseJSON(jsonRequest.getResponse());
-                vid = titleList.toString();
-            }
-        }, 7000);*/
 
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);

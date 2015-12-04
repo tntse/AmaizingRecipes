@@ -54,6 +54,4 @@
         android:paddingBottom="8dp"
         android:dividerHeight="4px"
         />
-
-
 </RelativeLayout>

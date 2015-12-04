@@ -1,8 +1,11 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.ViewDragHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,14 +37,20 @@ public class InstructionsFragment extends Fragment {
     Button but;
     Document doc;
     StringBuilder instructionLines = new StringBuilder();
+    private ViewDragHelper vdh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_instructions, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+
+
+
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
@@ -130,17 +139,56 @@ public class InstructionsFragment extends Fragment {
         );
         queue.add(stringRequest);
 
-        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
 
+
+
+        // reaplce button with swipe fragment up
+        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
         but.setOnClickListener(new View.OnClickListener() {
+            Fragment playerFrag = new PlayerFragment();
+            String flag;
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Player.class);
-                intent.putExtra("Title", getArguments().getString("Title"));
+//                Intent intent = new Intent(getActivity(), Player.class);
+//                intent.putExtra("Title", getArguments().getString("Title"));
+//                startActivity(intent);
 
-                startActivity(intent);
+                flag = but.getText().toString();
+
+                if(flag == "VIDEO TUTORIAL") {
+
+                    but.setText("GO BACK");
+//
+                    addFragment(playerFrag);
+                }
+                else{
+                    but.setText("VIDEO TUTORIAL");
+                    removeFragment(playerFrag);
+                }
             }
         });
 
+    }
+
+    public void addFragment(Fragment pFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+        transaction.add(R.id.overlay_fragment_container, pFragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+    }
+    public void removeFragment(Fragment pFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //the underfragment enters,exit
+//        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+//        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out); //maybe
+        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
+
+
+
+        transaction.remove(pFragment);
+        // Commit the transaction
+        transaction.commit();
     }
 }
