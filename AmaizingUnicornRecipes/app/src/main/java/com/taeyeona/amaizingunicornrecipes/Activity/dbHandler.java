@@ -122,11 +122,11 @@ public class dbHandler extends SQLiteOpenHelper {
             values.put(COLUMN_NUTRIENTS, nutrients);
             values.put(COLUMN_INGREDIENTS, ingredients);
         } else if(api.equals("Food2Fork")) {
-            values.put(COLUMN_NUTRIENTS, "");
-            values.put(COLUMN_INGREDIENTS, "");
+            values.put(COLUMN_NUTRIENTS, " ");
+            values.put(COLUMN_INGREDIENTS, " ");
         }
 
-        long rowID;
+        long rowID = 0;
         rowID = db.insert(TABLE_FAVORITES, null, values);
         Log.isLoggable("dbhandler", (int) rowID);
         db.close();

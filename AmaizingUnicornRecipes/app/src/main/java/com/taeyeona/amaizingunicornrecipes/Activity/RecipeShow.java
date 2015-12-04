@@ -60,6 +60,7 @@ public class RecipeShow extends AppCompatActivity{
         bundle.putString("Title", getIntent().getStringExtra("Title"));
         bundle.putString("SourceName", getIntent().getStringExtra("SourceName"));
         bundle.putString("SourceUrl", getIntent().getStringExtra("SourceUrl"));
+        bundle.putString("Picture", getIntent().getStringExtra("Picture"));
 
         if(getIntent().getStringExtra("API").equals("Food2Fork")){
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
