@@ -47,13 +47,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:label="@string/app_name"
-            android:name=".Activity.RecipeSearch"
-            android:screenOrientation="sensor"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-
         <activity android:name=".Activity.Favorites">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

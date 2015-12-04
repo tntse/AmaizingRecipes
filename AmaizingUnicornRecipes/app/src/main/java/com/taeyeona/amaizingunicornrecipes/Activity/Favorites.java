@@ -168,12 +168,12 @@ public class Favorites extends Activity implements AdapterView.OnItemClickListen
         long id = item.getId();
         handler.deleteRecipe(id);
     }
-
+/*
     public void searchFavorite(FavoritesPage favorite) {
         String title = favorite.getTitle();
-        Intent intent = new Intent(Favorites.this, RecipeSearch.class).putExtra("Ingredients", title);
+        Intent intent = new Intent(Favorites.this, RecipeSearch_.class).putExtra("Ingredients", title);
         startActivity(intent);
-    }
+    }*/
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

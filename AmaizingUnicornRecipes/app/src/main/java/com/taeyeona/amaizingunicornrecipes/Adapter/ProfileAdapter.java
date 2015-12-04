@@ -157,28 +157,33 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
                              View setting_view, ViewGroup category_view) {
 
         String setting_name = (String)getChild(category, setting);
-        LayoutInflater inflator = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        String group = (String)getGroup(category);
 
-        if(category == 0 ){
-            setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
+        if(group.equals("User Info") ){
+            setting_view = inflater.inflate(R.layout.profile_editable_text_layout, category_view, false);
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
             editText.setHint("AcornsAmaizing");
+            editText.didTouchFocusSelect();
             editText.setContentDescription(setting_name);
-            editText.setOnEditorActionListener(new EditTextWatcher());
+            //editText.setOnEditorActionListener(new EditTextWatcher());
 
-        }else if(category == 1){
-            setting_view = inflator.inflate(R.layout.profile_editable_text_layout, category_view, false);
+        }else if(group.equals("Grocery Store Search Radius")){
+            setting_view = inflater.inflate(R.layout.profile_editable_text_layout, category_view, false);
+
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
+
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
             editText.setHint("Default");
             editText.setContentDescription(setting_name);
             editText.setOnEditorActionListener(new EditTextWatcher());
-        }else if(category == 2){
 
-            setting_view = inflator.inflate(R.layout.profile_upload_picture, category_view, false);
+        }else if(group.equals("Picture Upload")){
+
+            setting_view = inflater.inflate(R.layout.profile_upload_picture, category_view, false);
             Button imageUploadButton = (Button) setting_view.findViewById(R.id.button);
             imageUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,7 +196,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             });
 
         }else{
-            setting_view = inflator.inflate(R.layout.profile_toggle_button_layout, category_view, false);
+            setting_view = inflater.inflate(R.layout.profile_toggle_button_layout, category_view, false);
             TextView toggleText = (TextView) setting_view.findViewById(R.id.toggle_text_layout);
             ToggleButton toggleButton = (ToggleButton) setting_view.findViewById(R.id.search_toggle_button);
             Log.d("profile", "making " + setting_name + "toggle button made");
