@@ -105,7 +105,8 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
                 /*
                  * Problems: Ingredients only change on button press and not swipe
                  */
-                theMainAdapter.notifyDataSetChanged();
+                if(position == 2)
+                    theMainAdapter.notifyDataSetChanged();
             }
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){

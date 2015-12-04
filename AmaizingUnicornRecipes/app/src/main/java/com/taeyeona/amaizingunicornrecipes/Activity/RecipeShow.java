@@ -35,7 +35,6 @@ public class RecipeShow extends AppCompatActivity{
 
 
     // private ImageView image;
-    private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
@@ -47,6 +46,7 @@ public class RecipeShow extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
+        ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
 
         //Create drawer adapter to toggle search preferences with right side drawer
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
