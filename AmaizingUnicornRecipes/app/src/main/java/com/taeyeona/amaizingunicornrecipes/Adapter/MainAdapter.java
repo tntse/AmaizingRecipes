@@ -15,8 +15,11 @@ import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
  */
 public class MainAdapter extends FragmentStatePagerAdapter {
 
-    public MainAdapter(FragmentManager fm) {
+    Bundle bun;
+
+    public MainAdapter(FragmentManager fm, Bundle bundle) {
         super(fm);
+        bun = bundle;
     }
 
     @Override

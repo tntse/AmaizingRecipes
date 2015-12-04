@@ -4,6 +4,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ public class ProfileFragment extends Fragment {
     private SharedPreferences.Editor editor;
     private ArrayAdapter<FavoritesPage> adapter;
     private List<FavoritesPage> emptyFavorites;
+    private ImageView profileImage;
 
     @Nullable
     @Override
@@ -55,8 +58,12 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        profileImage = (ImageView) getActivity().findViewById(R.id.user_picture);
         sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
-        // editor = sharedPreferences.edit();
+
+        if(sharedPreferences.contains("Picture")){
+            profileImage.setImageBitmap(BitmapFactory.decodeFile(sharedPreferences.getString("Picture", "")));
+        }
 
         name = (TextView) view.findViewById(R.id.user_name);
         email = (TextView) view.findViewById(R.id.user_email);
@@ -96,6 +103,5 @@ public class ProfileFragment extends Fragment {
         });
 
     }
-
 
 }

@@ -1,8 +1,12 @@
 package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -11,10 +15,13 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
+import com.taeyeona.amaizingunicornrecipes.Fragment.EditUserInfoFragment;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.HashMap;
@@ -32,6 +39,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
     private Context context;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    Bundle bun;
 
     /**
      * The Constructor for this Adapter.
@@ -39,12 +47,13 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
      * @param hash  A HashList to adapt.
      * @param labels  A key list for the HashMap.
      */
-    public ProfileAdapter(Context ctx, HashMap<String, List<String>> hash, List<String> labels){
+    public ProfileAdapter(Context ctx, HashMap<String, List<String>> hash, List<String> labels, Bundle bundle){
         this.context = ctx;
         this.hashList = hash;
         this.settings = labels;
         sharedPreferences = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        bun = bundle;
     }
 
 
@@ -172,13 +181,16 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             editText.setContentDescription(setting_name);
             editText.setOnEditorActionListener(new EditTextWatcher());
         }else if(category == 2){
-            
+
             setting_view = inflator.inflate(R.layout.upload_picture, category_view, false);
             Button imageUploadButton = (Button) setting_view.findViewById(R.id.button);
             imageUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Uploaded Image", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    ((EditSettings)context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
                 }
             });
 

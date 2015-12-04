@@ -60,7 +60,6 @@ public  class MainActivity extends AppCompatActivity{
         prefListView = (ListView)findViewById((R.id.pref_drawer_right));
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
-
         loadAdapters();
 
         TextView title = (TextView) findViewById(R.id.main_title_text);
@@ -92,7 +91,7 @@ public  class MainActivity extends AppCompatActivity{
     }
 
     private void loadAdapters(){
-        theMainAdapter = new MainAdapter(getSupportFragmentManager());
+        theMainAdapter = new MainAdapter(getSupportFragmentManager(), bun);
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
         theViewPager.addOnPageChangeListener(new PageListener());
