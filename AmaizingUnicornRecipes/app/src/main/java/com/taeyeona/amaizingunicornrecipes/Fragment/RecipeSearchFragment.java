@@ -90,7 +90,7 @@ public class RecipeSearchFragment extends Fragment {
             if(searchQuery != null && !searchQuery.equals(""))
                 ingredients += "," + searchQuery;
        }else{
-           ingredients = manager.toString();
+           ingredients = sharedPreferences.getString("CheckMarkedIngredients", "");
         }
         Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
         /* Replace special characters with their htmls equivalent */
