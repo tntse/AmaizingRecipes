@@ -47,7 +47,6 @@ public class RecipeSearchFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private Set<String> manager;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_recipe_search, container, false);
@@ -82,14 +81,18 @@ public class RecipeSearchFragment extends Fragment {
         ArrayList<String> health = new ArrayList<>();
         ArrayList<String> diet = new ArrayList<>();
 
-        ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
         String ingredients = "";
-        if(searchIngredients != null)
-            ingredients += searchIngredients.toString().trim();
-        String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
-        if(searchQuery != null && !searchQuery.equals(""));
-            ingredients += "," + searchQuery;
-        Log.d("RecipeSearch", ingredients);
+        if(((MainActivity)getActivity()).getBundle().getBoolean("Button")){
+            ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
+            if(searchIngredients != null)
+                ingredients += searchIngredients.toString().trim();
+            String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
+            if(searchQuery != null && !searchQuery.equals(""))
+                ingredients += "," + searchQuery;
+       }else{
+           ingredients = manager.toString();
+        }
+        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces

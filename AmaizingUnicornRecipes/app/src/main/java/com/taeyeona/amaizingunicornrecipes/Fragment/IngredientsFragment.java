@@ -134,10 +134,14 @@ public class IngredientsFragment extends Fragment {
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
+                String ingredientList = "";
+                String nutrientList = "";
                 Log.d("IngredientsFragment", "test");
-                String ingredientList = convertArrayToString(getArguments().getStringArray("Ingredients"));
-                String nutrientList = convertArrayToString(getArguments().getStringArray("Nutrients"));
+                if(!getArguments().getString("API").equals("Food2Fork")){
+                    ingredientList = convertArrayToString(getArguments().getStringArray("Ingredients"));
+                    nutrientList = convertArrayToString(getArguments().getStringArray("Nutrients"));
+                }
+
 
                 favObj.storeRecipe(getArguments().getString("Title"),
                         getArguments().getString("RecipeID"), getArguments().getString("Picture"),

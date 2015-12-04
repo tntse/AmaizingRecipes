@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class dbHandler extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
 
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
@@ -109,7 +110,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
                           String ingredients, String api){
-
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_API, api);
         values.put(COLUMN_TITLE, recipe);
@@ -126,8 +127,9 @@ public class dbHandler extends SQLiteOpenHelper {
             values.put(COLUMN_INGREDIENTS, "");
         }
 
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert(TABLE_FAVORITES, null, values);
+        long rowID;
+        rowID = db.insert(TABLE_FAVORITES, null, values);
+        Log.isLoggable("dbhandler", (int) rowID);
         db.close();
     }
 
@@ -175,6 +177,7 @@ public class dbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + COLUMN_TITLE + " FROM " + TABLE_FAVORITES;
         String dbString = "";
+        int i = 0;
 
         //Make cursor to go through all titles
         Cursor cursor = db.rawQuery(query, null);
@@ -182,10 +185,12 @@ public class dbHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()) {
-            if(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)) != null) {
-                dbString += cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
+
+            if(cursor.getString(i) != null) {
+                dbString += cursor.getString(i);
                 dbString += ", ";
             }
+            i++;
         }
         db.close();
         return dbString.split(", ");

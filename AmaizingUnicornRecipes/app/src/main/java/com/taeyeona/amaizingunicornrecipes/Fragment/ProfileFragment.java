@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private TextView email;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private FavoritesAdapter adapter;
+    private ArrayAdapter<String> adapter;
     private List<FavoritesPage> emptyFavorites;
 
     @Nullable
@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment {
         datasource = new Favorites(getContext());
         fav = new FavoritesPage();
         favoritesList = (ListView) view.findViewById(R.id.favorites_list);
-        datasource.open();
+        //datasource.open();
         String[] values = datasource.getTitlesFromDB();
         if(values.length < 1){
             emptyFavorites = new ArrayList<FavoritesPage>();
@@ -85,17 +85,17 @@ public class ProfileFragment extends Fragment {
             temp.setSourceUrl("");
             temp.setApi("");
             emptyFavorites.add(temp);
-            String[] emptyString = {""};
+            String[] emptyString = {"YOU DO NOT HAVE FAVORITES U:"};
 
-            adapter = new FavoritesAdapter(getContext(), emptyString);
+            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);//new FavoritesAdapter(getContext(), emptyString);
         }else {
-             adapter = new FavoritesAdapter(getContext(), values);
+             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);//new FavoritesAdapter(getContext(), values);
         }
         Log.d("favoritesAdapter", "set adapter properly");
         favoritesList.setAdapter(adapter);
- //       favoritesList.isClickable();
-        Log.d("favoritesAdapter", "set list as clickable");
+        favoritesList.setClickable(true);
         //crashes after here :(
+        Log.d("favoritesAdapter", "set adapter pre on click");
         favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
