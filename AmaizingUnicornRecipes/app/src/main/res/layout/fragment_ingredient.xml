@@ -47,18 +47,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Ingredients"
-        android:id="@+id/textView8"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/textView5"
-        android:layout_above="@id/button4"
-        android:layout_centerHorizontal="true"
-        android:scrollbars="vertical"
-        />
-
-
 
 </RelativeLayout>
