@@ -52,6 +52,7 @@ public class EditPantryFragment extends Fragment {
         pantryListAdapter = new PantryListAdapter(getContext(), (String [])manager.toArray());
 
         list = (ListView) view.findViewById(R.id.pantry_list);
+        list.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         list.setAdapter(pantryListAdapter);
 
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
@@ -71,6 +72,8 @@ public class EditPantryFragment extends Fragment {
                         edit.commit();
                         pantryListAdapter = new PantryListAdapter(getContext(), (String[])manager.toArray());
                         list.setAdapter(pantryListAdapter);
+                        input.setText("");
+                        list.setSelection(pantryListAdapter.getCount()-1);
                     }
                 }
             }
