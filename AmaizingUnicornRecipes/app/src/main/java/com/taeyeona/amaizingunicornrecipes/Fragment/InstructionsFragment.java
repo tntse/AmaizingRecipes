@@ -138,10 +138,6 @@ public class InstructionsFragment extends Fragment {
                 }
         );
         queue.add(stringRequest);
-
-
-
-
         // reaplce button with swipe fragment up
 //
 
@@ -149,41 +145,22 @@ public class InstructionsFragment extends Fragment {
             but.setOnClickListener(new View.OnClickListener() {
             final Fragment playerFragAlpha = new PlayerFragment();
 
-
-
-            boolean open = true;
-            boolean firstOpen = true;
+                boolean open = true;
+                boolean firstOpen = true;
             @Override
             public void onClick(View v) {
 
-
-                //Davids help/////////////////////
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                Fragment playerFragAlpha = getFragmentManager().findFragmentByTag("vid_tutor_button");
-//
-//                if(playerFragAlpha == null){
-//                    playerFragAlpha = new PlayerFragment();
-//                    transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-//                    transaction.add(R.id.overlay_fragment_container, playerFragAlpha);
-//                    transaction.addToBackStack(null);
-//                    // Commit the transaction
-//                }else{
-//                    transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
-//                    transaction.remove(playerFragAlpha);
-//
-//                }
-//                transaction.commit();
-
-                //Davids help//////////////////end///
                 if(firstOpen)
                 {
                     addFragment(playerFragAlpha);
                     firstOpen = false;
                 }
 
-                if (open){
+                if (open)
+                {
                     open = false;
                     but.setText("GO BACK");
+
                     showFragment(playerFragAlpha);
                 }else{
                     open = true;
@@ -217,7 +194,7 @@ public class InstructionsFragment extends Fragment {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //the underfragment enters,exit
 //        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
+        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
         transaction.add(R.id.overlay_fragment_container, pFragment);
         transaction.addToBackStack(null);
         // Commit the transaction

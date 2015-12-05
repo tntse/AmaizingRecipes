@@ -86,13 +86,11 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
 
 
-
+    public YouTubePlayer youTubePlayerGlobal;
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer,final boolean restored) {
 
         final android.os.Handler handler = new android.os.Handler();
-
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -100,15 +98,13 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                     if (restored) {
                         youTubePlayer.play();
                     } else {
-                       // youTubePlayer.setFullscreen(false);
-
                         try{
+                            youTubePlayerGlobal = youTubePlayer;
                             youTubePlayer.loadVideo(vid);
                         }catch(Exception e){
                             Intent notFound = new Intent(getActivity(),RecipeShow.class);
                             startActivity(notFound);
                         }
-
                     }
                 }
             }
