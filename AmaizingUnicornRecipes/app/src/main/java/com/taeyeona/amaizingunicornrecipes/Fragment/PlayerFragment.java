@@ -3,6 +3,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -99,8 +100,15 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                     if (restored) {
                         youTubePlayer.play();
                     } else {
-                        youTubePlayer.setFullscreen(false);
-                        youTubePlayer.loadVideo(vid);
+                       // youTubePlayer.setFullscreen(false);
+
+                        try{
+                            youTubePlayer.loadVideo(vid);
+                        }catch(Exception e){
+                            Intent notFound = new Intent(getActivity(),RecipeShow.class);
+                            startActivity(notFound);
+                        }
+
                     }
                 }
             }

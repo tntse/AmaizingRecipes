@@ -143,51 +143,83 @@ public class InstructionsFragment extends Fragment {
 
 
         // reaplce button with swipe fragment up
-        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
-        but.setOnClickListener(new View.OnClickListener() {
-            Fragment playerFrag = new PlayerFragment();
-            String flag;
+//
+
+            but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
+            but.setOnClickListener(new View.OnClickListener() {
+            final Fragment playerFragAlpha = new PlayerFragment();
+
+
+
+            boolean open = true;
+            boolean firstOpen = true;
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), Player.class);
-//                intent.putExtra("Title", getArguments().getString("Title"));
-//                startActivity(intent);
 
-                flag = but.getText().toString();
 
-                if(flag == "VIDEO TUTORIAL") {
-
-                    but.setText("GO BACK");
+                //Davids help/////////////////////
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                Fragment playerFragAlpha = getFragmentManager().findFragmentByTag("vid_tutor_button");
 //
-                    addFragment(playerFrag);
+//                if(playerFragAlpha == null){
+//                    playerFragAlpha = new PlayerFragment();
+//                    transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+//                    transaction.add(R.id.overlay_fragment_container, playerFragAlpha);
+//                    transaction.addToBackStack(null);
+//                    // Commit the transaction
+//                }else{
+//                    transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
+//                    transaction.remove(playerFragAlpha);
+//
+//                }
+//                transaction.commit();
+
+                //Davids help//////////////////end///
+                if(firstOpen)
+                {
+                    addFragment(playerFragAlpha);
+                    firstOpen = false;
                 }
-                else{
+
+                if (open){
+                    open = false;
+                    but.setText("GO BACK");
+                    showFragment(playerFragAlpha);
+                }else{
+                    open = true;
                     but.setText("VIDEO TUTORIAL");
-                    removeFragment(playerFrag);
+                    hideFragment(playerFragAlpha);
+
                 }
             }
         });
 
     }
 
-    public void addFragment(Fragment pFragment){
+    public void showFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-        transaction.add(R.id.overlay_fragment_container, pFragment);
-        transaction.addToBackStack(null);
+//        transaction.add(R.id.overlay_fragment_container, pFragment);
+        transaction.show(pFragment);
         // Commit the transaction
         transaction.commit();
     }
-    public void removeFragment(Fragment pFragment){
+    public void hideFragment(Fragment pFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //the underfragment enters,exit
+        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);//works
+        transaction.hide(pFragment);
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    public void addFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //the underfragment enters,exit
 //        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-//        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out); //maybe
         transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
-
-
-
-        transaction.remove(pFragment);
+        transaction.add(R.id.overlay_fragment_container, pFragment);
+        transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
     }
