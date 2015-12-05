@@ -162,7 +162,6 @@ public class RecipeSearchFragment extends Fragment {
             });
 
         } else {
-
             //Create food2fork response and send the response to the API
             jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
                     ingredients, "", "", "", "", "", "", "", null, 0.0, 0.0, "", null, null);
@@ -287,5 +286,4 @@ public class RecipeSearchFragment extends Fragment {
         }
         return recipe;
     }
-
 }

@@ -9,7 +9,7 @@ public class Auth {
     // key numero dos: f2f a5b90f9d11f5453c04fc97ec2789ab79
     // thomas's f2f key: 87c3746156e104d5055e4cca1a6e9042
     public static final String DEVELOPER_KEY = "AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk";
-    public static final String F2F_Key = "87c3746156e104d5055e4cca1a6e9042";
+    public static final String F2F_Key = "a5b90f9d11f5453c04fc97ec2789ab79";
     public static final String MAPS_KEY = "AIzaSyAdMLf1_CLLZr7BVP7Li0o4EorZCQE0S_I";
     public static final String GET_URL = "http://food2fork.com/api/get";
     public static final String URL = "http://food2fork.com/api/search";

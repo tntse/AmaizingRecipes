@@ -53,7 +53,7 @@ public class PantryFragment extends Fragment {
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
 
-        if(manager.contains("")){
+        if(manager.isEmpty()){
             nullText = (TextView) getActivity().findViewById(R.id.emptyPantryText);
             nullText.setText("Your Pantry is empty; add an ingredient!");
         }
