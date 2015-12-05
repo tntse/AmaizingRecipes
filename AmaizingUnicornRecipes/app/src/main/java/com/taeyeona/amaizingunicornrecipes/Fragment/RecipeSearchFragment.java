@@ -99,7 +99,6 @@ public class RecipeSearchFragment extends Fragment {
         ingredients = ingredients.replace(" ", "%20"); // Replace spaces with html code
         ingredients = ingredients.replace("[", "");
         ingredients = ingredients.replace("]", "");
-        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
 
         if (searchEdamam) {
             String collection[] = ProfileHash.getSearchSettings();

@@ -11,9 +11,9 @@ public class Auth {
     // thomas f2f key numero dos: 672caa0de2a18eb25bbb3ecccfccd0df
     public static final String DEVELOPER_KEY = "AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk";
     public static final String F2F_Key = //"87c3746156e104d5055e4cca1a6e9042";
-    //"50ad55b48d8dbd791d8b69af229adeca";
-    //"87c3746156e104d5055e4cca1a6e9042";
-    "672caa0de2a18eb25bbb3ecccfccd0df";
+    "50ad55b48d8dbd791d8b69af229adeca";
+    //"a5b90f9d11f5453c04fc97ec2789ab79";
+    //"672caa0de2a18eb25bbb3ecccfccd0df";
 
     public static final String MAPS_KEY = "AIzaSyAdMLf1_CLLZr7BVP7Li0o4EorZCQE0S_I";
     public static final String GET_URL = "http://food2fork.com/api/get";

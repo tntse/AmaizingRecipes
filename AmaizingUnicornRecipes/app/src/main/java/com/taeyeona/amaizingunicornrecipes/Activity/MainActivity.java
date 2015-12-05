@@ -95,6 +95,7 @@ public  class MainActivity extends AppCompatActivity{
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
         theViewPager.addOnPageChangeListener(new PageListener());
+        theViewPager.setOffscreenPageLimit(3);
         if(fragmentSwitcher == null) {
             fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 
