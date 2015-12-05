@@ -128,9 +128,13 @@ public class IngredientsFragment extends Fragment {
         });
 
         CheckBox fav = (CheckBox) getActivity().findViewById(R.id.star_button);
-
-
         final Favorites favObj = new Favorites(getActivity().getApplicationContext());
+
+        if(favObj.checkIfFavorited(getArguments().getString("RecipeID"), getArguments().getString("API"))) {
+            fav.setChecked(true);
+        }
+
+
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -150,6 +154,7 @@ public class IngredientsFragment extends Fragment {
 
             }
         });
+
 
 
 

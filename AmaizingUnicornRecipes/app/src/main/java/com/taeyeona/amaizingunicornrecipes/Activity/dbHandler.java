@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Database handler class
- *
+ * <p/>
  * <p> Creates a handle to create, store, and call from the database file favorites.db.
  * Has globals: DATABASE_VERSION, DATABASE_NAME, TABLE_FAVORITES, COLUMN_ID,
  * COLUMN_INGREDIENTNAME to store relative fields. Connects to Ingredients class in order
@@ -52,17 +52,17 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Creates a basic handle for the database.
-     * @param context
-//     * @param name
-//     * @param factory
-//     * @param version
      *
-    public dbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
-    }
-
-    /**
-     * ListView updtated constructor for dbHandler
+     * @param context //     * @param name
+     *                //     * @param factory
+     *                //     * @param version
+     *                <p/>
+     *                public dbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+     *                super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+     *                }
+     *                <p/>
+     *                /**
+     *                ListView updtated constructor for dbHandler
      * @param context
      */
     public dbHandler(Context context) {
@@ -71,6 +71,7 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Override for onCreate so query is created when opened
+     *
      * @param db A SQLite database object
      */
     @Override
@@ -92,7 +93,8 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Reads from db file when app reopened.
-     * @param db SQLiteDatabase object
+     *
+     * @param db         SQLiteDatabase object
      * @param oldVersion int current table version
      * @param newVersion int updated table version
      */
@@ -106,12 +108,13 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Adds a row to table
+     *
      * @param recipe Ingredients Used to store new ingredient
      */
 
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
-                          String ingredients, String api){
+                          String ingredients, String api) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_API, api);
@@ -121,10 +124,10 @@ public class dbHandler extends SQLiteOpenHelper {
         values.put(COLUMN_SOURCEURL, sourceUrl);
         values.put(COLUMN_RECIPEID, rid);
 
-        if(api.equals("Edamam")) {
+        if (api.equals("Edamam")) {
             values.put(COLUMN_NUTRIENTS, nutrients);
             values.put(COLUMN_INGREDIENTS, ingredients);
-        } else if(api.equals("Food2Fork")) {
+        } else if (api.equals("Food2Fork")) {
             values.put(COLUMN_NUTRIENTS, " ");
             values.put(COLUMN_INGREDIENTS, " ");
         }
@@ -137,6 +140,7 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Delete a ingredient from a database.
+     *
      * @param id Id of recipe to delete
      */
     public void deleteRecipe(long id) {
@@ -147,9 +151,10 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Print out database as a string storage/passing
+     *
      * @return dbString Database stored as a string.
      */
-    public String databaseToString(){
+    public String databaseToString() {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
         String query = "Select * FROM " + TABLE_FAVORITES + " WHERE 1";
@@ -160,8 +165,8 @@ public class dbHandler extends SQLiteOpenHelper {
         //move to the first row in results
         cursor.moveToFirst();
 
-        while(!cursor.isAfterLast()) {
-            if(cursor.getString(cursor.getColumnIndex("title")) != null) {
+        while (!cursor.isAfterLast()) {
+            if (cursor.getString(cursor.getColumnIndex("title")) != null) {
                 dbString += cursor.getString(cursor.getColumnIndex("title"));
                 dbString += "\n";
             }
@@ -186,9 +191,9 @@ public class dbHandler extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
 
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             cursorpos = cursor.getPosition();
-            if(cursor.getString(0) != null) {
+            if (cursor.getString(0) != null) {
                 dbString += cursor.getString(0);
                 dbString += ",";
             }
@@ -200,10 +205,11 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      * Selects a row from table and returns it as a FavoritesPage object.
+     *
      * @param title Parameter for selecting a row
      * @return
      */
-    public FavoritesPage getRowInDatabase(String title){
+    public FavoritesPage getRowInDatabase(String title) {
 
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_TITLE + "=\"" + title + "\"";
@@ -213,7 +219,7 @@ public class dbHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             ret = new FavoritesPage();
             ret.setId(Long.parseLong(cursor.getString(0)));
             ret.setTitle(cursor.getString(1));
@@ -226,8 +232,34 @@ public class dbHandler extends SQLiteOpenHelper {
             ret.setApi(cursor.getString(8));
         }
         db.close();
-        String[] favoritesPageParameters = dbString.split(",");
-        //FavoritesPage favoritesPage = new FavoritesPage(favoritesPageParameters);
         return ret;
+    }
+
+    public boolean containsRecipe(String recipe_id, String api) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT " + COLUMN_RECIPEID + " FROM " + TABLE_FAVORITES;
+        String apiQuery = "SELECT " + COLUMN_API + " FROM " + TABLE_FAVORITES;
+
+        Cursor cursor = db.rawQuery(query, null);
+        Cursor apiCursor = db.rawQuery(apiQuery, null);
+
+        cursor.moveToFirst();
+        apiCursor.moveToFirst();
+
+        boolean flag = false;
+
+        while (!cursor.isAfterLast()) {
+            if (cursor.getString(0).equals(recipe_id) && apiCursor.getString(0).equals(api)) {
+                flag =true;
+            }
+            apiCursor.move(1);
+            cursor.move(1);
+        }
+
+        cursor.close();
+        apiCursor.close();
+        db.close();
+
+        return flag;
     }
 }
