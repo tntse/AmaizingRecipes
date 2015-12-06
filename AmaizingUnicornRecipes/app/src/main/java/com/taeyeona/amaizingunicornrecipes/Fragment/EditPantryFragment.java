@@ -30,7 +30,6 @@ public class EditPantryFragment extends Fragment {
     private Set<String> manager;
     private PantryListAdapter pantryListAdapter;
     private ListView list;
-    TextView nullText;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pantry, container, false);
@@ -42,7 +41,6 @@ public class EditPantryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
         edit = sharedPreferences.edit();
-        nullText = (TextView) getActivity().findViewById(R.id.emptyPantryText);
         list = (ListView) view.findViewById(R.id.pantry_list);
 
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
@@ -65,7 +63,7 @@ public class EditPantryFragment extends Fragment {
                         manager.add(temp);
                         edit.putStringSet("Ingredients", manager);
                         edit.commit();
-
+                        input.setText("");
                         getListAndSetAdapter();
                     }
                 }
@@ -77,23 +75,24 @@ public class EditPantryFragment extends Fragment {
         deleteSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> selected = pantryListAdapter.getSelected();
-                manager.removeAll(selected);
-                edit.putStringSet("Ingredients", manager);
-                edit.commit();
-                getListAndSetAdapter();
+                if(!manager.isEmpty()) {
+                    ArrayList<String> selected = pantryListAdapter.getSelected();
+                    manager.removeAll(selected);
+                    edit.putStringSet("Ingredients", manager);
+                    edit.commit();
+                    getListAndSetAdapter();
+                }
             }
         });
 
     }
 
     private void getListAndSetAdapter(){
+       String[] emptyManager = {getString(R.string.empty_pantry)};
 
         if(manager.isEmpty()){
-            nullText.setText(getContext().getString(R.string.empty_pantry));
-            list.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, (String[])manager.toArray()));
+            list.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyManager));
         }else {
-            nullText.setText("");
             pantryListAdapter = new PantryListAdapter(getContext(), (String[]) manager.toArray());
             list.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
             list.setAdapter(pantryListAdapter);

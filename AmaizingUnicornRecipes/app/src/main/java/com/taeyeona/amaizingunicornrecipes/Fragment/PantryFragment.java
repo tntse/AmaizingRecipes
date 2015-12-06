@@ -117,17 +117,18 @@ public class PantryFragment extends Fragment
         tut_button = (Button)view.findViewById(R.id.tutorial_got_it);
         tut_Image = (ImageView)view.findViewById(R.id.tutorial_swipe_image);
 
-        boolean isNotFirstRun = sharedPreferences.getBoolean("isNotFirstRun", false);
+        boolean isFirstRun = sharedPreferences.getBoolean("isFirstPantryRun", true);
 
-        if (!isNotFirstRun) {
+        if (isFirstRun) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isNotFirstRun", true);
+            editor.putBoolean("isFirstPantryRun", false);
             editor.commit();
 
             tut_Image.setVisibility(View.VISIBLE);
             tut_swipe.setVisibility(View.VISIBLE);
             tut_check_items.setVisibility(View.VISIBLE);
             tut_button.setVisibility(View.VISIBLE);
+            nullText.setVisibility(View.INVISIBLE);
 
             tut_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -136,6 +137,7 @@ public class PantryFragment extends Fragment
                     tut_check_items.setVisibility(View.INVISIBLE);
                     tut_swipe.setVisibility(View.INVISIBLE);
                     tut_Image.setVisibility(View.INVISIBLE);
+                    nullText.setVisibility(View.VISIBLE);
                 }
             });
 
