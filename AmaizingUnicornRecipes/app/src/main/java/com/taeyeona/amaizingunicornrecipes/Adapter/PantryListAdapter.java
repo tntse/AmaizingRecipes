@@ -49,8 +49,8 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
 
         if(check.isChecked()){
             selected.add(check.getText().toString());
-            editor.putString("CheckMarkedIngredients", selected.toString());
-            editor.commit();
+//            editor.putString("CheckMarkedIngredients", selected.toString());
+//            editor.commit();
         }else{
             selected.remove(check.getText().toString());
         }

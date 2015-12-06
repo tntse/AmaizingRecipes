@@ -68,8 +68,8 @@ public class ProfileFragment extends Fragment {
 
 
         if(values.length == 1){
-            if(values[0].equals(""){
-                values[0] = "You currently do not have any favorites. Search for some recipes to favorite!";
+            if(values[0].equals("")){
+                values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
                 emptyFavoritesFlag = true;
             }
         }
@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
         Log.d("favoritesAdapter", "set adapter properly");
         favoritesList.setAdapter(adapter);
 
-        if(emptyFavoritesFlag){
+        if(!emptyFavoritesFlag){
             favoritesList.setClickable(true);
             Log.d("favoritesAdapter", "set adapter pre on click");
             favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
