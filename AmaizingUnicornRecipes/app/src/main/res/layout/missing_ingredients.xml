@@ -54,7 +54,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/missing_ingre_back_field"
             android:background="#d2dfdb" />
-        </RelativeLayout>
+    </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -73,6 +73,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/find_store_button"
         android:background="#d2dfdb" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
@@ -84,6 +85,14 @@
         android:layout_margin="4dp"
         />
 
+    <FrameLayout
+        android:id="@+id/maps_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/missing_grocery_div"
+        android:layout_below="@id/missing_top_bar"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
 
 
 </RelativeLayout>

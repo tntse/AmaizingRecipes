@@ -1,30 +1,22 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
-import com.taeyeona.amaizingunicornrecipes.Adapter.NavigationDrawAdapter;
-import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
-import com.taeyeona.amaizingunicornrecipes.Fragment.PantryFragment;
-import com.taeyeona.amaizingunicornrecipes.Fragment.ProfileFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;

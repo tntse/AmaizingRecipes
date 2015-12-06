@@ -93,9 +93,9 @@ public class ProfileFragment extends Fragment {
 //            emptyFavorites.add(temp);
             String[] emptyString = {"YOU DO NOT HAVE FAVORITES U:"};
 
-            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);//new FavoritesAdapter(getContext(), emptyString);
+            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);
         }else {
-             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);//new FavoritesAdapter(getContext(), values);
+             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
         }
         Log.d("favoritesAdapter", "set adapter properly");
         favoritesList.setAdapter(adapter);
