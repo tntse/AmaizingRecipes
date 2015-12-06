@@ -21,8 +21,7 @@ public class  JSONRequest {
     private JSONObject jsRequest;
     private String URL;
 
-    public JSONRequest(){
-    }
+    public JSONRequest(){}
 
     //https://api.edamam.com/search?from=0&to=1&q=chicken&app_id=4f2b1b73&app_key=bb6d714aa9393e1e22555b633eee4de4
     //http://food2fork.com/api/search?key=50ad55b48d8dbd791d8b69af229adeca&q=shredded%20chicken

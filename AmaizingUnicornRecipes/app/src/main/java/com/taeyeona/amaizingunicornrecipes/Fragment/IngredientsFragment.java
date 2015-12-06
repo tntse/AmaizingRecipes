@@ -2,6 +2,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,16 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
-import com.taeyeona.amaizingunicornrecipes.Activity.FavoritesAdapter;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
 import com.taeyeona.amaizingunicornrecipes.Auth;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
@@ -127,13 +127,49 @@ public class IngredientsFragment extends Fragment {
             }
         });
 
-        ImageButton fav = (ImageButton) getActivity().findViewById(R.id.star_button);
+        CheckBox fav = (CheckBox) getActivity().findViewById(R.id.star_button);
         final Favorites favObj = new Favorites(getActivity().getApplicationContext());
+
+        if(favObj.checkIfFavorited(getArguments().getString("RecipeID"), getArguments().getString("API"))) {
+            fav.setChecked(true);
+        }
+
+
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                favObj.storeRecipe(getArguments().getString("Title"));
+
+                String ingredientList = "";
+                String nutrientList = "";
+                Log.d("IngredientsFragment", "test");
+                if(!getArguments().getString("API").equals("Food2Fork")){
+                    ingredientList = convertArrayToString(getArguments().getStringArray("Ingredients"));
+                    nutrientList = convertArrayToString(getArguments().getStringArray("Nutrients"));
+                }
+
+
+                favObj.storeRecipe(getArguments().getString("Title"),
+                        getArguments().getString("RecipeID"), getArguments().getString("Picture"),
+                        getArguments().getString("SourceUrl"), getArguments().getString("SourceName"),
+                        nutrientList, ingredientList, getArguments().getString("API"));
+
             }
         });
 
+
+
+
+    }
+
+    public static String strSeparator = ", ";
+    public static String convertArrayToString(String[] array){
+        String str = "";
+        for (int i = 0;i<array.length; i++) {
+            str = str+array[i];
+            // Do not append comma at the end of last element
+            if(i<array.length-1){
+                str = str+strSeparator;
+            }
+        }
+        return str;
     }
 }

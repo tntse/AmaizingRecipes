@@ -10,26 +10,20 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
-import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
-import com.taeyeona.amaizingunicornrecipes.Adapter.PantryGridViewAdapter;
+
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,6 +37,7 @@ public class PantryFragment extends Fragment {
     private Set<String> manager;
     private PantryListAdapter pantryListAdapter;
     private ListView list;
+    private TextView nullText;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pantry, container, false);
@@ -57,6 +52,11 @@ public class PantryFragment extends Fragment {
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
+
+        if(manager.isEmpty()){
+            nullText = (TextView) getActivity().findViewById(R.id.emptyPantryText);
+            nullText.setText("Your Pantry is empty; add an ingredient!");
+        }
 
         pantryListAdapter = new PantryListAdapter(getContext(), (String [])manager.toArray());
 
