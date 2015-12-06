@@ -3,6 +3,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -83,14 +84,21 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     }
 
 
-
-
+    /**
+     *
+     * @param provider
+     * @param youTubePlayer
+     * @param restored
+     *
+     * YouTube player fragment that checks whether a video is found
+     * to be loaded by youTubePlayer , restored is a flag to check if the video
+     * found had loaded yet to manage when the Youtube video can be played
+     *
+     */
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer,final boolean restored) {
 
         final android.os.Handler handler = new android.os.Handler();
-
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -98,8 +106,12 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                     if (restored) {
                         youTubePlayer.play();
                     } else {
-                        youTubePlayer.setFullscreen(false);
-                        youTubePlayer.loadVideo(vid);
+                        try{
+                            youTubePlayer.loadVideo(vid);
+                        }catch(Exception e){
+                            Intent notFound = new Intent(getActivity(),RecipeShow.class);
+                            startActivity(notFound);
+                        }
                     }
                 }
             }
@@ -107,6 +119,14 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
     }
 
+    /**
+     *
+     * @param provider
+     * @param youTubeInitializationResult
+     *
+     * Runs if YouTube player fails to play a video and displays toasts to show user
+     * that no video was found or loaded to be played
+     */
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
         if (youTubeInitializationResult.isUserRecoverableError()) {
@@ -119,6 +139,14 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
         }
     }
 
+    /**
+     *
+     * @param pResponse
+     *
+     * Checks whether a JSONreponse was found, if there was response
+     * then parseJSOn will begin to parse videoId which is used to load
+     * the youtube player
+     */
     private void parseJSON(JSONObject pResponse){
         try{
 

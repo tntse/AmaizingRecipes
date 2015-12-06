@@ -47,6 +47,7 @@
         android:scrollbars="vertical"/>
 
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,6 +93,15 @@
 
         />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/emptyPantryText"
+        android:layout_alignTop="@+id/pantry_list"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp" />
 
 
 </RelativeLayout>

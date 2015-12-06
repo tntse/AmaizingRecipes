@@ -20,10 +20,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
+
+
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -42,6 +43,7 @@ public class PantryFragment extends Fragment
     private Set<String> manager;
     private PantryListAdapter pantryListAdapter;
     private ListView list;
+    private TextView nullText;
 
     private TextView tut_swipe;
     private TextView tut_check_items;
@@ -66,6 +68,11 @@ public class PantryFragment extends Fragment
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
+
+        if(manager.isEmpty()){
+            nullText = (TextView) getActivity().findViewById(R.id.emptyPantryText);
+            nullText.setText("Your Pantry is empty; add an ingredient!");
+        }
 
         pantryListAdapter = new PantryListAdapter(getContext(), (String [])manager.toArray());
 

@@ -29,11 +29,13 @@
     <string name="instructions_loading">Please wait while we round up your instructions...</string>
 
     <string-array name="drawer_list">
-        <item>Main Menu</item>
-        <item>Ingredients Page</item>>
+        <item>Profile</item>
+        <item>Pantry</item>>
         <item>Search Recipe</item>
+        <item>Edit Favorites</item>
         <item>Edit Profile</item>
-        <item>Favorites Page</item>
+        <item>Edit Pantry Ingredients</item>
+        <item>Search Preferences</item>
     </string-array>
 
     <string-array name="preference_list">
@@ -44,7 +46,7 @@
     <item>Preference</item>
     </string-array>
 
-    <string name="updates">What\'s new and happening !
+    <string name="updates">What\'s new and happening!
         No idea.
     </string>
 
