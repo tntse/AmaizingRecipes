@@ -85,8 +85,17 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     }
 
 
-
-    public YouTubePlayer youTubePlayerGlobal;
+    /**
+     *
+     * @param provider
+     * @param youTubePlayer
+     * @param restored
+     *
+     * YouTube player fragment that checks whether a video is found
+     * to be loaded by youTubePlayer , restored is a flag to check if the video
+     * found had loaded yet to manage when the Youtube video can be played
+     *
+     */
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer,final boolean restored) {
 
@@ -99,7 +108,6 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                         youTubePlayer.play();
                     } else {
                         try{
-                            youTubePlayerGlobal = youTubePlayer;
                             youTubePlayer.loadVideo(vid);
                         }catch(Exception e){
                             Intent notFound = new Intent(getActivity(),RecipeShow.class);
@@ -112,6 +120,14 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
     }
 
+    /**
+     *
+     * @param provider
+     * @param youTubeInitializationResult
+     *
+     * Runs if YouTube player fails to play a video and displays toasts to show user
+     * that no video was found or loaded to be played
+     */
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
         if (youTubeInitializationResult.isUserRecoverableError()) {
@@ -124,6 +140,14 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
         }
     }
 
+    /**
+     *
+     * @param pResponse
+     *
+     * Checks whether a JSONreponse was found, if there was response
+     * then parseJSOn will begin to parse videoId which is used to load
+     * the youtube player
+     */
     private void parseJSON(JSONObject pResponse){
         try{
 

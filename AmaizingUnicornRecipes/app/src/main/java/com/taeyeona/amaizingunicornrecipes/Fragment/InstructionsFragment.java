@@ -138,9 +138,14 @@ public class InstructionsFragment extends Fragment {
                 }
         );
         queue.add(stringRequest);
-        // reaplce button with swipe fragment up
-//
 
+        /**
+         *
+         * Button but manages the hide and reveal of the youtube fragment
+         * OnClick controls add,show,hide player fragment
+         *
+         *
+         */
             but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
             but.setOnClickListener(new View.OnClickListener() {
             final Fragment playerFragAlpha = new PlayerFragment();
@@ -172,7 +177,14 @@ public class InstructionsFragment extends Fragment {
         });
 
     }
-
+    /**
+     * @author HaoXian
+     * @param pFragment
+     *
+     * Shows the fragment when the user previously chose to hide the player fragment
+     * now reveals the player fragment to continue to video
+     *
+     */
     public void showFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
@@ -181,6 +193,14 @@ public class InstructionsFragment extends Fragment {
         // Commit the transaction
         transaction.commit();
     }
+
+    /**
+     * @author HaoXian
+     * @param pFragment
+     *
+     * The fragment containing YouTube player , works with a slide in animation when
+     * the fragment is to be hidden be the user, and reveals the main layout, instructions
+     */
     public void hideFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //the underfragment enters,exit
@@ -190,6 +210,14 @@ public class InstructionsFragment extends Fragment {
         transaction.commit();
     }
 
+
+    /**
+     * @author HaoXian
+     * @param pFragment
+     *
+     * The fragment containing YouTube player , works with a slide in animation when
+     * the fragment is added (overlays) the current layout
+     */
     public void addFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //the underfragment enters,exit
