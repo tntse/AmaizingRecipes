@@ -24,7 +24,6 @@ import java.util.List;
 public class EditFavoritesFragment extends Fragment {
     private Favorites favoritesData;
     private ArrayAdapter<String> adapter;
-    private List<Recipes> emptyFavorites;
     private String[] values;
     private boolean emptyFavoritesFlag = false;
     private ArrayList<String> selected;
@@ -65,16 +64,13 @@ public class EditFavoritesFragment extends Fragment {
     private void getFavoritesAndSetAdapter(){
 
         values = favoritesData.getTitlesFromDB();
-        if(values.length == 1){
-            if(values[0].equals("")){
+        if(values.length == 1 && values[0].equals("")){
                 values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
                 emptyFavoritesFlag = true;
                 adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
-            }else{
-                adapter = new PantryListAdapter(getContext(), values);
-            }
+        }else {
+            adapter = new PantryListAdapter(getContext(), values);
         }
-
         favoritesList.setAdapter(adapter);
     }
 

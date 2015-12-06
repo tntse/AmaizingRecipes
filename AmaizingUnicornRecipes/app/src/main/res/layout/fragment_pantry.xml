@@ -48,28 +48,29 @@
 
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/tutorial_swipe_to_search"
-            android:layout_marginBottom="28sp"
-            android:layout_marginTop="28sp"
-            android:text="Swipe to search"
-            android:layout_marginRight="8sp"
-            android:layout_toStartOf="@+id/tutorial_swipe_image"
-            android:textSize="28sp"
-            />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/tutorial_swipe_to_search"
+        android:layout_marginBottom="28sp"
+        android:layout_marginTop="28sp"
+        android:text="Swipe to search"
+        android:layout_marginRight="8sp"
+        android:layout_toStartOf="@+id/tutorial_swipe_image"
+        android:textSize="28sp"
+        android:visibility="invisible"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tutorial_check_items"
         android:layout_centerHorizontal="true"
-
         android:layout_above="@+id/tutorial_swipe_to_search"
         android:text="Check Ingredients for Search"
         android:textSize="28sp"
+        android:visibility="invisible"
         />
 
     <ImageView
@@ -79,6 +80,7 @@
         android:src="@drawable/swipe2search"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:visibility="invisible"
         />
 
 
@@ -90,6 +92,7 @@
         android:layout_below="@id/tutorial_swipe_to_search"
         android:text="GOT IT?"
         android:id="@+id/tutorial_got_it"
+        android:visibility="invisible"
 
         />
 
@@ -101,7 +104,8 @@
         android:id="@+id/emptyPantryText"
         android:layout_alignTop="@+id/pantry_list"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp" />
+        android:layout_marginTop="200dp"
+        />
 
 
 </RelativeLayout>

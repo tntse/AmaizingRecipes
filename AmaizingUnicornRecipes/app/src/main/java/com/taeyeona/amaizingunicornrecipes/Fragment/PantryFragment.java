@@ -117,13 +117,6 @@ public class PantryFragment extends Fragment
         tut_button = (Button)view.findViewById(R.id.tutorial_got_it);
         tut_Image = (ImageView)view.findViewById(R.id.tutorial_swipe_image);
 
-
-        tut_Image.setVisibility(View.INVISIBLE);
-        tut_swipe.setVisibility(View.INVISIBLE);
-        tut_check_items.setVisibility(View.INVISIBLE);
-        tut_button.setVisibility(View.INVISIBLE);
-
-
         boolean isNotFirstRun = sharedPreferences.getBoolean("isNotFirstRun", false);
 
         if (!isNotFirstRun) {
