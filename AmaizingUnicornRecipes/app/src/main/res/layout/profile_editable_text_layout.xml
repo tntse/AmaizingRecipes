@@ -20,5 +20,6 @@
         android:id="@+id/profile_edittext"
         android:singleLine="true"
         android:focusable="true"
+
         />
 </LinearLayout>

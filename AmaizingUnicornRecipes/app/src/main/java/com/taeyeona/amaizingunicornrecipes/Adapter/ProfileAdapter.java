@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -165,10 +168,19 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
-            editText.setHint("AcornsAmaizing");
-            editText.didTouchFocusSelect();
+            if(sharedPreferences.getString(setting_name, "").equals(""))
+                if(setting_name.equals("Name")){
+                    editText.setHint(context.getString(R.string.default_name));
+                }else{
+                    editText.setHint(context.getString(R.string.default_email));
+                }
+            else
+                editText.setText(sharedPreferences.getString(setting_name, ""));
             editText.setContentDescription(setting_name);
-            //editText.setOnEditorActionListener(new EditTextWatcher());
+            //editText.setTextIsSelectable(true);
+            //InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            //imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            editText.setOnEditorActionListener(new EditTextWatcher());
 
         }else if(group.equals("Grocery Store Search Radius")){
             setting_view = inflater.inflate(R.layout.profile_editable_text_layout, category_view, false);
@@ -199,9 +211,9 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             setting_view = inflater.inflate(R.layout.profile_toggle_button_layout, category_view, false);
             TextView toggleText = (TextView) setting_view.findViewById(R.id.toggle_text_layout);
             ToggleButton toggleButton = (ToggleButton) setting_view.findViewById(R.id.search_toggle_button);
-            Log.d("profile", "making " + setting_name + "toggle button made");
+         //   Log.d("profile", "making " + setting_name + "toggle button made");
             toggleText.setText(setting_name + ":");
-            Log.d("profile", setting_name + "toggle button made");
+          //  Log.d("profile", setting_name + "toggle button made");
             toggleButton.setChecked(sharedPreferences.getBoolean("Search" + setting_name, false));
             toggleButton.setContentDescription("Search" + setting_name);
 
@@ -221,7 +233,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public boolean isChildSelectable(int category, int setting) {
-        return false;
+        return true;
     }
 
     /**
@@ -243,6 +255,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
         public boolean onEditorAction(TextView textView, int code, KeyEvent keyEvent) {
             editor.putString(textView.getContentDescription().toString(), textView.getText().toString());
             editor.commit();
+            Log.d("ProfileAdapter", "Editor edits.");
             return true;
         }
     }

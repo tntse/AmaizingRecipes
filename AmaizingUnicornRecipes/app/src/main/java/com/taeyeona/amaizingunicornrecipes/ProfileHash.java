@@ -42,10 +42,11 @@ public class ProfileHash {
 
         uploadPicture.add("Upload Picture Here");
 
+
         ret.put("Grocery Store Search Radius", searchMapsFields);
         ret.put("Search Settings", searchToggleFields);
-        ret.put("User Info", textFields);
         ret.put("Picture Upload", uploadPicture);
+        ret.put("User Info", textFields);
 
         return ret;
     }

@@ -20,6 +20,8 @@ import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
+import com.taeyeona.amaizingunicornrecipes.Fragment.PantryFragment;
+import com.taeyeona.amaizingunicornrecipes.Fragment.ProfileFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
@@ -39,6 +41,7 @@ public  class MainActivity extends AppCompatActivity{
     private ViewPager   theViewPager;
     private FragmentSwitcherManager fragmentSwitcher;
     private Bundle bun;
+    private RecipeSearchFragment recipeSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +94,14 @@ public  class MainActivity extends AppCompatActivity{
     }
 
     private void loadAdapters(){
-        theMainAdapter = new MainAdapter(getSupportFragmentManager(), bun);
+        if(recipeSearchFragment == null)
+            recipeSearchFragment = new RecipeSearchFragment();
+
+        theMainAdapter = new MainAdapter(getSupportFragmentManager(), recipeSearchFragment);
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
-        theViewPager.addOnPageChangeListener(new PageListener());
-        theViewPager.setOffscreenPageLimit(3);
+        //theViewPager.addOnPageChangeListener(new PageListener());
+        //theViewPager.setOffscreenPageLimit(3);
         if(fragmentSwitcher == null) {
             fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 
@@ -140,7 +146,9 @@ public  class MainActivity extends AppCompatActivity{
     }
 
     public void addData(boolean buttonPress){
-        bun.putBoolean("Button", buttonPress);
+        recipeSearchFragment = new RecipeSearchFragment();
+        loadAdapters();
+        fragmentSwitcher.setPage(2);
     }
 
     class PageListener implements ViewPager.OnPageChangeListener{
@@ -150,7 +158,7 @@ public  class MainActivity extends AppCompatActivity{
                  * Problems: Ingredients only change on button press and not swipe
                  */
             if (position == 2) {
-                theMainAdapter.notifyDataSetChanged();
+
             }
         }
         @Override

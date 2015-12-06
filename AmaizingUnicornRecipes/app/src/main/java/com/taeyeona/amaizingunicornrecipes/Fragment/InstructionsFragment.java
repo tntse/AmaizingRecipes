@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.ViewDragHelper;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class InstructionsFragment extends Fragment {
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
         final TextView text = (TextView) getActivity().findViewById(R.id.instruct_text);
+        text.setMovementMethod(new ScrollingMovementMethod());
 
 //        try {
 //            doc = Jsoup.connect(sourceUrl).get();
