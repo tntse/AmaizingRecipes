@@ -123,7 +123,7 @@ public class RecipeSearchFragment extends Fragment {
             String dietArray[] = diet.toArray(new String[diet.size()]);
 
             jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                    Auth.EDAMAM_ID, ingredients, "", null, null, "", "", "", "", null, null, null, "", healthArray, dietArray);
+                    Auth.EDAMAM_ID, ingredients, "", null, null, "0", "100", "", "", null, null, null, "", healthArray, dietArray);
             jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
                 @Override
                 public void onSuccess() {
