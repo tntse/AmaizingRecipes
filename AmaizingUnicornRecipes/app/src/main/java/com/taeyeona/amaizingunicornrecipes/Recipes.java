@@ -1,5 +1,9 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.content.Context;
+
+import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,11 @@ public class Recipes {
     private String publisherUrl;
     private List<String> ingredients;
     private List<String> nutrients;
+    private String nutrient;
+    private long id;
+    private dbHandler handler;
+    private String api;
+    private String ingredientList;
 
     public Recipes(){
     }
@@ -34,6 +43,41 @@ public class Recipes {
         publisherUrl = pubUrl;
         ingredients = new ArrayList<String>();
         nutrients = new ArrayList<String>();
+    }
+
+    public Recipes(Context context) {
+        handler = new dbHandler(context);
+    }
+
+
+    public Recipes(String[] dataFieldsToSet){
+
+        setId(Long.parseLong(dataFieldsToSet[0]));
+        setTitle(dataFieldsToSet[1]);
+        setImageUrl(dataFieldsToSet[2]);
+        setIngredientList(dataFieldsToSet[3]);
+        setNutrients(dataFieldsToSet[4]);
+        setRecipeId(dataFieldsToSet[5]);
+        setPublisher(dataFieldsToSet[6]);
+        setSourceUrl(dataFieldsToSet[7]);
+        setApi(dataFieldsToSet[8]);
+
+    }
+
+    /**
+     * Getter for id
+     * @return long id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * Setter for id
+     * @param id
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -118,8 +162,28 @@ public class Recipes {
         return nutrients;
     }
 
-    public void setNutrients(String nutrient){
+    public void setNutrientList(String nutrient){
         nutrients.add(nutrient);
+    }
+
+    public void setNutrients(String nutrients){
+        this.nutrient = nutrients;
+    }
+
+    public String[] getNutrientsArray() {
+        return convertStringToArray(nutrient);
+    }
+
+    public void setNutrientsArray(String nutrients) {
+        this.nutrient = nutrients;
+    }
+
+    public String[] getIngredientList() {
+        return convertStringToArray(ingredientList);
+    }
+
+    public void setIngredientList(String ingredientList) {
+        this.ingredientList = ingredientList;
     }
 
     /**
@@ -164,5 +228,39 @@ public class Recipes {
         this.publisherUrl = publisherUrl;
     }
 
+    /**
+     * Getter for handler instance
+     * @return dbHandler handler
+     */
+    public dbHandler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(dbHandler handler) {
+        this.handler = handler;
+    }
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        this.api = api;
+    }
+
+    /**
+     * Used by Favorites to display as ListView
+     * @return String title
+     */
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    public static String[] convertStringToArray(String str) {
+        String strSeparator = ",";
+        String[] arr = str.split(strSeparator);
+        return arr;
+    }
 
 }
