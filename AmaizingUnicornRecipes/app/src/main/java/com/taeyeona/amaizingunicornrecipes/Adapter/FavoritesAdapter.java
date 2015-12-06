@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 
 import com.taeyeona.amaizingunicornrecipes.R;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
 
 
 /**
@@ -26,7 +26,7 @@ public class FavoritesAdapter extends Activity {
     String title;
     TextView favoritesList;
     EditText deleteInput;
-    FavoritesPage fav;
+    Recipes fav;
     Button delete;
 
 
@@ -63,7 +63,7 @@ public class FavoritesAdapter extends Activity {
             navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navListName));
             navListView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
-            fav = new FavoritesPage(getApplicationContext());
+            fav = new Recipes(getApplicationContext());
             deleteInput = (EditText) findViewById(R.id.deleteField);
             favoritesList = (TextView) findViewById(R.id.favoritesList);
     }

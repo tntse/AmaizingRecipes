@@ -3,7 +3,8 @@ package com.taeyeona.amaizingunicornrecipes.Activity;
 import android.content.Context;
 import android.util.Log;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
 
 /**
  * Database intermediary for favorites page
@@ -79,9 +80,9 @@ public class Favorites {
      * <p/>
      * Currently not implemented as there is no delete button yet
      *
-     * @param item FavoritesPage object to delete
+     * @param item Recipes object to delete
      */
-    public void deleteFavorite(FavoritesPage item) {
+    public void deleteFavorite(Recipes item) {
         long id = item.getId();
         handler.deleteRecipe(id);
     }
@@ -90,16 +91,16 @@ public class Favorites {
         return title;
     }
 
-    public void setTitle(FavoritesPage favoritesPage) {
-       title = favoritesPage.getTitle();
+    public void setTitle(Recipes recipes) {
+       title = recipes.getTitle();
     }
 
     public String getPicture () {
         return picture;
     }
 
-    public FavoritesPage searchFavorite(String recipeTitleToSearch) {
-        FavoritesPage recipeToSearchFor = handler.getRowInDatabase(recipeTitleToSearch);
+    public Recipes searchFavorite(String recipeTitleToSearch) {
+        Recipes recipeToSearchFor = handler.getRowInDatabase(recipeTitleToSearch);
         return recipeToSearchFor;
     }
 

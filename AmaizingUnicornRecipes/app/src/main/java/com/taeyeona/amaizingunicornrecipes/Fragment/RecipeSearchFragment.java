@@ -282,7 +282,7 @@ public class RecipeSearchFragment extends Fragment {
             String total = nutritionObj.getString("total");
             String unit = nutritionObj.getString("unit");
 
-            recipe.setNutrients(label + " " + total + " " + unit);
+            recipe.setNutrientList(label + " " + total + " " + unit);
         }
         return recipe;
     }
