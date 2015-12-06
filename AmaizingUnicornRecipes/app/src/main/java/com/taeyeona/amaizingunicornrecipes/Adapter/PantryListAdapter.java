@@ -20,7 +20,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     SharedPreferences.Editor editor;
 
     public PantryListAdapter(Context context, String[] list) {
-        super(context,R.layout.favorites, list);
+        super(context,R.layout.checklist, list);
         selected = new ArrayList<String>();
         sharedPref = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
     }

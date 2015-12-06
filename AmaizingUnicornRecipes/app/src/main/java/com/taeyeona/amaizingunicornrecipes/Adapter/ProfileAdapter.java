@@ -39,6 +39,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Bundle bun;
+    LayoutInflater inflater;
 
     /**
      * The Constructor for this Adapter.
@@ -53,6 +54,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
         sharedPreferences = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         bun = bundle;
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
@@ -137,8 +139,8 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int category, boolean isExpanded, View convertView, ViewGroup category_view) {
         String category_name = (String) getGroup(category);
-        LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflator.inflate(R.layout.profile_category_layout, category_view, false );
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater.inflate(R.layout.profile_category_layout, category_view, false );
         TextView text = (TextView) convertView.findViewById(R.id.profile_category);
         text.setText(category_name);
         text.setTypeface(null, Typeface.BOLD);
@@ -160,7 +162,9 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
                              View setting_view, ViewGroup category_view) {
 
         String setting_name = (String)getChild(category, setting);
-        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Log.d(ProfileAdapter.class.getSimpleName(), Integer.toString(category));
+        Log.d(ProfileAdapter.class.getSimpleName(), Integer.toString(setting)+setting_name);
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         String group = (String)getGroup(category);
 
         if(group.equals("User Info") ){
@@ -168,18 +172,17 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             TextView profile_field = (TextView) setting_view.findViewById(R.id.profile_textview);
             profile_field.setText(setting_name + ":");
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
-            if(sharedPreferences.getString(setting_name, "").equals(""))
-                if(setting_name.equals("Name")){
+            if(sharedPreferences.getString(setting_name, "").equals("")) {
+                if (setting_name.equals("Name")) {
                     editText.setHint(context.getString(R.string.default_name));
-                }else{
+                } else {
                     editText.setHint(context.getString(R.string.default_email));
                 }
-            else
+            }
+            else {
                 editText.setText(sharedPreferences.getString(setting_name, ""));
+            }
             editText.setContentDescription(setting_name);
-            //editText.setTextIsSelectable(true);
-            //InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            //imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
             editText.setOnEditorActionListener(new EditTextWatcher());
 
         }else if(group.equals("Grocery Store Search Radius")){

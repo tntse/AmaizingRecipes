@@ -33,5 +33,6 @@ public class EditUserInfoFragment extends Fragment {
         ExpandableListView expandableListView = (ExpandableListView) getActivity().findViewById(R.id.profile_items);
         HashMap<String, List<String>> profileHash = ProfileHash.getProfileHash();
         expandableListView.setAdapter(new ProfileAdapter(getContext(), profileHash, new ArrayList<String>(profileHash.keySet()), getArguments()));
+        expandableListView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
     }
 }
