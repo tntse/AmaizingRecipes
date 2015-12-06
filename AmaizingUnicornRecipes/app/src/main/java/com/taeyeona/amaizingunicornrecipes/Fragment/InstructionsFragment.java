@@ -1,7 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
-import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.taeyeona.amaizingunicornrecipes.Activity.Player;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.jsoup.Jsoup;
@@ -68,15 +65,16 @@ public class InstructionsFragment extends Fragment {
                     @Override
                     public void onResponse(String data) {
                         Document doc = Jsoup.parse(data);
-                        Elements instructions;
+                        Elements instructions = null;
                         Element curInstruction = null;
                         Character firstChar;
                         int i = 0;
                         switch (sourceName) {
                             case "closet cooking":
+                            case "group recipes":
                                 instructions = doc.select(".instructions li");
-                                for(i = 1; i <= instructions.size(); i++) {
-                                    curInstruction = instructions.get(i-1);
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
                                     instructionLines.append(i + ". " + curInstruction.text() + "\n\n");
                                 }
                                 break;
@@ -85,15 +83,16 @@ public class InstructionsFragment extends Fragment {
                                 instructionLines.append(instructions.text());
                                 break;
                             case "two peas and their pod":
+                            case "bigoven":
                                 instructions = doc.select(".instructions p");
-                                for(i = 1; i <= instructions.size(); i++) {
-                                    curInstruction = instructions.get(i-1);
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
                                     instructionLines.append(curInstruction.text() + "\n\n");
                                 }
                                 break;
                             case "101 cookbooks":
                                 instructions = doc.select("#recipe blockquote ~ p");
-                                for(i = 0; i < instructions.size() - 1; i++){
+                                for (i = 0; i < instructions.size() - 1; i++) {
                                     curInstruction = instructions.get(i);
                                     instructionLines.append(curInstruction.text() + "\n\n");
                                 }
@@ -101,15 +100,17 @@ public class InstructionsFragment extends Fragment {
                             case "whats gaby cooking":
                             case "my baking addiction":
                             case "simply recipes":
+                            case "pbs food":
                                 instructions = doc.select(".instructions li, .instructions p");
-                                for(i = 1; i <= instructions.size(); i++) {
+                                for (i = 1; i <= instructions.size(); i++) {
                                     curInstruction = instructions.get(i - 1);
-                                        instructionLines.append(curInstruction.text() + "\n\n");
+                                    instructionLines.append(curInstruction.text() + "\n\n");
                                 }
                                 break;
                             case "all recipes":
+                            case "allrecipes":
                                 instructions = doc.select(".recipe-directions__list[itemprop=\"recipeInstructions\"] li");
-                                for(i = 1; i <= instructions.size(); i++) {
+                                for (i = 1; i <= instructions.size(); i++) {
                                     curInstruction = instructions.get(i - 1);
                                     firstChar = curInstruction.text().charAt(0);
                                     if (firstChar >= '0' && firstChar <= '9') {
@@ -121,19 +122,156 @@ public class InstructionsFragment extends Fragment {
                                     }
                                 }
                                 break;
+                            case "cooking channel":
+                                instructions = doc.select(".instructions");
+                                instructionLines.append(instructions.text());
+                                break;
+                            case "my recipes":
+                                instructions = doc.select(".field-instructions p");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "food network":
+                                instructions = doc.select(".directions p");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "eatingwell":
+                            case "cookstr":
+                            case "good housekeeping":
+                            case "food.com":
+                            case "food & wine":
+                            case "leite's culinaria":
+                            case "fine cooking":
+                            case "chow":
+                            case "no recipes":
+                            case "food republic":
+                                instructions = doc.select("[itemprop=\"recipeInstructions\"] li, [itemprop=\"recipeInstructions\"] p:not(.nutrition):not(.photo-credit)");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "food52":
+                            case "simple-nourished-living.com":
+                            case "honest cooking":
+                            case "bon appetit":
+                                instructions = doc.select("[itemprop=\"recipeInstructions\"]");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "bbc good food":
+                                instructions = doc.select(".recipe-method li");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "epicurious":
+                                instructions = doc.select(".preparation-steps li");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "serious eats":
+                                instructions = doc.select(".recipe-procedure");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "cooking with amy":
+                                instructions = doc.select(".post-body");
+                                instructionLines.append(instructions.text());
+                                break;
+                            case "martha stewart":
+                            case "whole living":
+                                instructions = doc.select(".directions-list li, .recipe-step-item");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "foodista":
+                                instructions = doc.select(".field-name-field-rec-steps .step-body");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "zester daily":
+                                instructions = doc.select("#content-inside p");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "saveur":
+                                instructions = doc.select(".instruction");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "whole foods":
+                                instructions = doc.select(".field-name-field-recipe-directions .field-item");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "goop":
+                                instructions = doc.select(".recipe-content p");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "the kitchn":
+                                instructions = doc.select("#recipe p");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "www.greenthickies.com":
+                                instructions = doc.select(".entry-content p:gt(28)");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
+                            case "smitten kitchen":
+                                instructions = doc.select(".entry p:gt(15):not(.postmetadata)");
+                                for (i = 1; i <= instructions.size(); i++) {
+                                    curInstruction = instructions.get(i - 1);
+                                    instructionLines.append(curInstruction.text() + "\n\n");
+                                }
+                                break;
                             default:
                                 instructionLines.append(sourceName);
                                 break;
                         }
-
-                        text.setText(instructionLines.toString());
-                        Log.d(TAG, sourceName.toUpperCase() + ": " + sourceUrl);
+                        if (instructions != null && instructions.size() == 0) {
+                            text.setText(R.string.recipe_instructions_not_found);
+                        } else {
+                            text.setText(instructionLines.toString());
+                            Log.d(TAG, sourceName.toUpperCase() + ": " + sourceUrl);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         // Handle error
+                        text.setText(R.string.recipe_instructions_not_found);
                     }
                 }
         );

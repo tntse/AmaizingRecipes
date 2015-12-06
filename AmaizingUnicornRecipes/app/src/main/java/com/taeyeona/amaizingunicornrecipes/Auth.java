@@ -17,8 +17,12 @@ public class Auth {
     public static final String MAPS_KEY = "AIzaSyAdMLf1_CLLZr7BVP7Li0o4EorZCQE0S_I";
     public static final String GET_URL = "http://food2fork.com/api/get";
     public static final String URL = "http://food2fork.com/api/search";
-    public static final String EDAMAM_ID = "8486dac9";
-    public static final String EDAMAM_KEY = "a7e44254cc97399430022e739322e13c";
+    public static final String EDAMAM_ID =
+    "a34c5609";
+    //"8486dac9";
+    public static final String EDAMAM_KEY =
+    //"a7e44254cc97399430022e739322e13c";
+    "ec083b120d2a28bc363bba3eb5b85880";
     public static final String EDAMAM_URL = "https://api.edamam.com/search";
     public static final String CHAR_QUESTION = "?";
     public static final String CHAR_EQUALS = "=";

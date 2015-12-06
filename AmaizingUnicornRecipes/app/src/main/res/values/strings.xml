@@ -27,6 +27,7 @@
 
     <string name="no_recipe_results">No results found, try changing your search settings.</string>
     <string name="instructions_loading">Please wait while we round up your instructions...</string>
+    <string name="recipe_instructions_not_found">We\'re sorry, we could not find the instructions for this recipe. Please try another recipe.</string>
 
     <string-array name="drawer_list">
         <item>Main Menu</item>
