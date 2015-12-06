@@ -105,7 +105,7 @@ public class InstructionsFragment extends Fragment {
                                 instructions = doc.select(".instructions li, .instructions p");
                                 for(i = 1; i <= instructions.size(); i++) {
                                     curInstruction = instructions.get(i - 1);
-                                        instructionLines.append(curInstruction.text() + "\n\n");
+                                    instructionLines.append(curInstruction.text() + "\n\n");
                                 }
                                 break;
                             case "all recipes":
@@ -140,69 +140,92 @@ public class InstructionsFragment extends Fragment {
         );
         queue.add(stringRequest);
 
-
-//        but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
-//
-//        but.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), );
-//                intent.putExtra("Title", getArguments().getString("Title"));
-//
-//                startActivity(intent);
-//            }
-//        });
-
-
-
-
-        // replace button with swipe fragment up
+        /**
+         *
+         * Button but manages the hide and reveal of the youtube fragment
+         * OnClick controls add,show,hide player fragment
+         *
+         *
+         */
         but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
         but.setOnClickListener(new View.OnClickListener() {
-            Fragment playerFrag = new PlayerFragment();
-            String flag;
+            final Fragment playerFragAlpha = new PlayerFragment();
+
+            boolean open = true;
+            boolean firstOpen = true;
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), Player_.class);
-//                intent.putExtra("Title", getArguments().getString("Title"));
-//                startActivity(intent);
 
-                flag = but.getText().toString();
-
-                if(flag == "VIDEO TUTORIAL") {
-
-                    but.setText("GO BACK");
-//
-                    addFragment(playerFrag);
+                if(firstOpen)
+                {
+                    addFragment(playerFragAlpha);
+                    firstOpen = false;
                 }
-                else{
+
+                if (open)
+                {
+                    open = false;
+                    but.setText("GO BACK");
+
+                    showFragment(playerFragAlpha);
+                }else{
+                    open = true;
                     but.setText("VIDEO TUTORIAL");
-                    removeFragment(playerFrag);
+                    hideFragment(playerFragAlpha);
+
                 }
             }
         });
 
-
     }
-
-    public void addFragment(Fragment pFragment){
+    /**
+     * @author HaoXian
+     * @param pFragment
+     *
+     * Shows the fragment when the user previously chose to hide the player fragment
+     * now reveals the player fragment to continue to video
+     *
+     */
+    public void showFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-        transaction.add(R.id.overlay_fragment_container, pFragment);
-        transaction.addToBackStack(null);
+//        transaction.add(R.id.overlay_fragment_container, pFragment);
+        transaction.show(pFragment);
         // Commit the transaction
         transaction.commit();
     }
-    public void removeFragment(Fragment pFragment){
+
+    /**
+     * @author HaoXian
+     * @param pFragment
+     *
+     * The fragment containing YouTube player , works with a slide in animation when
+     * the fragment is to be hidden be the user, and reveals the main layout, instructions
+     */
+    public void hideFragment(Fragment pFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //the underfragment enters,exit
+        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);//works
+        transaction.hide(pFragment);
+        // Commit the transaction
+        transaction.commit();
+    }
+
+
+    /**
+     * @author HaoXian
+     * @param pFragment
+     *
+     * The fragment containing YouTube player , works with a slide in animation when
+     * the fragment is added (overlays) the current layout
+     */
+    public void addFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //the underfragment enters,exit
 //        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-//        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out); //maybe
-        transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);
-
-
-
-        transaction.remove(pFragment);
+        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+        transaction.add(R.id.overlay_fragment_container, pFragment);
+        transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
     }

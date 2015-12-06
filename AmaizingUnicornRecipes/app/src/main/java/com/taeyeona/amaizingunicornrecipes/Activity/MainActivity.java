@@ -58,17 +58,20 @@ public  class MainActivity extends AppCompatActivity{
 
         //Create drawer adapter to toggle search preferences with right side drawer
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //left
+
         prefListName = ProfileHash.getSearchSettings();
-        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right)); //right
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
         loadAdapters();
 
         TextView title = (TextView) findViewById(R.id.main_title_text);
         title.setText(getString(R.string.app_name));
+
         TextView settingsLabel = (TextView) findViewById(R.id.main_settings_text);
         settingsLabel.setText(getString(R.string.settings));
+
         ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
         imgButton.setBackgroundResource(R.drawable.donut_gear_v2);
 
@@ -79,6 +82,7 @@ public  class MainActivity extends AppCompatActivity{
                 startActivity(toSettingsActivity);
             }
         });
+
     }
 
     @Override
@@ -100,8 +104,10 @@ public  class MainActivity extends AppCompatActivity{
         theMainAdapter = new MainAdapter(getSupportFragmentManager(), recipeSearchFragment);
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
+
         //theViewPager.addOnPageChangeListener(new PageListener());
         //theViewPager.setOffscreenPageLimit(3);
+
         if(fragmentSwitcher == null) {
             fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
 

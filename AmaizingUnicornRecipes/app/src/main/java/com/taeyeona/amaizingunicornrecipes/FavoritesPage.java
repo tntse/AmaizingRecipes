@@ -10,19 +10,99 @@ import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
 public class FavoritesPage {
 
     String title;
+    String sourceName;
+    String sourceUrl;
+    String picture;
+    String recipeId;
+    String ingredientList;
+    String nutrients;
     private long id;
     dbHandler handler;
+    String api;
+
+    public FavoritesPage() {
+    }
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        this.api = api;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public String[] getIngredientList() {
+        return convertStringToArray(ingredientList);
+    }
+
+    public void setIngredientList(String ingredientList) {
+        this.ingredientList = ingredientList;
+    }
+
+    public String[] getNutrients() {
+        return convertStringToArray(nutrients);
+    }
+
+    public void setNutrients(String nutrients) {
+        this.nutrients = nutrients;
+    }
 
     /**
      * Default constructor for FavoritesPage. Sets handler default.
      * @param context
      */
     public FavoritesPage(Context context) {
-        handler = new dbHandler(context, null, null, 1);
+        handler = new dbHandler(context);
     }
 
-    public FavoritesPage(){}
 
+    public FavoritesPage(String[] dataFieldsToSet){
+
+        setId(Long.parseLong(dataFieldsToSet[0]));
+        setTitle(dataFieldsToSet[1]);
+        setPicture(dataFieldsToSet[2]);
+        setIngredientList(dataFieldsToSet[3]);
+        setNutrients(dataFieldsToSet[4]);
+        setRecipeId(dataFieldsToSet[5]);
+        setSourceName(dataFieldsToSet[6]);
+        setSourceUrl(dataFieldsToSet[7]);
+        setApi(dataFieldsToSet[8]);
+
+    }
+
+    //order: _id, title, picture, ingredients, nutrients, recipeid, sourcename, sourceurl, api
 
     /**
      * Getter for handler instance
@@ -31,6 +111,12 @@ public class FavoritesPage {
     public dbHandler getHandler() {
         return handler;
     }
+
+    public void setHandler(dbHandler handler) {
+        this.handler = handler;
+    }
+
+
 
     /**
      * Getter for id
@@ -71,5 +157,11 @@ public class FavoritesPage {
     @Override
     public String toString() {
         return title;
+    }
+
+    public static String[] convertStringToArray(String str) {
+        String strSeparator = ",";
+        String[] arr = str.split(strSeparator);
+        return arr;
     }
 }

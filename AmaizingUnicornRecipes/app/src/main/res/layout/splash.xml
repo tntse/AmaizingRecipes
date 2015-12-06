@@ -16,7 +16,10 @@
         android:text="@string/splash_title"
         android:id="@+id/textView"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@style/Base.TextAppearance.AppCompat.Inverse"
+        android:backgroundTint="#000000"
+        android:backgroundTintMode="add" />
 
 
 

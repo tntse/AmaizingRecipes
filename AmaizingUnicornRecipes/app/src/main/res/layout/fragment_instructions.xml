@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/vid_tutor_button"
+            android:tag="vid_tutor_button"
             />
 
 

@@ -20,7 +20,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     SharedPreferences.Editor editor;
 
     public PantryListAdapter(Context context, String[] list) {
-        super(context, R.layout.checklist, list);
+        super(context,R.layout.favorites, list);
         selected = new ArrayList<String>();
         sharedPref = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
     }
@@ -46,6 +46,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     public void onClick(View view) {
         editor = sharedPref.edit();
         CheckBox check = (CheckBox)view;
+
         if(check.isChecked()){
             selected.add(check.getText().toString());
             editor.putString("CheckMarkedIngredients", selected.toString());

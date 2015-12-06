@@ -15,10 +15,11 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
+import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
+
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.VolleySingleton;
 
@@ -35,7 +36,6 @@ public class RecipeShow extends AppCompatActivity{
 
 
     // private ImageView image;
-    private ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
     private CustomPagerAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
@@ -47,6 +47,7 @@ public class RecipeShow extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
+        ImageLoader imgLoader = VolleySingleton.getInstance(this).getImageLoader();
 
         //Create drawer adapter to toggle search preferences with right side drawer
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
@@ -60,6 +61,7 @@ public class RecipeShow extends AppCompatActivity{
         bundle.putString("Title", getIntent().getStringExtra("Title"));
         bundle.putString("SourceName", getIntent().getStringExtra("SourceName"));
         bundle.putString("SourceUrl", getIntent().getStringExtra("SourceUrl"));
+        bundle.putString("Picture", getIntent().getStringExtra("Picture"));
 
         if(getIntent().getStringExtra("API").equals("Food2Fork")){
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
