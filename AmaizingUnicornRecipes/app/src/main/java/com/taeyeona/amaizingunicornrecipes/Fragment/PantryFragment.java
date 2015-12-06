@@ -1,18 +1,24 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
+import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
@@ -26,7 +32,8 @@ import java.util.Set;
 /**
  * Created by thomastse on 11/17/15.
  */
-public class PantryFragment extends Fragment {
+public class PantryFragment extends Fragment
+{
     private SharedPreferences sharedPreferences;
     private EditText input;
     private Button searchButton;
@@ -35,13 +42,22 @@ public class PantryFragment extends Fragment {
     private PantryListAdapter pantryListAdapter;
     private ListView list;
 
+    private TextView tut_swipe;
+    private TextView tut_check_items;
+    private Button tut_button;
+
+    private GestureDetectorCompat gestureDetector;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.fragment_pantry, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
 
@@ -64,12 +80,12 @@ public class PantryFragment extends Fragment {
             public void onClick(View view) {
                 ArrayList<String> list = pantryListAdapter.getSelected();
                 String query = input.getText().toString().trim();
-                if(query.equals(getString(R.string.enter_search_query)))
+                if (query.equals(getString(R.string.enter_search_query)))
                     query = "";
-                ((MainActivity)getActivity()).addData(list);
-                ((MainActivity)getActivity()).addData(query);
-                ((MainActivity)getActivity()).addData(true);
-               // ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
+                ((MainActivity) getActivity()).addData(list);
+                ((MainActivity) getActivity()).addData(query);
+                ((MainActivity) getActivity()).addData(true);
+                // ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });
 
@@ -83,5 +99,41 @@ public class PantryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+         tut_swipe = (TextView)view.findViewById(R.id.tutorial_swipe_to_search);
+        tut_check_items = (TextView)view.findViewById(R.id.tutorial_check_items);
+        tut_button = (Button)view.findViewById(R.id.tutorial_got_it);
+
+        tut_swipe.setVisibility(View.INVISIBLE);
+        tut_check_items.setVisibility(View.INVISIBLE);
+        tut_button.setVisibility(View.INVISIBLE);
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean isNotFirstRun = sharedPreferences.getBoolean("isNotFirstRun", false);
+
+        if (!isNotFirstRun) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isNotFirstRun", true);
+            editor.commit();
+
+            tut_swipe.setVisibility(View.VISIBLE);
+            tut_check_items.setVisibility(View.VISIBLE);
+            tut_button.setVisibility(View.VISIBLE);
+
+            tut_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tut_button.setVisibility(View.INVISIBLE);
+                    tut_check_items.setVisibility(View.INVISIBLE);
+                    tut_swipe.setVisibility(View.INVISIBLE);
+                }
+            });
+
+        }
+
     }
+
+
 }
+
+

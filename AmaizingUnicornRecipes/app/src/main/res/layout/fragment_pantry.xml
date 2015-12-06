@@ -46,4 +46,37 @@
         android:id="@+id/pantry_list"
         android:scrollbars="vertical"/>
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/tutorial_swipe_to_search"
+            android:layout_marginBottom="28sp"
+            android:layout_marginTop="28sp"
+            android:text="Swipe to search"
+            android:textSize="28sp"
+            />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tutorial_check_items"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/tutorial_swipe_to_search"
+        android:text="Check Ingredients for Search"
+        android:textSize="28sp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tutorial_swipe_to_search"
+        android:text="GOT IT?"
+        android:id="@+id/tutorial_got_it"
+        />
+
+
+
 </RelativeLayout>
