@@ -50,7 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
         android:id="@+id/emptyPantryText"
         android:layout_alignTop="@+id/pantry_list"
         android:layout_centerHorizontal="true"

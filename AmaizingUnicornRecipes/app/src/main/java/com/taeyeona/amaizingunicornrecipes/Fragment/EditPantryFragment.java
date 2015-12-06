@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
@@ -33,6 +34,7 @@ public class EditPantryFragment extends Fragment {
     private Set<String> manager;
     private PantryListAdapter pantryListAdapter;
     private ListView list;
+    TextView nullText;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pantry, container, false);
@@ -44,10 +46,15 @@ public class EditPantryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
         edit = sharedPreferences.edit();
+        nullText = (TextView) getActivity().findViewById(R.id.emptyPantryText);
 
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
+
+        if(manager.isEmpty()){
+            nullText.setText("Your Pantry is empty; add an ingredient!");
+        }
 
         pantryListAdapter = new PantryListAdapter(getContext(), (String [])manager.toArray());
 
@@ -69,6 +76,9 @@ public class EditPantryFragment extends Fragment {
                         manager.add(temp);
                         edit.putStringSet("Ingredients", manager);
                         edit.commit();
+                        if(!manager.isEmpty()){
+                            nullText.setText("");
+                        }
                         pantryListAdapter = new PantryListAdapter(getContext(), (String[])manager.toArray());
                         list.setAdapter(pantryListAdapter);
                     }
@@ -86,6 +96,9 @@ public class EditPantryFragment extends Fragment {
                 edit.putStringSet("Ingredients", manager);
                 edit.commit();
                 pantryListAdapter = new PantryListAdapter(getContext(), (String[])manager.toArray());
+                if(manager.isEmpty()){
+                    nullText.setText("Your Pantry is empty; add an ingredient!");
+                }
                 list.setAdapter(pantryListAdapter);
             }
         });
