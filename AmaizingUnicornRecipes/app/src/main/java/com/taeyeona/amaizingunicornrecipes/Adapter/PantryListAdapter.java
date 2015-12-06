@@ -16,13 +16,10 @@ import java.util.ArrayList;
  */
 public class PantryListAdapter extends ArrayAdapter<String> implements View.OnClickListener{
     ArrayList<String> selected;
-    private SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
 
     public PantryListAdapter(Context context, String[] list) {
         super(context,R.layout.checklist, list);
         selected = new ArrayList<String>();
-        sharedPref = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
     }
 
     public ArrayList<String> getSelected(){
@@ -38,19 +35,15 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         check.setText(getItem(position));
         check.setOnClickListener(this);
 
-
         return theView;
     }
 
     @Override
     public void onClick(View view) {
-        editor = sharedPref.edit();
         CheckBox check = (CheckBox)view;
 
         if(check.isChecked()){
             selected.add(check.getText().toString());
-//            editor.putString("CheckMarkedIngredients", selected.toString());
-//            editor.commit();
         }else{
             selected.remove(check.getText().toString());
         }

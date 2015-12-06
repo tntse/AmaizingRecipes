@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,10 +51,8 @@ public class PantryFragment extends Fragment
     private Button tut_button;
     private ImageView tut_Image;
 
-    private GestureDetectorCompat gestureDetector;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 
         return inflater.inflate(R.layout.fragment_pantry, container, false);
     }
@@ -69,15 +68,21 @@ public class PantryFragment extends Fragment
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
 
-        if(manager.isEmpty()){
+        if(manager.isEmpty()) {
             nullText = (TextView) getActivity().findViewById(R.id.emptyPantryText);
-            nullText.setText("Your Pantry is empty; add an ingredient!");
+            nullText.setText(getString(R.string.empty_pantry));
+        }else{
+            pantryListAdapter = new PantryListAdapter(getContext(), (String[]) manager.toArray());
+
+            list = (ListView) view.findViewById(R.id.pantry_list);
+            list.setAdapter(pantryListAdapter);
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    ((MainActivity)getActivity()).addData(pantryListAdapter.getSelected());
+                }
+            });
         }
-
-        pantryListAdapter = new PantryListAdapter(getContext(), (String [])manager.toArray());
-
-        list = (ListView) view.findViewById(R.id.pantry_list);
-        list.setAdapter(pantryListAdapter);
 
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
         input.setHint(getString(R.string.enter_search_query));
@@ -87,14 +92,12 @@ public class PantryFragment extends Fragment
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> list = pantryListAdapter.getSelected();
+
                 String query = input.getText().toString().trim();
                 if (query.equals(getString(R.string.enter_search_query)))
                     query = "";
-                ((MainActivity) getActivity()).addData(list);
                 ((MainActivity) getActivity()).addData(query);
                 ((MainActivity) getActivity()).addData(true);
-                // ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });
 
@@ -109,7 +112,7 @@ public class PantryFragment extends Fragment
             }
         });
 
-         tut_swipe = (TextView)view.findViewById(R.id.tutorial_swipe_to_search);
+        tut_swipe = (TextView)view.findViewById(R.id.tutorial_swipe_to_search);
         tut_check_items = (TextView)view.findViewById(R.id.tutorial_check_items);
         tut_button = (Button)view.findViewById(R.id.tutorial_got_it);
         tut_Image = (ImageView)view.findViewById(R.id.tutorial_swipe_image);
@@ -120,7 +123,7 @@ public class PantryFragment extends Fragment
         tut_check_items.setVisibility(View.INVISIBLE);
         tut_button.setVisibility(View.INVISIBLE);
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         boolean isNotFirstRun = sharedPreferences.getBoolean("isNotFirstRun", false);
 
         if (!isNotFirstRun) {

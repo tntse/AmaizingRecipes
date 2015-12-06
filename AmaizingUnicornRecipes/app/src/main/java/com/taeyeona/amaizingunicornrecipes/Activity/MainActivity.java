@@ -187,21 +187,5 @@ public  class MainActivity extends AppCompatActivity{
         fragmentSwitcher.setPage(2);
     }
 
-    class PageListener implements ViewPager.OnPageChangeListener{
-        @Override
-        public void onPageSelected ( int position){
-                /*
-                 * Problems: Ingredients only change on button press and not swipe
-                 */
-            if (position == 2) {
-
-            }
-        }
-        @Override
-        public void onPageScrolled (int position, float positionOffset, int positionOffsetPixels){}
-        @Override
-        public void onPageScrollStateChanged ( int state){}
-
-    }
 
 }

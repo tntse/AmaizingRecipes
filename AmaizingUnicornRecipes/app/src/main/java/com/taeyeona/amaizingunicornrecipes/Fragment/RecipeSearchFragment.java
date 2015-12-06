@@ -82,16 +82,17 @@ public class RecipeSearchFragment extends Fragment {
         ArrayList<String> diet = new ArrayList<>();
 
         String ingredients = "";
+
+        ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
+        if(searchIngredients != null)
+            ingredients += searchIngredients.toString().trim();
+
         if(((MainActivity)getActivity()).getBundle().getBoolean("Button")){
-            ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
-            if(searchIngredients != null)
-                ingredients += searchIngredients.toString().trim();
             String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
             if(searchQuery != null && !searchQuery.equals(""))
                 ingredients += "," + searchQuery;
-       }else{
-           ingredients = sharedPreferences.getString("CheckMarkedIngredients", "");
         }
+
         Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");
