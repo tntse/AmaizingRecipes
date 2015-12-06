@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -98,6 +100,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     public void onClick(View v) {
 
         if (firstOpen) {
+            maps_frag = SupportMapFragment.newInstance();
             addFragment();
             firstOpen = false;
         }
@@ -127,8 +130,8 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
 //        transaction.add(R.id.overlay_fragment_container, pFragment);
         transaction.show(maps_frag);
-        // Commit the transaction
         transaction.commit();
+
     }
 
     /**
@@ -142,6 +145,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //the underfragment enters,exit
         transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);//works
+
         transaction.hide(maps_frag);
         // Commit the transaction
         transaction.commit();
@@ -162,9 +166,12 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
 
+       // mMap = ((SupportMapFragment)maps_frag).getMap();
 
-        Fragment fragment = SupportMapFragment.newInstance();
-        maps_frag = fragment;
+        transaction.add(R.id.maps_fragment_holder, maps_frag, "newMap");
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
 
         try{
             setUpMapIfNeeded();
@@ -183,11 +190,14 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 e.printStackTrace();
             }
         }
+        mLocationProvider.connect();
 
-        transaction.add(R.id.maps_fragment_holder, maps_frag, "newMap");
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.activity_maps, menu);
+        return true;
     }
 
     private void buildAlertMessageNoGPS() throws GooglePlayServicesRepairableException, GooglePlayServicesNotAvailableException{
@@ -229,11 +239,20 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment)maps_frag).getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
+            ((SupportMapFragment)maps_frag).getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                   mMap = googleMap;
+                }
+            });
+
+            Log.d(MissingIngredients.class.getSimpleName(), "Map was Null");
+
+        }
+        // Check if we were successful in obtaining the map.
+        if (mMap != null) {
+            Log.d(MissingIngredients.class.getSimpleName(), "Setting up Map");
+            setUpMap();
         }
     }
 
@@ -288,6 +307,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(latLng)
                 .title("You Are Here");
+        Log.d("MissingIngredients", options.toString());
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 

@@ -110,6 +110,7 @@ public class ProfileFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), RecipeShow.class);
                 intent.putExtra("Picture", favoritesToSearch.getImageUrl());
+                Log.d("Profile", favoritesToSearch.getImageUrl());
                 intent.putExtra("Title", favoritesToSearch.getTitle());
                 intent.putExtra("RecipeID", favoritesToSearch.getRecipeId());
                 intent.putExtra("SourceURL", favoritesToSearch.getSourceUrl());
