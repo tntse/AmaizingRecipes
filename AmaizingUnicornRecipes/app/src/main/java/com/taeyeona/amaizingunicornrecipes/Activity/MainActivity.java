@@ -8,6 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
+import com.taeyeona.amaizingunicornrecipes.Adapter.NavigationDrawAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
@@ -35,6 +38,10 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     private ListView prefListView;
     private String[] prefListName;
 
+    //Left side navigation drawer
+    private ListView navDrawer;
+    private String[] navDrawerNames;
+
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
     private FragmentSwitcherManager fragmentSwitcher;
@@ -48,18 +55,46 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
             bun = new Bundle();
         }
         setContentView(R.layout.activity_main_v2);
+        navDrawerNames = getResources().getStringArray(R.array.drawer_list);
 
         //EULA FOR NEW USERS
         new Eula(this).show();
 
 
         //Create drawer adapter to toggle search preferences with right side drawer
-
-        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //left
-
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //right
         prefListName = ProfileHash.getSearchSettings();
         prefListView = (ListView)findViewById((R.id.pref_drawer_right)); //right
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
+
+
+        //Create Navigation Drawer for left side for button to open
+        navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+        navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                drawerLayout.closeDrawer(navDrawer);
+                switch(position){
+                    case 0:
+                    case 1:
+                    case 2:
+                        fragmentSwitcher.setPage(position);
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        Intent intent = new Intent(MainActivity.this, EditSettings.class);
+                        intent.putExtra("Open", position - 3);
+                        startActivity(intent);
+                        break;
+                    case 6:
+                        drawerLayout.openDrawer(prefListView);
+                        break;
+                }
+            }
+        });
+
 
 
         loadAdapters();
@@ -73,11 +108,16 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
         imgButton.setBackgroundResource(R.drawable.donut_gear_v2);
 
+
+
+
+
         imgButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Intent toSettingsActivity = new Intent(MainActivity.this, EditSettings.class);
-                startActivity(toSettingsActivity);
+
+                drawerLayout.openDrawer(navDrawer);
             }
         });
 
@@ -161,101 +201,5 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     public void addData(boolean buttonPress){
         bun.putBoolean("Button", buttonPress);
     }
-
-
-
-    /*        //test
-        myAdapter = new MyAdapter(this);
-       navListView.setAdapter(myAdapter);
-
-
-        /**
-         * Saved variables for drawerListView and drawerListNames,
-         * navListName are array items in strings.xml
-         * navListView is the list to be adapter for the listnme to be viewable
-         * in simple list item format
-         *
-         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
-         navListName = getResources().getStringArray(R.array.drawer_list);
-
-         navListView = (ListView)findViewById((R.id.nav_drawer));
-         navListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,navListName));
-         navListView.setOnItemClickListener(this);
-
-         //set up button sound
-         //final MediaPlayer kitty = MediaPlayer.create(this,R.raw.kitty);
-
-         //created buttons to reference each activity
-         Button pantry = (Button)findViewById(R.id.goToPantry);
-         Button profile = (Button)findViewById(R.id.profile);
-         Button toEditIngredients = (Button) findViewById(R.id.to_edit_ingredients_button);
-
-         //the pantry button listens for onClick and Intent references me to another activity
-
-         //start pantry onClickListner
-         pantry.setOnClickListener(new View.OnClickListener() {
-
-        @Override public void onClick(View view) {
-        //kitty.start();
-        Intent intent = new Intent(MainActivity.this, Pantry.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-
-        }
-        });
-         //End onclick to pantry
-
-         //start profile onClickListner
-         profile.setOnClickListener(new View.OnClickListener()
-         {
-         @Override public void onClick(View view) {
-         //kitty.start();
-         Intent intent = new Intent(MainActivity.this, Profile.class);
-         startActivity(intent);
-         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-         }
-         });
-
-         //Edit Ingredients
-         toEditIngredients.setOnClickListener(new View.OnClickListener(){
-         public void onClick(View view){
-         //kitty.start();
-         Intent intent = new Intent(MainActivity.this, EditIngredients.class);
-         startActivity(intent);
-         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
-
-         }
-         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * @param parent
-     * @param view
-     * @param position
-     * @param id       OnItemClick added for Drawer list View
-     *                 goes to different activities in app
-     */
 
 }

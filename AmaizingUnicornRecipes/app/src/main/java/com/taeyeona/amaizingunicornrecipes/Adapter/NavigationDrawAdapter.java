@@ -2,20 +2,27 @@ package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.Profile;
+import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
  * Created by Hao on 11/14/2015.
  */
-public class NavigationDrawAdapter extends ArrayAdapter<String> {
+public class NavigationDrawAdapter extends ArrayAdapter<String>{
 
     private String[] navNames;
     private Integer[] navImage;
@@ -39,6 +46,8 @@ public class NavigationDrawAdapter extends ArrayAdapter<String> {
 
         navText.setText(navNames[position]);
         navImg.setImageResource(navImage[position]);
+
+
         return customView;
     }
 }
