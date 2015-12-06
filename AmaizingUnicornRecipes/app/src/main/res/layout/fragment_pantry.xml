@@ -55,6 +55,8 @@
             android:layout_marginBottom="28sp"
             android:layout_marginTop="28sp"
             android:text="Swipe to search"
+            android:layout_marginRight="8sp"
+            android:layout_toStartOf="@+id/tutorial_swipe_image"
             android:textSize="28sp"
             />
 
@@ -63,10 +65,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/tutorial_check_items"
         android:layout_centerHorizontal="true"
+
         android:layout_above="@+id/tutorial_swipe_to_search"
         android:text="Check Ingredients for Search"
         android:textSize="28sp"
         />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/tutorial_swipe_image"
+        android:src="@drawable/swipe2search"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
+
 
     <Button
         android:layout_width="wrap_content"
@@ -75,6 +89,7 @@
         android:layout_below="@id/tutorial_swipe_to_search"
         android:text="GOT IT?"
         android:id="@+id/tutorial_got_it"
+
         />
 
 

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class PantryFragment extends Fragment
     private TextView tut_swipe;
     private TextView tut_check_items;
     private Button tut_button;
+    private ImageView tut_Image;
 
     private GestureDetectorCompat gestureDetector;
 
@@ -103,7 +105,10 @@ public class PantryFragment extends Fragment
          tut_swipe = (TextView)view.findViewById(R.id.tutorial_swipe_to_search);
         tut_check_items = (TextView)view.findViewById(R.id.tutorial_check_items);
         tut_button = (Button)view.findViewById(R.id.tutorial_got_it);
+        tut_Image = (ImageView)view.findViewById(R.id.tutorial_swipe_image);
 
+
+        tut_Image.setVisibility(View.INVISIBLE);
         tut_swipe.setVisibility(View.INVISIBLE);
         tut_check_items.setVisibility(View.INVISIBLE);
         tut_button.setVisibility(View.INVISIBLE);
@@ -116,6 +121,7 @@ public class PantryFragment extends Fragment
             editor.putBoolean("isNotFirstRun", true);
             editor.commit();
 
+            tut_Image.setVisibility(View.VISIBLE);
             tut_swipe.setVisibility(View.VISIBLE);
             tut_check_items.setVisibility(View.VISIBLE);
             tut_button.setVisibility(View.VISIBLE);
@@ -126,6 +132,7 @@ public class PantryFragment extends Fragment
                     tut_button.setVisibility(View.INVISIBLE);
                     tut_check_items.setVisibility(View.INVISIBLE);
                     tut_swipe.setVisibility(View.INVISIBLE);
+                    tut_Image.setVisibility(View.INVISIBLE);
                 }
             });
 
