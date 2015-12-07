@@ -62,8 +62,12 @@ public class IngredientsFragment extends Fragment {
                         ingredients_list.setText("Ingredients:\n" + ingredients.toString());
                         ingredients_list.setMovementMethod(new ScrollingMovementMethod());
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        ingredients_list.setText("Sorry, we could not fetch your ingredients due to some unforeseeable error. Please contact us at AmaizingUnicornRecipes@gmail.com");
                     }
+                }
+                @Override
+                public void onFailure(){
+                    ingredients_list.setText("Sorry, we could not load your ingredients due to some app error, please contact us at AmaizingUnicornRecipes@gmail.com");
                 }
             });
         }else{

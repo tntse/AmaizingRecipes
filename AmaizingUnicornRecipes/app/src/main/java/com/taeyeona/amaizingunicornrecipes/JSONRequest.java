@@ -157,7 +157,7 @@ public class  JSONRequest {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                volleyCallBack.onFailure();
             }
         }
         );
@@ -174,6 +174,7 @@ public class  JSONRequest {
 
     public interface VolleyCallBack{
         void onSuccess();
+        void onFailure();
     }
 
 }

@@ -167,6 +167,12 @@ public class RecipeSearchFragment extends Fragment {
                     }
                     progress.setVisibility(View.INVISIBLE);
                 }
+                @Override
+                public void onFailure(){
+                    progress.setVisibility(View.INVISIBLE);
+                    text.setText("It seems that we cannot display the recipe due some kind of error."+"\n"+
+                    "Please email us at AmaizingUnicornRecipes@gmail.com to fix this problem");
+                }
             });
 
         } else {
@@ -205,6 +211,12 @@ public class RecipeSearchFragment extends Fragment {
                     }
                     progress.setVisibility(View.INVISIBLE);
                 }
+                @Override
+                public void onFailure(){
+                    progress.setVisibility(View.INVISIBLE);
+                    text.setText("It seems that we cannot display the recipe due to some kind of error."+"\n"+
+                            "Please email us at AmaizingUnicornRecipes@gmail.com to fix this problem.");
+                }
             });
         }
         PantryListAdapter.clearList();
@@ -223,7 +235,7 @@ public class RecipeSearchFragment extends Fragment {
                 recipeList.add(convertRecipes(object));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            text.setText("Apologies; it seems we cannot get the list of recipes");
         }
     }
 
@@ -240,7 +252,7 @@ public class RecipeSearchFragment extends Fragment {
                 recipeList.add(convertEdamamRecipes(object));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            text.setText("Apologies; it seems we cannot get the list of recipes");
         }
     }
 
@@ -300,8 +312,6 @@ public class RecipeSearchFragment extends Fragment {
             recipe.setNutrientList(label + " " + Integer.toString(Math.round(Float.parseFloat(total))) + " " + unit);
             Integer dailyTotal = new Integer(Math.round(Float.parseFloat(total))/recipe.getServings());
             dailyTotals.add(dailyTotal);
-
-
         }
         recipe.setDailyTotals(dailyTotals);
 

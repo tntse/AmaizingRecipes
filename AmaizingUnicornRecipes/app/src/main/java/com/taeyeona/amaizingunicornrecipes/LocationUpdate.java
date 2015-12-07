@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -80,7 +81,7 @@ public class LocationUpdate implements
                 Activity activity = (Activity) mContext;
                 connectionResult.startResolutionForResult(activity, CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
-                e.printStackTrace();
+                Toast.makeText(mContext, "Sorry, we could not connect with location services", Toast.LENGTH_LONG).show();
             }
         }
     }

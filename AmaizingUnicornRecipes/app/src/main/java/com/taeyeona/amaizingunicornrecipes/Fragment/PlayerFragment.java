@@ -57,6 +57,10 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                 parseJSON(jsonRequest.getResponse());
                 vid = titleList.toString();
             }
+            @Override
+            public void onFailure(){
+                Toast.makeText(getContext(), "We could not load your video.", Toast.LENGTH_LONG).show();
+            }
         });
 
         try {
@@ -146,7 +150,7 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                 startActivity(notFound);
             }
         }catch(JSONException ex){
-
+            Toast.makeText(getContext(), "Sorry, we could not load your video.", Toast.LENGTH_LONG).show();
         }
     }
 }

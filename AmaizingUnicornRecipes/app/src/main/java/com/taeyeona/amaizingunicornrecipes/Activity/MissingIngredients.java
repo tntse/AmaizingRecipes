@@ -165,7 +165,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         try{
             setUpMapIfNeeded();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
         }
         locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
@@ -174,9 +174,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             try{
                 buildAlertMessageNoGPS();
             } catch (GooglePlayServicesNotAvailableException e) {
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
             } catch (GooglePlayServicesRepairableException e) {
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
             }
         }
         mLocationProvider.connect();
@@ -266,7 +266,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             try{
                 setUpMapIfNeeded();
             } catch (JSONException e) {
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
             }
             mLocationProvider.connect();
         }
@@ -325,8 +325,12 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
                     }
                 } catch (JSONException e) {
-
+                    Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
                 }
+            }
+            @Override
+            public void onFailure(){
+                Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
             }
         });
     }
