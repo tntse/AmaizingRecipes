@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
 
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
-
-import java.util.ArrayList;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
 
 /**
  * Database handler class
@@ -209,25 +207,25 @@ public class dbHandler extends SQLiteOpenHelper {
      * @param title Parameter for selecting a row
      * @return
      */
-    public FavoritesPage getRowInDatabase(String title) {
+    public Recipes getRowInDatabase(String title) {
 
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_TITLE + "=\"" + title + "\"";
         String dbString = "";
-        FavoritesPage ret = null;
+        Recipes ret = null;
 
 
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
-            ret = new FavoritesPage();
+            ret = new Recipes();
             ret.setId(Long.parseLong(cursor.getString(0)));
             ret.setTitle(cursor.getString(1));
-            ret.setPicture(cursor.getString(2));
+            ret.setImageUrl(cursor.getString(2));
             ret.setIngredientList(cursor.getString(3));
             ret.setNutrients(cursor.getString(4));
             ret.setRecipeId(cursor.getString(5));
-            ret.setSourceName(cursor.getString(6));
+            ret.setPublisher(cursor.getString(6));
             ret.setSourceUrl(cursor.getString(7));
             ret.setApi(cursor.getString(8));
         }

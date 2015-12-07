@@ -1,6 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
@@ -40,8 +38,6 @@ public class RecipeShow extends AppCompatActivity{
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
     private Bitmap theImage;
-
-    FavoritesPage favoriteObj;
 
     @Override
     public void onCreate(Bundle savedInstanceState){

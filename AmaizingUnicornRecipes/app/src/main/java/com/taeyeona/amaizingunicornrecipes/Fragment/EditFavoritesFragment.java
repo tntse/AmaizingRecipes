@@ -1,6 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
-import com.taeyeona.amaizingunicornrecipes.FavoritesPage;
 import com.taeyeona.amaizingunicornrecipes.R;
+import com.taeyeona.amaizingunicornrecipes.Recipes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
 public class EditFavoritesFragment extends Fragment {
     private Favorites favoritesData;
     private ArrayAdapter<String> adapter;
-    private List<FavoritesPage> emptyFavorites;
+    private List<Recipes> emptyFavorites;
     private String[] values;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class EditFavoritesFragment extends Fragment {
         favoritesData = new Favorites(getContext());
         final ListView favoritesList = (ListView) getActivity().findViewById(R.id.edit_favorites_list);
         values = favoritesData.getTitlesFromDB();
-        emptyFavorites = new ArrayList<FavoritesPage>();
+        emptyFavorites = new ArrayList<Recipes>();
         if(values.length<1){
             String[] emptyString = {"YOU DO NOT HAVE FAVORITES U:"};
             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);
@@ -54,7 +53,7 @@ public class EditFavoritesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(), "Highlight!", Toast.LENGTH_SHORT).show();
-                FavoritesPage favoritesToDelete = favoritesData.searchFavorite(adapter.getItem(position));
+                Recipes favoritesToDelete = favoritesData.searchFavorite(adapter.getItem(position));
                 emptyFavorites.add(favoritesToDelete);
 
             }
