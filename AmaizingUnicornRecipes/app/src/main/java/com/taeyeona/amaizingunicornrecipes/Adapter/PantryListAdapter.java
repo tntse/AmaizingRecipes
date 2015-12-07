@@ -1,7 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,5 +46,8 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         }else{
             selected.remove(check.getText().toString());
         }
+
     }
+
+
 }

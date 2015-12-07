@@ -93,7 +93,7 @@ public class RecipeSearchFragment extends Fragment {
                 ingredients += "," + searchQuery;
         }
 
-        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
+        Log.d(RecipeSearchFragment.class.getSimpleName().toString(), ingredients);
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces

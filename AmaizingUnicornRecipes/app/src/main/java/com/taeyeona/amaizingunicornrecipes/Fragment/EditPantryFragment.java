@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
@@ -75,13 +74,12 @@ public class EditPantryFragment extends Fragment {
         deleteSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!manager.isEmpty()) {
-                    ArrayList<String> selected = pantryListAdapter.getSelected();
-                    manager.removeAll(selected);
-                    edit.putStringSet("Ingredients", manager);
-                    edit.commit();
-                    getListAndSetAdapter();
-                }
+
+                ArrayList<String> selected = pantryListAdapter.getSelected();
+                manager.removeAll(selected);
+                edit.putStringSet("Ingredients", manager);
+                edit.commit();
+                getListAndSetAdapter();
             }
         });
 

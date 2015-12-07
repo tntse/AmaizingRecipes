@@ -1,42 +1,33 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
-import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.ViewPager;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 
-
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 /**
  * Created by thomastse on 11/17/15.
  */
-public class PantryFragment extends Fragment
-{
+public class PantryFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private EditText input;
     private Button searchButton;
@@ -73,15 +64,9 @@ public class PantryFragment extends Fragment
             nullText.setText(getString(R.string.empty_pantry));
         }else{
             pantryListAdapter = new PantryListAdapter(getContext(), (String[]) manager.toArray());
-
             list = (ListView) view.findViewById(R.id.pantry_list);
             list.setAdapter(pantryListAdapter);
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    ((MainActivity)getActivity()).addData(pantryListAdapter.getSelected());
-                }
-            });
+
         }
 
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
@@ -96,6 +81,7 @@ public class PantryFragment extends Fragment
                 String query = input.getText().toString().trim();
                 if (query.equals(getString(R.string.enter_search_query)))
                     query = "";
+                ((MainActivity)getActivity()).addData(pantryListAdapter.getSelected());
                 ((MainActivity) getActivity()).addData(query);
                 ((MainActivity) getActivity()).addData(true);
             }
@@ -144,7 +130,6 @@ public class PantryFragment extends Fragment
         }
 
     }
-
 
 }
 
