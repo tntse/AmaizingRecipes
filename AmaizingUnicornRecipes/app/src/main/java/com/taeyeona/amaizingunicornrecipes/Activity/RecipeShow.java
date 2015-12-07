@@ -87,7 +87,7 @@ public class RecipeShow extends AppCompatActivity{
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
         mViewPager = (ViewPager) findViewById(R.id.main_pages);
         mViewPager.setAdapter(mCustomPagerAdapter);
-        fragSwitcher = new FragmentSwitcherManager(mViewPager);
+        fragSwitcher = new FragmentSwitcherManager(mViewPager, 2);
 
         Button button;
         View view;
@@ -115,7 +115,6 @@ public class RecipeShow extends AppCompatActivity{
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 finish();
             }
         });

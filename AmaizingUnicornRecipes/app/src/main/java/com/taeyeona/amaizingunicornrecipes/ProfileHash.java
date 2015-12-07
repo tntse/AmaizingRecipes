@@ -28,6 +28,7 @@ public class ProfileHash {
         List<String> textFields = new ArrayList<String>();
         List<String> searchToggleFields = new ArrayList<String>();
         List<String> searchMapsFields = new ArrayList<String>();
+        List<String> uploadPicture = new ArrayList<String>();
 
         textFields.add("Name");
         textFields.add("Email");
@@ -39,8 +40,12 @@ public class ProfileHash {
         searchMapsFields.add("10 mi");
         searchMapsFields.add("15 mi");
 
+        uploadPicture.add("Upload Picture Here");
+
+
         ret.put("Grocery Store Search Radius", searchMapsFields);
         ret.put("Search Settings", searchToggleFields);
+        ret.put("Picture Upload", uploadPicture);
         ret.put("User Info", textFields);
 
         return ret;

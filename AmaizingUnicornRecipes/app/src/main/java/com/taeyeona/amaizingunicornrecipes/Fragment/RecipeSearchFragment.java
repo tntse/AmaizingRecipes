@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
+import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
@@ -82,24 +83,25 @@ public class RecipeSearchFragment extends Fragment {
         ArrayList<String> diet = new ArrayList<>();
 
         String ingredients = "";
+
+        //ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
+        ArrayList<String> searchIngredients = PantryListAdapter.getSelected();
+        if(searchIngredients != null)
+            ingredients += searchIngredients.toString().trim();
+
         if(((MainActivity)getActivity()).getBundle().getBoolean("Button")){
-            ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
-            if(searchIngredients != null)
-                ingredients += searchIngredients.toString().trim();
             String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
             if(searchQuery != null && !searchQuery.equals(""))
                 ingredients += "," + searchQuery;
-       }else{
-           ingredients = manager.toString();
         }
-        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
+
+        Log.d(RecipeSearchFragment.class.getSimpleName().toString(), ingredients);
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
         ingredients = ingredients.replace(" ", "%20"); // Replace spaces with html code
         ingredients = ingredients.replace("[", "");
         ingredients = ingredients.replace("]", "");
-        Log.d(RecipeSearchFragment.class.getSimpleName(), ingredients);
 
         if (searchEdamam) {
             String collection[] = ProfileHash.getSearchSettings();
@@ -199,6 +201,7 @@ public class RecipeSearchFragment extends Fragment {
                 }
             });
         }
+        PantryListAdapter.clearList();
     }
 
     /**

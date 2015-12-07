@@ -1,26 +1,20 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.MainAdapter;
-import com.taeyeona.amaizingunicornrecipes.Adapter.NavigationDrawAdapter;
-import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Eula;
 import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
@@ -30,7 +24,7 @@ import com.taeyeona.amaizingunicornrecipes.R;
 import java.util.ArrayList;
 
 
-public  class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener,*/{
+public  class MainActivity extends AppCompatActivity{
 
 
     //DrawerLayout , prefListView , and prefListName manages preference drawer
@@ -46,6 +40,7 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     private ViewPager   theViewPager;
     private FragmentSwitcherManager fragmentSwitcher;
     private Bundle bun;
+    private RecipeSearchFragment recipeSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +61,6 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
         prefListName = ProfileHash.getSearchSettings();
         prefListView = (ListView)findViewById((R.id.pref_drawer_right)); //right
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
-
 
         //Create Navigation Drawer for left side for button to open
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
@@ -94,8 +88,6 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
                 }
             }
         });
-
-
 
         loadAdapters();
 
@@ -136,27 +128,17 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
     }
 
     private void loadAdapters(){
+        if(recipeSearchFragment == null)
+            recipeSearchFragment = new RecipeSearchFragment();
+
         theMainAdapter = new MainAdapter(getSupportFragmentManager());
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
-        theViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position){
-                /*
-                 * Problems: Ingredients only change on button press and not swipe
-                 */
-                if(position == 2)
-                    theMainAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
-            }
-            @Override
-            public void onPageScrollStateChanged(int state){
-            }
-        });
+
+        theViewPager.setOffscreenPageLimit(3);
+
         if(fragmentSwitcher == null) {
-            fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
+            fragmentSwitcher = new FragmentSwitcherManager(theViewPager, 0);
 
             Button button;
             View view;
@@ -196,10 +178,6 @@ public  class MainActivity extends AppCompatActivity /*implements AdapterView.On
 
     public void addData(ArrayList<String> data){
         bun.putStringArrayList("SearchIngredients", data);
-    }
-
-    public void addData(boolean buttonPress){
-        bun.putBoolean("Button", buttonPress);
     }
 
 }

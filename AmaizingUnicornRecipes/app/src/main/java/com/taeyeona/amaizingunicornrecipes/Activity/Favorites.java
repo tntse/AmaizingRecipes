@@ -91,6 +91,7 @@ public class Favorites {
         return title;
     }
 
+
     public void setTitle(Recipes recipes) {
        title = recipes.getTitle();
     }

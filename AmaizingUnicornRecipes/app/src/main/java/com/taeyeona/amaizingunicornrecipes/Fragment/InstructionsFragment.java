@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.ViewDragHelper;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,7 +34,7 @@ import org.jsoup.select.Elements;
 
 public class InstructionsFragment extends Fragment {
     String TAG = "Chris";
-    Button but;
+    Button youtube_button;
     Document doc;
     StringBuilder instructionLines = new StringBuilder();
     private ViewDragHelper vdh;
@@ -52,6 +55,7 @@ public class InstructionsFragment extends Fragment {
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
         final TextView text = (TextView) getActivity().findViewById(R.id.instruct_text);
+        text.setMovementMethod(new ScrollingMovementMethod());
 
 //        try {
 //            doc = Jsoup.connect(sourceUrl).get();
@@ -279,35 +283,34 @@ public class InstructionsFragment extends Fragment {
 
         /**
          *
-         * Button but manages the hide and reveal of the youtube fragment
+         * Button youtube_button manages the hide and reveal of the youtube fragment
          * OnClick controls add,show,hide player fragment
          *
          *
          */
-            but = (Button) getActivity().findViewById(R.id.vid_tutor_button);
-            but.setOnClickListener(new View.OnClickListener() {
+        youtube_button = (Button) getActivity().findViewById(R.id.vid_tutor_button);
+        youtube_button.setOnClickListener(new View.OnClickListener() {
             final Fragment playerFragAlpha = new PlayerFragment();
 
-                boolean open = true;
-                boolean firstOpen = true;
+            boolean open = true;
+            boolean firstOpen = true;
+
             @Override
             public void onClick(View v) {
 
-                if(firstOpen)
-                {
+                if (firstOpen) {
                     addFragment(playerFragAlpha);
                     firstOpen = false;
                 }
 
-                if (open)
-                {
+                if (open) {
                     open = false;
-                    but.setText("GO BACK");
+                    youtube_button.setText("GO BACK");
 
                     showFragment(playerFragAlpha);
-                }else{
+                } else {
                     open = true;
-                    but.setText("VIDEO TUTORIAL");
+                    youtube_button.setText("VIDEO TUTORIAL");
                     hideFragment(playerFragAlpha);
 
                 }

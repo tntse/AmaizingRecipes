@@ -193,12 +193,12 @@ public class dbHandler extends SQLiteOpenHelper {
             cursorpos = cursor.getPosition();
             if (cursor.getString(0) != null) {
                 dbString += cursor.getString(0);
-                dbString += ",";
+                dbString += "]";
             }
             cursor.move(1);
         }
         db.close();
-        return dbString.split(",");
+        return dbString.split("]");
     }
 
     /**

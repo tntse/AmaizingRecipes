@@ -1,17 +1,24 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.EditSettingsAdapter;
@@ -34,6 +41,7 @@ public class EditSettings extends AppCompatActivity {
     private FragmentSwitcherManager fragSwitcher;
     private EditSettingsAdapter editSettingsAdapter;
     private Bundle bun;
+    private SharedPreferences sharedPref;
 
 
     @Override
@@ -94,7 +102,7 @@ public class EditSettings extends AppCompatActivity {
         mViewPager.setAdapter(editSettingsAdapter);
 
         if(fragSwitcher == null){
-            fragSwitcher = new FragmentSwitcherManager(mViewPager);
+            fragSwitcher = new FragmentSwitcherManager(mViewPager, 1);
 
             Button button;
             View view;
@@ -121,4 +129,42 @@ public class EditSettings extends AppCompatActivity {
         fragSwitcher.setPage(bun.getInt("Current"));
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked
+            if (requestCode == 0 && resultCode == RESULT_OK && null != data) {
+                // Get the Image from data
+
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                // Get the cursor
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                // Move to first row
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String imgDecodableString = cursor.getString(columnIndex);
+                cursor.close();
+                sharedPref = getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPref.edit();
+                edit.putString("Picture", imgDecodableString);
+                edit.commit();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+            } else {
+                Toast.makeText(this, "You haven't picked an image",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "We couldn't connect with your chosen gallery", Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
 }

@@ -16,12 +16,14 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
     private ArrayList<View> bars;
     private ViewPager theViewPager;
     private ActivePage active;
+    private int activity;
 
-    public FragmentSwitcherManager(ViewPager viewPager){
+    public FragmentSwitcherManager(ViewPager viewPager, int activity){
         buttons = new ArrayList<Button>();
         bars = new ArrayList<View>();
         theViewPager = viewPager;
         theViewPager.addOnPageChangeListener(this);
+        this.activity = activity;
     }
 
     public void add(Button newButton, View newBar){
@@ -60,6 +62,10 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
 
         active.setButton(buttons.get(position));
         active.setView(bars.get(position));
+
+        if(position == 2 && activity == 0){
+            theViewPager.getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override

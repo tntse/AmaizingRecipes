@@ -32,11 +32,6 @@ public class MainAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public void startUpdate(ViewGroup container) {
-        super.startUpdate(container);
-    }
-
-    @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
@@ -45,7 +40,5 @@ public class MainAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 3;
     }
-
-
 
 }

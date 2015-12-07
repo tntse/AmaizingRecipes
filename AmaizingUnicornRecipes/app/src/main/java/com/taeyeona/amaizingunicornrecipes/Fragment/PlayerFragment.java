@@ -15,7 +15,6 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.taeyeona.amaizingunicornrecipes.Activity.Pantry;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
@@ -157,7 +156,7 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
             JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
             titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
             //if no video tutorials found
-            if (titleList==null){
+            if (titleList == null){
 
                 Toast.makeText(getContext(),"No Video Tutorials Found",Toast.LENGTH_LONG).show();
                 Intent notFound = new Intent(getActivity(),RecipeShow.class);

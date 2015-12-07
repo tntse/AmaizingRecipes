@@ -6,18 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
+import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.Recipes;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Created by thomastse on 11/24/15.
@@ -25,8 +24,10 @@ import java.util.List;
 public class EditFavoritesFragment extends Fragment {
     private Favorites favoritesData;
     private ArrayAdapter<String> adapter;
-    private List<Recipes> emptyFavorites;
     private String[] values;
+    private boolean emptyFavoritesFlag = false;
+    private ArrayList<String> selected;
+    private ListView favoritesList;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_edit_favorites, container, false);
@@ -37,45 +38,40 @@ public class EditFavoritesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         favoritesData = new Favorites(getContext());
-        final ListView favoritesList = (ListView) getActivity().findViewById(R.id.edit_favorites_list);
-        values = favoritesData.getTitlesFromDB();
-        emptyFavorites = new ArrayList<Recipes>();
-        if(values.length<1){
-            String[] emptyString = {"YOU DO NOT HAVE FAVORITES U:"};
-            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);
+        favoritesList = (ListView) getActivity().findViewById(R.id.edit_favorites_list);
 
-        }else{
-            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
-        }
-        favoritesList.setAdapter(adapter);
-        favoritesList.setClickable(true);
-        favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "Highlight!", Toast.LENGTH_SHORT).show();
-                Recipes favoritesToDelete = favoritesData.searchFavorite(adapter.getItem(position));
-                emptyFavorites.add(favoritesToDelete);
-
-            }
-        });
+        getFavoritesAndSetAdapter();
 
         Button deleteFavorites = (Button)getActivity().findViewById(R.id.delete_favorites);
         deleteFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i<emptyFavorites.size(); i++){
-                    favoritesData.deleteFavorite(emptyFavorites.get(i));
+                if(!emptyFavoritesFlag){
+                    selected = ((PantryListAdapter)adapter).getSelected();
+
+                    for(int i = 0; i < selected.size(); i ++){
+                        Recipes favoritesToDelete = favoritesData.searchFavorite(adapter.getItem(i));
+                        favoritesData.deleteFavorite(favoritesToDelete);
+                    }
+
+                    getFavoritesAndSetAdapter();
                 }
-                if(values.length < 1){
-                    String[] emptyString = {"YOU DO NOT HAVE FAVORITES U:"};
-                    adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyString);
-                }else{
-                    adapter=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, favoritesData.getTitlesFromDB());
-                }
-                favoritesList.setAdapter(adapter);
             }
         });
 
+    }
+
+    private void getFavoritesAndSetAdapter(){
+
+        values = favoritesData.getTitlesFromDB();
+        if(values.length == 1 && values[0].equals("")){
+                values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
+                emptyFavoritesFlag = true;
+                adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
+        }else {
+            adapter = new PantryListAdapter(getContext(), values);
+        }
+        favoritesList.setAdapter(adapter);
     }
 
 }

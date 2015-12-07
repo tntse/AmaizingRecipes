@@ -47,7 +47,7 @@
     <item>Preference</item>
     </string-array>
 
-    <string name="updates">What\'s new and happening !
+    <string name="updates">What\'s new and happening!
         No idea.
     </string>
 
@@ -113,6 +113,7 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="edit_ingredients">Edit Ingredients</string>
     <string name="enter_search_query">Enter Recipe Search</string>
     <string name="instruct_frag_default_text">This is your instructions fragment</string>
+    <string name="empty_pantry">Your Pantry is empty, add some ingredients!</string>
 
 
 </resources>
