@@ -67,6 +67,7 @@ public class RecipeShow extends AppCompatActivity{
             bundle.putString("RecipeID", getIntent().getStringExtra("RecipeID"));
             bundle.putStringArray("Ingredients", getIntent().getStringArrayExtra("Ingredients"));
             bundle.putStringArray("Nutrients", getIntent().getStringArrayExtra("Nutrients"));
+            bundle.putIntArray("Totals", getIntent().getIntArrayExtra("Totals"));
         }
 
         imgLoader.get(img, new ImageLoader.ImageListener() {
