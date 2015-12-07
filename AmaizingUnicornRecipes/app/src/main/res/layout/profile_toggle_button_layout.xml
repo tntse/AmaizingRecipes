@@ -18,6 +18,7 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:id="@+id/search_toggle_button"
-        android:background="@drawable/toggle_settings"/>
+        android:background="@drawable/selector"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
