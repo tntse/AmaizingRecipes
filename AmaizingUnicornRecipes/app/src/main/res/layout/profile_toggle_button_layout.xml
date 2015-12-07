@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
-        android:id="@+id/search_toggle_button"/>
+        android:id="@+id/search_toggle_button"
+        android:background="@drawable/toggle_settings"/>
 
 </RelativeLayout>
