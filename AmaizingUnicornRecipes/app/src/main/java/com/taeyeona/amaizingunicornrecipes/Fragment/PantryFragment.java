@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,8 @@ public class PantryFragment extends Fragment {
                     query = "";
                 ((MainActivity)getActivity()).addData(pantryListAdapter.getSelected());
                 ((MainActivity) getActivity()).addData(query);
-                ((MainActivity) getActivity()).addData(true);
+                //((MainActivity) getActivity()).addData();
+                ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });
 

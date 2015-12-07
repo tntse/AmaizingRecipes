@@ -102,7 +102,7 @@ public class EditSettings extends AppCompatActivity {
         mViewPager.setAdapter(editSettingsAdapter);
 
         if(fragSwitcher == null){
-            fragSwitcher = new FragmentSwitcherManager(mViewPager);
+            fragSwitcher = new FragmentSwitcherManager(mViewPager, 1);
 
             Button button;
             View view;

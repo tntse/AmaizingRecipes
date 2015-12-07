@@ -14,12 +14,9 @@ import com.taeyeona.amaizingunicornrecipes.Fragment.RecipeSearchFragment;
  * Created by thomastse on 11/17/15.
  */
 public class MainAdapter extends FragmentStatePagerAdapter {
-    RecipeSearchFragment recipeSearchFragment;
 
-    public MainAdapter(FragmentManager fm, RecipeSearchFragment rsFrag) {
+    public MainAdapter(FragmentManager fm) {
         super(fm);
-        this.recipeSearchFragment = rsFrag;
-
     }
 
     @Override
@@ -30,13 +27,8 @@ public class MainAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new PantryFragment();
             case 2:
-                return this.recipeSearchFragment;
+                return new RecipeSearchFragment();
         }
-    }
-
-    @Override
-    public void startUpdate(ViewGroup container) {
-        super.startUpdate(container);
     }
 
     @Override
@@ -48,7 +40,5 @@ public class MainAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 3;
     }
-
-
 
 }

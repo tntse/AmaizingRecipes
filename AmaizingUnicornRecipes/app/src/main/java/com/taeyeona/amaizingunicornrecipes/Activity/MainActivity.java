@@ -131,15 +131,14 @@ public  class MainActivity extends AppCompatActivity{
         if(recipeSearchFragment == null)
             recipeSearchFragment = new RecipeSearchFragment();
 
-        theMainAdapter = new MainAdapter(getSupportFragmentManager(), recipeSearchFragment);
+        theMainAdapter = new MainAdapter(getSupportFragmentManager());
         theViewPager = (ViewPager) findViewById(R.id.main_pages);
         theViewPager.setAdapter(theMainAdapter);
 
-        //theViewPager.addOnPageChangeListener(new PageListener());
-        //theViewPager.setOffscreenPageLimit(3);
+        theViewPager.setOffscreenPageLimit(3);
 
         if(fragmentSwitcher == null) {
-            fragmentSwitcher = new FragmentSwitcherManager(theViewPager);
+            fragmentSwitcher = new FragmentSwitcherManager(theViewPager, 0);
 
             Button button;
             View view;
@@ -180,12 +179,5 @@ public  class MainActivity extends AppCompatActivity{
     public void addData(ArrayList<String> data){
         bun.putStringArrayList("SearchIngredients", data);
     }
-
-    public void addData(boolean buttonPress){
-        recipeSearchFragment = new RecipeSearchFragment();
-        loadAdapters();
-        fragmentSwitcher.setPage(2);
-    }
-
 
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
+import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
@@ -83,7 +84,8 @@ public class RecipeSearchFragment extends Fragment {
 
         String ingredients = "";
 
-        ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
+        //ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
+        ArrayList<String> searchIngredients = PantryListAdapter.getSelected();
         if(searchIngredients != null)
             ingredients += searchIngredients.toString().trim();
 
@@ -199,6 +201,7 @@ public class RecipeSearchFragment extends Fragment {
                 }
             });
         }
+        PantryListAdapter.clearList();
     }
 
     /**

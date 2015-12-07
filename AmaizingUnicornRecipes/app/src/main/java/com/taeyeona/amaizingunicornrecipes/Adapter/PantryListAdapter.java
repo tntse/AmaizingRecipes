@@ -14,15 +14,19 @@ import java.util.ArrayList;
  * Created by thomastse on 11/27/15.
  */
 public class PantryListAdapter extends ArrayAdapter<String> implements View.OnClickListener{
-    ArrayList<String> selected;
+    private static ArrayList<String> selected = new ArrayList<String>();
 
     public PantryListAdapter(Context context, String[] list) {
         super(context,R.layout.checklist, list);
-        selected = new ArrayList<String>();
+        //selected = new ArrayList<String>();
     }
 
-    public ArrayList<String> getSelected(){
+    public static ArrayList<String> getSelected(){
         return selected;
+    }
+
+    public static void clearList(){
+        selected.clear();
     }
 
     @Override
@@ -33,6 +37,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         CheckBox check = (CheckBox) theView.findViewById(R.id.checkBox);
         check.setText(getItem(position));
         check.setOnClickListener(this);
+
 
         return theView;
     }
@@ -48,6 +53,5 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         }
 
     }
-
 
 }
