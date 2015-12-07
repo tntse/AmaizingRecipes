@@ -20,7 +20,6 @@ import com.taeyeona.amaizingunicornrecipes.Adapter.RecipeAdapter;
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
-import com.taeyeona.amaizingunicornrecipes.Keys;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.Recipes;
@@ -229,7 +228,7 @@ public class RecipeSearchFragment extends Fragment {
      */
     private void parseResponse(JSONObject response) {
         try {
-            JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.KEY_RECIPES);
+            JSONArray arrayRecipe = response.getJSONArray(Auth.endpointRecipe.KEY_RECIPES);
             for (int i = 0; i < arrayRecipe.length(); i++) {
                 JSONObject object = arrayRecipe.getJSONObject(i);
                 recipeList.add(convertRecipes(object));
@@ -246,7 +245,7 @@ public class RecipeSearchFragment extends Fragment {
      */
     private void parseEdamamResponse(JSONObject response) {
         try {
-            JSONArray arrayRecipe = response.getJSONArray(Keys.endpointRecipe.HITS);
+            JSONArray arrayRecipe = response.getJSONArray(Auth.endpointRecipe.HITS);
             for (int i = 0; i < arrayRecipe.length(); i++) {
                 JSONObject object = arrayRecipe.getJSONObject(i).getJSONObject("recipe");
                 recipeList.add(convertEdamamRecipes(object));
@@ -264,14 +263,14 @@ public class RecipeSearchFragment extends Fragment {
      */
     private final Recipes convertRecipes(JSONObject obj) throws JSONException {
         return new Recipes(
-                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER),
-                obj.getString(Keys.endpointRecipe.KEY_F2F_URL),
-                obj.getString(Keys.endpointRecipe.KEY_TITLE),
-                obj.getString(Keys.endpointRecipe.KEY_SOURCE_URL),
-                obj.getString(Keys.endpointRecipe.KEY_F2FID),
-                obj.getString(Keys.endpointRecipe.KEY_IMAGE_URL),
-                obj.getDouble(Keys.endpointRecipe.KEY_SOCIAL_RANK),
-                obj.getString(Keys.endpointRecipe.KEY_PUBLISHER_URL));
+                obj.getString(Auth.endpointRecipe.KEY_PUBLISHER),
+                obj.getString(Auth.endpointRecipe.KEY_F2F_URL),
+                obj.getString(Auth.endpointRecipe.KEY_TITLE),
+                obj.getString(Auth.endpointRecipe.KEY_SOURCE_URL),
+                obj.getString(Auth.endpointRecipe.KEY_F2FID),
+                obj.getString(Auth.endpointRecipe.KEY_IMAGE_URL),
+                obj.getDouble(Auth.endpointRecipe.KEY_SOCIAL_RANK),
+                obj.getString(Auth.endpointRecipe.KEY_PUBLISHER_URL));
     }
 
     /**

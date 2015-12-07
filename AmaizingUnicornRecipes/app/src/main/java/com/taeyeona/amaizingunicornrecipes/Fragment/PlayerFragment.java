@@ -1,32 +1,19 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AndroidRuntimeException;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
-import com.taeyeona.amaizingunicornrecipes.Keys;
-import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class PlayerFragment extends YouTubePlayerSupportFragment implements YouTubePlayer.OnInitializedListener {
 
@@ -137,11 +124,11 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     private void parseJSON(JSONObject pResponse){
         try{
 
-            JSONArray items = pResponse.getJSONArray(Keys.endpointRecipe.KEY_items);
+            JSONArray items = pResponse.getJSONArray(Auth.endpointRecipe.KEY_items);
             JSONObject id = items.getJSONObject(0);
             //inside first array element
-            JSONObject idObj = id.getJSONObject(Keys.endpointRecipe.KEY_id);
-            titleList.append(idObj.getString(Keys.endpointRecipe.KEY_VideoId));
+            JSONObject idObj = id.getJSONObject(Auth.endpointRecipe.KEY_id);
+            titleList.append(idObj.getString(Auth.endpointRecipe.KEY_VideoId));
             //if no video tutorials found
             if (titleList == null){
 
