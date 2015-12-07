@@ -11,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,6 +32,9 @@ public class EditSettings extends AppCompatActivity {
 
     //DrawerLayout , prefListView , and prefListName manages preference drawer
     private DrawerLayout drawerLayout;
+    private ListView prefListView;
+
+    private ListView navDrawer;
 
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
@@ -51,8 +56,37 @@ public class EditSettings extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
         String[] prefListName = ProfileHash.getSearchSettings();
-        ListView prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        String[] navDrawerNames = getResources().getStringArray(R.array.drawer_list);
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
+
+        //Create Navigation Drawer for left side for button to open
+        navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+        navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                drawerLayout.closeDrawer(navDrawer);
+                switch(position){
+                    case 0:
+                    case 1:
+                    case 2:
+                        Intent intent = new Intent(EditSettings.this, MainActivity.class);
+                        intent.putExtra("Open", position - 3);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        fragSwitcher.setPage(position);
+                        break;
+                    case 6:
+                        drawerLayout.openDrawer(prefListView);
+                        break;
+                }
+            }
+        });
 
         TextView txtView = (TextView) findViewById(R.id.main_settings_text);
         txtView.setText("Go Back");
@@ -113,7 +147,6 @@ public class EditSettings extends AppCompatActivity {
         }else{
             fragSwitcher.setViewPager(mViewPager);
         }
-
         fragSwitcher.setPage(bun.getInt("Current"));
     }
 

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 public  class MainActivity extends AppCompatActivity{
 
-
     //DrawerLayout , prefListView , and prefListName manages preference drawer
     private DrawerLayout drawerLayout;
     private ListView prefListView;

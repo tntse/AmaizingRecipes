@@ -86,11 +86,10 @@ public class RecipeSearchFragment extends Fragment {
         if(searchIngredients != null)
             ingredients += searchIngredients.toString().trim();
 
-        if(((MainActivity)getActivity()).getBundle().getBoolean("Button")){
-            String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
-            if(searchQuery != null && !searchQuery.equals(""))
-                ingredients += "," + searchQuery;
-        }
+        String searchQuery = ((MainActivity)getActivity()).getBundle().getString("SearchQuery");
+        if(searchQuery != null && !searchQuery.equals(""))
+            ingredients += "," + searchQuery;
+
 
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");

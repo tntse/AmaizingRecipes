@@ -1,11 +1,14 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,6 +33,9 @@ public class RecipeShow extends AppCompatActivity{
     //DrawerLayout , prefListView , and prefListName manages preference drawer
     private DrawerLayout drawerLayout;
     private Bitmap theImage;
+    private ListView navDrawer;
+    private ListView prefListView;
+    private FragmentSwitcherManager fragSwitcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -40,9 +46,38 @@ public class RecipeShow extends AppCompatActivity{
         //Create drawer adapter to toggle search preferences with right side drawer
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
         String[] prefListName = ProfileHash.getSearchSettings();
-        ListView prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        String[] navDrawerNames = getResources().getStringArray(R.array.drawer_list);
+        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
+        navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+        navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                drawerLayout.closeDrawer(navDrawer);
+                switch(position){
+                    case 0:
+                    case 1:
+                    case 2:
+                        Intent intent = new Intent(RecipeShow.this, MainActivity.class);
+                        intent.putExtra("Open", position - 3);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        Intent intent2 = new Intent(RecipeShow.this, EditSettings.class);
+                        intent2.putExtra("Open", position - 3);
+                        startActivity(intent2);
+                        break;
+                    case 6:
+                        drawerLayout.openDrawer(prefListView);
+                        break;
+                }
+            }
+        });
 
         final String img = getIntent().getStringExtra("Picture");
         Bundle bundle = new Bundle();
@@ -81,7 +116,7 @@ public class RecipeShow extends AppCompatActivity{
         ViewPager viewPager = (ViewPager) findViewById(R.id.main_pages);
         viewPager.setAdapter(customPagerAdapter);
         viewPager.setOffscreenPageLimit(3);
-        FragmentSwitcherManager fragSwitcher = new FragmentSwitcherManager(viewPager, 2);
+        fragSwitcher = new FragmentSwitcherManager(viewPager, 2);
 
         Button button;
         View view;
