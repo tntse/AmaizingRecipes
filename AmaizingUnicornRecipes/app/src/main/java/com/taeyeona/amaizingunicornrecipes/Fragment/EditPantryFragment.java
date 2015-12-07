@@ -56,7 +56,7 @@ public class EditPantryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String temp = input.getText().toString().trim();
-                if (!temp.equals(getString(R.string.enter_ingre_name))) {
+                if (!temp.equals(getString(R.string.enter_ingre_name)) && !temp.equals("")) {
                     if (!manager.contains(temp)) {
                         manager.add(temp);
                         edit.putStringSet("Ingredients", manager);

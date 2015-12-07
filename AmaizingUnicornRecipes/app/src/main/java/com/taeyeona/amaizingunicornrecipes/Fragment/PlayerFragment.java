@@ -90,7 +90,6 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
                 }
             }
         },3000);
-
     }
 
     /**
