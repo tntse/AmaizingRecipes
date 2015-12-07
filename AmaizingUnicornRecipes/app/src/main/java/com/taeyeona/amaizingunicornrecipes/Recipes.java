@@ -22,11 +22,13 @@ public class Recipes {
     private String publisherUrl;
     private List<String> ingredients;
     private List<String> nutrients;
+    private ArrayList<Integer> dailyTotals;
     private String nutrient;
     private long id;
     private dbHandler handler;
     private String api;
     private String ingredientList;
+    private int servings = 1;
 
     public Recipes(){
     }
@@ -43,6 +45,7 @@ public class Recipes {
         publisherUrl = pubUrl;
         ingredients = new ArrayList<String>();
         nutrients = new ArrayList<String>();
+        dailyTotals = new ArrayList<Integer>();
     }
 
     public Recipes(Context context) {
@@ -226,6 +229,35 @@ public class Recipes {
      */
     public void setPublisherUrl(String publisherUrl) {
         this.publisherUrl = publisherUrl;
+    }
+
+    /**
+     * @return The amount of servings that the recipe yields
+     */
+
+    public int getServings(){ return servings; }
+
+    /**
+     * @param serves The amount of servings that the recipe yields
+     */
+
+    public void setServings(int serves){ this.servings = serves; }
+
+    /**
+     * @return The percent daily values for the recipe
+     */
+
+    public ArrayList<Integer> getDailyTotals() {
+        return dailyTotals;
+    }
+
+    /**
+     *
+     * @param dailyTotals The percent daily values for the recipe
+     */
+
+    public void setDailyTotals(ArrayList<Integer> dailyTotals) {
+        this.dailyTotals = dailyTotals;
     }
 
     /**
