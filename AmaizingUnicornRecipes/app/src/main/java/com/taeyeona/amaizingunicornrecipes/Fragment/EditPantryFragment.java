@@ -74,12 +74,13 @@ public class EditPantryFragment extends Fragment {
         deleteSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                ArrayList<String> selected = pantryListAdapter.getSelected();
-                manager.removeAll(selected);
-                edit.putStringSet("Ingredients", manager);
-                edit.commit();
-                getListAndSetAdapter();
+                if(manager.isEmpty()) {
+                    ArrayList<String> selected = pantryListAdapter.getSelected();
+                    manager.removeAll(selected);
+                    edit.putStringSet("Ingredients", manager);
+                    edit.commit();
+                    getListAndSetAdapter();
+                }
             }
         });
 
