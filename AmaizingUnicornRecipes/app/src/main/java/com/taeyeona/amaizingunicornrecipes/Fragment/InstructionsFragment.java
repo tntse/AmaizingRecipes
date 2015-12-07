@@ -5,14 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.ViewDragHelper;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,36 +30,21 @@ import org.jsoup.select.Elements;
 
 
 public class InstructionsFragment extends Fragment {
-    String TAG = "Chris";
-    Button youtube_button;
-    Document doc;
-    StringBuilder instructionLines = new StringBuilder();
-    private ViewDragHelper vdh;
+    private Button youtube_button;
+    private StringBuilder instructionLines = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_instructions, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
-
-
-
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String sourceUrl = getArguments().getString("SourceUrl");
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
         final TextView text = (TextView) getActivity().findViewById(R.id.instruct_text);
         text.setMovementMethod(new ScrollingMovementMethod());
-
-//        try {
-//            doc = Jsoup.connect(sourceUrl).get();
-//        } catch (IOException e) {
-//            Log.d("Error", e.getMessage());
-//        }
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, sourceUrl,
                 new Response.Listener<String>() {
@@ -267,7 +249,6 @@ public class InstructionsFragment extends Fragment {
                             text.setText(R.string.recipe_instructions_not_found);
                         } else {
                             text.setText(instructionLines.toString());
-                            Log.d(TAG, sourceName.toUpperCase() + ": " + sourceUrl);
                         }
                     }
                 },
@@ -316,7 +297,6 @@ public class InstructionsFragment extends Fragment {
                 }
             }
         });
-
     }
     /**
      * @author HaoXian
@@ -329,7 +309,6 @@ public class InstructionsFragment extends Fragment {
     public void showFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-//        transaction.add(R.id.overlay_fragment_container, pFragment);
         transaction.show(pFragment);
         // Commit the transaction
         transaction.commit();
@@ -362,7 +341,6 @@ public class InstructionsFragment extends Fragment {
     public void addFragment(Fragment pFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //the underfragment enters,exit
-//        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
         transaction.add(R.id.overlay_fragment_container, pFragment);
         transaction.addToBackStack(null);

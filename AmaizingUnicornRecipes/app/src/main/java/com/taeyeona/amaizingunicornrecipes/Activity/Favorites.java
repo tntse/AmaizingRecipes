@@ -14,8 +14,8 @@ import com.taeyeona.amaizingunicornrecipes.Recipes;
  */
 public class Favorites {
 
-    String title;
-    String picture;
+    private String title;
+    private String picture;
 
     private dbHandler handler;
     private String[] allColumns = {dbHandler.COLUMN_ID,
@@ -45,8 +45,6 @@ public class Favorites {
     public void storeRecipe(String recipe, String rid, String picture,
                             String sourceUrl, String sourceName, String nutrients,
                             String ingredients, String api) {
-
-        Log.d("Favorites", "Got in");
 
         boolean flag = false;
 

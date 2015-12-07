@@ -32,7 +32,6 @@ public class EditPantryFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pantry, container, false);
-
     }
 
     @Override
@@ -64,6 +63,7 @@ public class EditPantryFragment extends Fragment {
                         edit.commit();
                         input.setText("");
                         getListAndSetAdapter();
+                        list.setSelection(pantryListAdapter.getCount()-1);
                     }
                 }
             }
@@ -74,7 +74,7 @@ public class EditPantryFragment extends Fragment {
         deleteSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(manager.isEmpty()) {
+                if(!manager.isEmpty()) {
                     ArrayList<String> selected = pantryListAdapter.getSelected();
                     manager.removeAll(selected);
                     edit.putStringSet("Ingredients", manager);
@@ -93,7 +93,6 @@ public class EditPantryFragment extends Fragment {
             list.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyManager));
         }else {
             pantryListAdapter = new PantryListAdapter(getContext(), (String[]) manager.toArray());
-            list.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
             list.setAdapter(pantryListAdapter);
         }
     }

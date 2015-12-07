@@ -1,6 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
-
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -59,25 +57,19 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.missing_ingredients);
 
-
         mLocationProvider = new LocationUpdate(this, this);
-
-        Log.d(MissingIngredients.class.getSimpleName(), "I'm here");
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
         SharedPreferences sharedPreferences = this.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
 
         String[] rawIngredients = ingredients.split("\n");
-        Log.d(MissingIngredients.class.getSimpleName(), "raw Ingredients are: " + rawIngredients.toString());
 
         Set<String> manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
-        Log.d(MissingIngredients.class.getSimpleName(), "manager instance of IngredientsManager: " + (manager instanceof IngredientsManager));
         if(!(manager instanceof IngredientsManager)){
 
             manager = new IngredientsManager(manager);
         }
 
-        Log.d(MissingIngredients.class.getSimpleName(), "manager " + manager);
         String[] missingIngredients = ((IngredientsManager)manager).findMissingIngredients(rawIngredients);
 
         ListView theListView = (ListView) findViewById(R.id.missing_ingre_list);
@@ -128,7 +120,6 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     public void showFragment(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-//        transaction.add(R.id.overlay_fragment_container, pFragment);
         transaction.show(maps_frag);
         transaction.commit();
 
@@ -162,11 +153,8 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     public void addFragment(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //the underfragment enters,exit
-//        transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
 
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-
-       // mMap = ((SupportMapFragment)maps_frag).getMap();
 
         transaction.add(R.id.maps_fragment_holder, maps_frag, "newMap");
         transaction.addToBackStack(null);
@@ -191,8 +179,6 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             }
         }
         mLocationProvider.connect();
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -245,13 +231,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                    mMap = googleMap;
                 }
             });
-
-            Log.d(MissingIngredients.class.getSimpleName(), "Map was Null");
-
         }
         // Check if we were successful in obtaining the map.
         if (mMap != null) {
-            Log.d(MissingIngredients.class.getSimpleName(), "Setting up Map");
             setUpMap();
         }
     }
@@ -293,8 +275,6 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     }
 
     public void newLocation(Location location) {
-        Log.d(MissingIngredients.class.getSimpleName(), location.toString());
-
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
 
@@ -307,7 +287,6 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(latLng)
                 .title("You Are Here");
-        Log.d("MissingIngredients", options.toString());
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
@@ -341,36 +320,5 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 }
             }
         });
-/*
-
-        Handler hand = new Handler();
-        hand.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                JSONObject response = jsonRequest.getResponse();
-
-                try {
-                    for (int i = 0; i < 15; i++) {
-
-                        JSONArray arr = response.getJSONArray("results");
-                        JSONObject jsonObject = arr.getJSONObject(i);
-                        JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
-
-                        mMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
-                                .snippet(jsonObject.getString("vicinity"))
-                                .position(new LatLng(
-                                        jsonLocation.getDouble("lat"),
-                                        jsonLocation.getDouble("lng"))));
-
-                    }
-                } catch (JSONException e) {
-
-                }
-            }
-        }, 3000);
-*/
-
     }
-
 }

@@ -2,17 +2,14 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,20 +23,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /**
  * Created by Chau on 11/7/2015.
  */
 public class IngredientsFragment extends Fragment {
-
-    ImageButton favorite;
- //   StringBuilder ingredients = new StringBuilder();
     private StringBuilder ingredients = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_ingredients_v2, container, false);
-
     }
 
     @Override
@@ -49,9 +41,7 @@ public class IngredientsFragment extends Fragment {
         ImageView recipeImage = (ImageView) view.findViewById(R.id.recipe_picture);
         recipeImage.setImageBitmap((Bitmap)getArguments().getParcelable("BMP"));
 
-        //TextView title_text = (TextView) getActivity().findViewById(R.id.recipe_name);
         final TextView ingredients_list = (TextView) getActivity().findViewById(R.id.ingredients_list);
-        //title_text.setText(getArguments().getString("Title"));
         // TODO: move this into RecipeAPIsInterface
         if(getArguments().getString("API").equals("Food2Fork")){
             final JSONRequest request = new JSONRequest();
@@ -63,13 +53,10 @@ public class IngredientsFragment extends Fragment {
                     JSONObject response = request.getResponse();
                     try {
                         JSONObject recipe = response.getJSONObject("recipe");
-                        Log.d(IngredientsFragment.class.getSimpleName(), recipe.toString());
                         JSONArray ingredientsList = recipe.getJSONArray("ingredients");
-                        Log.d(IngredientsFragment.class.getSimpleName(), ingredientsList.toString());
                         for (int i = 0; i < ingredientsList.length(); i++) {
                             ingredients.append(ingredientsList.getString(i));
                             ingredients.append('\n');
-                            Log.d(IngredientsFragment.class.getSimpleName(), ingredients.toString());
                         }
                         //Putting a setText here because if put outside, it won't show F2F's ingredient list
                         ingredients_list.setText("Ingredients:\n" + ingredients.toString());
@@ -79,30 +66,6 @@ public class IngredientsFragment extends Fragment {
                     }
                 }
             });
-           /* Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject response = request.getResponse();
-                    try {
-                        JSONObject recipe = response.getJSONObject("recipe");
-                        Log.d(IngredientsFragment.class.getSimpleName(), recipe.toString());
-                        JSONArray ingredientsList = recipe.getJSONArray("ingredients");
-                        Log.d(IngredientsFragment.class.getSimpleName(), ingredientsList.toString());
-                        for (int i = 0; i < ingredientsList.length(); i++) {
-                            ingredients.append(ingredientsList.getString(i));
-                            ingredients.append('\n');
-                            Log.d(IngredientsFragment.class.getSimpleName(), ingredients.toString());
-                        }
-                        //Putting a setText here because if put outside, it won't show F2F's ingredient list
-                        ingredients_list.setText("Ingredients:\n" + ingredients.toString());
-                        ingredients_list.setMovementMethod(new ScrollingMovementMethod());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, 2000);*/
-
         }else{
             String[] ingredientLines = getArguments().getStringArray("Ingredients");
             for (int i = 0; i < ingredientLines.length; i++) {
@@ -120,7 +83,6 @@ public class IngredientsFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), MissingIngredients.class);
                 intent.putExtra("Ingredients", ingredients.toString());
                 startActivity(intent);
-
             }
         });
 
@@ -131,19 +93,15 @@ public class IngredientsFragment extends Fragment {
             fav.setChecked(true);
         }
 
-
         fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 String ingredientList = "";
                 String nutrientList = "";
-                Log.d("IngredientsFragment", "test");
                 if(!getArguments().getString("API").equals("Food2Fork")){
                     ingredientList = convertArrayToString(getArguments().getStringArray("Ingredients"));
                     nutrientList = convertArrayToString(getArguments().getStringArray("Nutrients"));
                 }
-
-
                 favObj.storeRecipe(getArguments().getString("Title"),
                         getArguments().getString("RecipeID"), getArguments().getString("Picture"),
                         getArguments().getString("SourceUrl"), getArguments().getString("SourceName"),
@@ -151,10 +109,6 @@ public class IngredientsFragment extends Fragment {
 
             }
         });
-
-
-
-
     }
 
     public static String strSeparator = ", ";

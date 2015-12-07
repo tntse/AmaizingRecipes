@@ -52,9 +52,7 @@ public class Recipes {
         handler = new dbHandler(context);
     }
 
-
     public Recipes(String[] dataFieldsToSet){
-
         setId(Long.parseLong(dataFieldsToSet[0]));
         setTitle(dataFieldsToSet[1]);
         setImageUrl(dataFieldsToSet[2]);
@@ -64,7 +62,6 @@ public class Recipes {
         setPublisher(dataFieldsToSet[6]);
         setSourceUrl(dataFieldsToSet[7]);
         setApi(dataFieldsToSet[8]);
-
     }
 
     /**
@@ -294,5 +291,4 @@ public class Recipes {
         String[] arr = str.split(strSeparator);
         return arr;
     }
-
 }

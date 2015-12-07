@@ -24,7 +24,6 @@ public class ToggleDrawerAdapter extends ArrayAdapter<String> implements View.On
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-
     public ToggleDrawerAdapter(Context context, String []string) {
         super(context, R.layout.profile_toggle_button_layout, string);
 

@@ -30,19 +30,15 @@ import java.util.Set;
  */
 public class PantryFragment extends Fragment {
     private SharedPreferences sharedPreferences;
-    private EditText input;
-    private Button searchButton;
-    private Button toEditIngredients;
-    private Set<String> manager;
-    private PantryListAdapter pantryListAdapter;
     private ListView list;
+    private EditText input;
+    private PantryListAdapter pantryListAdapter;
     private TextView nullText;
 
     private TextView tut_swipe;
     private TextView tut_check_items;
     private Button tut_button;
     private ImageView tut_Image;
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -53,10 +49,9 @@ public class PantryFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
 
-        manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
+        Set<String> manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
         if(!(manager instanceof IngredientsManager))
             manager = new IngredientsManager(manager);
 
@@ -73,7 +68,7 @@ public class PantryFragment extends Fragment {
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
         input.setHint(getString(R.string.enter_search_query));
 
-        searchButton = (Button) view.findViewById(R.id.pantry_right_button);
+        Button searchButton = (Button) view.findViewById(R.id.pantry_right_button);
         searchButton.setText(getString(R.string.search_for_recipe));
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +84,7 @@ public class PantryFragment extends Fragment {
             }
         });
 
-        toEditIngredients = (Button) view.findViewById(R.id.pantry_left_button);
+        Button toEditIngredients = (Button) view.findViewById(R.id.pantry_left_button);
         toEditIngredients.setText(getString(R.string.edit_ingredients));
         toEditIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,11 +123,8 @@ public class PantryFragment extends Fragment {
                     nullText.setVisibility(View.VISIBLE);
                 }
             });
-
         }
-
     }
-
 }
 
 

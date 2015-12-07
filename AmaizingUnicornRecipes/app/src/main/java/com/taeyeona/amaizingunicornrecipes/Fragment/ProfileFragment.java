@@ -30,14 +30,9 @@ import com.taeyeona.amaizingunicornrecipes.Recipes;
 public class ProfileFragment extends Fragment {
     private ListView favoritesList;
     private Favorites datasource;
-    private TextView name;
-    private TextView email;
     private SharedPreferences sharedPreferences;
     private ArrayAdapter<String> adapter;
-    private ImageView profileImage;
     private boolean emptyFavoritesFlag = false;
-
-
 
     @Nullable
     @Override
@@ -49,15 +44,15 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        profileImage = (ImageView) getActivity().findViewById(R.id.user_picture);
+        ImageView profileImage = (ImageView) getActivity().findViewById(R.id.user_picture);
         sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
 
         if(sharedPreferences.contains("Picture")){
             profileImage.setImageBitmap(BitmapFactory.decodeFile(sharedPreferences.getString("Picture", "")));
         }
 
-        name = (TextView) view.findViewById(R.id.user_name);
-        email = (TextView) view.findViewById(R.id.user_email);
+        TextView name = (TextView) view.findViewById(R.id.user_name);
+        TextView email = (TextView) view.findViewById(R.id.user_email);
 
         name.setText(sharedPreferences.getString("Name", getString(R.string.default_name)));
         email.setText(sharedPreferences.getString("Email", getString(R.string.default_email)));
@@ -65,7 +60,6 @@ public class ProfileFragment extends Fragment {
         datasource = new Favorites(getContext());
         favoritesList = (ListView) view.findViewById(R.id.favorites_list);
         String[] values = datasource.getTitlesFromDB();
-
 
         if(values.length == 1){
             if(values[0].equals("")){
@@ -102,12 +96,9 @@ public class ProfileFragment extends Fragment {
                     }
 
                     startActivity(intent);
-
                 }
             });
 
-
         }
     }
-
 }

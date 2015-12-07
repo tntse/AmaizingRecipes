@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,8 +23,6 @@ public class LocationUpdate implements
     public abstract interface LocationCallback {
         public void newLocation(Location location);
     }
-
-    public static final String TAG = LocationUpdate.class.getSimpleName();
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
@@ -64,7 +61,6 @@ public class LocationUpdate implements
 
     @Override
     public void onConnected(Bundle bundle){
-        Log.i(TAG, "Location services connected");
 
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if(location == null){
@@ -75,9 +71,7 @@ public class LocationUpdate implements
     }
 
     @Override
-    public void onConnectionSuspended(int i){
-
-    }
+    public void onConnectionSuspended(int i){}
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult){
@@ -88,8 +82,6 @@ public class LocationUpdate implements
             } catch (IntentSender.SendIntentException e) {
                 e.printStackTrace();
             }
-        } else {
-            Log.i(TAG, "Location services failed with code" + connectionResult.getErrorCode());
         }
     }
 

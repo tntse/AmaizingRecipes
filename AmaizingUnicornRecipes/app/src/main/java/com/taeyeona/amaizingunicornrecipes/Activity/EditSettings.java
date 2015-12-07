@@ -1,6 +1,5 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,16 +10,13 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taeyeona.amaizingunicornrecipes.Adapter.CustomPagerAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.EditSettingsAdapter;
 import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
@@ -34,21 +30,15 @@ public class EditSettings extends AppCompatActivity {
 
     //DrawerLayout , prefListView , and prefListName manages preference drawer
     private DrawerLayout drawerLayout;
-    private ListView prefListView;
-    private String[] prefListName;
 
     private ViewPager mViewPager;
     private FragmentSwitcherManager fragSwitcher;
-    private EditSettingsAdapter editSettingsAdapter;
     private Bundle bun;
-    private SharedPreferences sharedPref;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_v2);
-
 
         bun = savedInstanceState;
         if(bun == null){
@@ -57,12 +47,11 @@ public class EditSettings extends AppCompatActivity {
         }
         loadAdapters();
 
-
         //Create drawer adapter to toggle search preferences with right side drawer
 
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
-        prefListName = ProfileHash.getSearchSettings();
-        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        String[] prefListName = ProfileHash.getSearchSettings();
+        ListView prefListView = (ListView)findViewById((R.id.pref_drawer_right));
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
         TextView txtView = (TextView) findViewById(R.id.main_settings_text);
@@ -83,7 +72,6 @@ public class EditSettings extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -97,7 +85,7 @@ public class EditSettings extends AppCompatActivity {
     }
 
     private void loadAdapters(){
-        editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), bun);
+        EditSettingsAdapter editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), bun);
         mViewPager = (ViewPager) findViewById(R.id.main_pages);
         mViewPager.setAdapter(editSettingsAdapter);
 
@@ -127,7 +115,6 @@ public class EditSettings extends AppCompatActivity {
         }
 
         fragSwitcher.setPage(bun.getInt("Current"));
-
     }
 
     @Override
@@ -150,7 +137,7 @@ public class EditSettings extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
-                sharedPref = getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = sharedPref.edit();
                 edit.putString("Picture", imgDecodableString);
                 edit.commit();

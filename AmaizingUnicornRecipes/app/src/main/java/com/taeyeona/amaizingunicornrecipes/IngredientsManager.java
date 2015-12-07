@@ -1,7 +1,6 @@
 package com.taeyeona.amaizingunicornrecipes;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +18,6 @@ public class IngredientsManager implements Set<String> {
      * Contains the list of Ingredients.
      */
     private ArrayList<String> list;
-
 
     /**
      *  Default constructor.
@@ -210,16 +208,12 @@ public class IngredientsManager implements Set<String> {
 
         for(int i = 0; i < ingredientList.length; i++){
             found = false;
-            Log.d(IngredientsManager.class.getSimpleName(), "I'm here");
-            Log.d(IngredientsManager.class.getSimpleName(), "list size: " + list.size());
             for(int j = 0; j < list.size() && !found; j++)
                 if(ingredientList[i].contains((String)list.get(j)))
                     found = true;
-            Log.d(IngredientsManager.class.getSimpleName(), "ingredientList[i]: " + (String)ingredientList[i] );
             if(!found)
                 ret += (String)ingredientList[i] +"\n\t";
         }
-        Log.d(IngredientsManager.class.getSimpleName(), "ret: " + ret);
         return ret.trim().split("\t");
     }
 

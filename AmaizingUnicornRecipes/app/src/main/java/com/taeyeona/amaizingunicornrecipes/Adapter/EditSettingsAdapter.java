@@ -9,12 +9,11 @@ import com.taeyeona.amaizingunicornrecipes.Fragment.EditFavoritesFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.EditPantryFragment;
 import com.taeyeona.amaizingunicornrecipes.Fragment.EditUserInfoFragment;
 
-
 /**
  * Created by thomastse on 11/24/15.
  */
 public class EditSettingsAdapter extends FragmentStatePagerAdapter {
-    Bundle bundle;
+    private Bundle bundle;
 
     public EditSettingsAdapter(FragmentManager fm, Bundle bun) {
         super(fm);

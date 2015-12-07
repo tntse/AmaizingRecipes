@@ -42,7 +42,6 @@ public class ProfileHash {
 
         uploadPicture.add("Upload Picture Here");
 
-
         ret.put("Grocery Store Search Radius", searchMapsFields);
         ret.put("Search Settings", searchToggleFields);
         ret.put("Picture Upload", uploadPicture);

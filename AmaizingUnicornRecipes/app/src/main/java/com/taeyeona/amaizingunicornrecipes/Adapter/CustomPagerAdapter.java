@@ -14,8 +14,7 @@ import com.taeyeona.amaizingunicornrecipes.Fragment.PlayerFragment;
  * Created by Chau on 11/7/2015.
  */
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
-
-    Bundle bundle;
+    private Bundle bundle;
 
     public CustomPagerAdapter(FragmentManager fm, Bundle bun) {
         super(fm);
@@ -38,8 +37,6 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
                 }catch(Exception e){
 
                 }
-
-
             default:
                 Fragment nutri = new NutritionFragment();
                 nutri.setArguments(bundle);
@@ -51,5 +48,4 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 3;
     }
-
 }

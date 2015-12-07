@@ -36,10 +36,10 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<String>> hashList;
     private List<String> settings;
     private Context context;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    Bundle bun;
-    LayoutInflater inflater;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private Bundle bun;
+    private LayoutInflater inflater;
 
     /**
      * The Constructor for this Adapter.
@@ -286,7 +286,6 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             editor.commit();
         }
     }
-
 }
 
 

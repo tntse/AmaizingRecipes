@@ -31,17 +31,9 @@ import java.util.logging.LogRecord;
 public class PlayerFragment extends YouTubePlayerSupportFragment implements YouTubePlayer.OnInitializedListener {
 
     final private String mVideoId = "xhUoBKhPq14";
-    final private String devKey = "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI";
     private String vid;
     private StringBuilder titleList = new StringBuilder();
-    String st;
-//
-//    public static PlayerFragment newInstance(final String videoId) {
-//        final PlayerFragment youTubeFragment = new PlayerFragment();
-//        final Bundle bundle = new Bundle();
-//        youTubeFragment.setArguments(bundle);
-//        return youTubeFragment;
-//    }
+    private String st;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -55,8 +47,6 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
         //Crated JSONrequest
         final JSONRequest jsonRequest = new JSONRequest();
         //Create response
-        //AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI
-        //AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
                 "AIzaSyAgluXYn35S2cVNEhiT07qGwN6B2uz7kyk", null, null, st, "",
                 Auth.PART_SNIPPET, "1", null, null, "", "", "", 0.0, 0.0, "", null, null);
@@ -69,20 +59,13 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
             }
         });
 
-
-
         try {
-            initialize(devKey, this);
-
-
+            initialize(Auth.YOUTUBE_DEV_KEY, this);
         }catch (Exception e){
             Intent notFound = new Intent(getActivity(),RecipeShow.class);
             startActivity(notFound);
         }
-
-
     }
-
 
     /**
      *

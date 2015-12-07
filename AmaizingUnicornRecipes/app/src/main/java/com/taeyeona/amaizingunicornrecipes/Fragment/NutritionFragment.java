@@ -27,8 +27,7 @@ import java.util.ArrayList;
 
 public class NutritionFragment extends Fragment {
 
-    StringBuilder nutrients = new StringBuilder();
-
+    private StringBuilder nutrients = new StringBuilder();
     private TextView text;
 
     @Override
@@ -85,12 +84,6 @@ public class NutritionFragment extends Fragment {
             chart.setData(data);
             chart.animateY(1000);
             chart.setDescription("");
-
-
-
         }
-
-
-
     }
 }

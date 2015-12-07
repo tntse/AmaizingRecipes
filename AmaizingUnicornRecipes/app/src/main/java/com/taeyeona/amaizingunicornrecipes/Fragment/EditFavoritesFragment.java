@@ -17,7 +17,6 @@ import com.taeyeona.amaizingunicornrecipes.Recipes;
 
 import java.util.ArrayList;
 
-
 /**
  * Created by thomastse on 11/24/15.
  */
@@ -31,7 +30,6 @@ public class EditFavoritesFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_edit_favorites, container, false);
-
     }
 
     @Override
@@ -58,11 +56,9 @@ public class EditFavoritesFragment extends Fragment {
                 }
             }
         });
-
     }
 
     private void getFavoritesAndSetAdapter(){
-
         values = favoritesData.getTitlesFromDB();
         if(values.length == 1 && values[0].equals("")){
                 values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
@@ -73,5 +69,4 @@ public class EditFavoritesFragment extends Fragment {
         }
         favoritesList.setAdapter(adapter);
     }
-
 }

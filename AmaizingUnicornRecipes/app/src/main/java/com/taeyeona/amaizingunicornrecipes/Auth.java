@@ -16,6 +16,7 @@ public class Auth {
     //"672caa0de2a18eb25bbb3ecccfccd0df";
 
     public static final String MAPS_KEY = "AIzaSyAdMLf1_CLLZr7BVP7Li0o4EorZCQE0S_I";
+    public static final String YOUTUBE_DEV_KEY = "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI";
     public static final String GET_URL = "http://food2fork.com/api/get";
     public static final String URL = "http://food2fork.com/api/search";
     public static final String EDAMAM_ID =

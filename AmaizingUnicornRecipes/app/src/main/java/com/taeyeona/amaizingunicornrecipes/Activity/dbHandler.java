@@ -36,18 +36,6 @@ public class dbHandler extends SQLiteOpenHelper {
     public static final String COLUMN_SOURCENAME = "sourceName";
     public static final String COLUMN_API = "api";
 
-
-//
-//    intent.putExtra("Picture", currentRecipe.getImageUrl());
-//    intent.putExtra("Title", currentRecipe.getTitle());
-//    intent.putExtra("RecipeID", currentRecipe.getRecipeId());
-//    intent.putExtra("Ingredients", currentRecipe.getIngredients().toArray(new String[0]));
-//    intent.putExtra("Nutrients", currentRecipe.getNutrients().toArray(new String[0]));
-//    intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
-//    intent.putExtra("SourceName", currentRecipe.getPublisher());
-////    intent.putExtra("API", "Edamam");
-
-
     /**
      * Creates a basic handle for the database.
      *
@@ -174,10 +162,6 @@ public class dbHandler extends SQLiteOpenHelper {
         return dbString;
     }
 
-//    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
-//        return getReadableDatabase().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
-//    }
-
     public String[] getAllTitles() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + COLUMN_TITLE + " FROM " + TABLE_FAVORITES;
@@ -213,7 +197,6 @@ public class dbHandler extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_FAVORITES + " WHERE " + COLUMN_TITLE + "=\"" + title + "\"";
         String dbString = "";
         Recipes ret = null;
-
 
         Cursor cursor = db.rawQuery(query, null);
 

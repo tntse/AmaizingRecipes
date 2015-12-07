@@ -29,14 +29,6 @@ public class RecipeShow extends AppCompatActivity{
 
     //DrawerLayout , prefListView , and prefListName manages preference drawer
     private DrawerLayout drawerLayout;
-    private ListView prefListView;
-    private String[] prefListName;
-
-
-    // private ImageView image;
-    private CustomPagerAdapter mCustomPagerAdapter;
-    private ViewPager mViewPager;
-    private FragmentSwitcherManager fragSwitcher;
     private Bitmap theImage;
 
     @Override
@@ -47,8 +39,8 @@ public class RecipeShow extends AppCompatActivity{
 
         //Create drawer adapter to toggle search preferences with right side drawer
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2);
-        prefListName = ProfileHash.getSearchSettings();
-        prefListView = (ListView)findViewById((R.id.pref_drawer_right));
+        String[] prefListName = ProfileHash.getSearchSettings();
+        ListView prefListView = (ListView)findViewById((R.id.pref_drawer_right));
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
 
@@ -85,10 +77,11 @@ public class RecipeShow extends AppCompatActivity{
         bundle.putParcelable("BMP", theImage);
         TextView title = (TextView) findViewById(R.id.main_title_text);
         title.setText(getIntent().getStringExtra("Title"));
-        mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
-        mViewPager = (ViewPager) findViewById(R.id.main_pages);
-        mViewPager.setAdapter(mCustomPagerAdapter);
-        fragSwitcher = new FragmentSwitcherManager(mViewPager, 2);
+        CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), bundle);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.main_pages);
+        viewPager.setAdapter(customPagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
+        FragmentSwitcherManager fragSwitcher = new FragmentSwitcherManager(viewPager, 2);
 
         Button button;
         View view;
@@ -119,8 +112,5 @@ public class RecipeShow extends AppCompatActivity{
                 finish();
             }
         });
-
-        
     }
-
 }

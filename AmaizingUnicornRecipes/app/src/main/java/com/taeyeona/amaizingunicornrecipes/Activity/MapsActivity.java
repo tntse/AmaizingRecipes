@@ -31,10 +31,7 @@ import org.json.JSONObject;
 
 public class MapsActivity extends FragmentActivity implements LocationUpdate.LocationCallback {
 
-    public static final String TAG = MapsActivity.class.getSimpleName();
-
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
     private LocationUpdate mLocationProvider;
 
     @Override
@@ -151,8 +148,6 @@ public class MapsActivity extends FragmentActivity implements LocationUpdate.Loc
     }
 
     public void newLocation(Location location) {
-        Log.d(TAG, location.toString());
-
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
 
@@ -198,35 +193,5 @@ public class MapsActivity extends FragmentActivity implements LocationUpdate.Loc
                 }
             }
         });
-/*
-
-        Handler hand = new Handler();
-        hand.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                JSONObject response = jsonRequest.getResponse();
-
-                try {
-                    for (int i = 0; i < 15; i++) {
-
-                        JSONArray arr = response.getJSONArray("results");
-                        JSONObject jsonObject = arr.getJSONObject(i);
-                        JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
-
-                        mMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
-                                .snippet(jsonObject.getString("vicinity"))
-                                .position(new LatLng(
-                                        jsonLocation.getDouble("lat"),
-                                        jsonLocation.getDouble("lng"))));
-
-                    }
-                } catch (JSONException e) {
-
-                }
-            }
-        }, 3000);
-*/
-
     }
 }

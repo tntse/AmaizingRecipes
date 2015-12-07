@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class RecipeSearchFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_recipe_search, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_search, container, false);
     }
 
     @Override
@@ -84,7 +83,6 @@ public class RecipeSearchFragment extends Fragment {
 
         String ingredients = "";
 
-        //ArrayList<String> searchIngredients = ((MainActivity)getActivity()).getBundle().getStringArrayList("SearchIngredients");
         ArrayList<String> searchIngredients = PantryListAdapter.getSelected();
         if(searchIngredients != null)
             ingredients += searchIngredients.toString().trim();
@@ -95,7 +93,6 @@ public class RecipeSearchFragment extends Fragment {
                 ingredients += "," + searchQuery;
         }
 
-        Log.d(RecipeSearchFragment.class.getSimpleName().toString(), ingredients);
         /* Replace special characters with their htmls equivalent */
         ingredients = ingredients.replace("\n", ",");
         ingredients = ingredients.replace(", ", ","); // Remove comma-trailing spaces
@@ -307,7 +304,6 @@ public class RecipeSearchFragment extends Fragment {
 
         }
         recipe.setDailyTotals(dailyTotals);
-
 
         return recipe;
     }

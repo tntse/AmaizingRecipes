@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import com.taeyeona.amaizingunicornrecipes.R;
 import java.util.ArrayList;
 
-
 /**
  * Created by thomastse on 11/27/15.
  */
@@ -18,7 +17,6 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
 
     public PantryListAdapter(Context context, String[] list) {
         super(context,R.layout.checklist, list);
-        //selected = new ArrayList<String>();
     }
 
     public static ArrayList<String> getSelected(){
@@ -38,20 +36,16 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         check.setText(getItem(position));
         check.setOnClickListener(this);
 
-
         return theView;
     }
 
     @Override
     public void onClick(View view) {
         CheckBox check = (CheckBox)view;
-
         if(check.isChecked()){
             selected.add(check.getText().toString());
         }else{
             selected.remove(check.getText().toString());
         }
-
     }
-
 }

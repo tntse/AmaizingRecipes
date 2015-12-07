@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
@@ -19,12 +17,9 @@ public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         //set content view to splash
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
 
         final ImageView iv = (ImageView) findViewById(R.id.splashImage);
 
@@ -33,8 +28,7 @@ public class Splash extends Activity {
 
         final MediaPlayer kitty = MediaPlayer.create(this, R.raw.kitty);
 
-
-        /**start animation and override listeners for intent and additional functions
+        /*start animation and override listeners for intent and additional functions
          *
          */
 
@@ -42,9 +36,7 @@ public class Splash extends Activity {
         iv.startAnimation(rotation);
         rotation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
+            public void onAnimationStart(Animation animation) {}
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -57,11 +49,7 @@ public class Splash extends Activity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-
-
+            public void onAnimationRepeat(Animation animation) {}
         });
 
     }//end pause

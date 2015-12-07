@@ -30,11 +30,9 @@ public  class MainActivity extends AppCompatActivity{
     //DrawerLayout , prefListView , and prefListName manages preference drawer
     private DrawerLayout drawerLayout;
     private ListView prefListView;
-    private String[] prefListName;
 
     //Left side navigation drawer
     private ListView navDrawer;
-    private String[] navDrawerNames;
 
     private MainAdapter theMainAdapter;
     private ViewPager   theViewPager;
@@ -50,7 +48,7 @@ public  class MainActivity extends AppCompatActivity{
             bun = new Bundle();
         }
         setContentView(R.layout.activity_main_v2);
-        navDrawerNames = getResources().getStringArray(R.array.drawer_list);
+        String[] navDrawerNames = getResources().getStringArray(R.array.drawer_list);
 
         //EULA FOR NEW USERS
         new Eula(this).show();
@@ -58,7 +56,7 @@ public  class MainActivity extends AppCompatActivity{
 
         //Create drawer adapter to toggle search preferences with right side drawer
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //right
-        prefListName = ProfileHash.getSearchSettings();
+        String[] prefListName = ProfileHash.getSearchSettings();
         prefListView = (ListView)findViewById((R.id.pref_drawer_right)); //right
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
@@ -100,19 +98,13 @@ public  class MainActivity extends AppCompatActivity{
         ImageButton imgButton = (ImageButton) findViewById(R.id.main_settings_button);
         imgButton.setBackgroundResource(R.drawable.donut_gear_v2);
 
-
-
-
-
         imgButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
                 drawerLayout.openDrawer(navDrawer);
             }
         });
-
     }
 
     @Override
@@ -165,7 +157,6 @@ public  class MainActivity extends AppCompatActivity{
             fragmentSwitcher.setViewPager(theViewPager);
             fragmentSwitcher.setPage(bun.getInt("Current"));
         }
-
     }
 
     public Bundle getBundle(){
@@ -179,5 +170,4 @@ public  class MainActivity extends AppCompatActivity{
     public void addData(ArrayList<String> data){
         bun.putStringArrayList("SearchIngredients", data);
     }
-
 }
