@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -187,6 +188,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     }
 
     private void buildAlertMessageNoGPS() throws GooglePlayServicesRepairableException, GooglePlayServicesNotAvailableException{
+        final Context contextGPS = getApplicationContext();
+        final CharSequence GPSText = "Grocery stores will not load without GPS enabled. Please enable GPS to find stores.";
+
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
                 .setCancelable(false)
@@ -201,6 +205,8 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                     public void onClick(final DialogInterface dialog,
                                         @SuppressWarnings("unused") final int id) {
                         dialog.cancel();
+                        Toast GPSToast = Toast.makeText(contextGPS, GPSText, Toast.LENGTH_LONG);
+                        GPSToast.show();
                     }
                 });
         final AlertDialog alert = alertBuilder.create();
@@ -289,6 +295,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 .title("You Are Here");
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
         final JSONRequest jsonRequest = new JSONRequest();
 
