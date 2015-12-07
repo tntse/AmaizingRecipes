@@ -42,7 +42,8 @@
         </activity>
 
         <activity android:name=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.default"/>
@@ -67,14 +68,6 @@
 
 
         <activity android:name=".Activity.MissingIngredients"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.default"/>
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".Activity.MapsActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -71,6 +71,7 @@ public class RecipeShow extends AppCompatActivity{
                         Intent intent2 = new Intent(RecipeShow.this, EditSettings.class);
                         intent2.putExtra("Open", position - 3);
                         startActivity(intent2);
+                        finish();
                         break;
                     case 6:
                         drawerLayout.openDrawer(prefListView);

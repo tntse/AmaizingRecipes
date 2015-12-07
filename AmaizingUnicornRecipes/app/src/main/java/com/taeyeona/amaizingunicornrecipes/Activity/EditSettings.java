@@ -1,5 +1,7 @@
 package com.taeyeona.amaizingunicornrecipes.Activity;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +26,8 @@ import com.taeyeona.amaizingunicornrecipes.Adapter.FragmentSwitcherManager;
 import com.taeyeona.amaizingunicornrecipes.Adapter.ToggleDrawerAdapter;
 import com.taeyeona.amaizingunicornrecipes.ProfileHash;
 import com.taeyeona.amaizingunicornrecipes.R;
+
+import java.util.List;
 
 /**
  * Created by thomastse on 11/24/15.
