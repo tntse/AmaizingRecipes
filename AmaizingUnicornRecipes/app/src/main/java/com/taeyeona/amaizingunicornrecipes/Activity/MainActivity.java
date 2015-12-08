@@ -54,15 +54,41 @@ public  class MainActivity extends AppCompatActivity{
 
 
         //Create drawer adapter to toggle search preferences with right side drawer
+        /**
+         *
+         * @author Benson
+         * An array of preference names are saved from ProfileHash.getSearchSettings
+         * then the array is loaded into the drawer to be togglable
+         */
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //right
         String[] prefListName = ProfileHash.getSearchSettings();
         prefListView = (ListView)findViewById((R.id.pref_drawer_right)); //right
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
         //Create Navigation Drawer for left side for button to open
+        /**
+         *
+         * @author Benson
+         * The left side drawer hold navigation button towards other activities in the app,
+         * an array of names of the activities we can navigate to are loaded by the adapter
+         * and set in the navDrawer(left hand drawer)
+         */
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
         navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+
+
         navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * @author Thomas, Benson
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             *
+             * A switch statement is used to manage the navigation drawer to
+             * determine where the drawer brings you depending on the item
+             * in the array selected onClick.
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawer(navDrawer);
@@ -125,6 +151,10 @@ public  class MainActivity extends AppCompatActivity{
     }
 
     /**
+     * loadAdapter keeps track of which fragment is selected on our viewPager
+     * when user swipes to new fragment in viewPager we change
+     * the current fragment the user is viewing and changes
+     * the navigation bar's visibility to show the user which view should be visible
      *
      */
     private void loadAdapters(){
@@ -170,6 +200,7 @@ public  class MainActivity extends AppCompatActivity{
     /**
      *
      * @return
+     * get the bundle created on mainActivity during onCreate
      */
     public Bundle getBundle(){
         return bun;
@@ -178,6 +209,7 @@ public  class MainActivity extends AppCompatActivity{
     /**
      *
      * @param data
+     * pass in String variable then adds the string to the Bundle
      */
     public void addData(String data){
         bun.putString("SearchQuery", data);
@@ -186,6 +218,8 @@ public  class MainActivity extends AppCompatActivity{
     /**
      *
      * @param data
+     * passes in String array list , then adds the list into the bundle
+     *
      */
     public void addData(ArrayList<String> data){
         bun.putStringArrayList("SearchIngredients", data);
