@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -347,7 +348,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
+                    Log.d("Maps", e.getMessage().toString());
                 }
             }
             @Override
