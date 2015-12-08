@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +107,6 @@ public class IngredientsFragment extends Fragment {
                     ingredientList = convertArrayToString(getArguments().getStringArray("Ingredients"));
                     nutrientList = convertArrayToString(getArguments().getStringArray("Nutrients"));
                     dailyTotals = convertIntArrayToString(getArguments().getIntArray("Totals"));
-                    Log.d("Ingredients", "DailyTotals: " + dailyTotals);
                 }
                 favObj.storeRecipe(getArguments().getString("Title"),
                         getArguments().getString("RecipeID"), getArguments().getString("Picture"),

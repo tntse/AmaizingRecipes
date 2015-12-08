@@ -3,9 +3,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.ViewDragHelper;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +41,7 @@ public class InstructionsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String sourceUrl = getArguments().getString("SourceUrl");
-        Log.d("Instructions", "SourceUrl : " + sourceUrl);
         final String sourceName = getArguments().getString("SourceName").toLowerCase().trim();
-        Log.d("Instructions", "SourceName : " + sourceName);
         final TextView text = (TextView) getActivity().findViewById(R.id.instruct_text);
         text.setMovementMethod(new ScrollingMovementMethod());
 
