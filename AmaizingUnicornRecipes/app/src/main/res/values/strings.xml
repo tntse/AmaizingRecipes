@@ -34,8 +34,8 @@
         <item>Pantry</item>>
         <item>Search Recipe</item>
         <item>Edit Favorites</item>
-        <item>Edit Profile</item>
-        <item>Edit Pantry Ingredients</item>
+        <item>Edit General Settings</item>
+        <item>Edit Pantry Items</item>
         <item>Search Preferences</item>
     </string-array>
 

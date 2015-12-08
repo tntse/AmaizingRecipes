@@ -172,7 +172,7 @@ public class EditSettings extends AppCompatActivity {
             fragSwitcher.add(button, view);
 
             button = (Button) findViewById(R.id.main_button_2);
-            button.setText("User Info");
+            button.setText("General");
             view = findViewById(R.id.main_bar_2);
             fragSwitcher.add(button, view);
 
