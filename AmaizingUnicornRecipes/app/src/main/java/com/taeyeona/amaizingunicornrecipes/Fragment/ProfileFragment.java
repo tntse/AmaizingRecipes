@@ -94,6 +94,7 @@ public class ProfileFragment extends Fragment {
                     if(favoritesToSearch.getApi().equals("Edamam")) {
                         intent.putExtra("Ingredients", favoritesToSearch.getIngredientList());
                         intent.putExtra("Nutrients", favoritesToSearch.getNutrientsArray());
+                        intent.putExtra("Totals", favoritesToSearch.getDailyTotals());
                     }
 
                     startActivity(intent);

@@ -44,7 +44,7 @@ public class Favorites {
 
     public void storeRecipe(String recipe, String rid, String picture,
                             String sourceUrl, String sourceName, String nutrients,
-                            String ingredients, String api) {
+                            String ingredients, String api, String totals) {
 
         boolean flag = false;
 
@@ -58,7 +58,7 @@ public class Favorites {
 
         if (!flag) {
             Log.d("Favorites", "Got in 2");
-            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients, api);
+            handler.addRecipe(recipe, rid, picture, sourceUrl, sourceName, nutrients, ingredients, api, totals);
         }
     }
 
