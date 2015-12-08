@@ -197,18 +197,18 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
             editText.setHint("1.75");
             editText.setContentDescription("Radius");
+            editText.setText(sharedPreferences.getString("Radius", ""));
             editText.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
             editText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
 
                 @Override
                 public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    Log.d("ProfileAdapter", textView.getText().toString());
                     String str = textView.getText().toString().trim();
                     if(str.equals("")){
                         editor.remove("Radius");
                     }else{
-                        double x = Double.parseDouble(str);
-                        x = x*1609.344;
-                        editor.putString("Radius", ""+(int)Math.floor(x));
+                        editor.putString("Radius", str);
                     }
                     editor.commit();
                     return true;

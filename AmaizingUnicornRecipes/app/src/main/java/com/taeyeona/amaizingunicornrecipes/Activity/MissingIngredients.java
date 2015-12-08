@@ -322,6 +322,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         final JSONRequest jsonRequest = new JSONRequest();
 
         String radius = sharedPreferences.getString("Radius", Auth.RADIUS);
+        radius = "" + Math.floor(Double.parseDouble(radius) * 1609.344);
         jsonRequest.createResponse(Auth.URL_MAPS,
                 Auth.STRING_KEY, Auth.MAPS_KEY, "", "", "", radius, "", "", "", "",
                 Auth.TYPES, Auth.SENSOR, Auth.LOCATION, lat, lng, "", null, null);

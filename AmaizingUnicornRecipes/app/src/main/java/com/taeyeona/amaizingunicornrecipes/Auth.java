@@ -35,7 +35,7 @@ public class Auth {
     public static final String URL_MAPS = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
     public static final String LOCATION = "location";
     public static final String LAT_LNG = "37.7, -122.44";
-    public static final String RADIUS = "2816"; // roughly 1.75 miles
+    public static final String RADIUS = "1.75";
     public static final String SENSOR = "true";
     public static final String TYPES ="grocery_or_supermarket";
     public static final String PART_SNIPPET = "part=snippet";
