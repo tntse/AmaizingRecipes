@@ -147,7 +147,12 @@ public class RecipeShow extends AppCompatActivity{
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+
+                try{
+                    finish();
+                }catch(java.lang.IllegalStateException e){
+
+                }
             }
         });
     }

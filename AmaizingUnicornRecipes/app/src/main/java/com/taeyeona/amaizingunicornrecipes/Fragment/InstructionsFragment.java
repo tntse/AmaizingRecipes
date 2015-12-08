@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.method.ScrollingMovementMethod;
+import android.util.AndroidRuntimeException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -270,7 +271,9 @@ public class InstructionsFragment extends Fragment {
          */
         youtube_button = (Button) getActivity().findViewById(R.id.vid_tutor_button);
         youtube_button.setOnClickListener(new View.OnClickListener() {
-            final Fragment playerFragAlpha = new PlayerFragment();
+
+                final Fragment playerFragAlpha = new PlayerFragment();
+
 
             boolean open = true;
             boolean firstOpen = true;

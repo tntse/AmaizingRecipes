@@ -2,6 +2,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -32,6 +33,7 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
         //parse data with passed string
         //Crated JSONrequest
+        try {
         final JSONRequest jsonRequest = new JSONRequest();
         //Create response
         jsonRequest.createResponse("https://www.googleapis.com/youtube/v3/search", "key",
@@ -47,10 +49,12 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
             @Override
             public void onFailure(){
                 Toast.makeText(getContext(), "We could not load your video.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), RecipeShow.class);
+                startActivity(intent);
             }
         });
 
-        try {
+
             initialize(Auth.YOUTUBE_DEV_KEY, this);
         }catch (Exception e){
             Intent notFound = new Intent(getActivity(),RecipeShow.class);
@@ -72,24 +76,27 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer,final boolean restored) {
 
+
         final android.os.Handler handler = new android.os.Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mVideoId != null) {
-                    if (restored) {
-                        youTubePlayer.play();
-                    } else {
-                        try{
-                            youTubePlayer.loadVideo(vid);
-                        }catch(Exception e){
-                            Intent notFound = new Intent(getActivity(),RecipeShow.class);
-                            startActivity(notFound);
+                    if (vid != null) {
+                        try {
+                            if (restored) {
+                                youTubePlayer.play();
+                            } else {
+                                youTubePlayer.loadVideo(vid);
+
+                            }
+                        } catch (IllegalStateException e) {
+                            Log.d("catch", "2 "+  e.getClass().getSimpleName() + " " + e.getMessage());
+
+
                         }
                     }
-                }
             }
-        },3000);
+        }, 3000);
     }
 
     /**
@@ -102,14 +109,15 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
      */
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        if (youTubeInitializationResult.isUserRecoverableError()) {
-            youTubeInitializationResult.getErrorDialog(getActivity(), 1).show();
-        } else {
-            //Handle the failure
-            Toast.makeText(getActivity(), "BAD", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getActivity(), RecipeShow.class);
-            startActivity(intent);
-        }
+
+            if (youTubeInitializationResult.isUserRecoverableError()) {
+                youTubeInitializationResult.getErrorDialog(getActivity(), 1).show();
+            } else {
+                //Handle the failure
+                Toast.makeText(getActivity(), "BAD", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), RecipeShow.class);
+                startActivity(intent);
+            }
     }
 
     /**
