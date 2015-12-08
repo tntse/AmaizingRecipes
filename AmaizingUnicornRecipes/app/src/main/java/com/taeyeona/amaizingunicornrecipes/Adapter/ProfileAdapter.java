@@ -219,7 +219,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             imageUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     //intent.setAction(Intent.ACTION_GET_CONTENT);
                     ((EditSettings)context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
