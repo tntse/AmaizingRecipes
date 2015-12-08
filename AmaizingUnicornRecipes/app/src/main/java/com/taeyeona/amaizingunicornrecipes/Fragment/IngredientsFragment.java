@@ -60,7 +60,7 @@ public class IngredientsFragment extends Fragment {
                             ingredients.append('\n');
                         }
                         //Putting a setText here because if put outside, it won't show F2F's ingredient list
-                        ingredients_list.setText("Ingredients:\n" + ingredients.toString());
+                        ingredients_list.setText(ingredients.toString());
                         ingredients_list.setMovementMethod(new ScrollingMovementMethod());
                     } catch (JSONException e) {
                         ingredients_list.setText("Sorry, we could not fetch your ingredients due to some unforeseeable error. Please contact us at AmaizingUnicornRecipes@gmail.com");
