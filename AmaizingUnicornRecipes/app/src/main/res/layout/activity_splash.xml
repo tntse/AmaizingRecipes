@@ -19,7 +19,8 @@
         android:layout_centerHorizontal="true"
         style="@style/Base.TextAppearance.AppCompat.Inverse"
         android:backgroundTint="#000000"
-        android:backgroundTintMode="add" />
+        android:backgroundTintMode="add"
+        android:gravity="center"/>
 
 
 
