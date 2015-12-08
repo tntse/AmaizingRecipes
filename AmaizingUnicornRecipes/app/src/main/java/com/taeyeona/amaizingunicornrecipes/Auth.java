@@ -20,8 +20,8 @@ public class Auth {
     public static final String GET_URL = "http://food2fork.com/api/get";
     public static final String URL = "http://food2fork.com/api/search";
     public static final String EDAMAM_ID =
-    "a34c5609";
-    //"8486dac9";
+    //"a34c5609";
+    "8486dac9";
     public static final String EDAMAM_KEY =
     //"a7e44254cc97399430022e739322e13c";
     "ec083b120d2a28bc363bba3eb5b85880";
