@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,6 +56,12 @@ public class RecipeSearchFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        View view7 = getActivity().getCurrentFocus();
+        if (view7 != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         //Make a SharedPreferences object to get the global SharedPreferences so that we could see if we need
         //to use the Food2Fork search or the Edamam search based on preferences
         sharedPreferences = getContext().getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
@@ -98,122 +105,127 @@ public class RecipeSearchFragment extends Fragment {
         ingredients = ingredients.replace("[", "");
         ingredients = ingredients.replace("]", "");
 
-        if (searchEdamam) {
-            String collection[] = ProfileHash.getSearchSettings();
-            for (int i = 0; i < collection.length; i++) {
-                Boolean checked = sharedPreferences.getBoolean("Search" + collection[i], false);
-                if (checked) {
-                    String currentSetting = collection[i].toString().toLowerCase();
-                    if (i < 5) {
-                        diet.add(currentSetting);
-                    } else {
-                        if (currentSetting.equals("no-sugar")) {
-                            health.add("low-sugar");
+        if(ingredients.equals("")){
+            text.setText("You did not enter in any ingredients, please go back and enter in ingredients.");
+        }else{
+            if (searchEdamam) {
+                String collection[] = ProfileHash.getSearchSettings();
+                for (int i = 0; i < collection.length; i++) {
+                    Boolean checked = sharedPreferences.getBoolean("Search" + collection[i], false);
+                    if (checked) {
+                        String currentSetting = collection[i].toString().toLowerCase();
+                        if (i < 5) {
+                            diet.add(currentSetting);
                         } else {
-                            health.add(currentSetting);
+                            if (currentSetting.equals("no-sugar")) {
+                                health.add("low-sugar");
+                            } else {
+                                health.add(currentSetting);
+                            }
                         }
                     }
                 }
-            }
 
-            String healthArray[] = health.toArray(new String[health.size()]);
-            String dietArray[] = diet.toArray(new String[diet.size()]);
+                String healthArray[] = health.toArray(new String[health.size()]);
+                String dietArray[] = diet.toArray(new String[diet.size()]);
 
-            jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
-                    Auth.EDAMAM_ID, ingredients, "", null, null, "0", "100", "", "", null, null, null, "", healthArray, dietArray);
-            jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
-                @Override
-                public void onSuccess() {
-                    JSONObject response = jsonRequest.getResponse();
+                jsonRequest.createResponse(Auth.EDAMAM_URL, "app_key", Auth.EDAMAM_KEY, "app_id",
+                        Auth.EDAMAM_ID, ingredients, "", null, null, "0", "100", "", "", null, null, null, "", healthArray, dietArray);
+                jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
-                    if (response == null) {
-                        text.setText(R.string.no_recipe_results);
-                    } else {
-                        parseEdamamResponse(jsonRequest.getResponse());
+                        if (response == null) {
+                            text.setText(R.string.no_recipe_results);
+                        } else {
+                            parseEdamamResponse(jsonRequest.getResponse());
+                            progress.setVisibility(View.INVISIBLE);
+                            if (recipeList.size() == 0) {
+                                text.setText(R.string.no_recipe_results);
+                            }
+                            //Populates the RecyclerView list with the recipe search list
+                            recAdapt.setList(recipeList);
+                            recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
+                                @Override
+                                public void onItemClick(View v, int position) {
+                                    Intent intent = new Intent(getActivity(), RecipeShow.class);
+                                    Recipes currentRecipe = recipeList.get(position);
+
+                                    // ArrayList<Integer> arryListTotals = currentRecipe.getDailyTotals();
+                                    int dailyTotals[] = currentRecipe.getDailyTotals();
+
+                                    intent.putExtra("Picture", currentRecipe.getImageUrl());
+                                    intent.putExtra("Title", currentRecipe.getTitle());
+                                    intent.putExtra("RecipeID", currentRecipe.getRecipeId());
+                                    intent.putExtra("Ingredients", currentRecipe.getIngredients().toArray(new String[0]));
+                                    intent.putExtra("Nutrients", currentRecipe.getNutrients().toArray(new String[0]));
+                                    intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
+                                    intent.putExtra("SourceName", currentRecipe.getPublisher());
+                                    intent.putExtra("Totals", dailyTotals);
+                                    intent.putExtra("API", "Edamam");
+                                    startActivity(intent);
+                                }
+                            });
+                            listview.setAdapter(recAdapt);
+                        }
                         progress.setVisibility(View.INVISIBLE);
-                        if (recipeList.size() == 0) {
-                            text.setText(R.string.no_recipe_results);
-                        }
-                        //Populates the RecyclerView list with the recipe search list
-                        recAdapt.setList(recipeList);
-                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, int position) {
-                                Intent intent = new Intent(getActivity(), RecipeShow.class);
-                                Recipes currentRecipe = recipeList.get(position);
-
-                               // ArrayList<Integer> arryListTotals = currentRecipe.getDailyTotals();
-                                int dailyTotals[] = currentRecipe.getDailyTotals();
-
-                                intent.putExtra("Picture", currentRecipe.getImageUrl());
-                                intent.putExtra("Title", currentRecipe.getTitle());
-                                intent.putExtra("RecipeID", currentRecipe.getRecipeId());
-                                intent.putExtra("Ingredients", currentRecipe.getIngredients().toArray(new String[0]));
-                                intent.putExtra("Nutrients", currentRecipe.getNutrients().toArray(new String[0]));
-                                intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
-                                intent.putExtra("SourceName", currentRecipe.getPublisher());
-                                intent.putExtra("Totals", dailyTotals);
-                                intent.putExtra("API", "Edamam");
-                                startActivity(intent);
-                            }
-                        });
-                        listview.setAdapter(recAdapt);
                     }
-                    progress.setVisibility(View.INVISIBLE);
-                }
-                @Override
-                public void onFailure(){
-                    progress.setVisibility(View.INVISIBLE);
-                    text.setText("It seems that we cannot display the recipe due some kind of error."+"\n"+
-                    "Please email us at AmaizingUnicornRecipes@gmail.com to fix this problem");
-                }
-            });
+                    @Override
+                    public void onFailure(){
+                        progress.setVisibility(View.INVISIBLE);
+                        text.setText("It seems that we cannot display the recipe due some kind of error."+"\n"+
+                                "Please email us at AmaizingUnicornRecipes@gmail.com to fix this problem");
+                    }
+                });
 
-        } else {
-            //Create food2fork response and send the response to the API
-            jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
-                    ingredients, "", "", "", "", "", "", "", null, 0.0, 0.0, "", null, null);
-            jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
-                @Override
-                public void onSuccess() {
-                    JSONObject response = jsonRequest.getResponse();
+            } else {
+                //Create food2fork response and send the response to the API
+                jsonRequest.createResponse(Auth.URL, Auth.STRING_KEY, Auth.F2F_Key, "", "",
+                        ingredients, "", "", "", "", "", "", "", null, 0.0, 0.0, "", null, null);
+                jsonRequest.sendResponse(getActivity().getApplicationContext(), new JSONRequest.VolleyCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        JSONObject response = jsonRequest.getResponse();
                     /* Check to see if something was returned */
-                    if (response == null) {
-                        text.setText(R.string.no_recipe_results);
-                    } else {
-                        parseResponse(response);
-                        if (recipeList.size() == 0) {
+                        if (response == null) {
                             text.setText(R.string.no_recipe_results);
-                        }
-                        //Populates the RecyclerView list with the recipe search list
-                        recAdapt.setList(recipeList);
-                        recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, int position) {
-                                Recipes currentRecipe = recipeList.get(position);
-                                Intent intent = new Intent(getActivity(), RecipeShow.class);
-                                intent.putExtra("Picture", currentRecipe.getImageUrl());
-                                intent.putExtra("RecipeID", currentRecipe.getRecipeId());
-                                intent.putExtra("Title", currentRecipe.getTitle());
-                                intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
-                                intent.putExtra("SourceName", currentRecipe.getPublisher());
-                                intent.putExtra("API", "Food2Fork");
-                                startActivity(intent);
+                        } else {
+                            parseResponse(response);
+                            if (recipeList.size() == 0) {
+                                text.setText(R.string.no_recipe_results);
                             }
-                        });
-                        listview.setAdapter(recAdapt);
+                            //Populates the RecyclerView list with the recipe search list
+                            recAdapt.setList(recipeList);
+                            recAdapt.setListener(new RecipeAdapter.CustomItemClickListener() {
+                                @Override
+                                public void onItemClick(View v, int position) {
+                                    Recipes currentRecipe = recipeList.get(position);
+                                    Intent intent = new Intent(getActivity(), RecipeShow.class);
+                                    intent.putExtra("Picture", currentRecipe.getImageUrl());
+                                    intent.putExtra("RecipeID", currentRecipe.getRecipeId());
+                                    intent.putExtra("Title", currentRecipe.getTitle());
+                                    intent.putExtra("SourceUrl", currentRecipe.getSourceUrl());
+                                    intent.putExtra("SourceName", currentRecipe.getPublisher());
+                                    intent.putExtra("API", "Food2Fork");
+                                    startActivity(intent);
+                                }
+                            });
+                            listview.setAdapter(recAdapt);
+                        }
+                        progress.setVisibility(View.INVISIBLE);
                     }
-                    progress.setVisibility(View.INVISIBLE);
-                }
-                @Override
-                public void onFailure(){
-                    progress.setVisibility(View.INVISIBLE);
-                    text.setText("It seems that we cannot display the recipe due to some kind of error."+"\n"+
-                            "Please email us at AmaizingUnicornRecipes@gmail.com to fix this problem.");
-                }
-            });
+                    @Override
+                    public void onFailure(){
+                        progress.setVisibility(View.INVISIBLE);
+                        text.setText("It seems that we cannot display the recipe due to some kind of error."+"\n"+
+                                "Please email us at AmaizingUnicornRecipes@gmail.com to fix this problem.");
+                    }
+                });
+            }
+            PantryListAdapter.clearList();
         }
-        PantryListAdapter.clearList();
+
     }
 
     /**

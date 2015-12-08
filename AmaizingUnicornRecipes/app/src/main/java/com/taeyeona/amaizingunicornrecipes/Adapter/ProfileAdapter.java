@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -223,28 +219,22 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             imageUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                     intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    //intent.setAction(Intent.ACTION_GET_CONTENT);
                     ((EditSettings)context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
                 }
             });
-
         }else{
             setting_view = inflater.inflate(R.layout.profile_toggle_button_layout, category_view, false);
             TextView toggleText = (TextView) setting_view.findViewById(R.id.toggle_text_layout);
             ToggleButton toggleButton = (ToggleButton) setting_view.findViewById(R.id.search_toggle_button);
-         //   Log.d("profile", "making " + setting_name + "toggle button made");
             toggleText.setText(setting_name + ":");
-          //  Log.d("profile", setting_name + "toggle button made");
             toggleButton.setChecked(sharedPreferences.getBoolean("Search" + setting_name, false));
             toggleButton.setContentDescription("Search" + setting_name);
 
             toggleButton.setOnClickListener(new ToggleClick());
         }
-
-
-
         return setting_view;
     }
 
