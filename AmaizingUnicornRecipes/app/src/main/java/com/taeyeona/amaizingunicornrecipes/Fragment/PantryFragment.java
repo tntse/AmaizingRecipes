@@ -83,6 +83,7 @@ public class PantryFragment extends Fragment {
                 ((MainActivity)getActivity()).addData(pantryListAdapter.getSelected());
                 ((MainActivity) getActivity()).addData(query);
                 //((MainActivity) getActivity()).addData();
+
                 ((ViewPager)getActivity().findViewById(R.id.main_pages)).setCurrentItem(2);
             }
         });
