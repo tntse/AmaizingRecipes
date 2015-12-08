@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -194,9 +195,26 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
             profile_field.setText(setting_name + ":");
 
             EditText editText = (EditText) setting_view.findViewById(R.id.profile_edittext);
-            editText.setHint("Default");
+            editText.setHint("1.75");
             editText.setContentDescription("Radius");
-            editText.setOnEditorActionListener(new EditTextWatcher());
+            editText.setText(sharedPreferences.getString("Radius", ""));
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            editText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    Log.d("ProfileAdapter", textView.getText().toString());
+                    String str = textView.getText().toString().trim();
+                    if(str.equals("")){
+                        editor.remove("Radius");
+                    }else{
+                        editor.putString("Radius", str);
+                    }
+                    editor.commit();
+                    return true;
+                }
+            });
+
 
         }else if(group.equals("Picture Upload")){
 

@@ -3,14 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".5"
-        android:layout_marginTop="20dp" />
-
+        android:layout_marginTop="10dp">
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
     <TextView
         android:layout_weight=".5"
         android:layout_width="match_parent"

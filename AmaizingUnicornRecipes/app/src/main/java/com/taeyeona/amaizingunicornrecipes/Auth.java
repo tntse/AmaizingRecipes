@@ -32,12 +32,15 @@ public class Auth {
     public static final String STRING_KEY = "key";
     public static final String CHAR_AND = "&";
     public static final String CHAR_Q = "q";
-    public static final String URL_MAPS = "https://maps.googleapis.com/maps/api/place/search/json?";
+    public static final String URL_MAPS = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
     public static final String LOCATION = "location";
-    public static final String RADIUS = "1500";
+    public static final String LAT_LNG = "37.7, -122.44";
+    public static final String RADIUS = "1.75";
     public static final String SENSOR = "true";
     public static final String TYPES ="grocery_or_supermarket";
     public static final String PART_SNIPPET = "part=snippet";
+
+    public static final String SHARED_PREFS_KEY = "AmaizingPrefs";
 
     public interface endpointRecipe{
         public static final String KEY_RECIPES = "recipes";
@@ -57,7 +60,5 @@ public class Auth {
         public static final String HITS = "hits";
 
     }
-
-    public static final String SHARED_PREFS_KEY = "AmaizingPrefs";
 
 }

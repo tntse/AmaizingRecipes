@@ -22,7 +22,7 @@ public class Recipes {
     private String publisherUrl;
     private List<String> ingredients;
     private List<String> nutrients;
-    private ArrayList<Integer> dailyTotals;
+    private int[] dailyTotals;
     private String nutrient;
     private long id;
     private dbHandler handler;
@@ -45,7 +45,6 @@ public class Recipes {
         publisherUrl = pubUrl;
         ingredients = new ArrayList<String>();
         nutrients = new ArrayList<String>();
-        dailyTotals = new ArrayList<Integer>();
     }
 
     public Recipes(Context context) {
@@ -62,6 +61,7 @@ public class Recipes {
         setPublisher(dataFieldsToSet[6]);
         setSourceUrl(dataFieldsToSet[7]);
         setApi(dataFieldsToSet[8]);
+        setDailyTotals(dataFieldsToSet[9]);
     }
 
     /**
@@ -276,7 +276,7 @@ public class Recipes {
      * @return The percent daily values for the recipe
      */
 
-    public ArrayList<Integer> getDailyTotals() {
+    public int[] getDailyTotals() {
         return dailyTotals;
     }
 
@@ -285,8 +285,23 @@ public class Recipes {
      * @param dailyTotals The percent daily values for the recipe
      */
 
-    public void setDailyTotals(ArrayList<Integer> dailyTotals) {
+    public void setDailyTotals(int[] dailyTotals) {
         this.dailyTotals = dailyTotals;
+    }
+
+    /**
+     *
+     * @param dailyTotals The percent daily values for the recipe
+     */
+
+    public void setDailyTotals(String dailyTotals) {
+        if(this.api.equals("Food2Fork"))
+            return;
+        String[] totalList = dailyTotals.split(",");
+        if(this.dailyTotals == null)
+            this.dailyTotals = new int[totalList.length];
+        for(int i = 0; i < totalList.length; i++)
+            this.dailyTotals[i] = Integer.valueOf(totalList[i]);
     }
 
     /**

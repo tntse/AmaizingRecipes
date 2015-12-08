@@ -59,7 +59,7 @@ public class IngredientsFragment extends Fragment {
                             ingredients.append('\n');
                         }
                         //Putting a setText here because if put outside, it won't show F2F's ingredient list
-                        ingredients_list.setText("Ingredients:\n" + ingredients.toString());
+                        ingredients_list.setText(ingredients.toString());
                         ingredients_list.setMovementMethod(new ScrollingMovementMethod());
                     } catch (JSONException e) {
                         ingredients_list.setText("Sorry, we could not fetch your ingredients due to some unforeseeable error. Please contact us at AmaizingUnicornRecipes@gmail.com");
@@ -102,14 +102,16 @@ public class IngredientsFragment extends Fragment {
 
                 String ingredientList = "";
                 String nutrientList = "";
-                if(!getArguments().getString("API").equals("Food2Fork")){
+                String dailyTotals = "";
+                if(getArguments().getString("API").equals("Edamam")){
                     ingredientList = convertArrayToString(getArguments().getStringArray("Ingredients"));
                     nutrientList = convertArrayToString(getArguments().getStringArray("Nutrients"));
+                    dailyTotals = convertIntArrayToString(getArguments().getIntArray("Totals"));
                 }
                 favObj.storeRecipe(getArguments().getString("Title"),
                         getArguments().getString("RecipeID"), getArguments().getString("Picture"),
                         getArguments().getString("SourceUrl"), getArguments().getString("SourceName"),
-                        nutrientList, ingredientList, getArguments().getString("API"));
+                        nutrientList, ingredientList, getArguments().getString("API"), dailyTotals);
 
             }
         });
@@ -123,6 +125,24 @@ public class IngredientsFragment extends Fragment {
     public static String convertArrayToString(String[] array){
         String str = "";
         String strSeparator = ", ";
+        for (int i = 0;i<array.length; i++) {
+            str = str+array[i];
+            // Do not append comma at the end of last element
+            if(i<array.length-1){
+                str = str+strSeparator;
+            }
+        }
+        return str;
+    }
+
+    /**
+     *
+     * @param array The String Array to be converted into a string
+     * @return A string, either the nutrients or ingredients
+     */
+    public static String convertIntArrayToString(int[] array){
+        String str = "";
+        String strSeparator = ",";
         for (int i = 0;i<array.length; i++) {
             str = str+array[i];
             // Do not append comma at the end of last element

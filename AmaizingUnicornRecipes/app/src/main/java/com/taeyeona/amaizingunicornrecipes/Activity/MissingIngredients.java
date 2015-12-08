@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -53,16 +54,17 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     private Fragment maps_frag;
     private boolean open = true;
     private boolean firstOpen = true;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.missing_ingredients);
+        setContentView(R.layout.activity_missing_ingredients);
 
         mLocationProvider = new LocationUpdate(this, this);
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
-        SharedPreferences sharedPreferences = this.getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
 
         String[] rawIngredients = ingredients.split("\n");
 
@@ -318,9 +320,11 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         mMap.setMyLocationEnabled(true);
 
         final JSONRequest jsonRequest = new JSONRequest();
-        String search_radius = getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE).getString("Radius", Auth.RADIUS);
+
+        String radius = sharedPreferences.getString("Radius", Auth.RADIUS);
+        radius = "" + Math.floor(Double.parseDouble(radius) * 1609.344);
         jsonRequest.createResponse(Auth.URL_MAPS,
-                Auth.STRING_KEY, Auth.MAPS_KEY, "", "", "", search_radius, "", "", "", "",
+                Auth.STRING_KEY, Auth.MAPS_KEY, "", "", "", radius, "", "", "", "",
                 Auth.TYPES, Auth.SENSOR, Auth.LOCATION, lat, lng, "", null, null);
 
         jsonRequest.sendResponse(getApplicationContext(), new JSONRequest.VolleyCallBack() {
@@ -329,9 +333,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 JSONObject response = jsonRequest.getResponse();
 
                 try {
-                    for (int i = 0; i < 15; i++) {
-
-                        JSONArray arr = response.getJSONArray("results");
+                    JSONArray arr = response.getJSONArray("results");
+                    int numResults = (arr.length()<15)?arr.length():15;
+                    for (int i = 0; i < numResults; i++) {
                         JSONObject jsonObject = arr.getJSONObject(i);
                         JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
 
@@ -343,7 +347,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
+                    Log.d("Maps", e.getMessage().toString());
                 }
             }
             @Override

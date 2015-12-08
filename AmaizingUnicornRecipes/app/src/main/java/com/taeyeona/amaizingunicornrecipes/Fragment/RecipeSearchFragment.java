@@ -142,12 +142,8 @@ public class RecipeSearchFragment extends Fragment {
                                 Intent intent = new Intent(getActivity(), RecipeShow.class);
                                 Recipes currentRecipe = recipeList.get(position);
 
-                                ArrayList<Integer> arryListTotals = currentRecipe.getDailyTotals();
-                                int dailyTotals[] = new int[arryListTotals.size()];
-                                int z = 0;
-                                for (Integer curIntObj: arryListTotals){
-                                    dailyTotals[z++] = Math.round(curIntObj.intValue());
-                                }
+                               // ArrayList<Integer> arryListTotals = currentRecipe.getDailyTotals();
+                                int dailyTotals[] = currentRecipe.getDailyTotals();
 
                                 intent.putExtra("Picture", currentRecipe.getImageUrl());
                                 intent.putExtra("Title", currentRecipe.getTitle());
@@ -300,7 +296,7 @@ public class RecipeSearchFragment extends Fragment {
         }
 
         JSONArray jsonNutrientArr = obj.getJSONArray("digest");
-        ArrayList<Integer> dailyTotals = new ArrayList<>();
+        int[] dailyTotals = new int[jsonNutrientArr.length()];
         for (int i = 0; i < jsonNutrientArr.length(); i++) {
             JSONObject nutritionObj = jsonNutrientArr.getJSONObject(i);
             String label = nutritionObj.getString("label");
@@ -309,7 +305,7 @@ public class RecipeSearchFragment extends Fragment {
 
             recipe.setNutrientList(label + " " + Integer.toString(Math.round(Float.parseFloat(total))) + " " + unit);
             Integer dailyTotal = new Integer(Math.round(Float.parseFloat(total))/recipe.getServings());
-            dailyTotals.add(dailyTotal);
+            dailyTotals[i] = dailyTotal;
         }
         recipe.setDailyTotals(dailyTotals);
 

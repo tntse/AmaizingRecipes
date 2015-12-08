@@ -22,7 +22,7 @@ import com.taeyeona.amaizingunicornrecipes.Recipes;
  */
 public class dbHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "favorites.db";
     public static final String TABLE_FAVORITES = "favorites";
@@ -35,6 +35,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public static final String COLUMN_SOURCEURL = "sourceUrl";
     public static final String COLUMN_SOURCENAME = "sourceName";
     public static final String COLUMN_API = "api";
+    public static final String COLUMN_DAILY_TOTALS = "totals";
 
     /**
      * Creates a basic handle for the database.
@@ -71,7 +72,8 @@ public class dbHandler extends SQLiteOpenHelper {
                 COLUMN_RECIPEID + " TEXT," +
                 COLUMN_SOURCENAME + " TEXT," +
                 COLUMN_SOURCEURL + " TEXT," +
-                COLUMN_API + " TEXT" + ")";
+                COLUMN_API + " TEXT," +
+                COLUMN_DAILY_TOTALS + " TEXT " + ")";
 
         db.execSQL(create_table);
 
@@ -100,7 +102,7 @@ public class dbHandler extends SQLiteOpenHelper {
 
     public void addRecipe(String recipe, String rid, String picture,
                           String sourceUrl, String sourceName, String nutrients,
-                          String ingredients, String api) {
+                          String ingredients, String api, String totals) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_API, api);
@@ -113,9 +115,11 @@ public class dbHandler extends SQLiteOpenHelper {
         if (api.equals("Edamam")) {
             values.put(COLUMN_NUTRIENTS, nutrients);
             values.put(COLUMN_INGREDIENTS, ingredients);
+            values.put(COLUMN_DAILY_TOTALS, totals);
         } else if (api.equals("Food2Fork")) {
             values.put(COLUMN_NUTRIENTS, " ");
             values.put(COLUMN_INGREDIENTS, " ");
+            values.put(COLUMN_DAILY_TOTALS, " ");
         }
 
         long rowID = 0;
@@ -215,6 +219,7 @@ public class dbHandler extends SQLiteOpenHelper {
             ret.setPublisher(cursor.getString(6));
             ret.setSourceUrl(cursor.getString(7));
             ret.setApi(cursor.getString(8));
+            ret.setDailyTotals(cursor.getString(9));
         }
         db.close();
         return ret;

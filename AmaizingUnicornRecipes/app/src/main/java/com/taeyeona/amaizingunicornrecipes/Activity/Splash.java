@@ -17,9 +17,9 @@ public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //set content view to splash
+        //set content view to activity_splash
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+        setContentView(R.layout.activity_splash);
 
         final ImageView iv = (ImageView) findViewById(R.id.splashImage);
 

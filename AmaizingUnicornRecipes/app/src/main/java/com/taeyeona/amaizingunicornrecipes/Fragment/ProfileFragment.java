@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,12 +69,10 @@ public class ProfileFragment extends Fragment {
         }
 
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
-        Log.d("favoritesAdapter", "set adapter properly");
         favoritesList.setAdapter(adapter);
 
         if(!emptyFavoritesFlag){
             favoritesList.setClickable(true);
-            Log.d("favoritesAdapter", "set adapter pre on click");
             favoritesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -84,16 +81,16 @@ public class ProfileFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), RecipeShow.class);
                     intent.putExtra("Picture", favoritesToSearch.getImageUrl());
-                    Log.d("Profile", favoritesToSearch.getImageUrl());
                     intent.putExtra("Title", favoritesToSearch.getTitle());
                     intent.putExtra("RecipeID", favoritesToSearch.getRecipeId());
-                    intent.putExtra("SourceURL", favoritesToSearch.getSourceUrl());
+                    intent.putExtra("SourceUrl", favoritesToSearch.getSourceUrl());
                     intent.putExtra("SourceName", favoritesToSearch.getPublisher());
                     intent.putExtra("API", favoritesToSearch.getApi());
 
                     if(favoritesToSearch.getApi().equals("Edamam")) {
                         intent.putExtra("Ingredients", favoritesToSearch.getIngredientList());
                         intent.putExtra("Nutrients", favoritesToSearch.getNutrientsArray());
+                        intent.putExtra("Totals", favoritesToSearch.getDailyTotals());
                     }
 
                     startActivity(intent);
