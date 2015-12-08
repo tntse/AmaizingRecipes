@@ -99,6 +99,7 @@ public class EditSettings extends AppCompatActivity {
                 }
             }
         });
+
         
         // Set the text above the back button
         TextView txtView = (TextView) findViewById(R.id.main_settings_text);
