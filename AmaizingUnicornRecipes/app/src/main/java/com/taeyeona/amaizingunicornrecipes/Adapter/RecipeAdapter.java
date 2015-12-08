@@ -1,6 +1,7 @@
 package com.taeyeona.amaizingunicornrecipes.Adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         volley = VolleySingleton.getInstance(pContext);
         img = volley.getImageLoader();
     }
+
+    /**
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     @Override
     public ViewHolderRecipes onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.custom_recipe, parent, false);
@@ -52,6 +60,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return viewRecipes;
     }
 
+    /**
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(final ViewHolderRecipes holder, int position) {
         final Recipes reci = list.get(position);
@@ -65,26 +78,41 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                holder.thumbnail.setImageResource(R.drawable.amaizing);
             }
         });
 
     }
 
+    /**
+     *
+     * @return Returns the total number of items in the data set hold by the adapter.
+     */
     @Override
     public int getItemCount() {
         return list.size();
     }
 
+    /**
+     *
+     * @param l The list of recipes
+     */
     public void setList(List<Recipes> l){
         list = l;
         notifyItemChanged(0, l.size());
     }
 
+    /**
+     *
+     * @param itemClickListener Listener to allow each item to know it's being clicked on
+     */
     public void setListener(CustomItemClickListener itemClickListener){
         listener = itemClickListener;
     }
 
+    /**
+     * ViewHolderRecipes class sets up one Recipe of the list for RecyclerView
+     */
     public static class ViewHolderRecipes extends RecyclerView.ViewHolder{
         private ImageView thumbnail;
         private TextView title;
@@ -98,6 +126,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
     }
 
+    /**
+     * CustomItemClickListener interface is an interface to know when the item is clicked on
+     */
     public interface CustomItemClickListener {
         public void onItemClick(View v, int position);
     }

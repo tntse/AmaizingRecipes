@@ -90,6 +90,10 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
     }
 
+    /**
+     *
+     * @param v
+     */
     public void onClick(View v) {
 
         if (firstOpen) {
@@ -187,6 +191,11 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         return true;
     }
 
+    /**
+     *
+     * @throws GooglePlayServicesRepairableException
+     * @throws GooglePlayServicesNotAvailableException
+     */
     private void buildAlertMessageNoGPS() throws GooglePlayServicesRepairableException, GooglePlayServicesNotAvailableException{
         final Context contextGPS = getApplicationContext();
         final CharSequence GPSText = "Grocery stores will not load without GPS enabled. Please enable GPS to find stores.";
@@ -259,6 +268,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 .newLatLngZoom(new LatLng(37.76, -122.44), 8.0f));
     }
 
+    /**
+     *
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -273,6 +285,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
     }
 
+    /**
+     *
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -280,6 +295,10 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             mLocationProvider.disconnect();
     }
 
+    /**
+     *
+     * @param location
+     */
     public void newLocation(Location location) {
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();

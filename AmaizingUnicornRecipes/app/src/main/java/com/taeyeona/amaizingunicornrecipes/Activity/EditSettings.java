@@ -110,18 +110,27 @@ public class EditSettings extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     */
     @Override
     protected void onResume() {
         super.onResume();
         loadAdapters();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onPause() {
         super.onPause();
         bun.putInt("Current", mViewPager.getCurrentItem());
     }
 
+    /**
+     *
+     */
     private void loadAdapters(){
         EditSettingsAdapter editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), bun);
         mViewPager = (ViewPager) findViewById(R.id.main_pages);
@@ -154,6 +163,12 @@ public class EditSettings extends AppCompatActivity {
         fragSwitcher.setPage(bun.getInt("Current"));
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

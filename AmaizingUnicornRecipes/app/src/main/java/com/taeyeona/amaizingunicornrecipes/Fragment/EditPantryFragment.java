@@ -86,6 +86,9 @@ public class EditPantryFragment extends Fragment {
 
     }
 
+    /**
+     *
+     */
     private void getListAndSetAdapter(){
        String[] emptyManager = {getString(R.string.empty_pantry)};
 

@@ -115,9 +115,14 @@ public class IngredientsFragment extends Fragment {
         });
     }
 
-    public static String strSeparator = ", ";
+    /**
+     *
+     * @param array The String Array to be converted into a string
+     * @return A string, either the nutrients or ingredients
+     */
     public static String convertArrayToString(String[] array){
         String str = "";
+        String strSeparator = ", ";
         for (int i = 0;i<array.length; i++) {
             str = str+array[i];
             // Do not append comma at the end of last element

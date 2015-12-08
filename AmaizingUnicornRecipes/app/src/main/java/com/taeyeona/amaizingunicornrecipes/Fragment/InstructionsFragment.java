@@ -262,7 +262,7 @@ public class InstructionsFragment extends Fragment {
         );
         queue.add(stringRequest);
 
-        /**
+        /*
          *
          * Button youtube_button manages the hide and reveal of the youtube fragment
          * OnClick controls add,show,hide player fragment

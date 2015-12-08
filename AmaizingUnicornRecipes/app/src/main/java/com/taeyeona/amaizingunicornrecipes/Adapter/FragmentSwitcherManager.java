@@ -26,6 +26,11 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         this.activity = activity;
     }
 
+    /**
+     *
+     * @param newButton
+     * @param newBar
+     */
     public void add(Button newButton, View newBar){
         newButton.setOnClickListener(this);
         buttons.add(newButton);
@@ -35,6 +40,10 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         }
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         int index = buttons.indexOf((Button)view);
@@ -46,13 +55,27 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         theViewPager.setCurrentItem(index);
     }
 
+    /**
+     *
+     * @param pager
+     */
     public void setViewPager(ViewPager pager){
         theViewPager = pager;
     }
 
+    /**
+     *
+     * @param position
+     * @param positionOffset
+     * @param positionOffsetPixels
+     */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
+    /**
+     *
+     * @param position
+     */
     @Override
     public void onPageSelected(int position) {
         active.getButton().setTypeface(null, Typeface.NORMAL);
@@ -66,6 +89,10 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         }
     }
 
+    /**
+     *
+     * @param state
+     */
     @Override
     public void onPageScrollStateChanged(int state) {}
 
@@ -74,6 +101,9 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         theViewPager.setCurrentItem(position);
     }
 
+    /**
+     *
+     */
     class ActivePage {
 
         private Button button;
@@ -84,19 +114,35 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
             setView(view);
         }
 
+        /**
+         *
+         * @return
+         */
         public Button getButton() {
             return button;
         }
 
+        /**
+         *
+         * @return
+         */
         public View getView() {
             return view;
         }
 
+        /**
+         *
+         * @param button
+         */
         public void setButton(Button button) {
             this.button = button;
             button.setTypeface(null, Typeface.BOLD);
         }
 
+        /**
+         *
+         * @param view
+         */
         public void setView(View view) {
             this.view = view;
             view.setVisibility(View.VISIBLE);

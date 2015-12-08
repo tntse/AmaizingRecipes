@@ -19,14 +19,28 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         super(context,R.layout.checklist, list);
     }
 
+    /**
+     *
+     * @return
+     */
     public static ArrayList<String> getSelected(){
         return selected;
     }
 
+    /**
+     *
+     */
     public static void clearList(){
         selected.clear();
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -39,6 +53,9 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
         return theView;
     }
 
+    /**
+     *
+     */
     @Override
     public void onClick(View view) {
         CheckBox check = (CheckBox)view;

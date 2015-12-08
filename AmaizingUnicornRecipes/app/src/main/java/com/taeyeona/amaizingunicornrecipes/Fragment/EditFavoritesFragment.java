@@ -58,6 +58,9 @@ public class EditFavoritesFragment extends Fragment {
         });
     }
 
+    /**
+     *
+     */
     private void getFavoritesAndSetAdapter(){
         values = favoritesData.getTitlesFromDB();
         if(values.length == 1 && values[0].equals("")){

@@ -150,38 +150,70 @@ public class Recipes {
         this.recipeId = recipeId;
     }
 
+    /**
+     *
+     * @return The list of ingredients as a List<String>
+     */
     public List<String> getIngredients(){
         return ingredients;
     }
+
+    /**
+     *
+     * @param ingredient The ingredients to be added into the List<Sring>
+     */
 
     public void setIngredients(String ingredient){
         ingredients.add(ingredient);
     }
 
+    /**
+     *
+     * @return The list of nutrients as a List<String>
+     */
+
     public List<String> getNutrients(){
         return nutrients;
     }
+
+    /**
+     *
+     * @param nutrient The nutrient to be added into the List<String>
+     */
 
     public void setNutrientList(String nutrient){
         nutrients.add(nutrient);
     }
 
+    /**
+     *
+     * @param nutrients The list of nutrients as a string
+     */
+
     public void setNutrients(String nutrients){
         this.nutrient = nutrients;
     }
 
+    /**
+     *
+     * @return The String Array converted from the nutrient string
+     */
     public String[] getNutrientsArray() {
         return convertStringToArray(nutrient);
     }
 
-    public void setNutrientsArray(String nutrients) {
-        this.nutrient = nutrients;
-    }
-
+    /**
+     *
+     * @return The String Array converted from the ingredientList string
+     */
     public String[] getIngredientList() {
         return convertStringToArray(ingredientList);
     }
 
+    /**
+     *
+     * @param ingredientList The list of ingredients in the format of a string
+     */
     public void setIngredientList(String ingredientList) {
         this.ingredientList = ingredientList;
     }
@@ -265,14 +297,26 @@ public class Recipes {
         return handler;
     }
 
+    /**
+     *
+     * @param handler The database handler
+     */
     public void setHandler(dbHandler handler) {
         this.handler = handler;
     }
 
+    /**
+     *
+     * @return The API used to get the recipe
+     */
     public String getApi() {
         return api;
     }
 
+    /**
+     *
+     * @param api The api used to get the recipe
+     */
     public void setApi(String api) {
         this.api = api;
     }
@@ -286,6 +330,11 @@ public class Recipes {
         return title;
     }
 
+    /**
+     *
+     * @param str Either the ingredients or nutrients string
+     * @return The String array converted from the string parameter
+     */
     public static String[] convertStringToArray(String str) {
         String strSeparator = ",";
         String[] arr = str.split(strSeparator);

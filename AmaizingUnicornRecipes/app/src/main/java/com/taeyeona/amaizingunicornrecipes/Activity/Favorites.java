@@ -62,6 +62,9 @@ public class Favorites {
         }
     }
 
+    /**
+     *
+     */
     public String[] getTitlesFromDB() {
         return handler.getAllTitles();
     }
@@ -85,19 +88,35 @@ public class Favorites {
         handler.deleteRecipe(id);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle(){
         return title;
     }
 
-
+    /**
+     *
+     * @param recipes
+     */
     public void setTitle(Recipes recipes) {
        title = recipes.getTitle();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPicture () {
         return picture;
     }
 
+    /**
+     *
+     * @param recipeTitleToSearch
+     * @return
+     */
     public Recipes searchFavorite(String recipeTitleToSearch) {
         Recipes recipeToSearchFor = handler.getRowInDatabase(recipeTitleToSearch);
         return recipeToSearchFor;

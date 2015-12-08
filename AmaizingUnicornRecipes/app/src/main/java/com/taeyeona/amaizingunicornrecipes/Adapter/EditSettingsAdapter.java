@@ -20,6 +20,11 @@ public class EditSettingsAdapter extends FragmentStatePagerAdapter {
         bundle = bun;
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     @Override
     public Fragment getItem(int position) {
         switch(position){
@@ -32,6 +37,10 @@ public class EditSettingsAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return 3;

@@ -19,6 +19,11 @@ public class MainAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     @Override
     public Fragment getItem(int position) {
         switch(position){
@@ -31,11 +36,20 @@ public class MainAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return 3;

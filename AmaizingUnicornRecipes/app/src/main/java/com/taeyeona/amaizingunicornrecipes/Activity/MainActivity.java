@@ -106,18 +106,27 @@ public  class MainActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     *
+     */
     @Override
     protected void onResume() {
         super.onResume();
         loadAdapters();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onPause() {
         super.onPause();
         bun.putInt("Current", theViewPager.getCurrentItem());
     }
 
+    /**
+     *
+     */
     private void loadAdapters(){
         if(recipeSearchFragment == null)
             recipeSearchFragment = new RecipeSearchFragment();
@@ -158,14 +167,26 @@ public  class MainActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Bundle getBundle(){
         return bun;
     }
 
+    /**
+     *
+     * @param data
+     */
     public void addData(String data){
         bun.putString("SearchQuery", data);
     }
 
+    /**
+     *
+     * @param data
+     */
     public void addData(ArrayList<String> data){
         bun.putStringArrayList("SearchIngredients", data);
     }

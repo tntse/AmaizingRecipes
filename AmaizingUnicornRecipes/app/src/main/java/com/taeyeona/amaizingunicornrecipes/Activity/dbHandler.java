@@ -162,6 +162,10 @@ public class dbHandler extends SQLiteOpenHelper {
         return dbString;
     }
 
+    /**
+     *
+     * @return
+     */
     public String[] getAllTitles() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + COLUMN_TITLE + " FROM " + TABLE_FAVORITES;
@@ -216,6 +220,12 @@ public class dbHandler extends SQLiteOpenHelper {
         return ret;
     }
 
+    /**
+     *
+     * @param recipe_id
+     * @param api
+     * @return
+     */
     public boolean containsRecipe(String recipe_id, String api) {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + COLUMN_RECIPEID + " FROM " + TABLE_FAVORITES;

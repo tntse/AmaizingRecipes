@@ -21,6 +21,10 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
         bundle = bun;
     }
 
+    /**
+     * @param position The position related to the tabs
+     * @return Return the Fragment associated with a specified position.
+     */
     @Override
     public Fragment getItem(int position) {
 
@@ -44,6 +48,9 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    /**
+     * @return Returns the number of fragments in the adapter
+     */
     @Override
     public int getCount() {
         return 3;

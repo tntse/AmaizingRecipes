@@ -172,6 +172,9 @@ public class  JSONRequest {
         return jsRequest;
     }
 
+    /**
+     * VolleyCallBack interface is used to get the success or failure of the network call
+     */
     public interface VolleyCallBack{
         void onSuccess();
         void onFailure();

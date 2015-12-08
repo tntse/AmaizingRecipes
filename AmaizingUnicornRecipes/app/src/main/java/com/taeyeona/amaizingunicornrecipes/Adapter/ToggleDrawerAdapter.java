@@ -31,6 +31,13 @@ public class ToggleDrawerAdapter extends ArrayAdapter<String> implements View.On
         editor = sharedPreferences.edit();
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -50,6 +57,10 @@ public class ToggleDrawerAdapter extends ArrayAdapter<String> implements View.On
         return theView;
     }
 
+    /**
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         ToggleButton clicked = (ToggleButton)v;
