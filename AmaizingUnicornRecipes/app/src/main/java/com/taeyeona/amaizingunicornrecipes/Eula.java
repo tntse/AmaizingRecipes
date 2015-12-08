@@ -33,7 +33,12 @@ public class Eula {
         return pi;
     }
 
-
+    /**
+     * Show the Eula on first start as a dialog box , then saves
+     * hasBeenshown as true so EULA would no be shown again unless versionName is increased
+     *
+     * @author Benson
+     */
     public void show() {
         PackageInfo versionInfo = getPackageInfo();
 
@@ -45,28 +50,6 @@ public class Eula {
 
             // Show the Eula. versionName
             String title = mActivity.getString(R.string.app_name) + " v" + versionInfo.versionName;
-
-
-        /**
-            //Includes the updates as well so users know what changed.
-            String text = null;
-            AssetManager assetManager = null;
-            InputStream eula = null;
-            try {
-                eula = assetManager.open("helloworld.txt");
-                int size = eula.available();
-                byte[] buffer = new byte[size];
-                eula.read(buffer);
-                eula.close();
-
-                // byte buffer into a string
-                text = new String(buffer);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-         */
-
 
 
             String message = mActivity.getString(R.string.updates) + "\n\n" + mActivity.getString(R.string.eula);

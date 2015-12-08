@@ -64,7 +64,7 @@ public class EditPantryFragment extends Fragment {
                         edit.commit();
                         input.setText("");
                         getListAndSetAdapter();
-                        list.setSelection(pantryListAdapter.getCount()-1);
+                        list.setSelection(pantryListAdapter.getCount() - 1);
                     }
                 }
             }

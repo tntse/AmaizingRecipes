@@ -45,6 +45,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
 
     /**
      * The Constructor for this Adapter.
+     *
      * @param ctx The Context calling the Adapter.
      * @param hash  A HashList to adapt.
      * @param labels  A key list for the HashMap.
@@ -213,6 +214,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
                     return true;
                 }
             });
+
 
         }else if(group.equals("Picture Upload")){
 

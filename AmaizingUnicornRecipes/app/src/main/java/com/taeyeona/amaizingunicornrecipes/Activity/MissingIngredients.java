@@ -95,7 +95,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
     /**
      *
-     * @param v
+     * @param v View
      */
     public void onClick(View v) {
 
@@ -118,11 +118,10 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     }
 
     /**
-     * @author HaoXian
-     *
-     *
      * Shows the fragment when the user previously chose to hide the player fragment
      * now reveals the player fragment to continue to video
+     *
+     * @author HaoXian
      *
      */
     public void showFragment(){
@@ -134,11 +133,11 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     }
 
     /**
-     * @author HaoXian
-     *
      *
      * The fragment containing YouTube player , works with a slide in animation when
      * the fragment is to be hidden be the user, and reveals the main layout, instructions
+     *
+     * @author HaoXian
      */
     public void hideFragment(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -152,11 +151,10 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
 
     /**
-     * @author HaoXian
-     *
-     *
      * The fragment containing YouTube player , works with a slide in animation when
      * the fragment is added (overlays) the current layout
+     *
+     * @author HaoXian
      */
     public void addFragment(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -228,11 +226,11 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever
      * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
+     * <p>
      * If it isn't installed {@link SupportMapFragment} (and
      * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
      * install/update the Google Play services APK on their device.
-     * <p/>
+     * <p>
      * A user can return to this FragmentActivity after following the prompt and correctly
      * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
      * have been completely destroyed during this process (it is likely that it would only be
@@ -246,7 +244,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             ((SupportMapFragment)maps_frag).getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                   mMap = googleMap;
+                    mMap = googleMap;
                 }
             });
         }

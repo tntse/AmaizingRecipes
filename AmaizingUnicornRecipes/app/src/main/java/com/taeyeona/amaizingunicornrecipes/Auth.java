@@ -23,10 +23,9 @@ public class Auth {
     //"a34c5609";
     //"8486dac9";
     "998bb871";
-
     public static final String EDAMAM_KEY =
-    //"a7e44254cc97399430022e739322e13c";
-    "ec083b120d2a28bc363bba3eb5b85880";
+    //"ec083b120d2a28bc363bba3eb5b85880";
+    "cfe07ebda1b7f87747e077b4eafb4c6c";
     public static final String EDAMAM_URL = "https://api.edamam.com/search";
     public static final String CHAR_QUESTION = "?";
     public static final String CHAR_EQUALS = "=";
