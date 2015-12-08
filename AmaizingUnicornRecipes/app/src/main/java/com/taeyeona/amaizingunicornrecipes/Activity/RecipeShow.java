@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,7 +57,7 @@ public class RecipeShow extends AppCompatActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawer(navDrawer);
-                switch(position){
+                switch (position) {
                     case 0:
                     case 1:
                     case 2:
@@ -85,6 +86,7 @@ public class RecipeShow extends AppCompatActivity{
         bundle.putString("Title", getIntent().getStringExtra("Title"));
         bundle.putString("SourceName", getIntent().getStringExtra("SourceName"));
         bundle.putString("SourceUrl", getIntent().getStringExtra("SourceUrl"));
+        Log.d("RecipeShow", "SourceUrl: " + getIntent().getStringExtra("SourceUrl"));
         bundle.putString("Picture", getIntent().getStringExtra("Picture"));
 
         if(getIntent().getStringExtra("API").equals("Food2Fork")){

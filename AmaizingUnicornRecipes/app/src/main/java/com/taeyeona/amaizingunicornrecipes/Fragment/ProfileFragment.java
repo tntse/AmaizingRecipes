@@ -87,8 +87,10 @@ public class ProfileFragment extends Fragment {
                     Log.d("Profile", favoritesToSearch.getImageUrl());
                     intent.putExtra("Title", favoritesToSearch.getTitle());
                     intent.putExtra("RecipeID", favoritesToSearch.getRecipeId());
-                    intent.putExtra("SourceURL", favoritesToSearch.getSourceUrl());
+                    intent.putExtra("SourceUrl", favoritesToSearch.getSourceUrl());
+                    Log.d("Profile", "SourceURL: " + favoritesToSearch.getSourceUrl());
                     intent.putExtra("SourceName", favoritesToSearch.getPublisher());
+                    Log.d("Profile", "SourceName: " + favoritesToSearch.getPublisher());
                     intent.putExtra("API", favoritesToSearch.getApi());
 
                     if(favoritesToSearch.getApi().equals("Edamam")) {
