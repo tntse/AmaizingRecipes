@@ -15,16 +15,17 @@ public class Auth {
     //"a5b90f9d11f5453c04fc97ec2789ab79";
     //"672caa0de2a18eb25bbb3ecccfccd0df";
 
-    public static final String MAPS_KEY = "AIzaSyAdMLf1_CLLZr7BVP7Li0o4EorZCQE0S_I";
+    public static final String MAPS_KEY = "AIzaSyC9ZRlRXJVAxq8GjSHT2lMgVGwgcHPtmx4";
     public static final String YOUTUBE_DEV_KEY = "AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI";
     public static final String GET_URL = "http://food2fork.com/api/get";
     public static final String URL = "http://food2fork.com/api/search";
     public static final String EDAMAM_ID =
-    "a34c5609";
+    //"a34c5609";
     //"8486dac9";
+    "998bb871";
     public static final String EDAMAM_KEY =
-    //"a7e44254cc97399430022e739322e13c";
-    "ec083b120d2a28bc363bba3eb5b85880";
+    //"ec083b120d2a28bc363bba3eb5b85880";
+    "cfe07ebda1b7f87747e077b4eafb4c6c";
     public static final String EDAMAM_URL = "https://api.edamam.com/search";
     public static final String CHAR_QUESTION = "?";
     public static final String CHAR_EQUALS = "=";
@@ -33,10 +34,9 @@ public class Auth {
     public static final String CHAR_Q = "q";
     public static final String URL_MAPS = "https://maps.googleapis.com/maps/api/place/search/json?";
     public static final String LOCATION = "location";
-    public static final String LAT_LNG = "37.7, -122.44";
-    public static final String RADIUS = "radius=1000";
-    public static final String SENSOR = "sensor=true";
-    public static final String TYPES ="types=grocery_or_supermarket";
+    public static final String RADIUS = "1500";
+    public static final String SENSOR = "true";
+    public static final String TYPES ="grocery_or_supermarket";
     public static final String PART_SNIPPET = "part=snippet";
 
     public interface endpointRecipe{
@@ -57,5 +57,7 @@ public class Auth {
         public static final String HITS = "hits";
 
     }
+
+    public static final String SHARED_PREFS_KEY = "AmaizingPrefs";
 
 }

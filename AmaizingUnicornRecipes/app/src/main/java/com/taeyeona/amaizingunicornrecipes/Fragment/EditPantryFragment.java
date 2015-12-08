@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
+import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
 
@@ -37,7 +38,7 @@ public class EditPantryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         edit = sharedPreferences.edit();
         list = (ListView) view.findViewById(R.id.pantry_list);
 
@@ -63,7 +64,7 @@ public class EditPantryFragment extends Fragment {
                         edit.commit();
                         input.setText("");
                         getListAndSetAdapter();
-                        list.setSelection(pantryListAdapter.getCount()-1);
+                        list.setSelection(pantryListAdapter.getCount() - 1);
                     }
                 }
             }

@@ -104,7 +104,7 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
     /**
      *
      */
-    class ActivePage {
+    private class ActivePage {
 
         private Button button;
         private View view;

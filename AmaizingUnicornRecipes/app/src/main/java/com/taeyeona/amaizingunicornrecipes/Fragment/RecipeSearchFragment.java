@@ -57,7 +57,7 @@ public class RecipeSearchFragment extends Fragment {
 
         //Make a SharedPreferences object to get the global SharedPreferences so that we could see if we need
         //to use the Food2Fork search or the Edamam search based on preferences
-        sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         //Use a Map data structure to get all of the shared preferences in one object
         Map<String, ?> preferencesMap = sharedPreferences.getAll();
         boolean searchEdamam = preferencesMap.containsValue(true);

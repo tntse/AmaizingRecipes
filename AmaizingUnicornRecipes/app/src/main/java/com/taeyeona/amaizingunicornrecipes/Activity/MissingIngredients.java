@@ -30,6 +30,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
 import com.taeyeona.amaizingunicornrecipes.LocationUpdate;
@@ -61,7 +62,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         mLocationProvider = new LocationUpdate(this, this);
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
-        SharedPreferences sharedPreferences = this.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
 
         String[] rawIngredients = ingredients.split("\n");
 
@@ -243,7 +244,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             ((SupportMapFragment)maps_frag).getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                   mMap = googleMap;
+                    mMap = googleMap;
                 }
             });
         }
@@ -319,10 +320,10 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         mMap.setMyLocationEnabled(true);
 
         final JSONRequest jsonRequest = new JSONRequest();
-
-        jsonRequest.createResponse("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                "key", "AIzaSyC9ZRlRXJVAxq8GjSHT2lMgVGwgcHPtmx4", "", "", "", "1500", "", "", "", "",
-                "grocery_or_supermarket", "true", "location", lat, lng, "", null, null);
+        String search_radius = getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE).getString("Radius", Auth.RADIUS);
+        jsonRequest.createResponse(Auth.URL_MAPS,
+                Auth.STRING_KEY, Auth.MAPS_KEY, "", "", "", search_radius, "", "", "", "",
+                Auth.TYPES, Auth.SENSOR, Auth.LOCATION, lat, lng, "", null, null);
 
         jsonRequest.sendResponse(getApplicationContext(), new JSONRequest.VolleyCallBack() {
             @Override
