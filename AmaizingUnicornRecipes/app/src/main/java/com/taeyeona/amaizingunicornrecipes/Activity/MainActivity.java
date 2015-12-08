@@ -45,6 +45,7 @@ public  class MainActivity extends AppCompatActivity{
         bun = savedInstanceState;
         if(bun == null){
             bun = new Bundle();
+            bun.putInt("Current", 1);
         }
         setContentView(R.layout.activity_main_v2);
         String[] navDrawerNames = getResources().getStringArray(R.array.drawer_list);
@@ -196,8 +197,9 @@ public  class MainActivity extends AppCompatActivity{
 
         }else {
             fragmentSwitcher.setViewPager(theViewPager);
-            fragmentSwitcher.setPage(bun.getInt("Current"));
         }
+
+        fragmentSwitcher.setPage(bun.getInt("Current"));
     }
 
     /**
