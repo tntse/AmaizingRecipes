@@ -334,9 +334,9 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 JSONObject response = jsonRequest.getResponse();
 
                 try {
-                    for (int i = 0; i < 15; i++) {
-
-                        JSONArray arr = response.getJSONArray("results");
+                    JSONArray arr = response.getJSONArray("results");
+                    int numResults = (arr.length()<15)?arr.length():15;
+                    for (int i = 0; i < numResults; i++) {
                         JSONObject jsonObject = arr.getJSONObject(i);
                         JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
 
