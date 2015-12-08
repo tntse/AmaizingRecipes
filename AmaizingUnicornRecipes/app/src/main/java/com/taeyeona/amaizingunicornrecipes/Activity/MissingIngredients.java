@@ -59,7 +59,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.missing_ingredients);
+        setContentView(R.layout.activity_missing_ingredients);
 
         mLocationProvider = new LocationUpdate(this, this);
 
