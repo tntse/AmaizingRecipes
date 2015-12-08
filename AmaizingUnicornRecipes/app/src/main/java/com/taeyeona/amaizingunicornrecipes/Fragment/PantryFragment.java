@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Activity.MainActivity;
 import com.taeyeona.amaizingunicornrecipes.Adapter.PantryListAdapter;
-
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.IngredientsManager;
 import com.taeyeona.amaizingunicornrecipes.R;
@@ -68,6 +68,8 @@ public class PantryFragment extends Fragment {
 
         input = (EditText) view.findViewById(R.id.pantry_edit_text);
         input.setHint(getString(R.string.enter_search_query));
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Button searchButton = (Button) view.findViewById(R.id.pantry_right_button);
         searchButton.setText(getString(R.string.search_for_recipe));
