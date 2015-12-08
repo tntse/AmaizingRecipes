@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class ToggleDrawerAdapter extends ArrayAdapter<String> implements View.On
     public ToggleDrawerAdapter(Context context, String []string) {
         super(context, R.layout.profile_toggle_button_layout, string);
 
-        sharedPreferences = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 

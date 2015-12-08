@@ -9,14 +9,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/profile_textview"
         android:text="Default"
-        android:textSize="25sp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
         android:id="@+id/profile_edittext"
         android:singleLine="true"
         android:focusable="true"

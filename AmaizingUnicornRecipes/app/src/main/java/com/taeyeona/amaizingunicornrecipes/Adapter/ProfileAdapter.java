@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
+import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
         this.context = ctx;
         this.hashList = hash;
         this.settings = labels;
-        sharedPreferences = context.getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         bun = bundle;
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -36,9 +36,7 @@ public class ProfileHash {
         for(int i = 0; i < searchSettings.length; i++)
             searchToggleFields.add(searchSettings[i]);
 
-        searchMapsFields.add("5 mi");
-        searchMapsFields.add("10 mi");
-        searchMapsFields.add("15 mi");
+        searchMapsFields.add("Search Radius (in miles)");
 
         uploadPicture.add("Upload Picture Here");
 

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
+import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.R;
 import com.taeyeona.amaizingunicornrecipes.Recipes;
 
@@ -45,7 +46,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ImageView profileImage = (ImageView) getActivity().findViewById(R.id.user_picture);
-        sharedPreferences = getContext().getSharedPreferences("AmaizingPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
 
         if(sharedPreferences.contains("Picture")){
             profileImage.setImageBitmap(BitmapFactory.decodeFile(sharedPreferences.getString("Picture", "")));
