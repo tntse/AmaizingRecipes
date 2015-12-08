@@ -21,9 +21,11 @@ public class EditSettingsAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
+     * adapter used to show the fragments from the viewpager  in EditSetting Activity
      *
-     * @param position
-     * @return
+     * @param position Position of fragment in viewpager
+     * @return Fragment to be visible
+     *
      */
     @Override
     public Fragment getItem(int position) {
@@ -38,6 +40,7 @@ public class EditSettingsAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
+     * the number of fragments in the view pager in EditSettings Activity
      *
      * @return
      */

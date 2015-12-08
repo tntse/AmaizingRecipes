@@ -21,7 +21,7 @@ public class MainAdapter extends FragmentStatePagerAdapter {
 
     /**
      *
-     * @param position
+     * @param position position of viewPager
      * @return
      */
     @Override
@@ -38,7 +38,7 @@ public class MainAdapter extends FragmentStatePagerAdapter {
 
     /**
      *
-     * @param object
+     * @param object Fragment in the viewpager
      * @return
      */
     @Override

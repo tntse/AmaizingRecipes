@@ -34,6 +34,11 @@ public class Splash extends Activity {
 
         iv.startAnimation(fadeIn);
         iv.startAnimation(rotation);
+
+        /**
+         * Spins the corn on the Splash page
+         * @author Benson
+         */
         rotation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}

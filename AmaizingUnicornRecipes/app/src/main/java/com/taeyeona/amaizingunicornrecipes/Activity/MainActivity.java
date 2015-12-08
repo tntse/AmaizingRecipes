@@ -55,10 +55,10 @@ public  class MainActivity extends AppCompatActivity{
 
         //Create drawer adapter to toggle search preferences with right side drawer
         /**
-         *
-         * @author Benson
          * An array of preference names are saved from ProfileHash.getSearchSettings
          * then the array is loaded into the drawer to be togglable
+         *
+         * @author Benson
          */
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main_drawer_v2); //right
         String[] prefListName = ProfileHash.getSearchSettings();
@@ -67,11 +67,11 @@ public  class MainActivity extends AppCompatActivity{
 
         //Create Navigation Drawer for left side for button to open
         /**
-         *
-         * @author Benson
          * The left side drawer hold navigation button towards other activities in the app,
          * an array of names of the activities we can navigate to are loaded by the adapter
          * and set in the navDrawer(left hand drawer)
+         *
+         * @author Benson
          */
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
         navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
@@ -79,15 +79,18 @@ public  class MainActivity extends AppCompatActivity{
 
         navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             /**
-             * @author Thomas, Benson
-             * @param parent
-             * @param view
-             * @param position
-             * @param id
              *
              * A switch statement is used to manage the navigation drawer to
              * determine where the drawer brings you depending on the item
              * in the array selected onClick.
+             *
+             * @author Thomas, Benson
+             * @param parent AdapterView
+             * @param view View to adapt
+             * @param position position of array list
+             * @param id items in list
+             *
+
              */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -198,27 +201,24 @@ public  class MainActivity extends AppCompatActivity{
     }
 
     /**
-     *
-     * @return
      * get the bundle created on mainActivity during onCreate
+     * @return
      */
     public Bundle getBundle(){
         return bun;
     }
 
     /**
-     *
-     * @param data
      * pass in String variable then adds the string to the Bundle
+     * @param data
      */
     public void addData(String data){
         bun.putString("SearchQuery", data);
     }
 
     /**
-     *
-     * @param data
      * passes in String array list , then adds the list into the bundle
+     * @param data
      *
      */
     public void addData(ArrayList<String> data){

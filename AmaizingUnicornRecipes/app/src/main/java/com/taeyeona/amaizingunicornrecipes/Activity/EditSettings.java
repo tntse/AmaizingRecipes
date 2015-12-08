@@ -75,6 +75,21 @@ public class EditSettings extends AppCompatActivity {
         //Create Navigation Drawer for left side for button to open
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
         navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+
+        /**
+         *
+         * A switch statement is used to manage the navigation drawer to
+         * determine where the drawer brings you depending on the item
+         * in the array selected onClick.
+         *
+         * @author Thomas, Benson
+         * @param parent AdapterView
+         * @param view View to adapt
+         * @param position position of array list
+         * @param id items in list
+         *
+
+         */
         navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

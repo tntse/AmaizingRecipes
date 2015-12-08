@@ -28,8 +28,11 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
 
     /**
      *
-     * @param newButton
-     * @param newBar
+     * @param newButton button in navigation bar corresponding to fragment
+     * @param newBar the hightlight that indicates current view
+     *
+     * adds a button in the navigation bar and a view in the view pager
+     * corresponding to the number of fragments in the viewpager
      */
     public void add(Button newButton, View newBar){
         newButton.setOnClickListener(this);
@@ -42,7 +45,10 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
 
     /**
      *
-     * @param view
+     * @param view navigation button
+     *
+     * used to change visibility of highlights
+     * to indicate which fragment is currently visible
      */
     @Override
     public void onClick(View view) {
@@ -56,8 +62,10 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
     }
 
     /**
+     * Creates the viewPager that holds all the
+     * necessary fragments to be show
      *
-     * @param pager
+     * @param pager the viewPager of the activity
      */
     public void setViewPager(ViewPager pager){
         theViewPager = pager;
@@ -65,16 +73,18 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
 
     /**
      *
-     * @param position
-     * @param positionOffset
-     * @param positionOffsetPixels
+     * @param position position of fragment
+     * @param positionOffset  android studio uses to manage scrolling
+     * @param positionOffsetPixels android studio uses to manage scrolling
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
     /**
+     * changes the visibility of highlight depending
+     * on the position of the viewpager
      *
-     * @param position
+     * @param position position of selected page
      */
     @Override
     public void onPageSelected(int position) {
@@ -91,7 +101,7 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
 
     /**
      *
-     * @param state
+     * @param state The state of the viewpager when the viewpager is scrolled
      */
     @Override
     public void onPageScrollStateChanged(int state) {}
@@ -132,7 +142,7 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
 
         /**
          *
-         * @param button
+         * @param button navigation button
          */
         public void setButton(Button button) {
             this.button = button;

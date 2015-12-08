@@ -34,9 +34,9 @@ public class ToggleDrawerAdapter extends ArrayAdapter<String> implements View.On
 
     /**
      *
-     * @param position
-     * @param convertView
-     * @param parent
+     * @param position position of list item
+     * @param convertView view of drawer
+     * @param parent parent Viewgroup
      * @return
      */
     @Override

@@ -22,6 +22,8 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
+     * Manages how the viewpager will appear on screen
+     *
      * @param position The position related to the tabs
      * @return Return the Fragment associated with a specified position.
      */

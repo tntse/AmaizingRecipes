@@ -20,15 +20,16 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     }
 
     /**
+     * returns ArrayList of String varibles containing pantry list
      *
-     * @return
+     * @return*
      */
     public static ArrayList<String> getSelected(){
         return selected;
     }
 
     /**
-     *
+     *clears the pantry list
      */
     public static void clearList(){
         selected.clear();
@@ -36,10 +37,14 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
 
     /**
      *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     *inflates the pantry list (prepares rendering)
+     *shows checkable pantry list to be used in search recipe
+     *
+     * @param position position of pantry item
+     * @param convertView view to be show after view has been inflated
+     * @param parent the parent Viewgroup
+     * @return View variable
+
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,7 +59,7 @@ public class PantryListAdapter extends ArrayAdapter<String> implements View.OnCl
     }
 
     /**
-     *
+     *onClick controls whether to include or exclude ingredient in recipe search
      */
     @Override
     public void onClick(View view) {
