@@ -89,4 +89,13 @@
         android:background="#d2dfdb" />
 
 
+    <Button
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/sharing1"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_alignBottom="@+id/favorites_separator"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="8dp" />
 </RelativeLayout>

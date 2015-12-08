@@ -7,10 +7,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/amaizeing"
-        />
+        android:layout_marginLeft="4dp" />
 
     <TextView
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -19,7 +19,11 @@
         android:textColor="@color/title"
         android:ellipsize="end"
         android:maxLines="5"
-        android:singleLine="false" />
+        android:singleLine="false"
+        android:layout_below="@+id/publisher"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp" />
         <!--android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"-->
@@ -28,9 +32,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="publisher"
+        android:text="Rating"
         android:id="@+id/publisher"
-        android:textColor="@color/publisher" />
+        android:textColor="@color/publisher"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/recipetitle"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="28dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="4dp" />
         <!--android:layout_below="@+id/recipetitle"-->
         <!--android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"-->

@@ -1,8 +1,14 @@
 package com.taeyeona.amaizingunicornrecipes.Fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -12,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.MissingIngredients;
@@ -23,11 +30,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Chau on 11/7/2015.
  */
 public class IngredientsFragment extends Fragment {
     private StringBuilder ingredients = new StringBuilder();
+
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
+    private Uri fileURI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,6 +131,138 @@ public class IngredientsFragment extends Fragment {
 
             }
         });
+        Button sharingButton = (Button) getActivity().findViewById(R.id.sharing1);
+        sharingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+
+        sharingButton.setBackgroundResource(R.drawable.ic_action_share_dark);
+
+    }
+
+    private void selectImage(){
+        final CharSequence[] items = {"Share Photo", "Share Recipe", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Choose how you would like to share your recipe");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (items[which].equals("Share Photo")) {
+                    imageShare();
+                } else if (items[which].equals("Share Recipe")) {
+                    shareRecipe();
+                } else if (items[which].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+
+    private void shareRecipe(){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Recipe");
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, getActivity().getIntent().getExtras().getString("Title"));
+
+        startActivity(Intent.createChooser(sharingIntent, "Share recipe via"));
+    }
+
+    private void shareImage(){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("image/*");
+
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Recipe: " + getActivity().getIntent().getExtras().getString("Title"));
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, fileURI);
+
+        startActivity(Intent.createChooser(sharingIntent, "Share photo via"));
+    }
+
+    private void imageShare(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        fileURI = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileURI);
+
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
+
+    private static Uri getOutputMediaFileUri(int type){
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+
+    private static File getOutputMediaFile(int type){
+        File mediaStorageDir = new File(Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "Amaizing Unicorn");
+
+        if(!mediaStorageDir.exists()){
+            if(!mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if(type == MEDIA_TYPE_IMAGE){
+            mediaFile = new File(mediaStorageDir.getPath()
+                    + File.separator + "IMG_" + timeStamp + ".jpg");
+        } else if(type == MEDIA_TYPE_VIDEO) {
+            mediaFile = new File(mediaStorageDir.getPath()
+                    + File.separator + "VID_" + timeStamp + ".mp4");
+        } else {
+            return null;
+        }
+        return mediaFile;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        try{
+            if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+                if(resultCode == Activity.RESULT_OK){
+                    //picture taken
+                    takeAnother();
+                } else {
+                    Toast.makeText(getContext(), "Error: Result code is not RESULT_OK", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void takeAnother(){
+        try{
+            new AlertDialog.Builder(getContext()).setTitle("Amaizing Unicorn")
+                    .setMessage("Do you want to take another picture or share this one?")
+                    .setPositiveButton("Take Another", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                            imageShare();
+                        }
+                    })
+                    .setNegativeButton("Share", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                            shareImage();
+                        }
+                    }).show();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
