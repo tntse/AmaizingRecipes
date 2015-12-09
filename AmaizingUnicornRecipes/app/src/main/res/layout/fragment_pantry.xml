@@ -129,6 +129,7 @@
         android:layout_alignTop="@+id/pantry_list"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
+        android:textSize="@dimen/text_size"
         />
 
 
