@@ -2,6 +2,7 @@ package com.taeyeona.amaizingunicornrecipes.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,6 +12,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Auth;
 import com.taeyeona.amaizingunicornrecipes.JSONRequest;
+import com.taeyeona.amaizingunicornrecipes.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +31,7 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
         st = getActivity().getIntent().getStringExtra("Title");
         st = st.replaceAll(" ","+");
-        st=st+"+tutorial";
+        st=st+"cooking+tutorial";
 
         //parse data with passed string
         //Crated JSONrequest
@@ -57,8 +59,6 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
             initialize(Auth.YOUTUBE_DEV_KEY, this);
         }catch (Exception e){
-            Intent notFound = new Intent(getActivity(),RecipeShow.class);
-            startActivity(notFound);
         }
     }
 
@@ -81,7 +81,7 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                    if (vid != null) {
+                    if (vid != null && vid.length()>0 && vid.length() < 15) {
                         try {
                             if (restored) {
                                 youTubePlayer.play();
@@ -90,8 +90,9 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
 
                             }
                         } catch (IllegalStateException e) {
-                            Log.d("catch", "2 "+  e.getClass().getSimpleName() + " " + e.getMessage());
-
+                            Log.d("catch", "2 " + e.getClass().getSimpleName() + " " + e.getMessage());
+                        }catch (Exception e){
+                            getActivity().getFragmentManager().popBackStack();
 
                         }
                     }
@@ -140,11 +141,14 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
             if (titleList == null){
 
                 Toast.makeText(getContext(),"No Video Tutorials Found",Toast.LENGTH_LONG).show();
-                Intent notFound = new Intent(getActivity(),RecipeShow.class);
-                startActivity(notFound);
+
             }
         }catch(JSONException ex){
-            Toast.makeText(getContext(), "Sorry, we could not load your video.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Sorry, no video tutorials found.", Toast.LENGTH_LONG).show();
+
+            getActivity().getFragmentManager().popBackStack();
+
+
         }
     }
 }
