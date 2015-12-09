@@ -216,13 +216,21 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
 
             setting_view = inflater.inflate(R.layout.profile_upload_picture, category_view, false);
             Button imageUploadButton = (Button) setting_view.findViewById(R.id.button);
+            Button imageDefault = (Button) setting_view.findViewById(R.id.button2);
             imageUploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
-                    //intent.setAction(Intent.ACTION_GET_CONTENT);
                     ((EditSettings)context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
+                }
+            });
+
+            imageDefault.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    editor.remove("Picture");
+                    editor.commit();
                 }
             });
         }else{

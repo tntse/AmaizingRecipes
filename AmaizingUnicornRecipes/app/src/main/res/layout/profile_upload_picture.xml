@@ -17,4 +17,17 @@
         android:background="@drawable/selector"
         android:layout_gravity="center_horizontal" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return to Default"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textColor="#ffffff"
+        android:id="@+id/button2"
+        android:background="@drawable/selector"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
