@@ -38,10 +38,10 @@ public class EditFavoritesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         favoritesData = new Favorites(getContext());
         favoritesList = (ListView) getActivity().findViewById(R.id.edit_favorites_list);
+        deleteFavorites = (Button)getActivity().findViewById(R.id.delete_favorites);
 
         getFavoritesAndSetAdapter();
 
-        deleteFavorites = (Button)getActivity().findViewById(R.id.delete_favorites);
         deleteFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

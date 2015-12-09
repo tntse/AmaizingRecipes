@@ -108,8 +108,6 @@
         android:visibility="invisible"
         />
 
-
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,7 +116,8 @@
         android:text="GOT IT?"
         android:id="@+id/tutorial_got_it"
         android:visibility="invisible"
-
+        android:background="@drawable/selector"
+        android:textColor="#ffffff"
         />
 
 

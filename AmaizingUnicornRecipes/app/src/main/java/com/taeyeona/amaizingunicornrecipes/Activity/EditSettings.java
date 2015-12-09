@@ -98,14 +98,14 @@ public class EditSettings extends AppCompatActivity {
                     case 1:
                     case 2:
                         Intent intent = new Intent(EditSettings.this, MainActivity.class);
-                        intent.putExtra("Open", position - 3);
+                        intent.putExtra("Open", position);
                         startActivity(intent);
                         finish();
                         break;
                     case 3:
                     case 4:
                     case 5:
-                        fragSwitcher.setPage(position);
+                        fragSwitcher.setPage(position-3);
                         break;
                     case 6:
                         drawerLayout.openDrawer(prefListView);
