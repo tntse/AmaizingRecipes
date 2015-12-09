@@ -193,10 +193,10 @@ public class IngredientsFragment extends Fragment {
     }
 
     private static Uri getOutputMediaFileUri(int type){
-        return Uri.fromFile(getOutputmediaFile(type));
+        return Uri.fromFile(getOutputMediaFile(type));
     }
 
-    private static File getOutputmediaFile(int type){
+    private static File getOutputMediaFile(int type){
         File mediaStorageDir = new File(Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                 "Amaizing Unicorn");

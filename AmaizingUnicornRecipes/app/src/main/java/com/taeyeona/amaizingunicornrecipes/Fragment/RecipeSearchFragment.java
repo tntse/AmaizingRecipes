@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,6 +56,12 @@ public class RecipeSearchFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        View view7 = getActivity().getCurrentFocus();
+        if (view7 != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         //Make a SharedPreferences object to get the global SharedPreferences so that we could see if we need
         //to use the Food2Fork search or the Edamam search based on preferences
         sharedPreferences = getContext().getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
@@ -99,7 +106,9 @@ public class RecipeSearchFragment extends Fragment {
         ingredients = ingredients.replace("]", "");
 
         if(ingredients.equals("")){
+            progress.setVisibility(View.INVISIBLE);
             text.setText("You did not enter in any ingredients, please go back and enter in ingredients.");
+
         }else{
             if (searchEdamam) {
                 String collection[] = ProfileHash.getSearchSettings();
@@ -108,12 +117,14 @@ public class RecipeSearchFragment extends Fragment {
                     if (checked) {
                         String currentSetting = collection[i].toString().toLowerCase();
                         if (i < 5) {
+                            if(currentSetting.equals("balanced diet"))
+                                currentSetting = "balanced";
                             diet.add(currentSetting);
                         } else {
                             if (currentSetting.equals("no-sugar")) {
                                 health.add("low-sugar");
                             } else {
-                                health.add(currentSetting);
+                                health.add(currentSetting.replace(" ", "-"));
                             }
                         }
                     }
