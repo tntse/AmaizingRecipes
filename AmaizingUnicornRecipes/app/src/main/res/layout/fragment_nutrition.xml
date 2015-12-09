@@ -25,6 +25,7 @@
         android:text=""
         android:id="@+id/textView7"
         android:scrollbars="vertical"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        android:textSize="@dimen/text_size"/>
 
 </LinearLayout>

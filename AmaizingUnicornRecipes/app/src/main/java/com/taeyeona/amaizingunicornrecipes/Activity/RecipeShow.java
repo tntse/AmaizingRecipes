@@ -52,7 +52,7 @@ public class RecipeShow extends AppCompatActivity{
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
-        navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.simple_list_item_1, navDrawerNames));
         navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

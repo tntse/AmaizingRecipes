@@ -95,12 +95,10 @@ public class EditPantryFragment extends Fragment {
        String[] emptyManager = {getString(R.string.empty_pantry)};
 
         if(manager.isEmpty()){
-            list.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyManager));
-            deleteSelected.setVisibility(View.INVISIBLE);
+            list.setAdapter(new ArrayAdapter<String>(getContext(), R.layout.simple_list_item_1, emptyManager));
         }else {
             pantryListAdapter = new PantryListAdapter(getContext(), (String[]) manager.toArray());
             list.setAdapter(pantryListAdapter);
-            deleteSelected.setVisibility(View.VISIBLE);
         }
     }
 }
