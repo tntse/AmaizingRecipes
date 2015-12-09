@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -173,7 +172,7 @@ public class IngredientsFragment extends Fragment {
         sharingIntent.setType("text/plain");
 
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Recipe");
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, getActivity().getIntent().getExtras().getString("Title"));
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, getActivity().getIntent().getExtras().getString("Title"));
 
         startActivity(Intent.createChooser(sharingIntent, "Share recipe via"));
     }
