@@ -49,6 +49,8 @@ public class ProfileFragment extends Fragment {
 
         if(sharedPreferences.contains("Picture")){
             profileImage.setImageBitmap(BitmapFactory.decodeFile(sharedPreferences.getString("Picture", "")));
+        }else{
+            profileImage.setImageResource(R.drawable.amaizeing);
         }
 
         TextView name = (TextView) view.findViewById(R.id.user_name);

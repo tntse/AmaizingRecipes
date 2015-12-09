@@ -218,6 +218,7 @@ public class EditSettings extends AppCompatActivity {
                 edit.putString("Picture", imgDecodableString);
                 edit.commit();
                 Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("Open", 0);
                 startActivity(intent);
 
             } else {
