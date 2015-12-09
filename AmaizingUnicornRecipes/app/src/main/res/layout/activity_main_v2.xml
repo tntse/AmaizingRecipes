@@ -182,7 +182,7 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="12dp"
         android:entries="@array/preference_list"
-        android:background="@color/accent_color"
+        android:background="@color/light_primary_color"
         />
 
 
