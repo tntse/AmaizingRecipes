@@ -198,7 +198,6 @@ public  class MainActivity extends AppCompatActivity{
         }else {
             fragmentSwitcher.setViewPager(theViewPager);
         }
-
         fragmentSwitcher.setPage(bun.getInt("Current"));
     }
 

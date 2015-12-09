@@ -231,9 +231,7 @@ public class RecipeSearchFragment extends Fragment {
                     }
                 });
             }
-            PantryListAdapter.clearList();
         }
-
     }
 
     /**

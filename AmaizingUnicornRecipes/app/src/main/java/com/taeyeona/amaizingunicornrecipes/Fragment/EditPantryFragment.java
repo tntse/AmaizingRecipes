@@ -42,6 +42,7 @@ public class EditPantryFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         edit = sharedPreferences.edit();
         list = (ListView) view.findViewById(R.id.pantry_list);
+        deleteSelected = (Button) view.findViewById(R.id.pantry_left_button);
 
         manager = sharedPreferences.getStringSet("Ingredients", new IngredientsManager());
         if(!(manager instanceof IngredientsManager))
@@ -71,7 +72,6 @@ public class EditPantryFragment extends Fragment {
             }
         });
 
-        deleteSelected = (Button) view.findViewById(R.id.pantry_left_button);
         deleteSelected.setText(getString(R.string.delete_selected));
         deleteSelected.setOnClickListener(new View.OnClickListener() {
             @Override
