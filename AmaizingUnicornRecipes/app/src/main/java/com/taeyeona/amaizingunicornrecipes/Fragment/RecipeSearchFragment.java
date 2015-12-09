@@ -117,12 +117,14 @@ public class RecipeSearchFragment extends Fragment {
                     if (checked) {
                         String currentSetting = collection[i].toString().toLowerCase();
                         if (i < 5) {
+                            if(currentSetting.equals("balanced diet"))
+                                currentSetting = "balanced";
                             diet.add(currentSetting);
                         } else {
                             if (currentSetting.equals("no-sugar")) {
                                 health.add("low-sugar");
                             } else {
-                                health.add(currentSetting);
+                                health.add(currentSetting.replace(" ", "-"));
                             }
                         }
                     }
