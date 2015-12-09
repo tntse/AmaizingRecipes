@@ -106,7 +106,9 @@ public class RecipeSearchFragment extends Fragment {
         ingredients = ingredients.replace("]", "");
 
         if(ingredients.equals("")){
+            progress.setVisibility(View.INVISIBLE);
             text.setText("You did not enter in any ingredients, please go back and enter in ingredients.");
+
         }else{
             if (searchEdamam) {
                 String collection[] = ProfileHash.getSearchSettings();
