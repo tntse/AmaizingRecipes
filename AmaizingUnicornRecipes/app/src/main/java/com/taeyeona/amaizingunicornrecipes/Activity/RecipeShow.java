@@ -147,12 +147,10 @@ public class RecipeShow extends AppCompatActivity{
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                try{
                     finish();
-                }catch(java.lang.IllegalStateException e){
+                    overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
 
-                }
+
             }
         });
     }
