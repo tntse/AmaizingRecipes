@@ -15,6 +15,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
@@ -231,6 +232,7 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
                 public void onClick(View v){
                     editor.remove("Picture");
                     editor.commit();
+                    Toast.makeText(context, "Your profile picture has returned to default corn picture", Toast.LENGTH_LONG).show();
                 }
             });
         }else{
