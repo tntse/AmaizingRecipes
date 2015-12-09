@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.taeyeona.amaizingunicornrecipes.Activity.EditSettings;
 import com.taeyeona.amaizingunicornrecipes.Activity.Favorites;
 import com.taeyeona.amaizingunicornrecipes.Activity.RecipeShow;
 import com.taeyeona.amaizingunicornrecipes.Auth;
@@ -100,5 +102,17 @@ public class ProfileFragment extends Fragment {
             });
 
         }
+
+
+        Button editProfile = (Button) getActivity().findViewById(R.id.editProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProfile = new Intent(getActivity(), EditSettings.class);
+                intentProfile.putExtra("Open", 1);
+
+                startActivity(intentProfile);
+            }
+        });
     }
 }
