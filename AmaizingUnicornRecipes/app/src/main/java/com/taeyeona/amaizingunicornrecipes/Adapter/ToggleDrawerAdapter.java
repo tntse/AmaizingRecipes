@@ -47,7 +47,7 @@ public class ToggleDrawerAdapter extends ArrayAdapter<String> implements View.On
         View theView = inflater.inflate(R.layout.profile_toggle_button_layout, parent, false);
         String settingName = getItem(position);
         TextView text = (TextView) theView.findViewById(R.id.toggle_text_layout);
-
+        text.setPadding(0,0,0,0);
         text.setText(settingName +  ":" );
         ToggleButton toggleButton = (ToggleButton) theView.findViewById(R.id.search_toggle_button);
         toggleButton.setChecked(sharedPreferences.getBoolean("Search" + settingName, false));

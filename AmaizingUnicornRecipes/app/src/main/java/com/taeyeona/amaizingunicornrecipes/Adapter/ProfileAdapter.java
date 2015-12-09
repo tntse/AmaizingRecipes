@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,8 +161,6 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
                              View setting_view, ViewGroup category_view) {
 
         String setting_name = (String)getChild(category, setting);
-        Log.d(ProfileAdapter.class.getSimpleName(), Integer.toString(category));
-        Log.d(ProfileAdapter.class.getSimpleName(), Integer.toString(setting)+setting_name);
         inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         String group = (String)getGroup(category);
 
@@ -200,7 +197,6 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
 
                 @Override
                 public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    Log.d("ProfileAdapter", textView.getText().toString());
                     String str = textView.getText().toString().trim();
                     if(str.equals("")){
                         editor.remove("Radius");
@@ -278,7 +274,6 @@ public class ProfileAdapter extends BaseExpandableListAdapter {
         public boolean onEditorAction(TextView textView, int code, KeyEvent keyEvent) {
             editor.putString(textView.getContentDescription().toString(), textView.getText().toString());
             editor.commit();
-            Log.d("ProfileAdapter", "Editor edits.");
             return true;
         }
     }

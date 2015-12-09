@@ -13,16 +13,17 @@
         android:id="@+id/progressBar"
         android:layout_gravity="center"
         android:indeterminate="false"
-        android:layout_alignTop="@+id/textView4"
+        android:layout_alignTop="@+id/no_search_results_found"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="165dp"
-        android:layout_height="126dp"
-        android:id="@+id/textView4"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_search_results_found"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_size"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"

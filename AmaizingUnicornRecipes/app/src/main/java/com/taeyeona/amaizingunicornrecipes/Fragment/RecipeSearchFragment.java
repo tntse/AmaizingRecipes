@@ -75,7 +75,7 @@ public class RecipeSearchFragment extends Fragment {
         //Made a progress bar to have the user wait for the recipe search to come back
         //Made a TextView to show if there's no list to come back
         progress = (ProgressBar) getActivity().findViewById(R.id.progressBar);
-        text = (TextView) getActivity().findViewById(R.id.textView4);
+        text = (TextView) getActivity().findViewById(R.id.no_search_results_found);
         //Made a JSONRequest object to do the request calling
         final JSONRequest jsonRequest = new JSONRequest();
 
