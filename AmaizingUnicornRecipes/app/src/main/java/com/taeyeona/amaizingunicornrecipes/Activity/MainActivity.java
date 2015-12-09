@@ -75,7 +75,7 @@ public  class MainActivity extends AppCompatActivity{
          * @author Benson
          */
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
-        navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.simple_list_item_1, navDrawerNames));
 
 
         navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {

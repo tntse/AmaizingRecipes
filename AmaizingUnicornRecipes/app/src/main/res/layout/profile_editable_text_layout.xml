@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/profile_textview"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textSize="@dimen/text_size"
         />
 
     <EditText
@@ -17,5 +18,6 @@
         android:id="@+id/profile_edittext"
         android:singleLine="true"
         android:focusable="true"
+        android:textSize="@dimen/text_size"
         />
 </LinearLayout>

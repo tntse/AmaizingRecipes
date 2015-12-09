@@ -67,7 +67,7 @@ public class EditFavoritesFragment extends Fragment {
         if(values.length == 1 && values[0].equals("")){
             values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
             emptyFavoritesFlag = true;
-            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
+            adapter = new ArrayAdapter<String>(getContext(), R.layout.simple_list_item_1, values);
             deleteFavorites.setVisibility(View.INVISIBLE);
         }else {
             adapter = new PantryListAdapter(getContext(), values);
