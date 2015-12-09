@@ -27,6 +27,7 @@ public class EditFavoritesFragment extends Fragment {
     private boolean emptyFavoritesFlag = false;
     private ArrayList<String> selected;
     private ListView favoritesList;
+    private Button deleteFavorites;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_edit_favorites, container, false);
@@ -40,7 +41,7 @@ public class EditFavoritesFragment extends Fragment {
 
         getFavoritesAndSetAdapter();
 
-        Button deleteFavorites = (Button)getActivity().findViewById(R.id.delete_favorites);
+        deleteFavorites = (Button)getActivity().findViewById(R.id.delete_favorites);
         deleteFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +65,10 @@ public class EditFavoritesFragment extends Fragment {
     private void getFavoritesAndSetAdapter(){
         values = favoritesData.getTitlesFromDB();
         if(values.length == 1 && values[0].equals("")){
-                values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
-                emptyFavoritesFlag = true;
-                adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
+            values[0] = "You currently do not have any favorites. Search for some recipes to add to your favorites!";
+            emptyFavoritesFlag = true;
+            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
+            deleteFavorites.setVisibility(View.INVISIBLE);
         }else {
             adapter = new PantryListAdapter(getContext(), values);
         }

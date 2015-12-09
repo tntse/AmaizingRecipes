@@ -110,6 +110,10 @@ public class RecipeSearchFragment extends Fragment {
             text.setText("You did not enter in any ingredients, please go back and enter in ingredients.");
 
         }else{
+            TextView titleText = (TextView) getActivity().findViewById(R.id.titleText);
+            TextView ratingText = (TextView) getActivity().findViewById(R.id.ratingText);
+            titleText.setText("Recipe Title");
+            ratingText.setText("Ratings");
             if (searchEdamam) {
                 String collection[] = ProfileHash.getSearchSettings();
                 for (int i = 0; i < collection.length; i++) {
@@ -117,12 +121,14 @@ public class RecipeSearchFragment extends Fragment {
                     if (checked) {
                         String currentSetting = collection[i].toString().toLowerCase();
                         if (i < 5) {
+                            if(currentSetting.equals("balanced diet"))
+                                currentSetting = "balanced";
                             diet.add(currentSetting);
                         } else {
                             if (currentSetting.equals("no-sugar")) {
                                 health.add("low-sugar");
                             } else {
-                                health.add(currentSetting);
+                                health.add(currentSetting.replace(" ", "-"));
                             }
                         }
                     }
