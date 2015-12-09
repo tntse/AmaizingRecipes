@@ -35,6 +35,7 @@ public class Splash extends Activity {
         iv.startAnimation(fadeIn);
         iv.startAnimation(rotation);
 
+
         /**
          * Spins the corn on the Splash page
          * @author Benson
@@ -48,9 +49,10 @@ public class Splash extends Activity {
                 kitty.start();
 //                iv.startAnimation(fadeIn);
                 finish();
-                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+                overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(i);
+
             }
 
             @Override

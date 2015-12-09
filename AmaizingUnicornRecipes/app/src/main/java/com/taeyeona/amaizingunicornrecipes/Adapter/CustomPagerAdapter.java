@@ -36,13 +36,9 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
                 ingre.setArguments(bundle);
                 return ingre;
             case 1:
-                try{
-                    Fragment instruct = new InstructionsFragment();
-                    instruct.setArguments(bundle);
-                    return instruct;
-                }catch(Exception e){
-
-        }
+                Fragment instruct = new InstructionsFragment();
+                instruct.setArguments(bundle);
+                return instruct;
             default:
                 Fragment nutri = new NutritionFragment();
                 nutri.setArguments(bundle);

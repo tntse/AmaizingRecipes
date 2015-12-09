@@ -52,7 +52,7 @@ public class RecipeShow extends AppCompatActivity{
         prefListView.setAdapter(new ToggleDrawerAdapter(this, prefListName));
 
         navDrawer = (ListView)findViewById(R.id.nav_drawer_left);
-        navDrawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerNames));
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.simple_list_item_1, navDrawerNames));
         navDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +86,6 @@ public class RecipeShow extends AppCompatActivity{
         bundle.putString("Title", getIntent().getStringExtra("Title"));
         bundle.putString("SourceName", getIntent().getStringExtra("SourceName"));
         bundle.putString("SourceUrl", getIntent().getStringExtra("SourceUrl"));
-        Log.d("RecipeShow", "SourceUrl: " + getIntent().getStringExtra("SourceUrl"));
         bundle.putString("Picture", getIntent().getStringExtra("Picture"));
 
         if(getIntent().getStringExtra("API").equals("Food2Fork")){
@@ -147,7 +146,10 @@ public class RecipeShow extends AppCompatActivity{
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                    finish();
+                    overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+
+
             }
         });
     }

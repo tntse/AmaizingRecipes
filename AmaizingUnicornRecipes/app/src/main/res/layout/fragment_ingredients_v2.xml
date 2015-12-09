@@ -78,7 +78,8 @@
         android:layout_below="@id/pic_text_div"
         android:layout_marginTop="4dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp"
+        android:textSize="@dimen/text_size"/>
 
     <View
         android:id="@+id/button_separator"
@@ -86,7 +87,8 @@
         android:layout_height="1dp"
         android:layout_below="@id/ingredients_list"
         android:layout_centerHorizontal="true"
-        android:background="#d2dfdb" />
+        android:background="#d2dfdb"
+        />
 
 
     <Button

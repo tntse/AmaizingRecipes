@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
             }
         }
 
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.simple_list_item_1, values);
         favoritesList.setAdapter(adapter);
 
         if(!emptyFavoritesFlag){

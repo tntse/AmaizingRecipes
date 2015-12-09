@@ -88,6 +88,8 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+
             }
         });
 
