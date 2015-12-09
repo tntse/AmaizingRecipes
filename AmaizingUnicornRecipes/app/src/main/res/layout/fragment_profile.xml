@@ -14,8 +14,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="208dp"
-        android:layout_toEndOf="@id/user_picture"
-        android:paddingEnd="8dp">
+        android:paddingEnd="8dp"
+        android:layout_above="@+id/favorites_title"
+        android:layout_toEndOf="@+id/user_picture"
+        android:id="@+id/relativeLayout">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,11 +40,12 @@
             android:layout_height="wrap_content"
             android:text="Edit Profile"
             android:id="@+id/editProfile"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/selector"
             android:singleLine="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:textColor="#ffffff" />
 
     </RelativeLayout>
     <TextView
