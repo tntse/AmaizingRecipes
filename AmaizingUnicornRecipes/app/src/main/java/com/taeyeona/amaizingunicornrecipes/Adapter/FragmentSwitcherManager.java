@@ -97,6 +97,9 @@ public class FragmentSwitcherManager implements View.OnClickListener, ViewPager.
         if(position == 2 && activity == 0){
             theViewPager.getAdapter().notifyDataSetChanged();
         }
+        if(position == 1 && activity == 0){
+            PantryListAdapter.clearList();
+        }
     }
 
     /**
