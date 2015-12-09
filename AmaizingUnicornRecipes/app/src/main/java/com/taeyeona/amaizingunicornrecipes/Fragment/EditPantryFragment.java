@@ -30,6 +30,7 @@ public class EditPantryFragment extends Fragment {
     private Set<String> manager;
     private PantryListAdapter pantryListAdapter;
     private ListView list;
+    private Button deleteSelected;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pantry, container, false);
@@ -70,7 +71,7 @@ public class EditPantryFragment extends Fragment {
             }
         });
 
-        Button deleteSelected = (Button) view.findViewById(R.id.pantry_left_button);
+        deleteSelected = (Button) view.findViewById(R.id.pantry_left_button);
         deleteSelected.setText(getString(R.string.delete_selected));
         deleteSelected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +96,11 @@ public class EditPantryFragment extends Fragment {
 
         if(manager.isEmpty()){
             list.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, emptyManager));
+            deleteSelected.setVisibility(View.INVISIBLE);
         }else {
             pantryListAdapter = new PantryListAdapter(getContext(), (String[]) manager.toArray());
             list.setAdapter(pantryListAdapter);
+            deleteSelected.setVisibility(View.VISIBLE);
         }
     }
 }
