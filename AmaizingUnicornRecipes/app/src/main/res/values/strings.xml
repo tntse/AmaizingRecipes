@@ -106,6 +106,7 @@ Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action
     <string name="enter_search_query">Enter Recipe Title</string>
     <string name="instruct_frag_default_text">This is your instructions fragment</string>
     <string name="empty_pantry">Your Pantry is empty, add some ingredients!</string>
+    <string name="hide_maps">Hide Maps</string>
 
 
 </resources>
