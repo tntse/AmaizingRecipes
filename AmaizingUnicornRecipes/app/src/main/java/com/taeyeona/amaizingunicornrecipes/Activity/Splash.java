@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.taeyeona.amaizingunicornrecipes.R;
 
 /**
@@ -22,11 +25,12 @@ public class Splash extends Activity {
         setContentView(R.layout.activity_splash);
 
         final ImageView iv = (ImageView) findViewById(R.id.splashImage);
-
+        final ImageView donutText = (ImageView) findViewById(R.id.corn_talk);
         final Animation fadeIn = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in);
         final Animation rotation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
 
         final MediaPlayer kitty = MediaPlayer.create(this, R.raw.kitty);
+
 
         /*start animation and override listeners for intent and additional functions
          *
@@ -34,6 +38,8 @@ public class Splash extends Activity {
 
         iv.startAnimation(fadeIn);
         iv.startAnimation(rotation);
+        donutText.setVisibility(View.VISIBLE);
+        donutText.setAnimation(fadeIn);
 
 
         /**
@@ -42,7 +48,9 @@ public class Splash extends Activity {
          */
         rotation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
