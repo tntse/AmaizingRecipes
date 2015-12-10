@@ -31,6 +31,7 @@ import java.util.Set;
  */
 public class PantryFragment extends Fragment {
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private ListView list;
     private EditText input;
     private PantryListAdapter pantryListAdapter;
@@ -107,10 +108,6 @@ public class PantryFragment extends Fragment {
         boolean isFirstRun = sharedPreferences.getBoolean("isFirstPantryRun", true);
 
         if (isFirstRun) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isFirstPantryRun", false);
-            editor.commit();
-
             tut_Image.setVisibility(View.VISIBLE);
             tut_swipe.setVisibility(View.VISIBLE);
             tut_check_items.setVisibility(View.VISIBLE);
@@ -120,6 +117,9 @@ public class PantryFragment extends Fragment {
             tut_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("isFirstPantryRun", false);
+                    editor.commit();
                     tut_button.setVisibility(View.INVISIBLE);
                     tut_check_items.setVisibility(View.INVISIBLE);
                     tut_swipe.setVisibility(View.INVISIBLE);
