@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -109,7 +108,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
         if (open) {
             open = false;
-            maps.setText(getString(R.string.go_back));
+            maps.setText(getString(R.string.hide_maps));
             showFragment();
         } else {
             open = true;
@@ -349,7 +348,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
                     }
                 } catch (JSONException e) {
-                    Log.d("Maps", e.getMessage().toString());
+                    Toast.makeText(MissingIngredients.this, "Sorry, we couldn't find any supermarkets or grocery stores.", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
