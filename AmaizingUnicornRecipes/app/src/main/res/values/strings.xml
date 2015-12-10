@@ -1,18 +1,9 @@
 <resources>
-    <string name="app_name">Amaizing Unicorn Recipes</string>
+    <string name="app_name">Amaizing Recipes</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="splash_Text">Donut not use for evil!</string>
-    <string name="error_player">ERROR!</string>
-    <string name="playerview_text">AWW YISS</string>
 
-
-    <string name="video_title">TITLE</string>
-    <string name="videoID">bs-2uVsKJr0</string>
-    <string name="vegetarian">Vegetarian:</string>
-    <string name="gluten_free">Gluten Free:</string>
-    <string name="vegan">Vegan:</string>
     <string name="search_settings">Search Settings:</string>
     <string name="default_name">Acorns Amaizing</string>
     <string name="default_email">ThisJokeIsCorny@example.com</string>
@@ -21,9 +12,40 @@
     <string name="user_info">User Info:</string>
     <string name="save_button">Save -></string>
 
-    <string name="updates">What\'s new and happening !
+    <string name="error_player">Error From Player</string>
+    <string name="find_missing_ingredients">Find Missing Ingredients</string>
+    <string name="video_tutorial">VIDEO TUTORIAL</string>
+    <string name="splash_title">Amaizing Recipes</string>
+
+    <string name="no_recipe_results">No results found, try changing your search settings.</string>
+    <string name="instructions_loading">Please wait while we round up your instructions...</string>
+    <string name="recipe_instructions_not_found">We\'re sorry, we could not find the instructions for this recipe. Please try another recipe.</string>
+
+    <string-array name="drawer_list">
+        <item>Profile</item>
+        <item>Pantry</item>>
+        <item>Search Recipe</item>
+        <item>Edit Favorites</item>
+        <item>Edit General Settings</item>
+        <item>Edit Pantry Items</item>
+        <item>Search Preferences</item>
+    </string-array>
+
+    <string-array name="preference_list">
+    <item>Preference</item>
+    <item>Preference</item>>
+    <item>Preference</item>
+    <item>Preference</item>
+    <item>Preference</item>
+    </string-array>
+
+    <string name="updates">What\'s new and happening!
         No idea.
     </string>
+
+    <string name="nutritional_info">Nutritional Information:</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="back_button">Back</string>
 
     <string name="eula">
        Amaizing Unicorn Recipes - Terms and conditions
@@ -64,6 +86,26 @@ No Refunds: Licensee warrants that he inspected The Software according to clause
 Indemnification: Licensee hereby warrants to hold Licensor harmless and indemnify Licensor for any lawsuit brought against it in regards to Licensee’s use of The Software in means that violate, breach or otherwise circumvent this license, Licensor\'s intellectual property rights or Licensor\'s title in The Software. Licensor shall promptly notify Licensee in case of such legal action and request Licensee’s consent prior to any settlement in relation to such lawsuit or claim.
 Governing Law, Jurisdiction: Licensee hereby agrees not to initiate class-action lawsuits against Licensor in relation to this license and to compensate Licensor for any legal fees, cost or attorney fees should any claim brought by Licensee against Licensor be denied, in part or in full.
     </string>
+    <string name="favorites_title">Favorite Recipes:</string>
+    <string name="add_button_string">ADD</string>
+    <string name="delete_button_string">DELETE</string>
+    <string name="pantry">Pantry</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="delete_selected">Delete Selected</string>
+    <string name="enter_ingre_name">Enter Ingredient Name</string>
+    <string name="add_ingre">Add Item</string>
+    <string name="find_stores">Find Grocery Stores</string>
+    <string name="missing_ingre">Missing Ingredients</string>
+    <string name="go_back">Go Back</string>
+    <string name="settings">Settings</string>
+    <string name="search_for_recipe"><![CDATA[Search Recipe ->]]></string>
+    <string name="edit_ingredients">Edit Ingredients</string>
+    <string name="enter_search_query">Enter Recipe Title</string>
+    <string name="instruct_frag_default_text">This is your instructions fragment</string>
+    <string name="empty_pantry">Your Pantry is empty, add some ingredients!</string>
 
 
 </resources>

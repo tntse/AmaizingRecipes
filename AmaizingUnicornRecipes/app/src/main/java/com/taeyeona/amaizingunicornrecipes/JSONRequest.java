@@ -3,7 +3,6 @@ package com.taeyeona.amaizingunicornrecipes;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,22 +15,16 @@ import org.json.JSONObject;
  * Created by Chau on 10/17/2015.
  */
 public class  JSONRequest {
-
-    private static final String TAG = JSONRequest.class.getSimpleName();
     private JSONObject jsRequest;
     private String URL;
 
-    public JSONRequest(){
-    }
-
-    //https://api.edamam.com/search?from=0&to=1&q=chicken&app_id=4f2b1b73&app_key=bb6d714aa9393e1e22555b633eee4de4
-    //http://food2fork.com/api/search?key={API_KEY}&q=shredded%20chicken
-    //https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=cute+cats&key=AIzaSyA6Gt5_Mxs9U9GZ3jo0m3HZdzdW4dmDafI
+    public JSONRequest(){}
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void createResponse(String baseUrl, String keyStr, String appKey, String idStr, String appId,
                                String q, String radiusValue, String part, String maxResults, String from, String to,
-                               String typesValue, String sensorValue, String location, Double lat, Double lng){
+                               String typesValue, String sensorValue, String location, Double lat, Double lng,
+                               String recipeID, String[] health, String[] diet){
         /**
          *  Builds the URL which will make the GET request for an api call.
          *
@@ -52,6 +45,24 @@ public class  JSONRequest {
          *              Can be null.
          *  @param to The ending index of the desired results to be returned.
          *            Can be null.
+         *  @param typesValue Something something
+         *                    Can be null.
+         *  @param sensorValue Something something
+         *                     Can be null.
+         *  @param location Something something.
+         *                  Can be null.
+         *  @param lat Something something
+         *             Can be 0.0.
+         *  @param lng Something something
+         *             Can be 0.0
+         *  @param recipeID The ID for a recipe, from Food2Fork API
+         *                  Can be null.
+         *
+         *  @param health An array of strings holding health labels to be used
+         *                to filter recipe results
+         *
+         *  @param diet An array of strings holding diet labels to be used
+         *              to filter recipe results
          *
          */
 
@@ -101,11 +112,35 @@ public class  JSONRequest {
             URL += Auth.CHAR_AND + location + Auth.CHAR_EQUALS + lat + "," + lng;
         }
 
-        Log.d(TAG, "URL = " + URL);
+        if(recipeID != null && recipeID != ""){
+            URL += Auth.CHAR_AND + "rId" + Auth.CHAR_EQUALS + recipeID;
+        }
+
+        if(baseUrl == "https://api.edamam.com/search" && recipeID != ""){
+            URL += Auth.CHAR_AND + "r" + Auth.CHAR_EQUALS + recipeID;
+        }
+
+        if(health != null && health.length > 0){
+            for(int i = 0; i < health.length; i++){
+                URL += Auth.CHAR_AND + "health" + Auth.CHAR_EQUALS + health[i];
+            }
+        }
+
+        if(diet != null && diet.length > 0){
+            for(int i = 0; i < diet.length; i++){
+                URL += Auth.CHAR_AND + "diet" + Auth.CHAR_EQUALS + diet[i];
+            }
+        }
+
     }
 
-    public void sendResponse(Context pContext){
-
+    /**
+     * Sends the call to the API
+     *
+     * @param pContext The Context object from the activity that called this method
+     *
+     */
+    public void sendResponse(Context pContext, final VolleyCallBack volleyCallBack){
         JsonObjectRequest jsObjectReq = new JsonObjectRequest(
                 Request.Method.GET,
                 URL,
@@ -115,15 +150,14 @@ public class  JSONRequest {
                     @Override
                     public void onResponse(JSONObject response) {
                         jsRequest = (JSONObject) response;
-                        Log.d(TAG, "response: " + response.toString());
-                        Log.d(TAG, "jsRequest: " + jsRequest.toString());
+                        volleyCallBack.onSuccess();
                     }
 
                 }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "ERR" + error.getMessage());
+                volleyCallBack.onFailure();
             }
         }
         );
@@ -131,8 +165,19 @@ public class  JSONRequest {
         VolleySingleton.getInstance(pContext).addToRequestQueue(jsObjectReq);
     }
 
+    /**
+     * @return the JSONObject response from the API
+     */
     public JSONObject getResponse(){
         return jsRequest;
+    }
+
+    /**
+     * VolleyCallBack interface is used to get the success or failure of the network call
+     */
+    public interface VolleyCallBack{
+        void onSuccess();
+        void onFailure();
     }
 
 }

@@ -14,14 +14,18 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by Chau on 9/27/2015.
  */
+
+/**
+ * VolleySingleton class to queue network calls that use volley.
+ *
+ * Used from https://developer.android.com/training/volley/requestqueue.html
+ */
 public class VolleySingleton {
     private static VolleySingleton mRequest;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
-
-    
     @TargetApi(12)
     private VolleySingleton(Context context) {
         mCtx = context;
@@ -45,6 +49,11 @@ public class VolleySingleton {
                 });
     }
 
+    /**
+     *
+     * @param context The context from the fragment/activity that called this method
+     * @return The Singleton
+     */
     public static synchronized VolleySingleton getInstance(Context context) {
         if (mRequest == null) {
             mRequest = new VolleySingleton(context);
@@ -52,6 +61,10 @@ public class VolleySingleton {
         return mRequest;
     }
 
+    /**
+     *
+     * @return The request queue to enqueue in the tasks
+     */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
@@ -61,13 +74,20 @@ public class VolleySingleton {
         return mRequestQueue;
     }
 
+    /**
+     *
+     * @param req The request, with a generic typing, to do the task
+     * @param <T> A generic type to allow adding in different types of requests
+     */
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }
 
+    /**
+     *
+     * @return The ImageLoader
+     */
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
-
-
 }

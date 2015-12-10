@@ -1,5 +1,9 @@
 package com.taeyeona.amaizingunicornrecipes;
 
+import android.content.Context;
+
+import com.taeyeona.amaizingunicornrecipes.Activity.dbHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,14 @@ public class Recipes {
     private Double socialRank;
     private String publisherUrl;
     private List<String> ingredients;
+    private List<String> nutrients;
+    private int[] dailyTotals;
+    private String nutrient;
+    private long id;
+    private dbHandler handler;
+    private String api;
+    private String ingredientList;
+    private int servings = 1;
 
     public Recipes(){
     }
@@ -32,6 +44,40 @@ public class Recipes {
         socialRank = Math.floor(rank * 100) / 100;
         publisherUrl = pubUrl;
         ingredients = new ArrayList<String>();
+        nutrients = new ArrayList<String>();
+    }
+
+    public Recipes(Context context) {
+        handler = new dbHandler(context);
+    }
+
+    public Recipes(String[] dataFieldsToSet){
+        setId(Long.parseLong(dataFieldsToSet[0]));
+        setTitle(dataFieldsToSet[1]);
+        setImageUrl(dataFieldsToSet[2]);
+        setIngredientList(dataFieldsToSet[3]);
+        setNutrients(dataFieldsToSet[4]);
+        setRecipeId(dataFieldsToSet[5]);
+        setPublisher(dataFieldsToSet[6]);
+        setSourceUrl(dataFieldsToSet[7]);
+        setApi(dataFieldsToSet[8]);
+        setDailyTotals(dataFieldsToSet[9]);
+    }
+
+    /**
+     * Getter for id
+     * @return long id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * Setter for id
+     * @param id
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -104,12 +150,72 @@ public class Recipes {
         this.recipeId = recipeId;
     }
 
+    /**
+     *
+     * @return The list of ingredients as a List<String>
+     */
     public List<String> getIngredients(){
         return ingredients;
     }
 
+    /**
+     *
+     * @param ingredient The ingredients to be added into the List<Sring>
+     */
+
     public void setIngredients(String ingredient){
         ingredients.add(ingredient);
+    }
+
+    /**
+     *
+     * @return The list of nutrients as a List<String>
+     */
+
+    public List<String> getNutrients(){
+        return nutrients;
+    }
+
+    /**
+     *
+     * @param nutrient The nutrient to be added into the List<String>
+     */
+
+    public void setNutrientList(String nutrient){
+        nutrients.add(nutrient);
+    }
+
+    /**
+     *
+     * @param nutrients The list of nutrients as a string
+     */
+
+    public void setNutrients(String nutrients){
+        this.nutrient = nutrients;
+    }
+
+    /**
+     *
+     * @return The String Array converted from the nutrient string
+     */
+    public String[] getNutrientsArray() {
+        return convertStringToArray(nutrient);
+    }
+
+    /**
+     *
+     * @return The String Array converted from the ingredientList string
+     */
+    public String[] getIngredientList() {
+        return convertStringToArray(ingredientList);
+    }
+
+    /**
+     *
+     * @param ingredientList The list of ingredients in the format of a string
+     */
+    public void setIngredientList(String ingredientList) {
+        this.ingredientList = ingredientList;
     }
 
     /**
@@ -154,4 +260,99 @@ public class Recipes {
         this.publisherUrl = publisherUrl;
     }
 
+    /**
+     * @return The amount of servings that the recipe yields
+     */
+
+    public int getServings(){ return servings; }
+
+    /**
+     * @param serves The amount of servings that the recipe yields
+     */
+
+    public void setServings(int serves){ this.servings = serves; }
+
+    /**
+     * @return The percent daily values for the recipe
+     */
+
+    public int[] getDailyTotals() {
+        return dailyTotals;
+    }
+
+    /**
+     *
+     * @param dailyTotals The percent daily values for the recipe
+     */
+
+    public void setDailyTotals(int[] dailyTotals) {
+        this.dailyTotals = dailyTotals;
+    }
+
+    /**
+     *
+     * @param dailyTotals The percent daily values for the recipe
+     */
+
+    public void setDailyTotals(String dailyTotals) {
+        if(this.api.equals("Food2Fork"))
+            return;
+        String[] totalList = dailyTotals.split(",");
+        if(this.dailyTotals == null)
+            this.dailyTotals = new int[totalList.length];
+        for(int i = 0; i < totalList.length; i++)
+            this.dailyTotals[i] = Integer.valueOf(totalList[i]);
+    }
+
+    /**
+     * Getter for handler instance
+     * @return dbHandler handler
+     */
+    public dbHandler getHandler() {
+        return handler;
+    }
+
+    /**
+     *
+     * @param handler The database handler
+     */
+    public void setHandler(dbHandler handler) {
+        this.handler = handler;
+    }
+
+    /**
+     *
+     * @return The API used to get the recipe
+     */
+    public String getApi() {
+        return api;
+    }
+
+    /**
+     *
+     * @param api The api used to get the recipe
+     */
+    public void setApi(String api) {
+        this.api = api;
+    }
+
+    /**
+     * Used by Favorites to display as ListView
+     * @return String title
+     */
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    /**
+     *
+     * @param str Either the ingredients or nutrients string
+     * @return The String array converted from the string parameter
+     */
+    public static String[] convertStringToArray(String str) {
+        String strSeparator = ",";
+        String[] arr = str.split(strSeparator);
+        return arr;
+    }
 }

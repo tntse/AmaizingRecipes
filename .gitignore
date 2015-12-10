@@ -39,3 +39,9 @@ proguard/
 /.idea/*
 AmaizingUnicornRecipes/app/src/main/java/com/taeyeona/amaizingunicornrecipes/JSONParse.java
 Instaface_Toy_App/*
+
+AmaizingUnicornRecipes/.idea/gradle.xml
+AmaizingUnicornRecipes/.idea/misc.xml
+AmaizingUnicornRecipes/.idea/vcs.xml
+AmaizingUnicornRecipes/app/app.iml
+

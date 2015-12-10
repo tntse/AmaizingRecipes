@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:id="@+id/missing_top_bar"
+        android:paddingBottom="8dp">
+        <LinearLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:orientation="vertical"
+            android:layout_margin="4dp"
+            android:weightSum="1.0"
+            android:id="@+id/missing_ingre_back_field">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".25"
+                android:text="@string/go_back"
+                android:gravity="center"
+                android:textColor="#FFFFFF"/>
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/missing_ingre_back"
+                android:layout_weight="0.7"
+                android:background="@drawable/pizza" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:padding="4dp"
+            android:orientation="horizontal"
+            android:layout_toEndOf="@id/missing_ingre_back_field">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing_ingre"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:id="@+id/main_title_text"
+                />
+        </LinearLayout>
+        <View
+            android:id="@+id/missing_top_bar_div"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/missing_ingre_back_field"
+            android:background="#d2dfdb" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_stores"
+        android:id="@+id/find_store_button"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        />
+    <View
+        android:id="@+id/missing_grocery_div"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/find_store_button"
+        android:background="#d2dfdb" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/missing_top_bar"
+        android:layout_above="@id/missing_grocery_div"
+        android:id="@+id/missing_ingre_list"
+        android:layout_alignParentStart="true"
+        android:scrollbars="vertical"
+        android:layout_margin="4dp"
+        />
+
+    <FrameLayout
+        android:id="@+id/maps_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/missing_grocery_div"
+        android:layout_below="@id/missing_top_bar"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+
+
+</RelativeLayout>
