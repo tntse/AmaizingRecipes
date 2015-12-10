@@ -29,9 +29,9 @@ public class PlayerFragment extends YouTubePlayerSupportFragment implements YouT
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
-        st = getActivity().getIntent().getStringExtra("Title");
+        st = getActivity().getIntent().getStringExtra("Title").trim();
         st = st.replaceAll(" ","+");
-        st=st+"cooking+tutorial";
+        st = "how+to+make+" + st;
 
         //parse data with passed string
         //Crated JSONrequest
