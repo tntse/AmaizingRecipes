@@ -47,10 +47,10 @@ import java.util.Set;
  */
 public class MissingIngredients extends AppCompatActivity implements LocationUpdate.LocationCallback, View.OnClickListener{
     private Button maps;
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private LocationUpdate mLocationProvider;
+    private GoogleMap googleMap; // Might be null if Google Play services APK is not available.
+    private LocationUpdate locationProvider;
     private LocationManager locationManager;
-    private Fragment maps_frag;
+    private Fragment mapsFragment;
     private boolean open = true;
     private boolean firstOpen = true;
     private SharedPreferences sharedPreferences;
@@ -60,7 +60,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_missing_ingredients);
 
-        mLocationProvider = new LocationUpdate(this, this);
+        locationProvider = new LocationUpdate(this, this);
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
         sharedPreferences = this.getSharedPreferences(Auth.SHARED_PREFS_KEY, Context.MODE_PRIVATE);
@@ -101,7 +101,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     public void onClick(View v) {
 
         if (firstOpen) {
-            maps_frag = SupportMapFragment.newInstance();
+            mapsFragment = SupportMapFragment.newInstance();
             addFragment();
             firstOpen = false;
         }
@@ -128,7 +128,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     public void showFragment(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
-        transaction.show(maps_frag);
+        transaction.show(mapsFragment);
         transaction.commit();
 
     }
@@ -145,7 +145,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         //the underfragment enters,exit
         transaction.setCustomAnimations(R.anim.slide_top_in, R.anim.slide_top_out);//works
 
-        transaction.hide(maps_frag);
+        transaction.hide(mapsFragment);
         // Commit the transaction
         transaction.commit();
     }
@@ -163,7 +163,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
         transaction.setCustomAnimations(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
 
-        transaction.add(R.id.maps_fragment_holder, maps_frag, "newMap");
+        transaction.add(R.id.maps_fragment_holder, mapsFragment, "newMap");
         transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
@@ -185,7 +185,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
             }
         }
-        mLocationProvider.connect();
+        locationProvider.connect();
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -226,7 +226,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
+     * call {@link #setUpMap()} once when {@link #googleMap} is not null.
      * <p>
      * If it isn't installed {@link SupportMapFragment} (and
      * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
@@ -240,17 +240,17 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
      */
     private void setUpMapIfNeeded() throws JSONException {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (googleMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            ((SupportMapFragment)maps_frag).getMapAsync(new OnMapReadyCallback() {
+            ((SupportMapFragment)mapsFragment).getMapAsync(new OnMapReadyCallback() {
                 @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    mMap = googleMap;
+                public void onMapReady(GoogleMap gMap) {
+                    googleMap = gMap;
                 }
             });
         }
         // Check if we were successful in obtaining the map.
-        if (mMap != null) {
+        if (googleMap != null) {
             setUpMap();
         }
     }
@@ -259,14 +259,14 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
      * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
+     * This should only be called once and when we are sure that {@link #googleMap} is not null.
      */
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void setUpMap() throws JSONException {
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.moveCamera(CameraUpdateFactory
                 .newLatLngZoom(new LatLng(37.76, -122.44), 8.0f));
     }
 
@@ -276,13 +276,13 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     @Override
     protected void onResume() {
         super.onResume();
-        if(mLocationProvider != null && maps_frag != null){
+        if(locationProvider != null && mapsFragment != null){
             try{
                 setUpMapIfNeeded();
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Sorry, we could not load your map", Toast.LENGTH_LONG).show();
             }
-            mLocationProvider.connect();
+            locationProvider.connect();
         }
 
     }
@@ -293,8 +293,8 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     @Override
     protected void onPause() {
         super.onPause();
-        if(mLocationProvider != null)
-            mLocationProvider.disconnect();
+        if(locationProvider != null)
+            locationProvider.disconnect();
     }
 
     /**
@@ -314,11 +314,11 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(latLng)
                 .title("You Are Here");
-        mMap.addMarker(options);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.addMarker(options);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.setMyLocationEnabled(true);
 
         final JSONRequest jsonRequest = new JSONRequest();
 
@@ -340,7 +340,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                         JSONObject jsonObject = arr.getJSONObject(i);
                         JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
 
-                        mMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
+                        googleMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
                                 .snippet(jsonObject.getString("vicinity"))
                                 .position(new LatLng(
                                         jsonLocation.getDouble("lat"),

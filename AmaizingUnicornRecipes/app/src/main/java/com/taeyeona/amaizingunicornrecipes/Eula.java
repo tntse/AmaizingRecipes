@@ -17,16 +17,16 @@ import android.preference.PreferenceManager;
 public class Eula {
 
     private String EULA_PREFIX = "eula_";
-    private Activity mActivity;
+    private Activity activity;
 
     public Eula(Activity context) {
-        mActivity = context;
+        activity = context;
     }
 
     private PackageInfo getPackageInfo() {
         PackageInfo pi = null;
         try {
-            pi = mActivity.getPackageManager().getPackageInfo(mActivity.getPackageName(), PackageManager.GET_ACTIVITIES);
+            pi = activity.getPackageManager().getPackageInfo(activity.getPackageName(), PackageManager.GET_ACTIVITIES);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -44,17 +44,17 @@ public class Eula {
 
         // the eulaKey changes every time you increment the version number in the AndroidManifest.xml
         final String eulaKey = EULA_PREFIX + versionInfo.versionCode;
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mActivity);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean hasBeenShown = prefs.getBoolean(eulaKey, false);
         if(hasBeenShown == false){
 
             // Show the Eula. versionName
-            String title = mActivity.getString(R.string.app_name) + " v" + versionInfo.versionName;
+            String title = activity.getString(R.string.app_name) + " v" + versionInfo.versionName;
 
 
-            String message = mActivity.getString(R.string.updates) + "\n\n" + mActivity.getString(R.string.eula);
+            String message = activity.getString(R.string.updates) + "\n\n" + activity.getString(R.string.eula);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                     .setTitle(title)
                     .setMessage(message)
                     .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener() {
@@ -73,7 +73,7 @@ public class Eula {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // Close the activity as they have declined the EULA
-                            mActivity.finish();
+                            activity.finish();
                         }
 
                     });

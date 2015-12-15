@@ -43,7 +43,7 @@ public class EditSettings extends AppCompatActivity {
 
     private ListView navDrawer;
 
-    private ViewPager mViewPager;
+    private ViewPager viewPager;
     private FragmentSwitcherManager fragSwitcher;
     private Bundle bun;
 
@@ -149,7 +149,7 @@ public class EditSettings extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        bun.putInt("Current", mViewPager.getCurrentItem());
+        bun.putInt("Current", viewPager.getCurrentItem());
     }
 
     /**
@@ -157,11 +157,11 @@ public class EditSettings extends AppCompatActivity {
      */
     private void loadAdapters(){
         EditSettingsAdapter editSettingsAdapter = new EditSettingsAdapter(getSupportFragmentManager(), bun);
-        mViewPager = (ViewPager) findViewById(R.id.main_pages);
-        mViewPager.setAdapter(editSettingsAdapter);
+        viewPager = (ViewPager) findViewById(R.id.main_pages);
+        viewPager.setAdapter(editSettingsAdapter);
 
         if(fragSwitcher == null){
-            fragSwitcher = new FragmentSwitcherManager(mViewPager, 1);
+            fragSwitcher = new FragmentSwitcherManager(viewPager, 1);
 
             Button button;
             View view;
@@ -182,7 +182,7 @@ public class EditSettings extends AppCompatActivity {
             fragSwitcher.add(button, view);
 
         }else{
-            fragSwitcher.setViewPager(mViewPager);
+            fragSwitcher.setViewPager(viewPager);
         }
         fragSwitcher.setPage(bun.getInt("Current"));
     }

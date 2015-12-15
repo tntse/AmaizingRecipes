@@ -37,10 +37,10 @@ public class PantryFragment extends Fragment {
     private PantryListAdapter pantryListAdapter;
     private TextView nullText;
 
-    private TextView tut_swipe;
-    private TextView tut_check_items;
-    private Button tut_button;
-    private ImageView tut_Image;
+    private TextView tutSwipe;
+    private TextView tutCheckItems;
+    private Button tutButton;
+    private ImageView tutImage;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -100,30 +100,30 @@ public class PantryFragment extends Fragment {
             }
         });
 
-        tut_swipe = (TextView)view.findViewById(R.id.tutorial_swipe_to_search);
-        tut_check_items = (TextView)view.findViewById(R.id.tutorial_check_items);
-        tut_button = (Button)view.findViewById(R.id.tutorial_got_it);
-        tut_Image = (ImageView)view.findViewById(R.id.tutorial_swipe_image);
+        tutSwipe = (TextView)view.findViewById(R.id.tutorial_swipe_to_search);
+        tutCheckItems = (TextView)view.findViewById(R.id.tutorial_check_items);
+        tutButton = (Button)view.findViewById(R.id.tutorial_got_it);
+        tutImage = (ImageView)view.findViewById(R.id.tutorial_swipe_image);
 
         boolean isFirstRun = sharedPreferences.getBoolean("isFirstPantryRun", true);
 
         if (isFirstRun) {
-            tut_Image.setVisibility(View.VISIBLE);
-            tut_swipe.setVisibility(View.VISIBLE);
-            tut_check_items.setVisibility(View.VISIBLE);
-            tut_button.setVisibility(View.VISIBLE);
+            tutImage.setVisibility(View.VISIBLE);
+            tutSwipe.setVisibility(View.VISIBLE);
+            tutCheckItems.setVisibility(View.VISIBLE);
+            tutButton.setVisibility(View.VISIBLE);
             nullText.setVisibility(View.INVISIBLE);
 
-            tut_button.setOnClickListener(new View.OnClickListener() {
+            tutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     editor = sharedPreferences.edit();
                     editor.putBoolean("isFirstPantryRun", false);
                     editor.commit();
-                    tut_button.setVisibility(View.INVISIBLE);
-                    tut_check_items.setVisibility(View.INVISIBLE);
-                    tut_swipe.setVisibility(View.INVISIBLE);
-                    tut_Image.setVisibility(View.INVISIBLE);
+                    tutButton.setVisibility(View.INVISIBLE);
+                    tutCheckItems.setVisibility(View.INVISIBLE);
+                    tutSwipe.setVisibility(View.INVISIBLE);
+                    tutImage.setVisibility(View.INVISIBLE);
                     nullText.setVisibility(View.VISIBLE);
                 }
             });

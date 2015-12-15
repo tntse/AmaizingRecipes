@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 /**
- * RecipeAdapter class populates RecyclerView with templates of ViewHolderRecipes
+ * <h>RecipeAdapter class populates RecyclerView with templates of ViewHolderRecipes</h>
  *
  * Cited from https://www.youtube.com/watch?v=I2eYBtLWGzc and https://developer.android.com/training/material/lists-cards.html
  */
@@ -42,6 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
+     * <p>Inflates the entire recycler view layout</p>
      *
      * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position
      * @param viewType The view type of the new View.
@@ -61,6 +62,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
+     * <p>Binds a single object from the list to the template layout</p>
      *
      * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
@@ -85,6 +87,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
+     * <p>Gets the size of the list</p>
      *
      * @return Returns the total number of items in the data set hold by the adapter.
      */
@@ -94,6 +97,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
+     * <p>Sets the list to populate the recycler view</p>
      *
      * @param l The list of recipes
      */
@@ -103,6 +107,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
+     * <p>Sets the custom listener to listen to touches made on the screen</p>
      *
      * @param itemClickListener Listener to allow each item to know it's being clicked on
      */
@@ -111,7 +116,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
-     * ViewHolderRecipes class sets up one Recipe of the list for RecyclerView
+     * <h>ViewHolderRecipes class sets up one Recipe of the list for RecyclerView</h>
      */
     public static class ViewHolderRecipes extends RecyclerView.ViewHolder{
         private ImageView thumbnail;
@@ -127,7 +132,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     /**
-     * CustomItemClickListener interface is an interface to know when the item is clicked on
+     * <h>CustomItemClickListener interface is an interface to know when the item is clicked on</h>
      */
     public interface CustomItemClickListener {
         public void onItemClick(View v, int position);
