@@ -21,17 +21,17 @@ import com.android.volley.toolbox.Volley;
  * Used from https://developer.android.com/training/volley/requestqueue.html
  */
 public class VolleySingleton {
-    private static VolleySingleton mRequest;
-    private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
-    private static Context mCtx;
+    private static VolleySingleton volleyRequest;
+    private RequestQueue volleyRequestQueue;
+    private ImageLoader volleyImageLoader;
+    private static Context context;
 
     @TargetApi(12)
     private VolleySingleton(Context context) {
-        mCtx = context;
-        mRequestQueue = getRequestQueue();
+        this.context = context;
+        volleyRequestQueue = getRequestQueue();
 
-        mImageLoader = new ImageLoader(mRequestQueue,
+        volleyImageLoader = new ImageLoader(volleyRequestQueue,
                 new ImageLoader.ImageCache() {
                     private final LruCache<String, Bitmap>
                             cache = new LruCache<String, Bitmap>(20);
@@ -55,10 +55,10 @@ public class VolleySingleton {
      * @return The Singleton
      */
     public static synchronized VolleySingleton getInstance(Context context) {
-        if (mRequest == null) {
-            mRequest = new VolleySingleton(context);
+        if (volleyRequest == null) {
+            volleyRequest = new VolleySingleton(context);
         }
-        return mRequest;
+        return volleyRequest;
     }
 
     /**
@@ -66,12 +66,12 @@ public class VolleySingleton {
      * @return The request queue to enqueue in the tasks
      */
     public RequestQueue getRequestQueue() {
-        if (mRequestQueue == null) {
+        if (volleyRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+            volleyRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
         }
-        return mRequestQueue;
+        return volleyRequestQueue;
     }
 
     /**
@@ -88,6 +88,6 @@ public class VolleySingleton {
      * @return The ImageLoader
      */
     public ImageLoader getImageLoader() {
-        return mImageLoader;
+        return volleyImageLoader;
     }
 }
