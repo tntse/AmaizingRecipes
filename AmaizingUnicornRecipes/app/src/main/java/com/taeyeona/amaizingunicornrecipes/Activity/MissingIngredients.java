@@ -55,11 +55,16 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     private boolean firstOpen = true;
     private SharedPreferences sharedPreferences;
 
+    /**
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_missing_ingredients);
 
+        //get user location
         locationProvider = new LocationUpdate(this, this);
 
         String ingredients = this.getIntent().getStringExtra("Ingredients");
@@ -79,6 +84,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
         theListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, missingIngredients));
 
+        //create a button to go to the map
         maps = (Button) findViewById(R.id.find_store_button);
         maps.setOnClickListener(this);
 
@@ -152,7 +158,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
 
 
     /**
-     * The fragment containing YouTube player , works with a slide in animation when
+     * The fragment containing Google maps , works with a slide in animation when
      * the fragment is added (overlays) the current layout
      *
      * @author HaoXian
@@ -202,6 +208,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         final Context contextGPS = getApplicationContext();
         final CharSequence GPSText = "Grocery stores will not load without GPS enabled. Please enable GPS to find stores.";
 
+        //check for GPS. If the user wants to turn it on, go to settings
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
                 .setCancelable(false)
@@ -256,14 +263,17 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
     }
 
     /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
+     * This is where we can add markers or lines, add listeners or move the camera.
      * This should only be called once and when we are sure that {@link #googleMap} is not null.
      */
 
+    /**
+     *
+     * @throws JSONException
+     */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void setUpMap() throws JSONException {
+        //shows zoom and gps options on map, moves to new set location
         googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.moveCamera(CameraUpdateFactory
@@ -302,14 +312,17 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
      * @param location
      */
     public void newLocation(Location location) {
+        //finds user location
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
 
         Double lat = currentLatitude;
         Double lng = currentLongitude;
 
+        //creates new latlng based off users location
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
+        //adds blue marker to show where the user is
         MarkerOptions options = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(latLng)
@@ -320,6 +333,7 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setMyLocationEnabled(true);
 
+        //creates JSONrequest
         final JSONRequest jsonRequest = new JSONRequest();
 
         String radius = sharedPreferences.getString("Radius", Auth.RADIUS);
@@ -334,12 +348,14 @@ public class MissingIngredients extends AppCompatActivity implements LocationUpd
                 JSONObject response = jsonRequest.getResponse();
 
                 try {
+                    //load the JSON results, find lat lng of each result.
                     JSONArray arr = response.getJSONArray("results");
                     int numResults = (arr.length()<15)?arr.length():15;
                     for (int i = 0; i < numResults; i++) {
                         JSONObject jsonObject = arr.getJSONObject(i);
                         JSONObject jsonLocation = jsonObject.getJSONObject("geometry").getJSONObject("location");
 
+                        //add a new marker for each result based off found lat lng
                         googleMap.addMarker(new MarkerOptions().title(jsonObject.getString("name"))
                                 .snippet(jsonObject.getString("vicinity"))
                                 .position(new LatLng(
