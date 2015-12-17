@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 public class PlayerFragment extends YouTubePlayerSupportFragment implements YouTubePlayer.OnInitializedListener {
 
-    final private String mVideoId = "xhUoBKhPq14";
     private String vid;
     private StringBuilder titleList = new StringBuilder();
     private String st;

@@ -45,11 +45,23 @@ public class IngredientsFragment extends Fragment {
     public static final int MEDIA_TYPE_VIDEO = 2;
     private Uri fileURI;
 
+    /**
+     *
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return inflater with view set to layout fragment_ingredients_v2
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_ingredients_v2, container, false);
     }
 
+    /**
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -135,6 +147,8 @@ public class IngredientsFragment extends Fragment {
 
             }
         });
+
+        //create new button, will be used to share recipes
         Button sharingButton = (Button) getActivity().findViewById(R.id.sharing1);
         sharingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,11 +157,16 @@ public class IngredientsFragment extends Fragment {
             }
         });
 
+        //set image of button
         sharingButton.setBackgroundResource(R.drawable.ic_action_share_dark);
 
     }
 
+    /**
+     *
+     */
     private void selectImage(){
+        //options for popup upon clicking button
         final CharSequence[] items = {"Share Photo", "Share Recipe", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Choose how you would like to share your recipe");
@@ -155,10 +174,13 @@ public class IngredientsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (items[which].equals("Share Photo")) {
+                    //share the photo
                     imageShare();
                 } else if (items[which].equals("Share Recipe")) {
+                    //share the recipe
                     shareRecipe();
                 } else if (items[which].equals("Cancel")) {
+                    //close the dialog box
                     dialog.dismiss();
                 }
             }
@@ -167,40 +189,70 @@ public class IngredientsFragment extends Fragment {
     }
 
 
+    /**
+     *
+     */
     private void shareRecipe(){
+        //create an intent and set it to share a data type of text
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
 
+        //set the text to be shared to the recipe
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Recipe");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, getActivity().getIntent().getExtras().getString("Title"));
 
+        //open the popup with choices of apps to share with
         startActivity(Intent.createChooser(sharingIntent, "Share recipe via"));
     }
 
+    /**
+     *
+     */
     private void shareImage(){
+        //create an intent and set it to share images
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("image/*");
 
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Recipe: " + getActivity().getIntent().getExtras().getString("Title"));
+        //set the image to be shared the image the user took, add a title of the recipe name
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Recipe: " +
+                getActivity().getIntent().getExtras().getString("Title"));
         sharingIntent.putExtra(Intent.EXTRA_STREAM, fileURI);
 
+        //open the popup with choices of apps to share with
         startActivity(Intent.createChooser(sharingIntent, "Share photo via"));
     }
 
+    /**
+     *
+     */
     private void imageShare(){
+        //create intent to take a picture
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+        //set stored media type to image, store in desired name
         fileURI = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileURI);
 
+        //open the camera
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
+    /**
+     *
+     * @param type int
+     * @return Uri
+     */
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
+    /**
+     *
+     * @param type int
+     * @return mediaFile
+     */
     private static File getOutputMediaFile(int type){
+        //check for and create directory to store photo in
         File mediaStorageDir = new File(Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                 "Amaizing Unicorn");
@@ -211,6 +263,7 @@ public class IngredientsFragment extends Fragment {
             }
         }
 
+        //sets name of photo to IMG and the time and date the picture was taken
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
         if(type == MEDIA_TYPE_IMAGE){
@@ -225,14 +278,20 @@ public class IngredientsFragment extends Fragment {
         return mediaFile;
     }
 
+    /**
+     *
+     * @param requestCode int
+     * @param resultCode int
+     * @param data Intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         try{
             if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
                 if(resultCode == Activity.RESULT_OK){
-                    //picture taken
+                    //picture taken, ask to share or take another
                     takeAnother();
                 } else {
-                    Toast.makeText(getContext(), "Error: Result code is not RESULT_OK", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "You decided not to share", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (NullPointerException e) {
@@ -242,8 +301,14 @@ public class IngredientsFragment extends Fragment {
         }
     }
 
+    /**
+     *
+     */
     public void takeAnother(){
         try{
+            //if the user wants to take another picture, open the camera
+            // again then go through same share options. If the user wants to share
+            //this photo, store that as the filename to be shared
             new AlertDialog.Builder(getContext()).setTitle("Amaizing Unicorn")
                     .setMessage("Do you want to take another picture or share this one?")
                     .setPositiveButton("Take Another", new DialogInterface.OnClickListener() {

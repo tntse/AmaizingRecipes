@@ -227,11 +227,11 @@ public class dbHandler extends SQLiteOpenHelper {
 
     /**
      *
-     * @param recipe_id
+     * @param searchRecipeId
      * @param api
      * @return
      */
-    public boolean containsRecipe(String recipe_id, String api) {
+    public boolean containsRecipe(String searchRecipeId, String api) {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + COLUMN_RECIPEID + " FROM " + TABLE_FAVORITES;
         String apiQuery = "SELECT " + COLUMN_API + " FROM " + TABLE_FAVORITES;
@@ -245,7 +245,7 @@ public class dbHandler extends SQLiteOpenHelper {
         boolean flag = false;
 
         while (!cursor.isAfterLast()) {
-            if (cursor.getString(0).equals(recipe_id) && apiCursor.getString(0).equals(api)) {
+            if (cursor.getString(0).equals(searchRecipeId) && apiCursor.getString(0).equals(api)) {
                 flag =true;
             }
             apiCursor.move(1);

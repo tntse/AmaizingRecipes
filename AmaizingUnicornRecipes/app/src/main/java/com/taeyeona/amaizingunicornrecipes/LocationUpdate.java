@@ -27,47 +27,47 @@ public class LocationUpdate implements
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
-    private LocationCallback mLocationCallback;
-    private Context mContext;
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
+    private LocationCallback locationCallBack;
+    private Context context;
+    private GoogleApiClient googleApiClient;
+    private LocationRequest locationRequest;
 
     public LocationUpdate(Context context, LocationCallback callback){
-        mGoogleApiClient = new GoogleApiClient.Builder(context)
+        googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
-        mLocationCallback = callback;
+        locationCallBack = callback;
 
-        mLocationRequest = LocationRequest.create()
+        locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)
                 .setFastestInterval(1 * 1000);
 
-        mContext = context;
+        this.context = context;
     }
 
     public void connect(){
-        mGoogleApiClient.connect();
+        googleApiClient.connect();
     }
 
     public void disconnect(){
-        if (mGoogleApiClient.isConnected()){
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            mGoogleApiClient.disconnect();
+        if (googleApiClient.isConnected()){
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+            googleApiClient.disconnect();
         }
     }
 
     @Override
     public void onConnected(Bundle bundle){
 
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         if(location == null){
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
         } else {
-            mLocationCallback.newLocation(location);
+            locationCallBack.newLocation(location);
         }
     }
 
@@ -76,18 +76,18 @@ public class LocationUpdate implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult){
-        if (connectionResult.hasResolution() && mContext instanceof Activity) {
+        if (connectionResult.hasResolution() && context instanceof Activity) {
             try {
-                Activity activity = (Activity) mContext;
+                Activity activity = (Activity) context;
                 connectionResult.startResolutionForResult(activity, CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
-                Toast.makeText(mContext, "Sorry, we could not connect with location services", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Sorry, we could not connect with location services", Toast.LENGTH_LONG).show();
             }
         }
     }
 
     @Override
     public void onLocationChanged(Location location){
-        mLocationCallback.newLocation(location);
+        locationCallBack.newLocation(location);
     }
 }

@@ -30,7 +30,7 @@ import org.jsoup.select.Elements;
 
 
 public class InstructionsFragment extends Fragment {
-    private Button youtube_button;
+    private Button youtubeButton;
     private StringBuilder instructionLines = new StringBuilder();
 
     @Override
@@ -264,13 +264,13 @@ public class InstructionsFragment extends Fragment {
 
         /*
          *
-         * Button youtube_button manages the hide and reveal of the youtube fragment
+         * Button youtubeButton manages the hide and reveal of the youtube fragment
          * OnClick controls add,show,hide player fragment
          *
          *
          */
-        youtube_button = (Button) getActivity().findViewById(R.id.vid_tutor_button);
-        youtube_button.setOnClickListener(new View.OnClickListener() {
+        youtubeButton = (Button) getActivity().findViewById(R.id.vid_tutor_button);
+        youtubeButton.setOnClickListener(new View.OnClickListener() {
 
                 final Fragment playerFragAlpha = new PlayerFragment();
 
@@ -288,12 +288,12 @@ public class InstructionsFragment extends Fragment {
 
                 if (open) {
                     open = false;
-                    youtube_button.setText("GO BACK");
+                    youtubeButton.setText("GO BACK");
 
                     showFragment(playerFragAlpha);
                 } else {
                     open = true;
-                    youtube_button.setText("VIDEO TUTORIAL");
+                    youtubeButton.setText("VIDEO TUTORIAL");
                     hideFragment(playerFragAlpha);
 
                 }
